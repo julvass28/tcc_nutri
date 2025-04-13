@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.comeco {
+    background-color: #E8E9E3;
+    min-height: 100vh;
+    margin-top: 5px;
+}
+
+.inicio {
+    position: relative;
+    height: 200px;
+    display: flex;
+    justify-content: flex-start;  
+    padding-top: 90px;
+    padding-left: 80px;
+  
+
+
+ 
+    
+}
+
+.onda {
+   
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    filter: drop-shadow(0px 1px 2px rgba(60, 64, 67, 0.3)) 
+    drop-shadow(0px 1px 3px rgba(60, 64, 67, 0.15));
+    background-color: #8A8F75;
+  
+}
+
+
+
+.text-principal {
+    font-family: "Quicksand", sans-serif;
+    font-size: 25px;
+    color: #454545;
+    font-weight: 550;
+   z-index: 2;
+   position: relative;
+}
+
+
+
+.descricao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 200px;
+    gap: 200px;
+}
+
+.foto {
+    width: 380px;
+    height: 400px;
+}
+
+#primeiro-text{
+    font-family: "Quicksand", sans-serif;
+   font-weight: 520;
+   font-size: 24px;
+  letter-spacing: 2px;
+   text-align: center;
+   margin-bottom: 14px;
+   color: #454545;
+
+}
+
+#segundo-text{
+    font-family: "Quicksand", sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: #8A8F75;
+    margin-top: 0;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+
+}
+
+#terceiro-text{
+    font-family: "Quicksand", sans-serif;
+    font-size: 17px;
+    font-weight: 520;
+    color: #454545;
+    margin-top: 0;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 0;
+
+}

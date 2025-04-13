@@ -13,8 +13,6 @@ body {
     background-color: #F4EFEC;
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-
-
 }
 
 .icons {
@@ -37,7 +35,7 @@ body {
     vertical-align: middle;
     font-size: 8px;
     color: #454545;
-    transition: transform 0.5s ease;
+    transition:  transform 0.5s ease;
 
 }
 
@@ -97,7 +95,7 @@ nav ul li a {
     width: 0%;
     height: 1.4px;
     background-color: #8A8F75;
-    transition: width 0.5s ease;
+    transition:  0.5s ease;
 }
 
 
