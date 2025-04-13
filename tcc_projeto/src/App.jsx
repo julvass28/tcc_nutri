@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useState } from 'react';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import IMCCalculator from './pages/IMCCalculator.jsx';
@@ -14,10 +15,11 @@ function App() {
       <Router>
         <Header />
         <IMCCalculator />
-        <Footer />
+        
         <Routes>
 
         </Routes>
+        <Footer />
       </Router>
     </>
   )
