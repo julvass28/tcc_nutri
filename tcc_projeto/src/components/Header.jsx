@@ -4,7 +4,7 @@ import '../css/Header.css';
 import { FaWhatsapp, FaInstagram, FaUser, FaChevronDown } from "react-icons/fa";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 
-import logo from '../assets/Logo.png';
+import logo from '../assets/img_png/Logo.png';
 
 
 function Header() {
