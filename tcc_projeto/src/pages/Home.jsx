@@ -3,7 +3,7 @@ import onda from '../assets/img_png/onda.png'
 import '../css/Home.css'
 import foto from '../assets/img_png/foto_nutri.png';
 import Button from '../components/Button';
-;
+
 
 
 
@@ -35,6 +35,9 @@ function Home() {
             <div className="especialidades">
            <h2>Qual o seu objetivo?</h2>
 
+          <div className="categorias">
+        
+          </div>
           
             </div>
 
@@ -43,4 +46,4 @@ function Home() {
 
         </>
     )
-} export default Home
+} export default Home;
