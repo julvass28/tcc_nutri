@@ -7,18 +7,22 @@ body {
 }
 
 .comeco {
-    background-color: #E8E9E3;
+    background-color: #DCDED6;
     min-height: 170vh;
     margin-top: 5px;
 }
 
 .inicio {
+    margin-top: 10px;
     position: relative;
-    height: 200px;
+    height: 295px;
     display: flex;
-    justify-content: flex-start;
-    padding-top: 90px;
-    padding-left: 80px;
+    align-items: center;
+    text-align: center;
+  
+   
+    
+   
 }
 
 .onda {
@@ -27,17 +31,25 @@ body {
     top: 0;
     left: 0;
     z-index: 1;
+    
     filter: drop-shadow(0px 1px 2px rgba(60, 64, 67, 0.3)) drop-shadow(0px 1px 3px rgba(60, 64, 67, 0.15));
-    background-color: #8A8F75;
+
+  
 
 }
 
+
+
 .text-principal {
     font-family: "Quicksand", sans-serif;
-    font-size: 25px;
+    font-size: 22px;
     color: #454545;
     font-weight: 550;
     z-index: 2;
+    position: relative;
+    padding-bottom: 50px;
+    padding-left: 200px;
+    line-height: 1.4;;
 
 }
 
@@ -45,7 +57,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 220px;
+    padding-top: 130px;
     gap: 100px;
 }
 
@@ -97,3 +109,58 @@ body {
     font-size: 25px;
     color: #8A8F75;
 }
+
+
+.especialidade{
+    font-family: "Lustria", sans-serif;
+    color: #454545;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 150px;
+   margin-bottom: 13px;
+    font-weight: 550;
+}
+
+.min-linha{
+    color:#8A8F75;
+    width: 140px;
+    bottom: 50px;
+    margin: 0 auto 80px auto;
+}
+
+
+.categorias{
+    display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 60px;
+}
+.linha{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.categoria{
+    display: flex;
+   gap: 28px;
+    width: 300px;
+    height: 150px;
+    align-items: center;
+    border: solid 1.3px #DDB7AC;
+    border-radius: 10px;
+    justify-content: center;
+    font-family: "Lustria", sans-serif;
+    color: #454545;
+    font-weight: 570;
+    font-size: 17px;
+    text-align: center;
+}
+
+.categoria img{
+    width: 55px;
+    height: auto;
+}
+
+
+
