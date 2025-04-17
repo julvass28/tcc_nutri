@@ -25,7 +25,7 @@
     justify-content: center;
     margin-bottom: 20px;
   }
-  #container-balanca{
+  #container-calculator-icon{
     background-color: #F4EFEC;
     box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
     border-radius: 8px;
@@ -36,9 +36,10 @@
     align-items: center;
     margin-right: 20px;
   }
-  #img-balanca{
-    width: 35px;
-    height: 35px;
+  #img-calculator-icon{
+    width: 30px;
+    height: 30px;
+    padding: 1px;
     color: #8A8F75;
   }
   .resultado-informacoes{
@@ -395,4 +396,57 @@ input[type="number"] {
     display:flex ;
     justify-content: center;
     margin-bottom: 80px;
+  }
+.section-calculators{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+  .sectioncal{
+    background-color: #F4EFEC;
+    border-radius:15px ;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    width: 400px;
+    height: 210px;
+    padding: 20px;
+    transition: all .4s cubic-bezier(.22, .61, .36, 1);
+  }
+  .sectioncal:hover{
+    border:1px solid #8A8F75;
+    transform: translateY(-2px);
+    cursor: pointer;
+  }
+
+  .sectioncal h1{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .icon-section{
+    background-color: #F4EFEC;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    border: 0.5px solid #dfdfdf;
+    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 91%;
+    margin-top: 2%;
+  }
+
+  .sectioncal:hover .icon-section{
+    border:1px solid #8A8F75;
+  }
+
+  #hum-cal-gasto{
+    color: #8A8F75;
+  }
+  #hum-cal-agua{
+    color: #D1A0A0;
+  }
+  #hum-cal-nutri{
+    color: #454545;
   }
