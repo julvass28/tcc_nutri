@@ -3,6 +3,9 @@ import "../pages/IMCCalculator.css";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { IoMdInformationCircle } from "react-icons/io";
 import { MdBalance } from "react-icons/md";
+import { LuGlassWater } from "react-icons/lu";
+import { PiForkKnifeFill } from "react-icons/pi";
+import { FaRunning } from "react-icons/fa";
 
 function IMCCalculator() {
   const [sexo, setSexo] = useState("");
@@ -69,8 +72,8 @@ function IMCCalculator() {
   return (
     <div className="imc-container">
       <div className="titulo-mais-icone">
-      <div id="container-balanca"><MdBalance id="img-balanca"/></div>
-      <h1 id="titulo-calculadora"> Calculadora de IMC & Peso Ideal</h1>
+        <div id="container-calculator-icon"><MdBalance id="img-calculator-icon" /></div>
+        <h1 id="titulo-calculadora"> Calculadora de IMC & Peso Ideal</h1>
       </div>
       <h3 id="text-titulo-calculadora">Nossa calculadora de IMC e peso ideal ajuda você a avaliar se está com o peso adequado em relação à sua altura, além de descobrir o intervalo de peso saudável para uma melhor qualidade de vida.</h3>
       <div className="info-imc-container">
@@ -146,15 +149,15 @@ function IMCCalculator() {
       </div>
       <div className="resultado-container">
         {resultado && (
-         
-          
+
+
           <div className="resultado">
             <div className="text-resultado"><h1>Resultado</h1></div>
             <div className="resultado-informacoes">
-            <p><strong>Sexo:</strong> {sexo}</p>
-            <p><strong>Seu IMC:</strong> {resultado.imc}</p>
-            <p><strong>Classificação:</strong> {resultado.classificacao}</p>
-            <p><strong>Peso Ideal:</strong> {resultado.pesoIdeal} kg</p>
+              <p><strong>Sexo:</strong> {sexo}</p>
+              <p><strong>Seu IMC:</strong> {resultado.imc}</p>
+              <p><strong>Classificação:</strong> {resultado.classificacao}</p>
+              <p><strong>Peso Ideal:</strong> {resultado.pesoIdeal} kg</p>
             </div>
             <p className="texto-explicativo">{textoClassificacao(resultado.classificacao)}</p>
 
@@ -196,23 +199,42 @@ function IMCCalculator() {
 
             {/* Parágrafos informativos */}
             <div className="info-paragrafos">
-              <p id="legenda-tabela"> <IoMdInformationCircle id="info"/> Tabela de classificação de IMC, de acordo com a Organização Mundial da Saúde.</p>
-              <p><strong>Observação sobre o IMC:</strong> O cálculo do IMC não distingue entre gordura e músculo. Assim, pessoas com alta densidade muscular, como alguns atletas, podem apresentar<br/> um IMC elevado, mesmo estando em boa forma física.</p>
+              <p id="legenda-tabela"> <IoMdInformationCircle id="info" /> Tabela de classificação de IMC, de acordo com a Organização Mundial da Saúde.</p>
+              <p><strong>Observação sobre o IMC:</strong> O cálculo do IMC não distingue entre gordura e músculo. Assim, pessoas com alta densidade muscular, como alguns atletas, podem apresentar<br /> um IMC elevado, mesmo estando em boa forma física.</p>
               <p><strong>Observação sobre o Peso Ideal:</strong> Utilizamos a fórmula de Devine para cálculo de peso ideal.</p>
             </div>
 
             {/* Botão de recalcular */}
             <div className="botao-calcular-container">
-            <button className="recalcular-btn" onClick={calcularNovamente}>
-              Calcular novamente
-            </button>
-          </div>
+              <button className="recalcular-btn" onClick={calcularNovamente}>
+                Calcular novamente
+              </button>
+            </div>
           </div>
         )}
       </div>
-      
+
+      <div className="section-calculators">
+        <div className="sectioncal calculadora-calorias-nutrientes">
+          <h1 id="hum-cal-agua">Calculadora de Consumo diário de Água</h1>
+          <p>Calcule a quantidade ideal de água que você deve consumir diariamente.</p>
+          <div className="icon-section"><LuGlassWater id="img-calculator-icon" /></div>
+        </div>
+        <div className="sectioncal calculadora-calorias-nutrientes">
+          <h1 id="hum-cal-nutri">Calculadora de Calorias e Nutrientes</h1>
+          <p>Calcule as calorias e nutrientes dos alimentos consumidos no seu dia a dia.</p>
+          <div className="icon-section"><PiForkKnifeFill id="img-calculator-icon" /></div>
+        </div>
+        <div className="sectioncal calculadora-calorias-nutrientes">
+          <h1 id="hum-cal-gasto">Calculadora de Gastos Calorico</h1>
+          <p>Descubra quantas calorias seu corpo gasta por dia</p>
+          
+            <div className="icon-section"><FaRunning id="img-calculator-icon" /></div>
+          
+        </div>
+      </div>
     </div>
-  
+
   );
 }
 
