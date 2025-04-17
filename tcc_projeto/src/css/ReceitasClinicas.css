@@ -1,0 +1,33 @@
+.img {
+    margin-top: 5px;
+    position: relative;
+    width: 100%;
+  }
+  
+  .texto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 40px 60px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    max-width: 700px;
+    width: 90%;
+    text-align: center;
+    border-top: 8px solid #e7c3bd; /* LINHA ROSA */
+  }
+  
+  
+  .titulo {
+    color: #d9a6a6;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  
+  .subtitulo {
+    font-size: 28px;
+    color: #7A7777;
+    line-height: 1.6;
+  }
+  

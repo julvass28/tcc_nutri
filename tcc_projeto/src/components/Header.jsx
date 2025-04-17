@@ -35,7 +35,7 @@ function Header() {
                         <span className='nav-text'> Blog<FaChevronDown className='seta'></FaChevronDown></span>
                         <ul className="dropdown-menu">
                             <li><Link to>Dicas Alimentares</Link></li>
-                            <li><Link to>Receitas</Link></li>
+                            <li><Link to='/Receitas'>Receitas</Link></li>
                             <li><Link to>Artigos</Link></li>
 
                         </ul>
