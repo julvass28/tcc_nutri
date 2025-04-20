@@ -1,33 +1,112 @@
-.img {
-    margin-top: 5px;
-    position: relative;
-    width: 100%;
-  }
-  
-  .texto {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 40px 60px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    max-width: 700px;
-    width: 90%;
-    text-align: center;
-    border-top: 8px solid #e7c3bd; /* LINHA ROSA */
-  }
-  
-  
-  .titulo {
-    color: #d9a6a6;
-    font-size: 20px;
-    margin-bottom: 12px;
-  }
-  
-  .subtitulo {
-    font-size: 28px;
-    color: #7A7777;
-    line-height: 1.6;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Lustria&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.comida-img {
+  margin-top: 5px;
+  position: relative;
+  width: 100%;
+}
+
+.texto {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 40px 60px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  max-width: 700px;
+  width: 90%;
+  text-align: center;
+  border-top: 8px solid #e7c3bd;
+  /* LINHA ROSA */
+}
+
+
+.titulo {
+  color: #d9a6a6;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.subtitulo {
+  font-size: 28px;
+  color: #7A7777;
+  line-height: 1.6;
+}
+
+.titulo-frase {
+  margin-top: 80px;
+  text-align: center;
+  font-size: 28px;
+  font-family: 'Lustria', serif;
+  font-weight: 300;
+  /* Mais fina */
+  color: #454545;
+
+}
+
+.linha {
+  width: 700px;
+  /* largura da linha */
+  height: 1.5px;
+  /* espessura da linha */
+  background-color: #8A8F75;
+  margin: 45px auto 0;
+  /* centraliza horizontalmente e dá um espacinho em cima */
+
+}
+.sus{
+  margin-top: 45px;
+  text-align: center;
+  font-size: 45px;
+  font-family: 'Lustria', serif;
+  font-weight: 400;
+  color: #8A8F75;
+}
+
+.pudim-container {
+  display: flex;
+  align-items: center;
+  background-color: #ffff;
+  border: 15px solid #e7c3bd;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  width: 1200px;
+  margin: 100px auto;
+  gap: 40px;
+}
+
+.pudim-img {
+  width: 350px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.pudim-conteudo {
+  max-width: 600px;
+  font-family: 'Quicksand', sans-serif;
+  color: #3f3f3f;
+}
+
+.pudim-conteudo h2 {
+  font-family: 'lustria', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #8A8F75;
+  margin-bottom: 45px;
+}
+
+.pudim-conteudo p {
+  font-size: 22px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.leia-mais {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+  border-bottom: 2px solid #3f3f3f;
+  color: #3f3f3f;
+}
