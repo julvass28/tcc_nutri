@@ -7,6 +7,7 @@ import { LuGlassWater } from "react-icons/lu";
 import { PiForkKnifeFill } from "react-icons/pi";
 import { FaRunning } from "react-icons/fa";
 
+
 function IMCCalculator() {
   const [sexo, setSexo] = useState("");
   const [idade, setIdade] = useState("");
@@ -70,6 +71,7 @@ function IMCCalculator() {
   }
 
   return (
+    
     <div className="imc-container">
       <div className="titulo-mais-icone">
         <div id="container-calculator-icon"><MdBalance id="img-calculator-icon" /></div>
@@ -228,13 +230,14 @@ function IMCCalculator() {
         <div className="sectioncal calculadora-calorias-nutrientes">
           <h1 id="hum-cal-gasto">Calculadora de Gastos Calorico</h1>
           <p>Descubra quantas calorias seu corpo gasta por dia</p>
-          
-            <div className="icon-section"><FaRunning id="img-calculator-icon" /></div>
-          
+
+          <div className="icon-section"><FaRunning id="img-calculator-icon" /></div>
+
         </div>
       </div>
+      
     </div>
-
+   
   );
 }
 
