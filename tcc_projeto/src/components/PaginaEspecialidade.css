@@ -1,0 +1,399 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+
+/* Container principal */
+.pagina-especialidade {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 40px;
+  font-family: 'Lustria', serif;
+  line-height: 1.6;
+}
+
+.full-width-background {
+  width: 100vw;
+  margin-left: calc((100vw - 1800px) / -2);
+  padding: 40px 0;
+}
+
+
+/* Seção de Introdução   */
+
+.intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start; 
+  gap: 2rem;
+  margin-bottom: 8rem;
+  background-color: #EDE9E3;
+  border-bottom: 5px solid #b8b4b4;
+  padding: 40px 90px;
+  padding-top: 40px;          
+  padding-bottom: 40px;      
+}
+
+.intro .texto {
+  max-width: 800px;
+}
+.intro h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #454545;
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 0;
+}
+.intro p {
+  font-size: 1.3rem;
+  color: #454545;
+}
+.intro img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin-left: auto;
+  margin-right: 200px;
+}
+
+
+/* Seção de Benefícios   */
+.beneficios {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 1rem;
+  padding: 0 80px;
+}
+.beneficios h2 {
+  font-size: 2.3rem;
+  margin-bottom: 20px;
+  color: #454545;
+  font-weight: lighter;
+  position: relative;
+}
+
+.beneficios h2::after {
+  content: "";
+  display: block;
+  width: 200px;  
+  height: 2px; 
+  background-color: #8A8F75; 
+  margin: 4px auto;  
+}
+
+.grid-beneficios {
+  margin-top: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.card-beneficio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #F4EFEC;
+  border: 2px solid #DDB7AC;
+  border-radius: 8px;
+  padding: 20px;
+  width: 155px;
+  height: 210px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.card-beneficio img {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 40px;
+}
+.card-beneficio span {
+  font-size: 1.4rem;
+  color: #454545;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+
+/* Seção de Agendamento  */
+
+.agendamento {
+  margin-top: 200px;
+  text-align: center;
+  margin-bottom: 100px;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+.box-agendar {
+  display: inline-block;
+  border: 4px solid #DDB7AC;
+  padding: 60px 80px;
+  border-radius: 30px;
+}
+.agendamento p {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #454545;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+}
+.agendamento button {
+  font-size: 1.4rem;
+  background-color: #DDB7AC;
+  border: none;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Lustria', serif;
+  color: #454545;
+  border-radius: 40px;
+}
+.agendamento button:hover {
+  background-color: #b3705d;
+  color: aliceblue;
+}
+
+.avaliacao-nutricional {
+  text-align: center;
+  padding: 60px 0;
+  margin-bottom: 50px;
+}
+.avaliacao-nutricional h2 {
+  font-size: 2.2rem;
+  font-weight: 100;
+  color: #454545;
+  margin: 0;
+  text-align: center;
+  align-items: center;
+  margin-right: 500px;
+  position: relative;
+}
+
+.avaliacao-nutricional h2::after {
+  content: "";
+  display: block;
+  width: 200px; 
+  height: 2px; 
+  background-color: #8A8F75; 
+  margin: 8px auto; 
+}
+
+
+/* Seção "O que você precisa saber" */
+
+.o-que-precisa-saber {
+  padding: 50px 0;
+  background-color: rgb(237, 238, 234);
+  margin-bottom: 50px;
+  border-bottom: 5px solid #b8b4b4;
+  
+}
+.o-que-precisa-saber h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #454545;
+  text-align: left;
+  margin-left: 200px;
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 1px;
+}
+
+
+.grid-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+.estrategias .card-info {
+  background-color: rgb(243, 229, 225);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  border: 1.5px solid #DDB7AC;
+}
+
+
+/* Seção de Estratégias        */
+
+.estrategias {
+  padding: 50px 0;
+  background-color: rgb(250, 244, 243);
+  border-bottom: 5px solid #DDB7AC;
+}
+.estrategias h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #454545;
+  text-align: left;
+  margin-left: 190px;
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 1px;
+}
+
+
+/* Seção de Dicas       */
+
+.dicas {
+  margin-top: 40px;
+  padding: 40px 0;
+  background-color: rgb(237, 238, 234);
+  border-bottom: 5px solid #b8b4b4;
+}
+.dicas h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #454545;
+  text-align: left;
+  margin-left: 200px;
+  font-family: 'Quicksand', sans-serif;
+  margin-top: 1px;
+}
+
+
+.mitos-verdades {
+  padding: 180px 0;
+
+}
+.mitos-verdades h2 {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 4rem;
+  color: #454545;
+  font-weight: lighter;
+  position: relative;
+}
+
+.mitos-verdades h2::after {
+  content: "";
+  display: block;
+  width: 200px; 
+  height: 2px; 
+  background-color: #8A8F75; 
+  margin: 4px auto;  
+}
+
+/* Título da lista */
+.lista-mitos-verdades {
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+  padding: 20px;
+  padding-right: 180px;
+  padding-left: 120px;
+}
+.lista-mitos-verdades h3 {
+  font-size: 1.7rem;
+  color: #454545;
+  margin-bottom: 3.1rem;
+  text-transform: uppercase;
+  font-family: 'Quicksand', sans-serif;
+  margin-left: 30px;
+}
+
+/* Cada item: ícone + texto */
+.item-lista {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2.3rem;
+}
+.item-lista img {
+  width: 45px;
+  height: 45px;
+  margin-top: 0.2rem;
+  margin-right: 20px;
+}
+.item-lista .titulo {
+  font-weight: bold;
+  margin: 0 0 0.5rem;
+  color: #454545;
+  font-size: 26px;
+}
+.item-lista .descricao {
+  margin: 0;
+  color: #454545;
+  font-size: 22px;
+  line-height: 1.4;
+}
+
+.intro,
+.o-que-precisa-saber,
+.estrategias,
+.dicas {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.intro {
+  background-color: #EDE9E3;
+  border-bottom: 5px solid #B8B4B4;
+}
+.o-que-precisa-saber {
+  background-color: rgb(237, 238, 234);
+  border-bottom: 5px solid #B8B4B4;
+}
+.estrategias {
+  background-color: rgb(250, 244, 243);
+  border-bottom: 5px solid #DDB7AC;
+}
+.dicas {
+  background-color: rgb(237, 238, 234);
+  border-bottom: 5px solid #B8B4B4;
+}
+
+
+body {
+  overflow-x: hidden;
+}
+
+
+.card-info .titulo,
+.card-info h3 {
+  min-height: 3rem; 
+  margin: 0;                 
+  line-height: 1.5rem;        
+}
+
+.card-info .descricao,
+.card-info p {
+  margin-top: 0.5rem;        
+  margin-bottom: 0; 
+}
+
+.card-info .titulo,
+.card-info h3 {
+  min-height: 3rem;           
+  margin: 10px;
+  line-height: 2.3rem;       
+  margin-bottom: 0.8rem;      
+}
+
+.card-info .descricao,
+.card-info p {
+  margin-top: 0.5rem;       
+  margin-bottom: 0;  
+}
+
+.card-info {
+  display: grid;  
+  grid-template-rows: minmax(3rem, auto) 1fr; 
+  row-gap: 0.5rem;                  
+  background-color: #D4D6CD;
+  border: 1.5px solid #8A8F75;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+  flex: 1;
+  max-width: 250px;
+  height: 280px;  
+  text-align: center;
+  color: #454545;
+  font-size: 22px;
+}
+
+
+
