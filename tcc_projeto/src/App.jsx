@@ -1,29 +1,31 @@
-import { useState } from 'react';
-import Header from './components/Header.jsx';
-import Footer from './components/Footer.jsx';
-import ReceitasClinicas from './pages/ReceitasClinicas.jsx';
-import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import Header from './components/Header';
+import Footer from './components/Footer';
+import ReceitasClinicas from './pages/ReceitasClinicas';
+import ReceitasPediatricas from './pages/ReceitasPediatricas';
+import ReceitasEsportivas from './pages/ReceitasEsportivas';
+import ReceitasEmagrecimento from './pages/ReceitasEmagrecimento';
+import ReceitasIntolerancias from './pages/ReceitasIntolerancias';
 
 function App() {
-
-
   return (
-    <>
-      <Router>
-        <Header />
+    <Router>
+    
+      <Header />
 
-        <Routes>
-          <Route path="/receitas" element={<ReceitasClinicas />} />
-        </Routes>
+      <Routes>
+        <Route path="/Receitas" element={<ReceitasClinicas />} />
+        <Route path="/Pediatrica" element={<ReceitasPediatricas />} />
+        <Route path="/Esportiva" element={<ReceitasEsportivas />} /> 
+        <Route path="/Emagrecimento" element={<ReceitasEmagrecimento/>} />
+        <Route path="/Intolerancias" element={<ReceitasIntolerancias/>} />
+        
+      </Routes>
 
+      <Footer />
+  
+    </Router>
+  );
+}
 
-        <Footer />
-        <Routes>
-
-        </Routes>
-      </Router>
-    </>
-  )
-} export default App
+export default App;
