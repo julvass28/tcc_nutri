@@ -17,4 +17,10 @@ button{
    border: none;
    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
    cursor: pointer;
+   overflow: hidden;
+   font-weight: 500;
+}
+
+.botao-verde{
+    background-color: #BEC1B3;
 }

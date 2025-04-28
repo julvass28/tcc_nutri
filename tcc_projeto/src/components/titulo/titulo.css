@@ -2,14 +2,23 @@
 .secao{
     font-family: "Lustria", sans-serif;
     color: #454545;
-    font-size: 25px;
+    font-size: 30px;
     text-align: center;
     font-weight: 550;
-    margin: 150px auto 10px auto; 
+    margin-bottom: 12px;
+   
    
 }
 
+.subtitulo{
+    text-align: center;
+    font-family: "Lustria", sans-serif;
+    font-weight: 500;
+    color: #454545;
+    font-size: 19px;
+    margin-top: 0;
 
+}
 
 .min-linha{
     color:#8A8F75;
@@ -18,5 +27,4 @@
     
    
 }
-
 
