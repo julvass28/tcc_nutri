@@ -66,50 +66,65 @@
 
 .pudim-container {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  background-color: #ffff;
-  border: 15px solid #e7c3bd;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  padding: 30px;
-  width: 1200px;
-  margin: 100px auto;
+  justify-content: space-between;
+  background-color: #fff;
+  border: 10px solid #f3d9d4;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  max-width: 1000px;
+  height: 380px; /* altura aumentada */
+  margin: 60px auto;
+  border-radius: 20px;
   gap: 40px;
+  transition: transform 0.3s ease;
+}
+
+.pudim-container:hover {
+  transform: translateY(-5px);
 }
 
 .pudim-img {
-  width: 350px;
-  height: auto;
-  border-radius: 10px;
+  width: 300px; /* aumentei um pouco para combinar */
+  height: 260px; /* altura da imagem aumentada para acompanhar o card */
+  object-fit: cover;
+  border-radius: 15px;
 }
 
 .pudim-conteudo {
-  max-width: 600px;
+  flex: 1;
   font-family: 'Quicksand', sans-serif;
-  color: #3f3f3f;
+  color: #5b5b5b;
+  overflow: hidden;
 }
 
 .pudim-conteudo h2 {
-  font-family: 'lustria', sans-serif;
-  font-size: 32px;
-  font-weight: 700;
+  font-family: 'Lustria', serif;
+  font-size: 26px;
   color: #8A8F75;
-  margin-bottom: 45px;
+  margin-bottom: 16px;
 }
 
 .pudim-conteudo p {
-  font-size: 22px;
+  font-size: 18px;
   line-height: 1.6;
   margin-bottom: 20px;
 }
 
 .leia-mais {
-  display: inline-block;
-  font-weight: bold;
-  font-size: 18px;
-  text-decoration: none;
-  border-bottom: 2px solid #3f3f3f;
-  color: #3f3f3f;
+  font-weight: 600;
+  font-size: 16px;
+  color: #8A8F75;
+  text-decoration: underline;
+  transition: color 0.3s ease;
 }
+
+.leia-mais:hover {
+  color: #bcaea9;
+}
+
+
 .barra-categorias {
   margin-top: 20px;
   display: flex;
