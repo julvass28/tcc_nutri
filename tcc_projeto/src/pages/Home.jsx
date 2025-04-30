@@ -20,7 +20,7 @@ import Carrosel from "../components/carrosel/carrosel";
 import { receitasMock } from '../mocks/receitas';
 import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
 import Formulario from "../components/formulario/formulario";
-import imagem from '../assets/img_png/imagem.jpg'
+
 
 
 
@@ -39,7 +39,8 @@ function Home() {
             <div className="comeco">
 
             <div className="bloco-inicial">
-                <img src={imagem} alt=""  className='imagem-fundo' />
+            <div className="imagem-com-gradiente" />
+
                
                  <div className="bloco-texto">
                     <h1>Te ajudo a transformar sua alimentação de forma leve e sem complicações!</h1>

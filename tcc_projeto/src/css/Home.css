@@ -16,43 +16,42 @@ body {
 }
 
 
-.bloco-inicial{
+.bloco-inicial {
     margin-top: 5px;
     width: 100%;
-    height: 361px;
+    height: 500px;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(to right, transparent 4%, #F9F6F5 55%);
+    background-color: #EFEBE9;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     mask-image: url('../assets/img_svg/onda.svg');
     mask-repeat: no-repeat;
     mask-size: cover;
     -webkit-mask-image: url('../assets/img_svg/onda.svg');
-    display: flex;
-    align-items: center;
-    justify-content: center;
-   
-}
-
-.imagem-fundo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%; 
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: cover;
+  }
+  .imagem-com-gradiente {
+    width: 55%; 
     height: 100%;
-    object-fit: cover;
-    z-index: 0;
-   
-  
-
-  
+    background: 
+      linear-gradient(to right, rgba(245, 243, 240, 0) 60%, #EFEBE9 100%),
+      url('../assets/img_png/imagem.jpg') no-repeat center center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
 
 .bloco-texto{
-    
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
     max-width: 600px;
     position: absolute;
-    right: 5%;
+    right: 7%;
     top: 40%;
     transform: translateY(-50%);
     color: #8A8F75;
@@ -287,6 +286,8 @@ body {
 }
 
 .topic {
+    display: flex;
+    gap: 20px;
     background-color: #EDE9E3;
     width: 800px;
     border: 10px solid #DDB7AC;
@@ -330,10 +331,11 @@ body {
     margin-top: 150px;
     display: flex;
     justify-content: center;
-    gap: 160px;
+    gap: 100px;
     align-items: center;
     height: 420px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    overflow: hidden;
 }
 
 .linha-texto {
@@ -356,9 +358,11 @@ body {
 }
 
 .imagem-container {
+    width: 430px;
     display: flex;
-    height: 100%;
-    margin-top: 37px;
+    height: auto;
+    margin-top: 34px;
+    overflow: hidden;
 
 }
 
@@ -374,7 +378,7 @@ body {
     align-items: center;
     justify-content: center;
    
-    width: 100%;
+    width:700px;
 }
 
 .botao {
