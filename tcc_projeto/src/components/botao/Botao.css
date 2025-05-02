@@ -5,7 +5,7 @@ body {
     padding: 0;
 }
 
-button{
+.botao{
     background-color: #DDB7AC;
     border-radius: 50px;
     color: #454545;
@@ -19,6 +19,7 @@ button{
    cursor: pointer;
    overflow: hidden;
    font-weight: 500;
+   align-items: center;
 }
 
 .botao-verde{

@@ -35,7 +35,7 @@ body {
     vertical-align: middle;
     font-size: 8px;
     color: #454545;
-    transition:  transform 0.5s ease;
+    transition: transform 0.5s ease;
 
 }
 
@@ -59,7 +59,7 @@ body {
     cursor: pointer;
 }
 
-.nav-right ul li {
+.right ul li {
     padding: 7px 14px;
     /* lateral maior */
 }
@@ -95,7 +95,7 @@ nav ul li a {
     width: 0%;
     height: 1.4px;
     background-color: #8A8F75;
-    transition:  0.5s ease;
+    transition: 0.5s ease;
 }
 
 
@@ -145,4 +145,88 @@ nav ul li a {
     height: 100px;
     width: 250px;
 
+}
+
+
+
+ .btn-mobile{
+    display: none;
+    background-color: transparent;
+    font-size: 20px;
+    color: #8A8F75;
+    border: none;
+    cursor: pointer;
+
+}
+
+
+
+
+
+
+
+/* 📱 Smartphones médios a grandes */
+@media screen and (max-width: 768px) {
+    .btn-mobile {
+        display: block; /* Exibe o ícone do hambúrguer */
+    }
+
+    .nav-itens {
+        display: none; /* Oculta o menu por padrão */
+    }
+
+    .nav-itens {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: -100%; /* começa fora da tela à esquerda */
+        width: 60%;
+        height: 100vh;
+        background-color: #F4EFEC;
+        padding: 20px;
+        transition: left 0.3s ease-in-out;
+        z-index: 1000;
+    }
+
+    .nav-itens.open {
+        left: 0; /* desliza para dentro da tela */
+    }
+
+    .nav-itens ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dropdown-menu {
+        position: relative;
+        top: 0;
+        box-shadow: none;
+        background-color: transparent;
+        padding-left: 10px;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .right {
+        display: none; /* Oculta o menu da direita no mobile, se quiser */
+    }
+    
+}
+
+/* 💻 Tablets (modo retrato e paisagem) */
+@media (max-width: 1024px) {
+    /* estilos para tablets */
+}
+
+/* 🖥️ Laptops/Desktops médios */
+@media (max-width: 1280px) {
+    /* ajustes para telas médias */
+}
+
+/* 🖥️ Desktops grandes */
+@media (max-width: 1440px) {
+    /* para telas maiores */
 }

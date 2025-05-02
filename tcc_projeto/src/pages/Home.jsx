@@ -1,32 +1,36 @@
+//Componentes
 import Header from '../components/Header';
-
-import '../css/Home.css';
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import foto from '../assets/img_png/foto_nutri.png';
 import Botao from "../components/botao/Botao";
-import foto_nutri from '../assets/img_png/ft-nutri.png';
+import Carrosel from "../components/carrosel/carrosel";
 import Titulo from "../components/titulo/titulo";
+import Formulario from "../components/formulario/formulario";
+
+//Bibliotecas
+import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+
+
+//Icons
 import Iconclinica from '../assets/img_svg/clinic.svg?react';
 import Iconesportiva from '../assets/img_svg/esportiva.svg?react';
 import Iconemagrecer from '../assets/img_svg/emagrecimento.svg?react';
 import Iconintolerancia from '../assets/img_svg/intolerancia.svg?react';
 import Iconpediatria from '../assets/img_svg/pediatria.svg?react';
+
+//Png
+import foto from '../assets/img_png/foto_nutri.png';
+import foto_nutri from '../assets/img_png/ft-nutri.png';
 import dieta from '../assets/img_png/dieta.png';
 import acompanhamento from '../assets/img_png/acompanhamento.png';
 import peso from '../assets/img_png/peso.png';
 import refeicao from '../assets/img_png/refeicao.png';
 import escolhas from '../assets/img_png/escolha.png';
-import Carrosel from "../components/carrosel/carrosel";
+
+//CSS
+import '../css/Home.css';
+
+//Arquivo Mocks
 import { receitasMock } from '../mocks/receitas';
-import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
-import Formulario from "../components/formulario/formulario";
-
-
-
-
-
-
-
 
 
 
@@ -51,7 +55,7 @@ function Home() {
 
 
 
-            <div className="descricao">
+            <div className="descricao espacamento">
                 <div className="infos">
                     <img src={foto} alt="" className="foto" />
                     <h2 className="num">CRN : 37892</h2>
@@ -66,8 +70,8 @@ function Home() {
             </div>
 
 
-            <div className="secao">
-                <Titulo className="espacamento" texto="Qual o seu objetivo?" />
+            <div className="secao espacamento">
+                <Titulo  texto="Qual o seu objetivo?" />
 
                 <div className="categorias">
 
@@ -112,7 +116,7 @@ function Home() {
 
             </div>
 
-            <div className="sobre-nutri">
+            <div className="sobre-nutri espacamento">
                 <div className="infos-dois">
                     <h2 className="primeiro-text text-small">Olá, eu sou a</h2>
                     <h2 className="segundo-text text-medium">Nutricionista</h2>
@@ -130,8 +134,8 @@ function Home() {
                 </div>
             </div>
 
-            <div className="secao sobre-consulta">
-                <Titulo className="espacamento" texto="Plano Nutricional Feito Para Você!" />
+            <div className="secao sobre-consulta espacamento">
+                <Titulo  texto="Plano Nutricional Feito Para Você!" />
 
                 <div className="planejamento">
 
@@ -169,7 +173,7 @@ function Home() {
                 </div>
             </div>
 
-            <div className="funcionamento">
+            <div className="funcionamento espacamento">
 
                 <div className="topic">
                     <Titulo texto="Como Funciona Meu Atendimento Online?" mostrarLinha={false} />
@@ -184,7 +188,7 @@ function Home() {
                 </div>
             </div>
 
-            <div className="dicas">
+            <div className="dicas espacamento">
                 <img className="imagem-container" src={escolhas} alt="" />
 
 
@@ -205,19 +209,19 @@ function Home() {
                 </div>
             </div>
 
-            <div className="Receitas">
+            <div className="Receitas espacamento">
                 <Carrosel
                     titulo="Receitas Saudáveis e Deliciosas"
                     subtitulo="Encontre opções equilibradas e saborosas para sua rotina!"
                     dados={receitasMock}
 
                 />
-                <div className="botao">
-                    <Botao text="Ver Receitas">Ver Receitas</Botao>
-                </div>
+           <div className="btn-receitas">
+                    <Botao text="Ver Receitas">Ver Receitas</Botao></div>
+                
             </div>
 
-            <div className="valor">
+            <div className="valor espacamento">
                 <div className="info-valor">
 
                     <div className="lado-imagem">
@@ -242,9 +246,10 @@ function Home() {
                 </div>
             </div>
 
+<div className="form espacamento">
 
             <Formulario />
-
+</div>
 
 
 

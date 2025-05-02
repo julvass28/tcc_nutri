@@ -2,30 +2,39 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import '../css/Header.css'
 import { FaWhatsapp, FaInstagram, FaUser, FaChevronDown } from "react-icons/fa";
+import { FaBars } from "react-icons/fa"; 
+
+
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import logo from "../assets/img_png/Logo.png";
+import { useState } from 'react';
+
+
 
 function Header() {
+
+    const[openMenu, setOpenMenu] = useState(false);
     return (
         <header className='menu'>
 
-            <div className="icons">
+            <div className="icons ">
                 <HiOutlineEnvelope className='icon'></HiOutlineEnvelope>
                 <FaWhatsapp className='icon'></FaWhatsapp>
                 <FaInstagram className='icon'></FaInstagram>
             </div>
 
 
-            <nav className='nav-left'>
+            <nav className={`nav-itens left ${openMenu? 'open' : ''}`}>
                 <ul>
                     <li className='dropdown'>
                         <span className='nav-text'> Serviços <FaChevronDown className='seta' /></span>
                         <ul className="dropdown-menu">
-                            <li><Link to>Nutrição Esportiva</Link></li>
-                            <li><Link to>Nutrição Pediátrica</Link></li>
-                            <li><Link to>Nutrição Clínica</Link></li>
-                            <li><Link to>Emagrecimento e Obesidade</Link></li>
-                            <li><Link to>Intolerâncias Aliemtares</Link></li>
+                        <li><Link to="#">Nutrição Esportiva</Link></li>
+
+                            <li><Link to="#">Nutrição Pediátrica</Link></li>
+                            <li><Link to="#">Nutrição Clínica</Link></li>
+                            <li><Link to="#">Emagrecimento e Obesidade</Link></li>
+                            <li><Link to="#">Intolerâncias Aliemtares</Link></li>
                         </ul>
                     </li>
 
@@ -56,7 +65,7 @@ function Header() {
             <div className="logo">
                 <img src={logo} alt="" />
             </div>
-            <nav className='nav-right'>
+            <nav className='nav-itens right'>
                 <ul>
                     <li><Link to="/"><span className='nav-text'> Sobre </span></Link></li>
                     <li><Link to="/"> <span className='nav-text'> Contato</span></Link></li>
@@ -67,6 +76,10 @@ function Header() {
                 <FaUser className='user'></FaUser>
             </div>
 
+            
+<button className='btn-mobile' onClick={()=> setOpenMenu(!openMenu)} >
+    <FaBars/>
+</button>
 
 
 
