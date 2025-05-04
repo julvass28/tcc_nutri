@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
-import IMCCalculator from './pages/IMCCalculator.jsx';
+import AGUACalculator from './pages/AGUACalculator.jsx';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PaginaRota from './pages/PaginaRota';
@@ -10,16 +10,16 @@ function App() {
 
 
   return (
-  <>
+      <div>
       <Router>
         <Header />
-        <IMCCalculator />
+        <AGUACalculator/>
         
         <Routes>
         <Route path="/especialidade/:tipo" element={<PaginaRota />} />
         </Routes>
         <Footer />
-      </Router>
-    </>
+   </Router>
+    </div>
   )
 } export default App

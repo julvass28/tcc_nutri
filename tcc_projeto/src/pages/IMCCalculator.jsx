@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../pages/IMCCalculator.css";
+import "../css/IMCCalculator.css";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { IoMdInformationCircle } from "react-icons/io";
 import { MdBalance } from "react-icons/md";

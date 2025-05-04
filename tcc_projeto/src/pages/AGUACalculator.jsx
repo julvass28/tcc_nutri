@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState } from "react";
+import "../css/AGUACalculator.css";
 
 function AGUACalculator() {
 
