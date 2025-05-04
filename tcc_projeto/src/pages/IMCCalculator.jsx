@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../css/IMCCalculator.css";
+import "../css/IMCeAgua.css";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { IoMdInformationCircle } from "react-icons/io";
 import { MdBalance } from "react-icons/md";
@@ -78,7 +78,7 @@ function IMCCalculator() {
         <h1 id="titulo-calculadora"> Calculadora de IMC & Peso Ideal</h1>
       </div>
       <h3 id="text-titulo-calculadora">Nossa calculadora de IMC e peso ideal ajuda você a avaliar se está com o peso adequado em relação à sua altura, além de descobrir o intervalo de peso saudável para uma melhor qualidade de vida.</h3>
-      <div className="info-imc-container">
+      <div className="info-imc-container info-pag-imc">
 
 
         <div id="div-geral" className={`input-group ${erros.sexo ? "erro" : ""}`}>
@@ -145,7 +145,7 @@ function IMCCalculator() {
 
       </div>
       <div className="botao-calcular-container">
-        <button className="calcular-btn" onClick={calcularIMC}>
+        <button className="calcular-btn btn-pagina-imc" onClick={calcularIMC}>
           Calcular IMC e Peso Ideal
         </button>
       </div>
@@ -161,7 +161,7 @@ function IMCCalculator() {
               <p><strong>Classificação:</strong> {resultado.classificacao}</p>
               <p><strong>Peso Ideal:</strong> {resultado.pesoIdeal} kg</p>
             </div>
-            <p className="texto-explicativo">{textoClassificacao(resultado.classificacao)}</p>
+            <p className="texto-explicativo pagina-imc">{textoClassificacao(resultado.classificacao)}</p>
 
             {/* Tabela */}
             <table className="tabela-imc">
