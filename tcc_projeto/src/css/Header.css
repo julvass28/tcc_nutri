@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
 
 body {
     margin: 0;
     padding: 0;
+
 }
 
 .menu {
@@ -24,8 +26,8 @@ body {
 }
 
 .icon {
-    width: 20px;
-    height: 20px;
+    width: 21px;
+    height: auto;
     color: #8A8F75;
     cursor: pointer;
 }
@@ -61,17 +63,16 @@ body {
 
 .right ul li {
     padding: 7px 14px;
-    /* lateral maior */
+   
 }
 
 nav ul li {
     list-style: none;
     display: inline-block;
     position: relative;
-    padding: 7px;
+    padding: 9px;
     color: #454545;
     font-family: 'poppins';
-    font-size: 14px;
 
 }
 
@@ -79,30 +80,35 @@ nav ul li a {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+  
+   
+  
 }
-
 
 .nav-text {
     position: relative;
     display: inline-block;
+font-size: 15px;
+    font-weight: 400;
+    line-height: 1.2;
 }
 
 .nav-text::after {
     content: '';
     position: absolute;
-    bottom: -3px;
+    bottom: -6px;
+    border-radius: 3px;
     left: 0;
     width: 0%;
-    height: 1.4px;
+    height: 1.5px;
     background-color: #8A8F75;
-    transition: 0.5s ease;
+    transition: width 0.3s ease;
 }
 
-
-.nav-text:hover::after {
+.nav-text:hover::after,
+.nav-text.ativo::after {
     width: 100%;
 }
-
 
 .dropdown-menu {
     position: absolute;
@@ -126,20 +132,19 @@ nav ul li a {
 
 .dropdown-menu li a {
     color: #454545;
+    font-size: 14px;
+    
 }
 
 .dropdown-menu li a:hover {
     color: #D1A0A0;
     font-weight: 600;
-    transition: transform 0.2s ease;
+    transform: scale(1.02);
 }
 
 
 
-.dropdown:hover .dropdown-menu {
-    display: block;
-    text-decoration: none;
-}
+
 
 .logo img {
     height: 100px;
@@ -149,7 +154,7 @@ nav ul li a {
 
 
 
- .btn-mobile{
+.btn-mobile {
     display: none;
     background-color: transparent;
     font-size: 20px;
@@ -159,62 +164,228 @@ nav ul li a {
 
 }
 
+.mobile-icons,
+.mobile-only {
+    display: none;
+}
 
 
 
 
 
+@media (min-width: 769px) {
+    .dropdown:hover .dropdown-menu {
+        display: block;
+        text-decoration: none;
+    }
+}
 
-/* 📱 Smartphones médios a grandes */
+
+
 @media screen and (max-width: 768px) {
     .btn-mobile {
-        display: block; /* Exibe o ícone do hambúrguer */
+        display: block;
+        position: relative;
+        z-index: 200;
+        font-size: 18px;
     }
 
-    .nav-itens {
-        display: none; /* Oculta o menu por padrão */
-    }
 
     .nav-itens {
         display: flex;
         flex-direction: column;
         position: fixed;
         top: 0;
-        left: -100%; /* começa fora da tela à esquerda */
-        width: 60%;
-        height: 100vh;
+        left: -100%;
+        width: 80%;
+        height: 100%;
         background-color: #F4EFEC;
         padding: 20px;
         transition: left 0.3s ease-in-out;
         z-index: 1000;
     }
 
+
     .nav-itens.open {
-        left: 0; /* desliza para dentro da tela */
+        left: 0;
     }
 
-    .nav-itens ul {
-        flex-direction: column;
-        gap: 10px;
+
+
+    .icons {
+        display: none;
     }
+
+    .xis {
+        display: flex;
+        align-self: start;
+    }
+
+    .mobile-icons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+
+
+    }
+
+    .icon-mobile {
+        width: 35px;
+        height: auto;
+        color: #D1A0A0;
+        margin-top: 30px;
+
+
+    }
+
+
+    .logo img {
+        width: 190px;
+        height: auto;
+    }
+
+    .user {
+        width: 18px;
+        height: auto;
+    }
+
+
 
     .dropdown-menu {
         position: relative;
-        top: 0;
-        box-shadow: none;
+        display: none;
         background-color: transparent;
-        padding-left: 10px;
+        margin-top: 8px;
+        padding: 0;
+
+        box-shadow: none;
+        left: 0;
     }
 
-    .dropdown:hover .dropdown-menu {
+
+    .dropdown-menu li {
+
+        display: flex;
+        justify-content: center;
+        font-size: 16px;
+        padding: 16px 0;
+        text-align: center;
+        border-top: 1px solid #d4d4d4;
+
+    }
+
+    .dropdown-menu li:first-child {
+        border-top: none;
+    }
+
+
+
+    .nav-text.ativo::after {
+        background-color: #D1A0A0;
+        height: 1.7px;
+
+    }
+
+
+    .nav-text.ativo .seta {
+        color: #D1A0A0;
+
+    }
+
+    .nav-text.ativo {
+        color: #D1A0A0;
+        font-weight: 600;
+    }
+
+    .mobile-only {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .mobile-only .nav-section li {
+        text-align: center;
+        width: 100%;
+    }
+
+    .mobile-only .nav-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    .mobile-only .nav-section li .nav-text {
+        display: flex;
+        justify-content: center;
+    }
+
+
+    .nav-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+
+    }
+
+    .nav-text {
+        gap: 10px;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        padding: 10px;
+        position: relative;
+        color: #454545;
+
+
+    }
+
+
+
+    .seta {
+        transition: transform 0.3s ease;
+    }
+
+    .seta.rotated {
+        transform: rotate(180deg);
+    }
+
+    .dropdown-menu.show {
         display: block;
+
     }
 
-    .right {
-        display: none; /* Oculta o menu da direita no mobile, se quiser */
+    .infos-mobile {
+        margin-top: 60px;
+
     }
-    
+
+    .infos-mobile p {
+
+        font-family: "Lustria", sans-serif;
+    }
+
+    .tel {
+        text-align: center;
+        color: #8A8F75;
+        font-weight: 600;
+        letter-spacing: 2px;
+    }
+
+    .botao-header {
+        margin-top: 30px;
+
+    }
+
+
 }
+
+
 
 /* 💻 Tablets (modo retrato e paisagem) */
 @media (max-width: 1024px) {
@@ -223,6 +394,8 @@ nav ul li a {
 
 /* 🖥️ Laptops/Desktops médios */
 @media (max-width: 1280px) {
+
+
     /* ajustes para telas médias */
 }
 

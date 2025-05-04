@@ -1,91 +1,113 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
-import '../css/Header.css'
-import { FaWhatsapp, FaInstagram, FaUser, FaChevronDown } from "react-icons/fa";
-import { FaBars } from "react-icons/fa"; 
-
-
+import React, { useState } from 'react';
+import '../css/Header.css';
+import { FaWhatsapp, FaInstagram, FaUser, FaChevronDown, FaBars } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
 import { HiOutlineEnvelope } from "react-icons/hi2";
+import Botao from './botao/Botao';
 import logo from "../assets/img_png/Logo.png";
-import { useState } from 'react';
-
-
 
 function Header() {
+    const [openMenu, setOpenMenu] = useState(false);
+    const [openDropdown, setOpenDropdown] = useState(null);
 
-    const[openMenu, setOpenMenu] = useState(false);
+    const toggleDropdown = (menuName) => {
+        setOpenDropdown(openDropdown === menuName ? null : menuName);
+    };
+
     return (
         <header className='menu'>
+            <button className='btn-mobile' onClick={() => setOpenMenu(!openMenu)}>
+                <FaBars />
+            </button>
 
-            <div className="icons ">
-                <HiOutlineEnvelope className='icon'></HiOutlineEnvelope>
-                <FaWhatsapp className='icon'></FaWhatsapp>
-                <FaInstagram className='icon'></FaInstagram>
+            <div className="icons">
+                <HiOutlineEnvelope className='icon' />
+                <FaWhatsapp className='icon' />
+                <FaInstagram className='icon' />
             </div>
 
-
-            <nav className={`nav-itens left ${openMenu? 'open' : ''}`}>
+            <nav className={`nav-itens left ${openMenu ? 'open' : ''}`}>
+                <button className='btn-mobile' onClick={() => setOpenMenu(false)}>
+                    <FaXmark className='xis' />
+                </button>
                 <ul>
-                    <li className='dropdown'>
-                        <span className='nav-text'> Serviços <FaChevronDown className='seta' /></span>
-                        <ul className="dropdown-menu">
-                        <li><Link to="#">Nutrição Esportiva</Link></li>
-
-                            <li><Link to="#">Nutrição Pediátrica</Link></li>
-                            <li><Link to="#">Nutrição Clínica</Link></li>
-                            <li><Link to="#">Emagrecimento e Obesidade</Link></li>
-                            <li><Link to="#">Intolerâncias Aliemtares</Link></li>
+                    <li className='dropdown nav-section'>
+                        <span className={`nav-text ${openDropdown === 'servicos' ? 'ativo' : ''}`} onClick={() => toggleDropdown('servicos')}>
+                            Serviços <FaChevronDown className={`seta ${openDropdown === 'servicos' ? 'rotated' : ''}`} />
+                        </span>
+                        <ul className={`dropdown-menu ${openDropdown === 'servicos' ? 'show' : ''}`}>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Nutrição Esportiva</Link></li>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Nutrição Pediátrica</Link></li>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Nutrição Clínica</Link></li>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Emagrecimento e Obesidade</Link></li>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Intolerâncias Alimentares</Link></li>
                         </ul>
                     </li>
 
-                    <li className='dropdown'>
-                        <span className='nav-text'> Blog<FaChevronDown className='seta'></FaChevronDown></span>
-                        <ul className="dropdown-menu">
-                            <li><Link to>Dicas Alimentares</Link></li>
-                            <li><Link to>Receitas</Link></li>
-                            <li><Link to>Artigos</Link></li>
-
+                    <li className='dropdown nav-section'>
+                        <span className={`nav-text ${openDropdown === 'blog' ? 'ativo' : ''}`} onClick={() => toggleDropdown('blog')}>
+                            Blog <FaChevronDown className={`seta ${openDropdown === 'blog' ? 'rotated' : ''}`} />
+                        </span>
+                        <ul className={`dropdown-menu ${openDropdown === 'blog' ? 'show' : ''}`}>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Dicas Alimentares</Link></li>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Receitas</Link></li>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Artigos</Link></li>
                         </ul>
                     </li>
 
-                    <li className='dropdown'>
-                        <span className='nav-text'> Calculadoras<FaChevronDown className='seta'></FaChevronDown></span>
-                        <ul className="dropdown-menu">
-                            <li><Link to>Calorias e Nutrientes</Link></li>
-                            <li><Link to>Gastos Caloricos</Link></li>
-                            <li><Link to>IMC e Peso Ideal</Link></li>
-                            <li><Link to>Consumo diário de Água</Link></li>
-
+                    <li className='dropdown nav-section'>
+                        <span className={`nav-text ${openDropdown === 'calculadoras' ? 'ativo' : ''}`} onClick={() => toggleDropdown('calculadoras')}>
+                            Calculadoras <FaChevronDown className={`seta ${openDropdown === 'calculadoras' ? 'rotated' : ''}`} />
+                        </span>
+                        <ul className={`dropdown-menu ${openDropdown === 'calculadoras' ? 'show' : ''}`}>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Calorias e Nutrientes</Link></li>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Gastos Calóricos</Link></li>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>IMC e Peso Ideal</Link></li>
+                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Consumo Diário de Água</Link></li>
                         </ul>
                     </li>
 
+                    <div className="mobile-only">
+                        <ul className='nav-section'>
+                            <li><Link to="/"><span className="nav-text mobile">Sobre</span></Link></li>
+                            <li><Link to="/"><span className="nav-text mobile">Contato</span></Link></li>
+                            <li><Link to="/"><span className="nav-text mobile">Agendar Consulta</span></Link></li>
+                        </ul>
+
+                        <div className="infos-mobile">
+                            <p className='tel'>(11) 94030-2492</p>
+                            <p className='email'>dranatalia@simanovski.com</p>
+                        </div>
+
+                        <Botao className='botao-header'>Agendar Consulta</Botao>
+
+                        <div className="mobile-icons">
+                            <HiOutlineEnvelope className='icon-mobile' />
+                            <FaWhatsapp className='icon-mobile' />
+                            <FaInstagram className='icon-mobile' />
+                        </div>
+                    </div>
                 </ul>
             </nav>
 
             <div className="logo">
-                <img src={logo} alt="" />
+                <img src={logo} alt="Logo" />
             </div>
-            <nav className='nav-itens right'>
+
+            <nav className='nav-itens'>
                 <ul>
-                    <li><Link to="/"><span className='nav-text'> Sobre </span></Link></li>
-                    <li><Link to="/"> <span className='nav-text'> Contato</span></Link></li>
-                    <li><Link to="/"> <span className='nav-text'> Agendar Consulta</span></Link></li>
+                    <li><Link to="/"><span className='nav-text'>Sobre</span></Link></li>
+                    <li><Link to="/"><span className='nav-text'>Contato</span></Link></li>
+                    <li><Link to="/"><span className='nav-text'>Agendar Consulta</span></Link></li>
                 </ul>
             </nav>
+
             <div className="perfil">
-                <FaUser className='user'></FaUser>
+                <FaUser className='user' />
             </div>
-
-            
-<button className='btn-mobile' onClick={()=> setOpenMenu(!openMenu)} >
-    <FaBars/>
-</button>
-
-
-
         </header>
+    );
+}
 
-    )
-} export default Header;
-
-
+export default Header;
