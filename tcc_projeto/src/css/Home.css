@@ -505,19 +505,31 @@ body {
 @media (max-width: 640px) {
 
     .bloco-inicial{
-        height: 200px;
+        height: 40vh;
         width: 100%;
     }
+
     .imagem-com-gradiente{
-        height: 200px;
+        width: 43%;
     }
+
+    .bloco-texto{
+        font-size: 9px;
+        right: 4vh;
+        max-width: 200px;
+          font-weight: 700;
+        line-height: 1.3;
+        top: 45%;
+    }
+    
 }
 
 /*
+
 .bloco-inicial {
     margin-top: 5px;
     width: 100%;
-    height: 500px;
+    height: 70vh;
     position: relative;
     overflow: hidden;
     background-color: #EFEBE9;
@@ -533,7 +545,7 @@ body {
 }
 
 .imagem-com-gradiente {
-    width: 55%;
+    width: 55vw;
     height: 100%;
     background:
         linear-gradient(to right, rgba(245, 243, 240, 0) 60%, #EFEBE9 100%),
@@ -545,21 +557,24 @@ body {
 
 .bloco-texto {
     display: flex;
-    gap: 20px;
+    gap: 5vh;
     flex-direction: column;
     align-items: center;
     max-width: 600px;
     position: absolute;
-    right: 7%;
+    right: 15vh;
     top: 40%;
     transform: translateY(-50%);
     color: #8A8F75;
     text-align: center;
     font-family: "Lustria", sans-serif;
-    font-size: 13px;*/
+    font-size: 13px;
+
+}
 
 
 
+*/
 
 
 

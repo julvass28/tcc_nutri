@@ -398,7 +398,7 @@ font-size: 15px;
 
  
 
-@media (min-width: 768px) and (max-width: 820px) {
+@media (min-width: 768px) and (max-width: 912px) {
     .nav-text {
         font-size: 23px;
     }
