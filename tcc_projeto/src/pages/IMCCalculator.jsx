@@ -231,7 +231,7 @@ function IMCCalculator() {
           <h1 id="hum-cal-gasto">Calculadora de Gastos Calorico</h1>
           <p>Descubra quantas calorias seu corpo gasta por dia</p>
 
-          <div className="icon-section"><FaRunning id="img-calculator-icon" /></div>
+          <div className="icon-section correr"><FaRunning id="img-calculator-icon" /></div>
 
         </div>
       </div>
