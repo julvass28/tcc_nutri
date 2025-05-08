@@ -1,17 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* Container principal */
 .pagina-especialidade {
   max-width: 1800px;
   margin: 0 auto;
-  padding: 40px;
   font-family: 'Lustria', serif;
   line-height: 1.6;
 }
 
 .full-width-background {
-  width: 100vw;
+  width: 100%;
   margin-left: calc((100vw - 1800px) / -2);
   padding: 40px 0;
 }
@@ -22,36 +25,39 @@
 .intro {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start; 
+  align-items: center; 
   gap: 2rem;
+  padding: 2rem;
   margin-bottom: 8rem;
   background-color: #EDE9E3;
   border-bottom: 5px solid #b8b4b4;
-  padding: 40px 90px;
-  padding-top: 40px;          
-  padding-bottom: 40px;      
+  margin-top: 30px;  
 }
 
 .intro .texto {
-  max-width: 800px;
+  max-width: 700px;
+  margin-left: 70px;
+  padding-inline: 50px;
+  margin-right: 40px;
+ 
 }
 .intro h1 {
-  font-size: 2.5rem;
+  font-size: 30px;
   margin-bottom: 20px;
   color: #454545;
   font-family: 'Quicksand', sans-serif;
   margin-top: 0;
 }
 .intro p {
-  font-size: 1.3rem;
+  font-size: 18px;
   color: #454545;
 }
 .intro img {
-  width: 300px;
-  height: 300px;
+  flex: 0 0 280px; 
+  width: 280px;  
+  height: auto;
   object-fit: cover;
-  margin-left: auto;
-  margin-right: 200px;
+  margin: 0;   
 }
 
 
@@ -65,7 +71,7 @@
   padding: 0 80px;
 }
 .beneficios h2 {
-  font-size: 2.3rem;
+  font-size: 30px;
   margin-bottom: 20px;
   color: #454545;
   font-weight: lighter;
@@ -86,8 +92,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center;
+  
 }
+
 .card-beneficio {
   display: flex;
   flex-direction: column;
@@ -97,28 +104,30 @@
   background-color: #F4EFEC;
   border: 2px solid #DDB7AC;
   border-radius: 8px;
-  padding: 20px;
-  width: 155px;
-  height: 210px;
+  width: 170px;
+  min-height: 230px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .card-beneficio img {
-  width: 70px;
-  height: 70px;
-  margin-bottom: 40px;
+  width: 65px;
+  height: 65px;
+  margin-bottom: 30px;
 }
 .card-beneficio span {
-  font-size: 1.4rem;
+  font-size: 18px;
   color: #454545;
   line-height: 1.4;
   font-weight: 500;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 
 /* Seção de Agendamento  */
 
 .agendamento {
-  margin-top: 200px;
+  margin-top: 180px;
   text-align: center;
   margin-bottom: 100px;
   padding-left: 80px;
@@ -131,14 +140,14 @@
   border-radius: 30px;
 }
 .agendamento p {
-  font-size: 2rem;
+  font-size: 20px;
   margin-bottom: 30px;
   color: #454545;
   font-family: 'Quicksand', sans-serif;
   font-weight: 600;
 }
 .agendamento button {
-  font-size: 1.4rem;
+  font-size: 18px;
   background-color: #DDB7AC;
   border: none;
   padding: 15px 30px;
@@ -153,20 +162,29 @@
   color: aliceblue;
 }
 
+/* avaliacao-nutricional */
 .avaliacao-nutricional {
-  text-align: center;
+  display: flex;             
+  flex-direction: column;     
+  justify-content: center;    
+  align-items: center;        
+  text-align: center;       
   padding: 60px 0;
   margin-bottom: 50px;
 }
+
 .avaliacao-nutricional h2 {
-  font-size: 2.2rem;
+  font-size: 30px;
   font-weight: 100;
   color: #454545;
-  margin: 0;
-  text-align: center;
-  align-items: center;
-  margin-right: 500px;
-  position: relative;
+  margin: 0;                  
+}
+
+.avaliacao-nutricional.full-width-background {
+  display: flex;             
+  justify-content: center;   
+  align-items: center;    
+  flex-direction: column;   
 }
 
 .avaliacao-nutricional h2::after {
@@ -182,33 +200,32 @@
 /* Seção "O que você precisa saber" */
 
 .o-que-precisa-saber {
-  padding: 50px 0;
-  background-color: rgb(237, 238, 234);
+  background-color: rgb(8, 10, 1);
   margin-bottom: 50px;
   border-bottom: 5px solid #b8b4b4;
   
 }
 .o-que-precisa-saber h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
+  font-size: 25px;
+  margin-bottom: 25px;
   color: #454545;
-  text-align: left;
-  margin-left: 200px;
+  text-align: center;
   font-family: 'Quicksand', sans-serif;
-  margin-top: 1px;
+  margin-top: -40px;
 }
-
 
 .grid-cards {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
   justify-content: center;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 .estrategias .card-info {
   background-color: rgb(243, 229, 225);
-  padding: 1.5rem;
+  padding: 0.8rem;
   border-radius: 0.75rem;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
   border: 1.5px solid #DDB7AC;
@@ -218,18 +235,18 @@
 /* Seção de Estratégias        */
 
 .estrategias {
-  padding: 50px 0;
+  
   background-color: rgb(250, 244, 243);
   border-bottom: 5px solid #DDB7AC;
+  
 }
 .estrategias h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
+  font-size: 25px;
+  margin-bottom: 25px;
   color: #454545;
-  text-align: left;
-  margin-left: 190px;
+  text-align: center;
   font-family: 'Quicksand', sans-serif;
-  margin-top: 1px;
+  margin-top: -40px;
 }
 
 
@@ -237,27 +254,26 @@
 
 .dicas {
   margin-top: 40px;
-  padding: 40px 0;
+  padding: 50px 0;
   background-color: rgb(237, 238, 234);
   border-bottom: 5px solid #b8b4b4;
 }
 .dicas h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
+  font-size: 25px;
+  margin-bottom: 25px;
   color: #454545;
-  text-align: left;
-  margin-left: 200px;
+  text-align: center;
   font-family: 'Quicksand', sans-serif;
-  margin-top: 1px;
+  margin-top: -40px;
 }
 
 
 .mitos-verdades {
-  padding: 180px 0;
+  padding: 150px 0;
 
 }
 .mitos-verdades h2 {
-  font-size: 2.2rem;
+  font-size: 30px;
   text-align: center;
   margin-bottom: 4rem;
   color: #454545;
@@ -279,11 +295,10 @@
   max-width: 800px;
   margin: 0 auto 2.5rem;
   padding: 20px;
-  padding-right: 180px;
-  padding-left: 120px;
+  padding-left: 10px;
 }
 .lista-mitos-verdades h3 {
-  font-size: 1.7rem;
+  font-size: 20px;
   color: #454545;
   margin-bottom: 3.1rem;
   text-transform: uppercase;
@@ -295,7 +310,7 @@
 .item-lista {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 1.2rem;
   margin-bottom: 2.3rem;
 }
 .item-lista img {
@@ -308,24 +323,29 @@
   font-weight: bold;
   margin: 0 0 0.5rem;
   color: #454545;
-  font-size: 26px;
+  font-size: 17px;
 }
 .item-lista .descricao {
   margin: 0;
   color: #454545;
-  font-size: 22px;
+  font-size: 16px;
   line-height: 1.4;
 }
 
-.intro,
+
+.o-que-precisa-saber .grid-cards,
+.estrategias   .grid-cards,
+.dicas         .grid-cards {
+  max-width: 1200px;  
+  margin: 0 auto;      
+}
+
 .o-que-precisa-saber,
 .estrategias,
 .dicas {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding-top: 80px;
-  padding-bottom: 80px;
+  width: 100% ;
+  margin-left: 0 ;
+  margin-right: 0 ;
 }
 
 .intro {
@@ -345,31 +365,13 @@
   border-bottom: 5px solid #B8B4B4;
 }
 
-
-body {
-  overflow-x: hidden;
-}
-
-
-.card-info .titulo,
-.card-info h3 {
-  min-height: 3rem; 
-  margin: 0;                 
-  line-height: 1.5rem;        
-}
-
-.card-info .descricao,
-.card-info p {
-  margin-top: 0.5rem;        
-  margin-bottom: 0; 
-}
-
 .card-info .titulo,
 .card-info h3 {
   min-height: 3rem;           
   margin: 10px;
   line-height: 2.3rem;       
-  margin-bottom: 0.8rem;      
+  margin-bottom: 1px;   
+  font-size: 20px;   
 }
 
 .card-info .descricao,
@@ -388,12 +390,794 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 4px rgba(0,0,0,0.2);
   flex: 1;
-  max-width: 250px;
+  max-width: 240px;
   height: 280px;  
   text-align: center;
   color: #454545;
-  font-size: 22px;
+  font-size: 18px;
 }
+
+/* dica final */
+
+.dicafinal {
+  display: flex;
+  flex-direction: column;    
+  justify-content: center;
+  margin-top: 2rem;
+  align-items: center;
+  margin-bottom: 80px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.box-dica {
+  display: block;
+  border: 4px solid #DDB7AC;
+  padding: 20px 30px;
+  border-radius: 30px;
+   max-width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto; 
+  padding: 0 2rem;
+  width: 100%;
+}
+.pagina-especialidade .dicafinal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: -5rem auto 4rem;
+  padding: 0 10rem;
+  max-width: 100%;
+}
+
+.dicafinal p {
+  font-size: 20px;
+  margin-bottom: 30px;
+  color: #454545;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+}
+
+/* parte que recomenda receitas */
+.pagina-especialidade .cta-receitas {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+.pagina-especialidade .cta-receitas .cta-texto h2 {
+  font-size: 20px;
+  color: #454545;
+  font-weight: 400;
+}
+.pagina-especialidade .cta-receitas .cta-texto p {
+  font-size: 20px;
+  margin-bottom: 0.2rem;
+  color: #454545;
+  font-weight: 400;
+  
+}
+.pagina-especialidade .cta-receitas .cta-texto hr {
+  width: 12rem;
+  margin: 1rem auto;
+  border: none;
+  border-top: 2px solid #8A8F75;
+  margin-bottom: 2.8rem;
+}
+.pagina-especialidade .cta-receitas .cta-texto button {
+  font-size: 16px; 
+  background-color: #DDB7AC;
+  border: none;
+  padding: 10px 15px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Lustria', serif;
+  color: #454545;
+  border-radius: 40px;
+  width: 200px; 
+}
+
+.pagina-especialidade .cta-receitas .cta-texto button:hover {
+  background-color: #b3705d;
+  color: aliceblue;
+}
+
+.o-que-precisa-saber .grid-cards,
+.estrategias .grid-cards,
+.dicas .grid-cards {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 4rem;       
+  padding-inline: 0.5rem;       
+}
+
+.o-que-precisa-saber,
+.estrategias,
+.dicas {
+  padding-block: 2rem;
+}
+
+.o-que-precisa-saber h2,
+.estrategias h2,
+.dicas h2 {
+  font-size: 22px;
+  margin-bottom: 2rem;
+  margin-top: 1px;
+}
+
+.grid-cards {
+  gap: 1rem;
+  padding-inline: 1rem;
+}
+
+.card-info {
+  padding: 0.75rem;
+  font-size: 16px;
+  max-width: 200px;
+  height: auto;
+}
+
+.card-info img,
+.estrategias .card-info img {
+  width: 40px;
+  height: 40px;
+}
+
+.o-que-precisa-saber .grid-cards,
+.estrategias   .grid-cards,
+.dicas         .grid-cards {
+  min-height: 250px;
+}
+
+.o-que-precisa-saber .card-info h3,
+.estrategias   .card-info h3,
+.dicas         .card-info h3 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  margin-bottom: 1px;
+  line-height: 30px;
+}
+/* fim dessa versãoooo */
+
+
+
+
+/* ===== responsividade===== */
+
+
+/* 1 - até 480px */
+@media (max-width: 480px) {
+  body {
+    font-size: 0.9rem;
+    padding: 0;
+    margin: 0;
+  }
+  .full-width-background {
+    width: 100%;
+    margin-left: 0;
+    padding: 40px 0;
+  }
+  .intro {
+    flex-direction: column;
+    padding: 1rem;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 1em;
+    max-width: 100%;
+    text-align: center;
+  }
+  h1, h2, h3 {
+    font-size: 1.2rem; 
+  }
+  .intro .texto {
+    margin: 0 auto;
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+  .intro h1 {
+    font-size: 1.2rem;
+    margin-top: 30px;
+  }
+  .intro p {
+    font-size: 0.9rem;
+    margin-right: 15px;
+  }
+  .intro img {
+    width: 180px;
+    max-width: 250px;
+    margin: 1rem auto 0;
+    padding: 0 1rem;
+  }
+  .beneficios {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 1rem;
+    padding: 0 20px;
+    margin-bottom: 4rem;   
+  }
+  .agendamento {
+    margin-top: 3rem;   
+  }
+  .o-que-precisa-saber h2,
+.estrategias h2,
+.dicas h2 {
+  font-size: 1rem;       
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.o-que-precisa-saber .grid-cards,
+.estrategias .grid-cards,
+.dicas .grid-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 600px;        
+  margin-left: auto;
+  margin-right: auto;  
+  padding-inline: 1rem;
+}
+.o-que-precisa-saber .card-info p,
+.estrategias .card-info p,
+.dicas .card-info p {
+  font-size: 0.875rem;    
+  line-height: 1.4;
+}
+  .beneficios h2 {
+    font-size: 1.1rem;
+  margin-bottom: 70px;
+  color: #454545;
+  font-weight: lighter;
+  position: relative;
+  }
+  .grid-beneficios {
+    background-color: #F4EFEC;
+    padding: 2rem 1rem;
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 100%;     
+    box-sizing: border-box;
+  }
+  .grid-beneficios,
+  .grid-cards {
+    display: flex;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 1rem ;
+    margin-bottom: -50px;
+  }
+.pagina-especialidade .grid-beneficios {
+  background-color: transparent ; 
+  overflow: visible;            
+}
+.pagina-especialidade .beneficios {
+  background-color: transparent ;
+}
+  .card-beneficio {
+    display: flex;
+  flex-direction: column;   
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 1rem;
+  min-height: 160px;
+  background-color: #F4EFEC;
+  border: 2px solid #DDB7AC;
+  border-radius: 8px;
+  width: 270px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .card-beneficio img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem; 
+    margin-top: 5px;
+  }
+  .card-beneficio span, .card-beneficio p {
+    margin: 0;
+  }
+  .card-beneficio p {
+    font-size: 0.85rem;
+  }
+  .lista-mitos-verdades h3 {
+    font-size: 0.875rem;      
+    margin: 0 1rem 1rem;      
+  }
+  .item-lista .titulo {
+    font-size: 1rem;
+  }
+  .item-lista .img {
+    width: 35px;
+    height: 35px;
+  }
+  .item-lista .descricao {
+    font-size: 0.85rem;      
+    margin: 0 1rem 1rem;     
+  }
+  .agendamento {
+    margin-top: 5rem;
+  }
+  .agendamento h2 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  .agendamento p {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+.agendamento button {
+  font-size: 16px;  
+  padding: 10px 20px; 
+  border-radius: 30px;
+}
+  .avaliacao-nutricional h2 {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .grid-cards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  .card-info {
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 1rem;
+  }
+  .mitos-verdades h2 {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  .mitos-verdades ul {
+    font-size: 0.85rem;
+    margin: 1rem;
+    padding-left: 1rem;
+  }
+  .mitos-verdadess li {
+    margin-bottom: 0.75rem;
+  }
+    .pagina-especialidade .mitos-verdades {
+      padding: 1.5rem 0 ;
+    }
+    .pagina-especialidade .mitos-verdades h2 {
+      margin: 0.5rem 4 0.75rem ;
+    }
+  .box-agendar,
+  .cta-receitas .cta-texto button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+  .dicafinal {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 2rem 1rem;
+  }
+    .pagina-especialidade .dicafinal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem auto 2rem;
+      padding: 0 1rem;
+      max-width: 100%;
+    }
+  .box-dica {
+    padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .box-dica p {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .cta-receitas {
+    margin: 2rem 3rem;
+  }
+  .cta-receitas  h2 {
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  .cta-receitas  p {
+    font-size: 0.9rem;
+  }
+  .beneficios {
+    padding-block: 1rem;
+    margin-bottom: 2rem;
+  }
+  .agendamento {
+    margin-top: 2rem;
+  }
+  .grid-beneficios {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .o-que-precisa-saber h2,
+  .estrategias h2,
+  .dicas h2 {
+    font-size: 1rem;
+  }
+  .o-que-precisa-saber .grid-cards,
+  .estrategias .grid-cards,
+  .dicas .grid-cards {
+    max-width: 100%;
+    padding-inline: 0.5rem;
+  }
+  .lista-mitos-verdades h3,
+  .item-lista .descricao {
+    margin: 0 0.5rem 1rem;
+  }
+.lista-mitos-verdades {
+  margin: 0 1rem 2rem 1rem;
+}
+.lista-mitos-verdades {
+margin-block: 0 2rem;  
+margin-inline: 8rem;  
+}
+  .intro .texto {
+    margin: 0;
+    padding-inline: 20px;
+  }
+    .pagina-especialidade .o-que-precisa-saber .grid-cards,
+    .pagina-especialidade .estrategias .grid-cards,
+    .pagina-especialidade .dicas .grid-cards {
+      display: grid ;
+      grid-template-columns: 1fr ;
+      justify-items: center;
+      gap: 1.5rem ;
+      width: 100% ;         
+      max-width: none;
+      margin: 0 auto ;
+      padding-inline: 1rem ;
+      box-sizing: border-box;
+    }
+    .pagina-especialidade .card-info {
+      width: 100% ;
+      max-width: none ;
+      height: 130px;     
+      box-sizing: border-box;
+    }
+    .pagina-especialidade .grid-beneficios {
+      display: grid;
+      grid-template-columns: 1fr ;
+      justify-items: center;
+      gap: 1.5rem ;
+      width: 100% ;
+      max-width: none;
+      margin: 0 auto ;
+      padding-inline: 1rem ;
+      box-sizing: border-box;
+    }
+    .pagina-especialidade .card-beneficio {
+      width: 100% ;
+      max-width: none ;
+      min-height: 170px ; 
+      box-sizing: border-box;
+    }
+    .pagina-especialidade .grid-beneficios,
+    .pagina-especialidade .grid-cards {
+      margin-bottom: 0 ;
+    }
+    .pagina-especialidade .agendamento {
+      margin-top: 6rem;
+      margin-bottom: 4rem;
+    }
+    .pagina-especialidade .avaliacao-nutricional {
+      margin-top: 3rem ;    
+      margin-bottom: 1px ; 
+  }
+    .pagina-especialidade .agendamento {
+      margin-top: 6rem ;
+      margin-bottom: 3rem ;
+    }
+    .pagina-especialidade .avaliacao-nutricional {
+      margin-top: 2rem ;
+      margin-bottom: 2rem ;
+    }
+    .pagina-especialidade .mitos-verdades {
+      padding: 2rem 0 ;  
+    }
+    .pagina-especialidade .mitos-verdades h2 {
+      margin-top: 50px;
+      margin-bottom: 2rem; 
+    }
+  }
+  
+
+
+
+/* 2-  481px — 770px  */
+   @media (min-width: 481px) and (max-width: 770px) {
+    .full-width-background {
+      width: 100%;
+      margin-left: 0;
+    }
+    .intro {
+      display: flex;
+      flex-direction: column ;
+      align-items: center ;
+      text-align: center ;
+      padding: 1rem ;
+      box-sizing: border-box;
+    }
+    .intro .texto {
+      max-width: 90%;
+      margin: 0 auto 1.5rem;
+    }
+    .intro h1 { font-size: 1.6rem ; }
+    .intro p  { font-size: 1rem  ; }
+    .intro img {
+      display: block ;
+      order: 2 ;
+      margin: 1rem auto 0 ;
+      max-width: 80% ;
+      height: auto ;
+    }
+    .grid-beneficios {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .mitos-verdade {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 2rem;
+      margin: 2rem auto;
+      max-width: 600px;
+      list-style: none;
+      padding: 0;
+    }
+    .mitos-verdade li:nth-child(odd)  { text-align: left;  }
+    .mitos-verdade li:nth-child(even) { text-align: right; }
+    .lista-mitos-verdades {margin: 0 1rem 2rem 1rem;}
+.lista-mitos-verdades {
+  margin-block: 0 2rem;  
+  margin-inline: 8rem;  
+}
+.lista-mitos-verdades {
+  margin-block: 0 2rem;    
+  margin-inline: 3rem;     
+}
+  .beneficios {
+    padding: 0 1rem;
+  }
+    .grid-secoes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      justify-content: center;  
+      margin: 2rem auto;
+      padding-inline: 1rem;
+      box-sizing: border-box;
+    }
+    .box-agendar {
+      width: 90%;
+      padding: 1rem;
+      margin: 0 auto;
+    }
+    .grid-secoes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center
+    }
+  .pagina-especialidade .dicafinal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: -5rem auto 4rem;
+    padding: 0 8rem;
+    max-width: 100%;
+  }
+   }
+
+
+/* 3 - 768px–1023px */
+@media (min-width: 771px) and (max-width: 1023px) {
+  .full-width-background {
+    width: 100vw;
+    margin-left: calc((100vw - 1800px) / -2);
+  }
+  .intro {
+    flex-direction: row;
+    gap: 2rem;
+    padding: 1rem;
+  }
+  .intro h1 { font-size: 2rem; margin-top: 10px;}
+  .intro p  { font-size: 1.1rem; }
+  .intro img {
+    display: block ;
+    order: 2 ;
+    margin: 1rem auto 0 ;
+    max-width: 80% ;
+    height: auto ;
+  }
+  .grid-beneficios {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .grid-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .card-beneficio { max-width: none; }
+  .card-info { padding: 1rem; }
+}
+    .lista-mitos-verdades {
+      margin: 0 1rem 2rem 1rem;
+    }
+    .lista-mitos-verdades {
+      margin-block: 0 2rem;    
+      margin-inline: 3rem;      
+    }
+    
+
+
+/* 4- 1024px–1279px */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .intro {
+    display: flex;           
+    flex-direction: row;    
+    align-items: center;         
+    justify-content: space-between; 
+    padding: 3rem 2rem;
+    text-align: left;           
+  }
+  .intro .texto {
+    flex: 1;                    
+    max-width: 60%;            
+    margin: 0;                
+  }
+  .intro img {
+    flex: 0 0 auto;             
+    order: 2;                
+    width: 35%;                
+    max-width: 300px;        
+    margin: 0;                
+  }
+  .intro h1 { font-size: 25px; }
+  .intro p  { font-size: 16px; }
+  .grid-beneficios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    gap: 1.5rem;
+    padding-inline: 1rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    box-sizing: border-box;
+  }
+  .grid-beneficios > :nth-child(4) {
+    grid-column: 1 / 2;
+  }
+  .grid-beneficios > :nth-child(5) {
+    grid-column: 2 / 3;
+  }
+  .card-beneficio {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .box-agendar {
+    padding: 2.5rem 3rem;
+  }
+  .lista-mitos-verdades {
+    margin: 0 1rem 2rem 1rem;
+  }
+  .lista-mitos-verdades {
+    margin-block: 0 2rem;  
+    margin-inline: 6rem;  
+  }
+}
+
+/* 5 - partir de 1280px */
+@media (min-width: 1280px) {
+  .intro {
+    padding-top: 3rem ;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .intro img {
+    display: block ;
+    order: 2 ;
+    margin: 1rem auto 0 ;
+    max-width: 80% ;
+    height: auto ;
+  }
+  .intro h1 { font-size: 30px; }
+  .intro p  { font-size: 18px; }
+  .grid-beneficios {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 3rem;
+  }
+  .grid-cards {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+  }
+  .box-agendar {
+    padding: 3rem 4rem;
+  }
+  .lista-mitos-verdades {
+    margin: 0 1rem 2rem 1rem;
+  }
+  .lista-mitos-verdades {
+    margin-block: 0 2rem;  
+    margin-inline: 9rem;  
+  }
+}
+
+
+
+
+
+@media (min-width: 481px) and (max-width: 684px) {
+  .grid-beneficios {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    gap: 1rem !important;
+    padding-inline: 1rem !important;
+    margin: 2rem auto !important;
+    overflow-x: hidden;     
+    box-sizing: border-box;
+  }
+  .card-beneficio {
+    width: 100% !important;
+    max-width: 200px;       
+    box-sizing: border-box;
+  }
+  .beneficios {
+    padding: 0 1rem !important;
+    margin: 1rem auto !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 544px) {
+  .grid-beneficios {
+    overflow-x: hidden;
+    box-sizing: border-box;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+    gap: 1rem !important;
+    padding-inline: 1rem !important;
+    margin: 2rem auto !important;
+  }
+  .card-beneficio {
+    width: 100% !important;
+    max-width: 150px !important;
+    box-sizing: border-box;
+  }
+  .beneficios {
+    padding: 0 1rem !important;
+    margin: 1rem auto !important;
+  }
+  body {
+    overflow-x: hidden;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

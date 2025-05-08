@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import './PaginaEspecialidade.css';
 import conteudosEspecialidades from '../data/conteudosEspecialidades';
-
+import { useNavigate } from 'react-router-dom';
 
 import imagemEsportiva from '../assets/esportiva.png';
 import imagemPediatrica from '../assets/pediatrica.png';
@@ -22,11 +22,13 @@ const imagens = {
 const PaginaEspecialidade = () => {
   const { tipo } = useParams();
   const conteudo = conteudosEspecialidades[tipo];
+  const navigate = useNavigate();
   if (!conteudo) return <h2>Especialidade não encontrada</h2>;
 
   const defaultSectionTitles = { /* ... */ };
   const st = conteudo.sectionTitles || defaultSectionTitles;
   const imagem = imagens[tipo];
+  const { cta } = conteudo;
 
   return (
     <main className="pagina-especialidade">
@@ -60,7 +62,8 @@ const PaginaEspecialidade = () => {
         </div>
       </section>
 
-      <section className="avaliacao-nutricional full-width-background">
+      <section className="avaliacao-nutricional">
+
   <h2>
     {conteudo.avaliacaoTitulo 
       ? conteudo.avaliacaoTitulo 
@@ -139,6 +142,27 @@ const PaginaEspecialidade = () => {
     ))}
   </div>
 </section>
+{/*. dica final */}
+<section className="dicafinal">
+        <div className="box-dica">
+          
+          <p><strong>Dica Nutri:</strong> Para maximizar resultados, sempre ajuste sua alimentação com a ajuda de um nutricionista especializado. Cada corpo é único!</p>
+        </div>
+      </section>
+      
+{/* 8. CTA Receita */}
+      {cta && (
+        <section className="cta-receitas">
+          <div className="cta-texto">
+            <h2>{cta.titulo}</h2>
+            <p>{cta.subtitulo}</p>
+            <hr />
+            <button onClick={() => navigate(cta.botaoLink)}>
+              {cta.botaoTexto}
+            </button>
+          </div>
+        </section>
+      )}
 
     </main>
   );

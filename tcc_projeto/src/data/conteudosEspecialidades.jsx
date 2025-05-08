@@ -69,6 +69,13 @@ const conteudosEspecialidades = {
       { titulo: '"Cada esporte pede uma dieta diferente"',texto: 'Atletas de maratona e musculação têm necessidades nutricionais distintas. A estratégia alimentar deve ser personalizada.', icone: verdade3 },
       { titulo: '"Gorduras saudáveis são essenciais"',    texto: 'Abacate, azeite, castanhas e peixes fornecem gorduras boas, que são importantes para hormônios e saúde cardiovascular.', icone: verdade4  },
     ],
+    cta: {
+    titulo: "Quer mais energia e resultados?",     
+    subtitulo: "Então confira as receitas que preparei para você", 
+    botaoTexto: "Ver Receitas",
+    // botaoLink: "/receitas/esportiva"                      // ou para onde quiser navegar
+  }
+
   },
 
 
@@ -123,6 +130,11 @@ const conteudosEspecialidades = {
       { titulo: '"Exposição repetida melhora a aceitação dos alimentos"',texto: 'A persistência na oferta de alimentos ajuda as crianças a se acostumarem e aceitarem novos sabores, sem forçar.', icone: verdade3 },
       { titulo: '"Comer devagar ajuda na saciedade e digestão"',    texto: 'Crianças que comem com calma aprendem a reconhecer melhor os sinais de fome e evitam excessos.', icone: verdade4  },
     ],
+    cta: {
+      subtitulo: "Descubra receitas que seus filhos vão adorar", 
+      botaoTexto: "Ver Receitas",
+      // botaoLink: "/receitas/esportiva"                      // ou para onde quiser navegar
+    }
   },
 
 
@@ -180,6 +192,12 @@ const conteudosEspecialidades = {
       { titulo: '"Alimentação equilibrada previne doenças"',texto: 'Uma dieta rica em nutrientes pode reduzir o risco de doenças como diabetes, hipertensão e problemas cardíacos.', icone: verdade3 },
       { titulo: '"Refeições regulares mantêm o metabolismo ativo"',    texto: 'Comer em intervalos regulares ajuda a manter os níveis de energia e evita picos de fome, o que pode auxiliar no controle do peso.', icone: verdade4  },
     ],
+    cta: {
+      titulo: "Quer emagrecer comendo bem?",            // linha grande
+      subtitulo: "Então confira as receitas que preparei para você", // texto menor
+      botaoTexto: "Ver Receitas",
+      // botaoLink: "/receitas/esportiva"                      // ou para onde quiser navegar
+    }
   },
 
 
@@ -235,6 +253,12 @@ const conteudosEspecialidades = {
       { titulo: '"Qualidade importa mais que calorias"',texto: 'Comer de forma equilibrada, priorizando alimentos nutritivos, é mais eficaz para a saúde e o emagrecimento do que apenas reduzir calorias.', icone: verdade3 },
       { titulo: '"Ganho de massa muscular acelera o metabolismo"',    texto: ' Quanto mais músculos, maior o gasto calórico do corpo em repouso, facilitando a queima de gordura e o controle do peso.', icone: verdade4  },
     ],
+    cta: {
+      titulo: "Quer se alimentar bem e sem desconforto? ",            // linha grande
+      subtitulo: "Então confira as receitas que preparei para você!", // texto menor
+      botaoTexto: "Ver Receitas",
+      // botaoLink: "/receitas/esportiva"                      // ou para onde quiser navegar
+    }
   },
 
 
@@ -291,6 +315,12 @@ const conteudosEspecialidades = {
       { titulo: '"Intolerância não reduz expectativa de vida"',texto: 'Embora os sintomas possam ser incômodos, a intolerância alimentar geralmente não afeta a saúde a longo prazo, desde que o alimento seja evitado.', icone: verdade3 },
       { titulo: '"Dietas adaptadas melhoram a qualidade de vida"',    texto: 'Ajustar a alimentação conforme as intolerâncias pode reduzir sintomas e melhorar o bem-estar.', icone: verdade4  },
     ],
+    cta: {
+      titulo: "Quer uma alimentação saudável e equilibrada?",            // linha grande
+      subtitulo: "Então confira as receitas que preparei para você!", // texto menor
+      botaoTexto: "Ver Receitas",
+      // botaoLink: "/receitas/esportiva"                      // ou para onde quiser navegar
+    }
   },
 };
 
