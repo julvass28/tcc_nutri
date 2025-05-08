@@ -502,24 +502,28 @@ body {
 
 
 
-@media (max-width: 640px) {
+@media (max-width: 1023px) {
 
-    .bloco-inicial{
-        height: 40vh;
-        width: 100%;
+    .bloco-inicial {
+       height: 20vh;
+       mask-size: cover;
+      
+    
+    }
+        
+    .botao-inicial{
+        display: none;
     }
 
-    .imagem-com-gradiente{
-        width: 43%;
-    }
+   
 
     .bloco-texto{
-        font-size: 9px;
-        right: 4vh;
+        font-size: 7px;
+        right: 2vh;
         max-width: 200px;
-          font-weight: 700;
+          text-align: end;
         line-height: 1.3;
-        top: 45%;
+        top: 40%;
     }
     
 }
@@ -538,7 +542,7 @@ body {
     justify-content: flex-start;
     mask-image: url('../assets/img_svg/onda.svg');
     mask-repeat: no-repeat;
-    mask-size: cover;
+  
     -webkit-mask-image: url('../assets/img_svg/onda.svg');
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-size: cover;
