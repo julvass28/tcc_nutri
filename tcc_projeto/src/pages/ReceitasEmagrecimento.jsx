@@ -65,7 +65,7 @@ function ReceitasEmagrecimento() {
         <div className="pudim-conteudo">
           <h2>Suco Detox de Couve com Limão</h2>
           <p>Esse suco é excelente para iniciar o dia, pois ajuda a desintoxicar o organismo, melhora a digestão e auxilia na eliminação de líquidos retidos. A couve é rica em fibras e antioxidantes, enquanto o limão contribui para a melhora da imunidade e do metabolismo.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+            <Link to="/Suco" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -74,7 +74,7 @@ function ReceitasEmagrecimento() {
         <div className="pudim-conteudo">
           <h2>Salada de Quinoa com Frango e Abacate</h2>
           <p>Essa salada é uma combinação perfeita de proteínas, gorduras boas e fibras, promovendo saciedade e fornecendo energia sem excessos calóricos. A quinoa é um superalimento rico em aminoácidos essenciais, e o abacate adiciona cremosidade e nutrientes essenciais.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+              <Link to="/SaladaDeQuinoa" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -83,7 +83,7 @@ function ReceitasEmagrecimento() {
         <div className="pudim-conteudo">
           <h2>Pão Low Carb de Linhaça</h2>
           <p>Uma alternativa saudável ao pão tradicional, sem farinha refinada e rica em fibras e proteínas. A linhaça auxilia na regulação do intestino e ajuda a prolongar a saciedade, sendo ideal para quem busca perder peso.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+             <Link to="/PaoLowCarb" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ function ReceitasEmagrecimento() {
         <div className="pudim-conteudo">
           <h2>Omelete de Claras com Espinafre </h2>
           <p>Uma opção proteica e de baixa caloria, perfeita para quem busca emagrecimento sem perder massa muscular. As claras são fonte de proteína pura, e o espinafre adiciona fibras, ferro e antioxidantes, auxiliando na saúde geral.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+             <Link to="/Omelete" className="leia-mais">Leia mais</Link>
         </div>
       </div>
     </div>

@@ -65,7 +65,7 @@ function ReceitasClinicas() {
         <div className="pudim-conteudo">
           <h2>Pudim de Chia</h2>
           <p>O pudim de chia é uma sobremesa saudável feita com sementes de chia, leite (ou leite vegetal) e adoçante. As sementes formam uma textura cremosa, rica em fibras, ômega-3 e proteínas. É uma opção nutritiva e versátil, podendo ser complementado com frutas ou granola.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+          <Link to="/pudim-de-chia" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -74,7 +74,7 @@ function ReceitasClinicas() {
         <div className="pudim-conteudo">
           <h2>Chai Latte</h2>
           <p>O chai latte é uma bebida de origem indiana feita com chá preto, especiarias (como canela e gengibre) e leite espumado. É cremosa, aromática e conhecida por seu sabor picante e reconfortante.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+          <Link to="/ChaiLatte" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -83,7 +83,7 @@ function ReceitasClinicas() {
         <div className="pudim-conteudo">
           <h2>Crepioca</h2>
           <p>A crepioca é uma mistura de tapioca e ovo, rápida e prática de fazer. É uma opção leve e versátil, podendo ser recheada com o que você preferir, como queijo, frango, legumes ou até doces.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+          <Link to="/Crepioca" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ function ReceitasClinicas() {
         <div className="pudim-conteudo">
           <h2>Chips de Batata-Doce Assados</h2>
           <p>Os chips de batata-doce assados são uma alternativa saudável e crocante aos salgadinhos tradicionais. Feitos no forno com azeite e temperos, são uma ótima opção de snack que combina sabor e nutrientes em um único prato.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+          <Link to="/ChipsDeBatata" className="leia-mais">Leia mais</Link>
         </div>
       </div>
     </div>

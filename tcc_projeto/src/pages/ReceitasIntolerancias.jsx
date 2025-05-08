@@ -66,7 +66,7 @@ function ReceitasIntolerancias() {
           <h2>Leite de Amêndoas Caseiro</h2>
           <p className="indicacao">Indicação: Intolerância à lactose</p> 
           <p>Uma alternativa vegetal ao leite de vaca, ideal para quem não pode consumir laticínios. Rico em gorduras boas e sem aditivos químicos.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+       <Link to="/LeiteDeAmendoas" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -76,7 +76,7 @@ function ReceitasIntolerancias() {
           <h2>Pão de Queijo Vegano</h2>
           <p className="indicacao">Indicação:  Intolerância ao glúten e à lactose</p> 
           <p>Uma versão saudável do pão de queijo tradicional, sem queijo e sem farinha de trigo, mas com a mesma textura macia e saborosa.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+          <Link to="/PaoDeQueijo" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -86,7 +86,7 @@ function ReceitasIntolerancias() {
           <h2>Bolo de Cacau Sem Ovo e Sem Leite</h2>
           <p className="indicacao">Indicação: Intolerância à lactose e alergia ao ovo</p> 
           <p>Um bolo fofinho e saboroso feito sem ovos ou leite, perfeito para quem tem restrições alimentares, mas não abre mão de um doce saudável.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+          <Link to="/BoloDeCacau" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -96,7 +96,7 @@ function ReceitasIntolerancias() {
           <h2>Panqueca de Banana  </h2>
           <p className="indicacao">Indicação: Intolerância ao glúten e à lactose</p> 
           <p>Essa panqueca é uma ótima opção para um café da manhã nutritivo e leve. Feita sem farinha de trigo e sem leite, é rica em fibras e energia natural da banana.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+          <Link to="/PanquecaDeBanana" className="leia-mais">Leia mais</Link>
         </div>
       </div>
     </div>

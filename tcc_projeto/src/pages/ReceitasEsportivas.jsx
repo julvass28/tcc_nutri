@@ -65,7 +65,7 @@ function ReceitasEsportivas() {
         <div className="pudim-conteudo">
           <h2>Smoothie Energético de Banana e Pasta de Amendoim</h2>
           <p>Um smoothie nutritivo e cremoso, perfeito para fornecer energia antes do treino ou recuperar os músculos após atividades intensas. A banana garante carboidratos naturais, enquanto a pasta de amendoim adiciona proteínas e gorduras boas.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+              <Link to="/SmoothieEnergetico" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -74,7 +74,7 @@ function ReceitasEsportivas() {
         <div className="pudim-conteudo">
           <h2>Barrinha Caseira de Cereal e Castanhas</h2>
           <p>Uma opção natural e saudável para lanches rápidos ou pré-treino. Diferente das versões industrializadas, essa barrinha é rica em fibras, proteínas e gorduras boas, garantindo energia e saciedade.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+             <Link to="/BarrinhaDeCereal" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -83,7 +83,7 @@ function ReceitasEsportivas() {
         <div className="pudim-conteudo">
           <h2>Hambúrguer de Grão-de-Bico</h2>
           <p>O hambúrguer de grão-de-bico é uma opção vegana e saudável, feito com grão-de-bico amassado, especiarias e outros ingredientes. Saboroso e nutritivo, é uma alternativa perfeita para quem busca uma refeição leve e rica em proteínas vegetais.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+              <Link to="/Hamburguer" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
@@ -92,7 +92,7 @@ function ReceitasEsportivas() {
         <div className="pudim-conteudo">
           <h2>Pão de Banana Fit</h2>
           <p>O Pão de Banana Fit é uma opção saudável, feito com bananas maduras, farinha integral e adoçante natural. É rico em fibras, vitaminas e minerais, perfeito para o café da manhã ou lanche. Além de ser fácil de preparar, pode ser feito sem glúten, sendo uma escolha nutritiva e saborosa.</p>
-          <a href="#" className="leia-mais">Leia mais</a>
+              <Link to="/PaoDeBanana" className="leia-mais">Leia mais</Link>
         </div>
       </div>
     </div>

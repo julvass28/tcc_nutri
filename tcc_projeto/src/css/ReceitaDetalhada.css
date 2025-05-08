@@ -1,0 +1,65 @@
+.receita-detalhada {
+    max-width: 700px;
+    margin-left: 2rem; /* alinhado à esquerda */
+    padding: 2rem 1rem;
+    font-family: 'Quicksand', sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  .receita-detalhada h2 {
+    color: #d1868d;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1.2rem;
+  }
+  
+  .receita-detalhada h3 {
+    color: #6d9c6b;
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .receita-detalhada ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+  }
+  
+  .receita-detalhada ul li {
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 0.6rem;
+  }
+  
+  .receita-detalhada ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #333;
+  }
+  
+  .modo-preparo {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 1rem;
+  }
+  
+  .step-icon {
+    color: #6d9c6b;
+    font-size: 1.2rem;
+    margin-top: 2px;
+    min-width: 1.5rem;
+  }
+  
+  
+  
