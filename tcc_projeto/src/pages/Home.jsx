@@ -1,9 +1,10 @@
 //Componentes
 import Header from '../components/Header';
 import Botao from "../components/botao/Botao";
-import Carrosel from "../components/carrosel/carrosel";
+import Carrosel from "../components/carrosel/desktop";
 import Titulo from "../components/titulo/titulo";
 import Formulario from "../components/formulario/formulario";
+import CarroselMobile from '../components/carrosel/mobile';
 
 //Bibliotecas
 import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
@@ -42,36 +43,61 @@ function Home() {
 
             <div className="comeco">
 
-            <div className="bloco-inicial">
-            <div className="imagem-com-gradiente" />
-
-               
-                 <div className="bloco-texto">
-                    <h1>Te ajudo a transformar sua alimentação de forma leve e sem complicações!</h1>
-                    <Botao className='botao-inicial'>Agendar Consulta</Botao>
-                 </div>
-            </div>
+                <div className="bloco-inicial">
+                    <div className="imagem-com-gradiente" />
 
 
-
-
-            <div className="descricao espacamento">
-                <div className="infos">
-                    <img src={foto} alt="" className="foto" />
-                    <h2 className="num">CRN : 37892</h2>
+                    <div className="bloco-texto">
+                        <h1>Te ajudo a transformar sua alimentação de forma leve e sem complicações!</h1>
+                        <Botao className='botao-inicial'>Agendar Consulta</Botao>
+                    </div>
                 </div>
-                <div className="sobre">
-                    <h2 className="primeiro-text">NUTRICIONISTA</h2>
-                    <h1 className="segundo-text">Natália Simanoviski</h1>
-                    <p className="terceiro-text">Cuidado nutricional personalizado para <br /> cada necessidade!</p>
-                    <Botao >Agendar Consulta</Botao>
+
+
+
+
+                <div className="descricao espacamento">
+                    <div className="infos">
+                        <img src={foto} alt="" className="foto" />
+                        <h2 className="num">CRN : 37892</h2>
+                    </div>
+                    <div className="sobre">
+                        <h2 className="primeiro-text">NUTRICIONISTA</h2>
+                        <h1 className="segundo-text">Natália Simanoviski</h1>
+                        <p className="terceiro-text">Cuidado nutricional personalizado para <br /> cada necessidade!</p>
+                        <Botao >Agendar Consulta</Botao>
+                    </div>
                 </div>
             </div>
+
+            <div className="sobre-nutri-mobile espacamento">
+            <div className="foto-nutri">
+                    <img src={foto_nutri} alt="" />
+
+                </div>
+                <div className="infos-dois">
+                    <h2 className="primeiro-text text-small">Olá, eu sou a</h2>
+                    <h2 className="segundo-text text-medium">Nutricionista</h2>
+                    <h2 className="segundo-text text-large">Natália Simanoviski</h2>
+<hr className='mobile-hr' />
+                    <p className="terceiro-text small">Sou nutricionista <span className="color-text"> apaixonada por <br /> transformar 
+                        a alimentação em algo  <br /> leve  e equilibrado.</span> Além
+                        de nutri, <br />  quero ser sua amiga nessa jornada.<br />
+                        Vamos juntos?</p>
+                    <Botao className="btn-dois" text="+Sobre Mim" >+Sobre Mim</Botao>
+                </div>
+
+              
             </div>
+
 
 
             <div className="secao espacamento">
-                <Titulo  texto="Qual o seu objetivo?" />
+                <Titulo texto="Qual o seu objetivo?" />
+
+                
+<div className="carrosel-mobile">
+            <CarroselMobile /></div>
 
                 <div className="categorias">
 
@@ -135,7 +161,7 @@ function Home() {
             </div>
 
             <div className="secao sobre-consulta espacamento">
-                <Titulo  texto="Plano Nutricional Feito Para Você!" />
+                <Titulo texto="Plano Nutricional Feito Para Você!" />
 
                 <div className="planejamento">
 
@@ -216,9 +242,9 @@ function Home() {
                     dados={receitasMock}
 
                 />
-           <div className="btn-receitas">
+                <div className="btn-receitas">
                     <Botao text="Ver Receitas">Ver Receitas</Botao></div>
-                
+
             </div>
 
             <div className="valor espacamento">
@@ -246,10 +272,10 @@ function Home() {
                 </div>
             </div>
 
-<div className="form espacamento">
+            <div className="form espacamento">
 
-            <Formulario />
-</div>
+                <Formulario />
+            </div>
 
 
 

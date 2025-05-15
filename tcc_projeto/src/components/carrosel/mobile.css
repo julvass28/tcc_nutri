@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+
+.carrosel-mobile {
+  width: 100%;
+height: auto;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.card-mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* centraliza o conteúdo verticalmente */
+  align-items: center;
+  /* centraliza o conteúdo horizontalmente */
+  width: 80vw;
+  height: 20vh;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: rgba(221, 183, 172, 1) 0px 2px 12px -2px, rgba(221, 183, 172, 1) 0px 3px 7px -3px;
+
+}
+
+.card-mobile.ativo{
+  background-color: #FDFAF9;
+    transform: translateY(-8px) scale(1.02);}
+
+
+.icone-mob {
+  display: flex;
+  align-items: center;
+
+  justify-content: center;
+  padding-top: 13px;
+}
+
+.icone-mob svg {
+  width: 15vw;
+  height: auto;
+  margin-bottom: 10px;
+
+}
+
+.card-mobile h3 {
+  font-size: 1rem;
+
+  margin-bottom: 5px;
+  color: #454545;
+  font-family: "Lustria", sans-serif;
+  text-align: center;
+}

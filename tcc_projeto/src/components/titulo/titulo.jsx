@@ -1,4 +1,4 @@
-import '../titulo/titulo.css';
+import './titulo.css';
 
 function Titulo({ texto, className = "", subtitulo, mostrarLinha = true }) {
   return (
