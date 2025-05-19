@@ -9,6 +9,12 @@ import CarroselMobile from '../components/carrosel/mobile';
 //Bibliotecas
 import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
+
+
+
 
 
 //Icons
@@ -36,6 +42,19 @@ import { receitasMock } from '../mocks/receitas';
 
 
 function Home() {
+   
+     useEffect(() => {
+  AOS.init({
+    duration: 2500,
+    once: false,
+    disable: false, // <<< garante que NÃO desativa no mobile
+  });
+}, []);
+
+
+
+
+
 
     return (
         <>
@@ -71,7 +90,7 @@ function Home() {
             </div>
 
             <div className="sobre-nutri-mobile espacamento">
-            <div className="foto-nutri">
+                <div className="foto-nutri">
                     <img src={foto_nutri} alt="" />
 
                 </div>
@@ -79,31 +98,29 @@ function Home() {
                     <h2 className="primeiro-text text-small">Olá, eu sou a</h2>
                     <h2 className="segundo-text text-medium">Nutricionista</h2>
                     <h2 className="segundo-text text-large">Natália Simanoviski</h2>
-<hr className='mobile-hr' />
-                    <p className="terceiro-text small">Sou nutricionista <span className="color-text"> apaixonada por <br /> transformar 
+                    <hr className='mobile-hr' />
+                    <p className="terceiro-text small">Sou nutricionista <span className="color-text"> apaixonada por <br /> transformar
                         a alimentação em algo  <br /> leve  e equilibrado.</span> Além
                         de nutri, <br />  quero ser sua amiga nessa jornada.<br />
                         Vamos juntos?</p>
                     <Botao className="btn-dois" text="+Sobre Mim" >+Sobre Mim</Botao>
                 </div>
 
-              
+
             </div>
 
 
+<div className="carrosel-mobile espacamento ">
+          <CarroselMobile titulo="Qual o seu objetivo?" />
 
+            
+            </div>
+            
             <div className="secao espacamento">
                 <Titulo texto="Qual o seu objetivo?" />
 
-                
-<div className="carrosel-mobile">
-            <CarroselMobile /></div>
-
                 <div className="categorias">
-
-
                     <div className="linha">
-
                         <div className="categoria">
                             <Iconclinica className="icone" />
                             <p>Nutrição Clínica</p>
@@ -160,19 +177,19 @@ function Home() {
                 </div>
             </div>
 
-            <div className="secao sobre-consulta espacamento">
+            <div className="sobre-consulta espacamento">
                 <Titulo texto="Plano Nutricional Feito Para Você!" />
 
                 <div className="planejamento">
 
-                    <div className="item">
+                    <div data-aos="fade-up"  data-aos-delay="0" className="item">
                         <div className="img-wrapper">
                             <img src={dieta} alt="" />
                         </div>
                         <p>Dieta Personalizado</p>
                     </div>
 
-                    <div className="item">
+                    <div data-aos="fade-up"  data-aos-delay="150" className="item">
                         <div className="img-wrapper">
                             <img src={acompanhamento} alt="" />
                         </div>
@@ -180,7 +197,7 @@ function Home() {
                     </div>
 
 
-                    <div className="item">
+                    <div data-aos="fade-up"  data-aos-delay="300" className="item">
                         <div className="img-wrapper">
                             <img src={peso} alt="" />
                         </div>
@@ -188,7 +205,7 @@ function Home() {
                     </div>
 
 
-                    <div className="item">
+                    <div data-aos="fade-up"  data-aos-delay="450" className="item">
                         <div className="img-wrapper">
                             <img src={refeicao} alt="" />
                         </div>

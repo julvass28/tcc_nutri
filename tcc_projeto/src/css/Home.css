@@ -20,6 +20,8 @@ body {
 }
 
 
+
+
 .bloco-inicial {
     margin-top: 5px;
     width: 100%;
@@ -259,7 +261,7 @@ body {
     gap: 2vh;
     align-items: center;
     text-align: center;
-    width: 10vw;
+
 
 }
 
@@ -268,8 +270,8 @@ body {
     border: 4px solid #8A8F75;
     padding: 66px;
     display: flex;
-    width: 120px;
-    height: 120px;
+    width: 10vw;
+    height: 16vh;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
@@ -516,7 +518,7 @@ body {
 
 
 
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
 
     .espacamento {
         margin-top: 80px;
@@ -547,6 +549,10 @@ body {
     .descricao {
         display: none;
 
+    }
+
+    .sobre-nutri{
+        display: none;
     }
 
     .sobre-nutri-mobile {
@@ -602,80 +608,32 @@ body {
     .carrosel-mobile{
         display: block;
     }
-    .categorias{
+    .secao{
         display: none;
     }
 
+    .planejamento{
+      flex-direction: column;
+      gap: 30px;
 
+    }
+
+    .item{
+        overflow: hidden;
+        gap: 1vh;
+    }
+
+    .img-wrapper{
+   width: 25vw ;
+   height: 11vh;
+   padding: 22px;
+   border: 3.6px solid #8A8F75;
    
-
-/*
-
-
-.categorias {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 7vh;
+       
+    }
+    .img-wrapper img{
+        width: 50px;
+    }
 
 }
 
-.linha {
-    display: flex;
-    justify-content: center;
-    gap: 6vw;
-}
-
-.categoria {
-    display: flex;
-    gap: 2vw;
-    width: 25vw;
- 
-    height: 20vh;
-
-    align-items: center;
-    border: solid 1.3px #DDB7AC;
-    border-radius: 10px;
-    justify-content: center;
-    font-family: "Lustria", sans-serif;
-    color: #454545;
-    font-weight: 570;
-    font-size: 2.5vh;
-    text-align: center;
-    box-shadow: rgba(221, 183, 172, 0.7) 1.95px 1.95px 2.6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-}
-
-.categoria:hover {
-    background-color: #FDFAF9;
-    transform: translateY(-8px) scale(1.02);
-}
-
-
-.icone {
-    width: 5vw;
-    height: auto;
-}
-
-.categoria p {
-    font-size: 3vh;
-    font-family: "Lustria", sans-serif;
-}
-
-.conteudo-categoria {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    gap: 30px;
-
-}
-
-
-
-.btn-dois {
-    margin: 5vh auto 0 auto;
-    display: block;
-}
-*/}

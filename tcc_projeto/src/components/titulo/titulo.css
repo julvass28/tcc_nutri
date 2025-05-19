@@ -1,11 +1,12 @@
 
-.secao{
+.titulo-principal{
     font-family: "Lustria", sans-serif;
     color: #454545;
     font-size: 2rem;
     text-align: center;
     font-weight: 550;
     margin-bottom: 12px;
+ 
    
    
 }
@@ -39,7 +40,13 @@
 .min-linha{
     width: 25%;
     border-top: 1.5px solid #8A8F75;
+        margin: 0 auto 60px auto;
 
+}
+
+.titulo-principal{
+    font-size: 1.3rem;
+   
 }
 
 }

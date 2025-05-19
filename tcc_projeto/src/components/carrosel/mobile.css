@@ -1,39 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
 
-.carrosel-mobile {
-  width: 100%;
-height: auto;
-  margin: 0 auto;
-  padding: 10px;
-  text-align: center;
-}
 
-.card-mobile {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* centraliza o conteúdo verticalmente */
-  align-items: center;
-  /* centraliza o conteúdo horizontalmente */
-  width: 80vw;
-  height: 20vh;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: rgba(221, 183, 172, 1) 0px 2px 12px -2px, rgba(221, 183, 172, 1) 0px 3px 7px -3px;
 
-}
 
-.card-mobile.ativo{
+
+.card-mobile.clicado {
   background-color: #FDFAF9;
-    transform: translateY(-8px) scale(1.02);}
+  transform: translateY(-8px) scale(1.02);
+
+}
 
 
 .icone-mob {
   display: flex;
   align-items: center;
-
   justify-content: center;
-  padding-top: 13px;
+
 }
 
 .icone-mob svg {
@@ -45,9 +27,97 @@ height: auto;
 
 .card-mobile h3 {
   font-size: 1rem;
-
   margin-bottom: 5px;
   color: #454545;
   font-family: "Lustria", sans-serif;
   text-align: center;
 }
+
+.carrosel-wrapper {
+  padding: 20px 16px;
+  background-color: white;
+  display: block;
+}
+
+
+.slick-list {
+  overflow: visible;
+}
+
+.slick-dots {
+  bottom: -45px;
+}
+
+.card-mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  height: 20vh;
+  border-radius: 15px;
+  box-shadow: rgba(221, 183, 172, 1) 0px 2px 12px -2px, rgba(221, 183, 172, 1) 0px 3px 7px -3px;
+  padding: 30px;
+  border: #DDB7AC 1px solid;
+}
+
+@media (max-width: 411px) {
+
+  .card-mobile {
+    width: 40vw;
+
+  }
+
+  .icone-mob svg {
+    width: 13vw;
+    height: auto;
+    margin-bottom: 2px;
+  }
+
+  .card-mobile h3 {
+    font-size: 0.85rem;
+  }
+
+}
+
+@media (min-width: 412px) and (max-width: 767px) {
+  .card-mobile {
+    width: 40vw;
+  }
+
+
+}
+
+@media (min-width: 768px) and (max-width: 912px) {
+  .card-mobile {
+    width: 32vw;
+    height: 22vh;
+
+
+  }
+
+  .carrosel-wrapper {
+    padding: 20px 79px;
+  }
+}
+
+
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .card-mobile {
+    width: 35vw;
+    height: 22vh;
+  }
+
+  .carrosel-wrapper {
+    padding: 20px 79px;
+  }
+
+}
+
+
+
+
+
+
+
+
