@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* === ESTRUTURA BASE === */
+
+.login-body,
+.criar-conta-body,
+.forgot-password-body {
+  font-family: "Poppins", sans-serif;
+  background-color: #e7e0dd;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.login-container,
+.criar-conta-container,
+.forgot-password-container {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+  width: 100%;
+  max-width: 28rem;
+  padding: 2rem 2.5rem;
+}
+
+/* === TÍTULOS E SUBTÍTULOS === */
+
+.login-title,
+.criar-conta-title,
+.forgot-password-title {
+  font-family: "Lustria", serif;
+  color: #9a9f85;
+  font-size: 1.7rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.login-subtitle,
+.criar-conta-subtitle,
+.forgot-password-subtitle {
+  text-align: center;
+  color: #4a4a4a;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.forgot-password-subtitle:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+/* === BOTÕES GOOGLE/FACEBOOK === */
+
+.login-btn,
+.criar-conta-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border-radius: 0.375rem;
+  padding: 0.75rem 0;
+  font-weight: 500;
+  font-size: 1.125rem;
+  background-color: transparent;
+  color: #c89b9b;
+  border: 1.5px solid #c89b9b;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  transition: box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.login-btn:hover,
+.criar-conta-btn-google:hover,
+.criar-conta-btn-facebook:hover {
+  box-shadow: 0 4px 6px rgb(0 0 0 / 0.15);
+}
+
+.login-btn-google,
+.criar-conta-btn-google {
+  margin-bottom: 1rem;
+}
+
+.login-btn-facebook,
+.criar-conta-btn-facebook {
+  margin-bottom: 2rem;
+}
+
+.login-icon,
+.criar-conta-icon {
+  font-size: 1.5rem;
+}
+
+/* === DIVISOR DE FORMULÁRIO === */
+
+.login-or-container,
+.criar-conta-or-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.login-hr,
+.criar-conta-hr {
+  border: none;
+  border-top: 1px solid #d1d5db;
+  flex-grow: 1;
+}
+
+.login-or-text,
+.criar-conta-or-text {
+  margin: 0 0.75rem;
+  font-weight: 600;
+  color: #4b5563;
+  font-size: 1.125rem;
+  user-select: none;
+}
+
+/* === FORMULÁRIOS === */
+
+.login-form,
+.criar-conta-form,
+.forgot-password-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-input,
+.criar-conta-input,
+.forgot-password-input,
+.criar-conta-input-password {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1.125rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  outline-offset: 2px;
+  font-family: "Poppins", sans-serif;
+}
+
+.login-input:focus,
+.criar-conta-input:focus,
+.forgot-password-input:focus {
+  border-color: #9a9f85;
+  box-shadow: 0 0 0 2px #9a9f85;
+  color: #374151;
+}
+
+/* === SENHA: wrapper + ícone === */
+
+.criar-conta-password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.criar-conta-eye-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  cursor: pointer;
+  user-select: none;
+}
+
+.criar-conta-input-password {
+  padding-right: 2.5rem;
+  margin-bottom: 0;
+}
+
+/* === PLACEHOLDERS E INPUTS === */
+
+input {
+  color: #374151 !important;
+}
+
+input::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}
+
+select.criar-conta-input {
+  color: #9ca3af;
+}
+
+select.criar-conta-input option[value=""] {
+  color: #9ca3af;
+}
+
+input:not([type="date"]):not(:placeholder-shown),
+select.criar-conta-input:valid {
+  color: #374151;
+}
+
+input[type="date"].criar-conta-input {
+  color: #9ca3af;
+}
+
+input[type="date"].criar-conta-input::-webkit-datetime-edit {
+  color: #9ca3af;
+}
+
+input[type="date"].criar-conta-input:focus::-webkit-datetime-edit,
+input[type="date"].criar-conta-input.preenchido::-webkit-datetime-edit,
+input[type="date"].criar-conta-input:-internal-autofill-selected,
+input[type="date"].criar-conta-input:focus,
+input[type="date"].criar-conta-input:valid {
+  color: #374151;
+}
+
+input[type="date"].criar-conta-input:-moz-ui-invalid {
+  color: #9ca3af;
+}
+
+input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
+  filter: grayscale(1) opacity(0.6);
+}
+
+/* === LINKS E BOTÕES === */
+
+.login-forgot-password,
+.login-create-account,
+.criar-conta-login-link,
+.reenviar-link {
+  color: #c89b9b;
+  font-family: "Lustria", serif;
+  font-size: 1.125rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.login-forgot-password {
+  margin-bottom: 1.5rem;
+  width: max-content;
+}
+
+.login-create-account,
+.criar-conta-login-link {
+  text-align: center;
+  display: block;
+  user-select: none;
+}
+
+.reenviar-link {
+  text-align: center;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.reenviar-link.disabled {
+  color: #ccc;
+  pointer-events: none;
+  text-decoration: none;
+}
+
+/* === BOTÕES DE ENVIO === */
+
+.login-submit-btn,
+.criar-conta-submit-btn,
+.forgot-password-submit-btn {
+  background-color: #c89b9b;
+  color: white;
+  font-family: "Lustria", serif;
+  font-size: 1.125rem;
+  padding: 0.75rem 0;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.login-submit-btn:hover,
+.criar-conta-submit-btn:hover,
+.forgot-password-submit-btn:hover {
+  box-shadow: 0 8px 12px rgb(0 0 0 / 0.15);
+}
+
+/* === CÓDIGO DE VERIFICAÇÃO === */
+
+.codigo-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.codigo-digit {
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  font-family: "Lustria", serif;
+  color: #374151;
+  outline: none;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.codigo-digit:focus {
+  border-color: #9a9f85;
+  box-shadow: 0 0 0 2px #9a9f85;
+}
+
+/* === MENSAGEM DE ERRO === */
+
+.erro-texto-container {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease, max-height 0.4s ease;
+  margin-bottom: 0;
+}
+
+.erro-texto-container.visivel {
+  opacity: 1;
+  max-height: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.erro-texto {
+  font-size: 0.875rem;
+  color: #e63946;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.erro-borda {
+  border-color: #d9534f !important;
+  box-shadow: 0 0 0 2px #f2b4b4 !important;
+}
+
+/* === VOLTAR ETAPA (ESQUECI-SENHA) === */
+
+.voltar-etapa-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.voltar-etapa-icone {
+  font-size: 1.25rem;
+  color: #9a9f85;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.voltar-etapa-icone:hover {
+  color: #c89b9b;
+}

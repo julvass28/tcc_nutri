@@ -3,3 +3,16 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+/* cor de fundo SÓ para páginas de login, cadastro e esqueci a senha*/
+body.login-page,
+body.register-page, 
+body.forgot-password-page {
+  background-color: #e7e0dd;
+  min-height: 100vh;
+}
