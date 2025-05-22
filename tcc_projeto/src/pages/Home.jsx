@@ -111,9 +111,20 @@ function Home() {
 
 
 <div className="carrosel-mobile espacamento ">
-          <CarroselMobile titulo="Qual o seu objetivo?" />
 
-            
+    
+<CarroselMobile
+  titulo="Qual o seu objetivo?"
+  tipo="servicos"
+  dados={[
+    { id: 1, icone: <Iconclinica />, titulo: "Nutrição Clínica" },
+    { id: 2, icone: <Iconpediatria />, titulo: "Nutrição Pediátrica" },
+    { id: 3, icone: <Iconesportiva />, titulo: "Nutrição Esportiva" },
+    { id: 4, icone: <Iconemagrecer />, titulo: "Emagrecimento e Obesidade" },
+    { id: 5, icone: <Iconintolerancia />, titulo: "Intolerâncias Alimentares" },
+  ]}
+/>
+        
             </div>
             
             <div className="secao espacamento">
@@ -231,26 +242,26 @@ function Home() {
                 </div>
             </div>
 
-            <div className="dicas espacamento">
-                <img className="imagem-container" src={escolhas} alt="" />
+         <div className="dicas espacamento">
+    <div className="imagem-container">
+        <img src={escolhas} alt="" />
+    </div>
+    <div className="conteudo">
+        <div className="linha-texto">
+            <Titulo texto="Em dúvida do que escolher?" mostrarLinha={false} />
+            <p>
+                Saiba exatamente o que comer (e o que evitar) em qualquer lugar!<br />
+                Descubra as melhores e piores opções em restaurantes, fast foods <br />
+                e muito mais. Com dicassimples e práticas, você pode se alimentar<br />
+                melhor sem abrir mão do sabor.
+            </p>
+            <h3>Faça escolhas mais saudáveis todos os dias!</h3>
+        </div>
 
+        <Botao className="botao-verde" text="Ver Dicas">Ver Dicas</Botao>
+    </div>
+</div>
 
-                <div className="conteudo">
-                    <div className="linha-texto">
-                        <Titulo texto="Em dúvida do que escolher?" mostrarLinha={false} />
-                        <p>
-                            Saiba exatamente o que comer (e o que evitar) em qualquer lugar!<br />
-                            Descubra as melhores e piores opções em restaurantes, fast foods <br />
-                            e muito mais. Com dicassimples e práticas, você pode se alimentar<br />
-                            melhor sem abrir mão do sabor.
-                        </p>
-                        <h3>Faça escolhas mais saudáveis todos os dias!</h3>
-                    </div>
-
-                    <Botao className="botao-verde" text="Ver Dicas" >Ver Dicas</Botao>
-
-                </div>
-            </div>
 
             <div className="Receitas espacamento">
                 <Carrosel
@@ -261,6 +272,10 @@ function Home() {
                 />
                 <div className="btn-receitas">
                     <Botao text="Ver Receitas">Ver Receitas</Botao></div>
+
+            </div>
+
+            <div className="receitas-mobile">
 
             </div>
 

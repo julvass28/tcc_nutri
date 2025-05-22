@@ -19,7 +19,7 @@
 }
 
 .next-arrow {
-    right: -50px;
+    right: -30px;
 }
 
 .prev-arrow {
@@ -27,8 +27,9 @@
 }
 
 .receitas .slick-slider {
-    max-width: 1300px;
+    max-width: 80vw;
     width: 100%;
+   
 
 
 }
@@ -52,8 +53,10 @@
     position: relative;
     width: 400px;
     margin-top: 50px;
+    overflow: hidden;
 
 }
+
 
 
 .card-receita:hover {

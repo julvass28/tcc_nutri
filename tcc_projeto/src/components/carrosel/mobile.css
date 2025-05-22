@@ -1,54 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
 
-
-
-
-
-.card-mobile.clicado {
-  background-color: #FDFAF9;
-  transform: translateY(-8px) scale(1.02);
-
-}
-
-
-.icone-mob {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-
-.icone-mob svg {
-  width: 15vw;
-  height: auto;
-  margin-bottom: 10px;
-
-}
-
-.card-mobile h3 {
-  font-size: 1rem;
-  margin-bottom: 5px;
-  color: #454545;
-  font-family: "Lustria", sans-serif;
-  text-align: center;
-}
-
-.carrosel-wrapper {
+.carrosel-wrapper.servicos {
   padding: 20px 16px;
   background-color: white;
   display: block;
 }
 
-
-.slick-list {
-  overflow: visible;
-}
-
-.slick-dots {
-  bottom: -45px;
-}
-
-.card-mobile {
+.card-mobile.servicos {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,62 +19,83 @@
   border: #DDB7AC 1px solid;
 }
 
+.card-mobile.clicado.servicos {
+  background-color: #FDFAF9;
+  transform: translateY(-8px) scale(1.02);
+}
+
+.icone-mob.servicos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icone-mob.servicos svg {
+  width: 15vw;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.card-mobile.servicos h3 {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #454545;
+  font-family: "Lustria", sans-serif;
+  text-align: center;
+}
+
+/* slick custom */
+.slick-list {
+  overflow: visible;
+}
+
+.slick-dots {
+  bottom: -45px;
+}
+
+/* Responsividade */
 @media (max-width: 411px) {
-
-  .card-mobile {
+  .card-mobile.servicos {
     width: 40vw;
-
   }
 
-  .icone-mob svg {
+  .icone-mob.servicos svg {
     width: 13vw;
-    height: auto;
     margin-bottom: 2px;
   }
 
-  .card-mobile h3 {
+  .card-mobile.servicos h3 {
     font-size: 0.85rem;
   }
-
 }
 
 @media (min-width: 412px) and (max-width: 767px) {
-  .card-mobile {
+  .card-mobile.servicos {
     width: 40vw;
   }
-
-
 }
 
 @media (min-width: 768px) and (max-width: 912px) {
-  .card-mobile {
+  .card-mobile.servicos {
     width: 32vw;
     height: 22vh;
-
-
   }
 
-  .carrosel-wrapper {
+  .carrosel-wrapper.servicos {
     padding: 20px 79px;
   }
 }
 
-
 @media (min-width: 1024px) and (max-width: 1280px) {
-  .card-mobile {
+  .card-mobile.servicos {
     width: 35vw;
     height: 22vh;
   }
 
-  .carrosel-wrapper {
+  .carrosel-wrapper.servicos {
     padding: 20px 79px;
   }
-
 }
-
-
-
-
 
 
 

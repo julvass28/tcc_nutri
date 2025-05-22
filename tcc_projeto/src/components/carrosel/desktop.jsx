@@ -45,13 +45,16 @@ function Carrosel({ titulo, subtitulo, dados }) {
       <Titulo texto={titulo} mostrarLinha={false} />
       <p>{subtitulo}</p>
       <Slider {...settings}>
+      
         {conteudo.map((item) => (
+           
           <div className="card-receita" key={item.id}>
             <img src={item.imagem} alt={item.nome} className="img-receita" />
             <div className="sobre-receita">
               <h3>{item.nome}</h3>
             </div>
           </div>
+        
         ))}
       </Slider>
     </div>

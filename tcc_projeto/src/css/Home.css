@@ -320,7 +320,7 @@ body {
     gap: 15px;
     font-family: "Poppins", sans-serif;
     color: #454545;
-    font-size: 20px;
+    font-size: 1.3rem;
     margin: 25px 0;
 }
 
@@ -331,7 +331,7 @@ body {
 }
 
 .icone-dois {
-    width: 30px;
+    width: 2vw;
     height: auto;
     color: #454545;
 }
@@ -339,7 +339,6 @@ body {
 .dicas {
     background-color: #E1E3DC;
     width: 100%;
-
     display: flex;
     justify-content: center;
     gap: 8vw;
@@ -374,14 +373,18 @@ body {
     height: auto;
     margin-top: 3vh;
     overflow: hidden;
+      filter: drop-shadow(0px 2px 8px rgba(99, 99, 99, 0.2));
 
 }
 
 .imagem-container img {
-    width: 420px;
+    width: 100%;
     height: auto;
-    filter: drop-shadow(0px 2px 8px rgba(99, 99, 99, 0.2));
+   
 }
+
+
+
 
 .conteudo {
     display: flex;
@@ -635,5 +638,86 @@ body {
         width: 50px;
     }
 
+   .topic{
+    width: 95vw;
+
+   }
+   
+   .icone-dois{
+    width:5vw ;
+   }
+
+   .topicos p{
+    font-size: 0.95rem;
+   
+   }
+
+   .dicas{
+    flex-direction: column;
+    height: auto;
+   }
+   .imagem-container {
+width: 50vw;
+height: auto;
+
+   }
+
+   .Receitas{
+    display: none;
+   }
+
+
 }
+/*
+.dicas {
+    background-color: #E1E3DC;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    gap: 8vw;
+    align-items: center;
+    height: 60vh;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    overflow: hidden;
+}
+
+.linha-texto {
+    max-width: 60vw;
+    margin-bottom: 2vh;
+}
+
+.linha-texto p {
+    font-family: "Lustria", sans-serif;
+    font-size: 17px;
+    margin-bottom: 2px;
+    margin-top: 30px;
+}
+
+.conteudo h3 {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    color: #454545;
+
+}
+
+.imagem-container {
+    width: 30vw;
+    display: flex;
+    height: auto;
+    margin-top: 3vh;
+    overflow: hidden;
+
+}
+
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 700px;
+}
+*/
 
