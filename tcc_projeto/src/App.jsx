@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
+import Faq from './pages/faq_contato.jsx';
 import PaginaRota from './pages/PaginaRota';
 import '@fortawesome/fontawesome-free/css/all.css';
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Register />} />
         <Route path="/esqueci-senha" element={<ForgotPassword />} />
+        <Route path="/duvidas-frequentes" element={<Faq />} />
         <Route path="/especialidade/:tipo" element={<PaginaRota />} />
         </Routes>
 
