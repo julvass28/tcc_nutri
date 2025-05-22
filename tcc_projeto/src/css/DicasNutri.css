@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Container principal */
+.dica-nutri-container {
+  background-color: #fff;
+  color: #6B6B6B;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Lustria', serif;
+}
+
+/* Título */
+.dica-nutri-titulo {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 32px;
+  margin-top: 50px;
+  
+}
+
+.dica-nutri-titulo h1 {
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 1.2;
+  color: #454545;
+  margin: 0 0 4px 0;
+  font-family: 'Lustria', serif;
+}
+
+.dica-nutri-titulo p {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.3;
+  margin: 0;
+  padding-top: 5px;
+  color: #454545;
+  font-family: 'Lustria', serif;
+}
+
+/* Navegação */
+.dica-nutri-nav {
+  margin: 0 auto;
+  padding: 6px 12px;
+  max-width: 1000px;
+  width: 100%;
+  background-color: #E6E6D9;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6B6B6B;
+  user-select: none;
+  box-shadow: 0 4px 4px rgba(201, 183, 169, 0.2);
+}
+
+.dica-nutri-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 6px;
+  color: #6B6B6B;
+  font-family: 'Lustria', serif;
+}
+
+.dica-nutri-btn svg, .dica-nutri-btn i {
+  font-size: 25px;
+  
+}
+
+.dica-nutri-btn.active {
+  background-color: #F4EFEC;
+  border: 1px solid #EBD6CD;
+}
+
+.dica-nutri-btn:not(.active):hover {
+  background-color: #D9D9C6;
+}
+
+/* Conteúdo principal */
+.dica-nutri-main {
+  max-width: 780px;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-top: 70px;
+}
+
+.dica-nutri-main > p {
+  margin-bottom: 70px;
+   color: #6B6B6B;
+  font-family: 'Lustria', serif;
+}
+
+/* Títulos de seção */
+.dica-nutri-section-title {
+  font-weight: 600;
+  font-size: 20px;
+  color: #8B8B7B;
+  margin: 0 0 62px 0;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Seções */
+.dica-nutri-options,
+.dica-nutri-avoid,
+.dica-nutri-tips {
+  margin-bottom: 48px;
+ 
+}
+
+/* Cards */
+.dica-nutri-card {
+  border-radius: 6px;
+  border: 3px solid #EBD6CD;
+  padding: 25px;
+  margin-bottom: 35px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  box-shadow: 0 4px 4px rgba(201, 183, 169, 0.2);
+}
+
+.dica-nutri-options .dica-nutri-card {
+  border-color: #DDB7AC;
+}
+
+.dica-nutri-tips .dica-nutri-card {
+  border-color: #DDB7AC;
+  line-height: 1.3;
+}
+
+.dica-nutri-avoid .dica-nutri-card {
+  border-color: #8A8F75;
+  line-height: 1.3;
+}
+
+.dica-nutri-tips .dica-nutri-card {
+  border-color: #DDB7AC;
+}
+
+.dica-nutri-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  object-fit: cover;
+  margin-right: 16px;
+}
+
+.dica-nutri-card p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.3;
+  font-family: 'Poppins', sans-serif;
+}
+
+.dica-nutri-card strong {
+  font-weight: 600;
+}
+
+/* Rodapé e botão */
+.dica-nutri-footer {
+  font-size: 20px;
+  font-weight: 400;
+  color: #8B8B7B;
+  margin-top: 100px;
+  margin-bottom: 40px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  font-family: 'Lustria', serif;
+}
+
+.dica-nutri-btn-agendar {
+  background-color: #C9B7A9;
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  border: none;
+  border-radius: 9999px;
+  padding: 6px 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 60px;
+  font-family: 'Lustria', serif;
+}
+
+.dica-nutri-btn-agendar:hover {
+  background-color: #b3a295;
+}
+
+/* Divider */
+.dica-nutri-divider {
+  width: 150px;
+  height: 1.5px;
+  background-color: #8A8F75;
+  border: none;
+  margin: 16px auto 0 auto;
+}
+
+/* Responsividade */ 
+@media (min-width: 640px) {
+  body {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  body {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+
+

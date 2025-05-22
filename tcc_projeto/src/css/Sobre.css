@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+
+html, body {
+  /* aplica Lustria em tudo */
+  font-family: 'Lustria', serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* remove scroll horizontal */
+}
+
+.sobre-main {
+  width: 100%;
+  background-color: #E1E3DC;
+}
+
+/* Top Section */
+.sobre-top-section {
+  position: relative;
+  background-color: #bec3b5;
+  padding: 1rem 6rem 5rem; /* ajusta padding interno */
+}
+
+.curved-bg-container {
+  height: 1rem; /* curva mais profunda */
+}
+
+/* Cards */
+.cards-container {
+  position: relative;
+  width: min(12rem, 90%);    /* responsivo em telas <370 */
+  height: calc((15/12) * min(12rem, 90%));
+  margin: 0 auto;            /* sempre centraliza */
+}
+
+/* Text + títulos */
+.sobre-top-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+@media (min-width: 768px) {
+  .sobre-top-content {
+    grid-template-columns: auto 1fr;
+    text-align: left;
+    align-items: center;
+  }
+}
+
+.sobre-subtitle {
+  font-size: 1.5rem;    /* antes 1.125rem */
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .sobre-subtitle {
+    font-size: 1.75rem; /* ainda maior em desktop */
+  }
+}
+
+/* espaçamento entre blocos de texto */
+.sobre-paragraph {
+  margin-bottom: 2rem;  
+
+}
+.sobre-list {
+  margin-bottom: 2rem;
+}
+.sobre-areas {
+  margin-bottom: 2rem;
+}
+/* Wrapper for photo + white card */
+.cards-container {
+  position: relative;
+  width: 12rem;
+  height: 15rem;
+  margin: 0 auto;
+}
+
+
+.white-card {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 0.125rem;
+}
+
+.photo-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 12rem;
+  height: 15rem;
+  background: #d9b5ad;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 0.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* Text */
+.sobre-text {
+  color: #3f3f3f;
+}
+.sobre-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+
+@media (min-width: 768px) {
+  .sobre-title { font-size: 2rem; }
+}
+.sobre-divider {
+  width: 5rem;
+  border-bottom: 2px solid #a3ad97;
+  margin: 0.75rem auto;
+}
+@media (min-width: 768px) {
+  .sobre-divider { margin: 0; }
+}
+.sobre-intro {
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 24rem;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .sobre-intro { font-size: 1.125rem; margin: 0; }
+}
+.sobre-highlight {
+  font-weight: 600;
+  font-style: italic;
+  color: #8A8F75;
+}
+
+.sobre-content {
+  padding: 3rem 1rem 3rem 1rem;
+  color: #3f3f3f;
+}
+.sobre-article {
+  max-width: 48rem;
+  margin: 0 auto;
+}
+.sobre-subtitle {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.sobre-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  fill: currentColor;
+}
+
+.arrow-icon { color: #a3ad97; }
+.sobre-paragraph {
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.sobre-list {
+  list-style: disc inside;
+  margin-bottom: 2.5rem;
+  max-width: 48rem;
+  line-height: 1.75;
+}
+.sobre-areas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 1.5rem;
+  max-width: 48rem;
+  margin: 0 auto 3rem;
+}
+.sobre-highlight-alt {
+  font-style: italic;
+  color: #a3ad97;
+}
+
+
+@media (min-width: 768px) {
+  .sobre-divider {
+    margin: 0 0 1rem 0;  /* fica logo abaixo do título, alinhado à esquerda */
+  }
+  .sobre-content{
+ padding: 3rem 2rem 3rem 1rem;
+  }
+    .sobre-subtitle { 
+      font-size: 1.5rem; 
+    }
+    
+}
+/* centraliza tudo em telas bem pequenas */
+@media (max-width: 480px) {
+  .sobre-content,
+  .sobre-article {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  .sobre-subtitle {
+    justify-content: center;
+  }
+}
+
+/* correção para telas abaixo de 370px */
+@media (max-width: 370px) {
+  .sobre-top-section {
+    padding: 1rem 0.5rem 6rem;
+  }
+  .sobre-intro {
+    max-width: 100%;
+  }
+  .cards-container {
+    width: 90%;
+    height: auto;
+  }
+}
+
