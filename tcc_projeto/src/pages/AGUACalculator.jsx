@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "../css/IMCeAgua.css";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { IoMdInformationCircle } from "react-icons/io";
 import { MdBalance } from "react-icons/md";
 import { LuGlassWater } from "react-icons/lu";
 import { PiForkKnifeFill } from "react-icons/pi";
@@ -21,13 +20,9 @@ function AGUACalculator() {
         const novosErros = {}
         if (!idade) novosErros.idade = true
         if (!peso) novosErros.peso = true
-
         setErros(novosErros)
-
         if (Object.keys(novosErros).length > 0) return;
-
         let ml = 0
-
         if (idade <= 8) {
             ml = 50
         } else if (idade <= 18) {
@@ -39,14 +34,10 @@ function AGUACalculator() {
         } else {
             ml = 25
         }
-
         const totalMl = peso * ml
         const totalLitros = (totalMl / 1000).toFixed(2)
-
         setMlTotal(totalMl)
         setAguaLitros(totalLitros)
-
-
     }
 
     function reCalcular() {
