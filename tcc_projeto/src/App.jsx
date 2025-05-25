@@ -13,13 +13,13 @@ function App() {
   return (
     <>
       <Router>
-        {/* <Header /> */}
-        {/* <IMCCalculator /> */}
+       <Header /> 
+       {/* <IMCCalculator /> */}
         
         <Routes>
         <Route path="/especialidade/:tipo" element={<PaginaRota />} />
         </Routes>
-        {/* <Footer /> */}
+       <Footer />
       </Router>
     </>
   )
