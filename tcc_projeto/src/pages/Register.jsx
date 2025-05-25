@@ -35,8 +35,17 @@ export default function CriarConta() {
 
     if (formData.senha !== formData.confirmarSenha) return;
 
-    console.log("Dados para enviar ao backend:", formData);
-    // 🔗 Backend: envio do formulário de cadastro com os dados preenchidos
+    fetch("http://localhost:3001/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        navigate("/login");
+      })
+      .catch((err) => console.error("Erro ao registrar:", err));
 
     navigate("/login"); // redireciona após envio
   };
@@ -96,9 +105,8 @@ export default function CriarConta() {
               required
               value={formData.confirmarSenha}
               onChange={handleChange}
-              className={`criar-conta-input criar-conta-input-password ${
-                formData.confirmarSenha && formData.senha !== formData.confirmarSenha ? "erro-borda" : ""
-              }`}
+              className={`criar-conta-input criar-conta-input-password ${formData.confirmarSenha && formData.senha !== formData.confirmarSenha ? "erro-borda" : ""
+                }`}
             />
             <i
               className={`fas ${mostrarConfirmarSenha ? "fa-eye-slash" : "fa-eye"} criar-conta-eye-icon`}
