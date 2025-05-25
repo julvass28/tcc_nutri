@@ -1,0 +1,519 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lustria&family=Montserrat:ital,wght@0,700;1,700&display=swap" rel="stylesheet');
+
+
+
+.imc-container {
+  max-width: 90%;
+  margin: 5vw auto;
+  border-radius: 10px;
+  font-family: 'Poppins';
+  display: flex;
+  flex-direction: column;
+  color: #454545;
+}
+
+#titulo-calculadora {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1vw;
+  color: #454545;
+  font-weight: 570;
+}
+
+.titulo-mais-icone {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1vw;
+}
+
+#container-calculator-icon {
+  background-color: #F4EFEC;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  border-radius: 8px;
+  width: 3.3vw;
+  height: 3.3vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1vw;
+}
+
+#img-calculator-icon {
+  width: 2.7vw;
+  height: 2.7vw;
+  padding: 0.1vw;
+  color: #8A8F75;
+}
+
+.resultado-informacoes {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1vw;
+}
+
+.text-resultado {
+  border-bottom: 1px solid rgb(216, 216, 216);
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 2vw;
+
+}
+
+.text-resultado h1 {
+  font-size: 1.4rem;
+  margin-bottom: 1vw;
+  font-weight: 500;
+}
+
+#text-titulo-calculadora {
+  font-weight: 400;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 100px;
+  color: #454545;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+.input-group {
+  margin-bottom: 1.5vw;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.3vw;
+
+}
+
+.input-group input {
+  width: 100%;
+  padding: 1vw;
+  border-radius: 10px;
+
+}
+
+.info-imc-container.info-pag-imc {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1vw;
+}
+
+.info-imc-container.info-pag-agua {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1vw;
+  width: 50%;
+  margin-left: 25%;
+}
+
+#sexo-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  width: 17vw;
+  height: 7vw;
+  padding: 2vw;
+  border-radius: 10px;
+}
+
+#sexo-buttons button {
+  width: 7vw;
+  height: 2.8vw;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  background-color: #F4EFEC;
+  cursor: pointer;
+  font-weight: medium;
+  transition: background-color 0.3s;
+}
+
+#label-sexo-button {
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  width: 6vw;
+  margin-left: 5.5vw;
+  padding: 0.3vw;
+  border-radius: 5px;
+}
+
+#sexo-buttons button:hover {
+  background-color: #8a8f75;
+  color: #F4EFEC;
+}
+
+#sexo-buttons button:active {
+  background-color: #727272;
+  color: #F4EFEC;
+}
+
+#sexo-buttons button.active {
+  background-color: #D1A0A0;
+  color: #F4EFEC;
+}
+
+
+.calcular-btn.btn-pagina-imc {
+  background-color: #D1A0A0;
+  border-radius: 8.85px;
+  border: 0;
+  box-shadow: rgba(87, 87, 87, 0.5) 0 -1px 3px 0 inset, rgba(255, 255, 255, 0.1) 0 3px 6px 0;
+  color: #454545;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: 18vw;
+  height: 3.8vw;
+  transition: all .4s cubic-bezier(.22, .61, .36, 1);
+}
+
+.calcular-btn.btn-pagina-imc:hover {
+  background-color: #8A8F75;
+  color: #F4EFEC;
+  transform: translateY(-2px);
+}
+
+.calcular-btn.btn-pagina-agua {
+  background-color: #D1A0A0;
+  border-radius: 8.85px;
+  border: 0;
+  box-shadow: rgba(87, 87, 87, 0.5) 0 -1px 3px 0 inset, rgba(255, 255, 255, 0.1) 0 3px 6px 0;
+  color: #454545;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  width: 250px;
+  height: 50px;
+  padding: 16px;
+  transition: all .4s cubic-bezier(.22, .61, .36, 1);
+}
+
+.calcular-btn.btn-pagina-agua:hover {
+  background-color: #8A8F75;
+  color: #F4EFEC;
+  transform: translateY(-2px);
+}
+
+.resultado {
+  padding: 1vw;
+  margin-top: 1vw;
+}
+
+.tabela-imc {
+ 
+  margin-top: 3%;
+  border-collapse: collapse;
+  margin-bottom: 0%;
+  width: 100%;
+  
+
+}
+
+.tabela-imc th,
+.tabela-imc td {
+  border: 1px solid #eee;
+  padding: 1vw;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.tabela-imc th {
+  background-color: #ffffff;
+  border: none;
+}
+
+.tabela-imc tr.destaque {
+  font-weight: 500;
+  background-color: #8A8F75;
+  color: #ffffff;
+  border: 2px solid #000000;
+}
+
+.abaixo {
+  background-color: #ffffff;
+}
+
+.normal {
+  background-color: #eaeaea;
+}
+
+.sobrepeso {
+  background-color: #ffffff;
+}
+
+.obesidade1 {
+  background-color: #eaeaea;
+}
+
+.obesidade2 {
+  background-color: #fff
+}
+
+.obesidade3 {
+  background-color: #eaeaea;
+}
+
+.texto-explicativo.pagina-imc{
+  margin-top: 2%;
+  background-color: #fff9f9;
+  padding: 1%;
+  border-left: 5px solid #D1A0A0;
+  border-radius: 7px;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+.texto-explicativo.pagina-agua{
+  margin-top: 2%;
+  background-color: #f7ffd6;
+  padding: 15px;
+  border-left: 5px solid #8A8F75;
+  border-radius: 7px;
+  color: #444;
+  font-size: 0.7rem;
+}
+
+.info-paragrafos {
+  font-size: 0.7rem;
+  color: #454545;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: justify;
+  margin-bottom: 1vw;
+
+}
+
+#legenda-tabela {
+  margin-bottom: 15px;
+  font-style: italic;
+  color: #929292;
+  display: flex;
+  align-items: center;
+  margin-top: 1vw;
+}
+
+#info {
+  color: #8A8F75;
+  margin-right: 0.5vw;
+}
+
+.recalcular-btn {
+  background-color: #D1A0A0;
+  border-radius: 8.85px;
+  border: 0;
+  box-shadow: rgba(87, 87, 87, 0.5) 0 -1px 3px 0 inset, rgba(255, 255, 255, 0.1) 0 3px 6px 0;
+  color: #454545;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  width: 17vw;
+  height: 3.7vw;
+  transition: all .4s cubic-bezier(.22, .61, .36, 1);
+  margin-top: 3vw;
+
+
+}
+
+.recalcular-btn:hover {
+  background-color: #8A8F75;
+  color: #F4EFEC;
+  transform: translateY(-2px);
+}
+
+.input-group.erro input {
+  box-shadow: #ff5f5f 0px 0.5px 1.5px;
+}
+
+.input-group.erro .sexo-buttons button {
+  box-shadow: #ff5f5f 0px 0.5px 1.5px;
+}
+
+.mensagem-erro {
+  color: #ff5f5f;
+  font-size: 0.6em;
+  margin-top: 1px;
+  display: block;
+}
+
+
+#div-geral {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+#input-idade {
+  all: unset;
+  width: 22%;
+  background-color: #F4EFEC;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #454545;
+}
+
+#input-altura {
+  all: unset;
+  width: 22%;
+  background-color: #F4EFEC;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #454545;
+}
+
+
+.label {
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #F4EFEC;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  width: 6vw;
+  margin-left: 5.5vw;
+  padding: 0.3vw;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.label.ativa {
+  background-color: #D1A0A0;
+  color: #454545;
+}
+
+#input-peso {
+  all: unset;
+  width: 22%;
+  background-color: #F4EFEC;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #454545;
+}
+
+#label-kg {
+  margin-top: 1vw;
+  margin-left: 0.5vw;
+}
+
+#label-cm {
+  margin-top: 1vw;
+  margin-left: 0.5vw;
+}
+
+#label-anos {
+  margin-top: 1vw;
+  margin-left: 0.5vw;
+}
+
+/* Remove setas no Chrome, Safari, Edge */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F4EFEC;
+  border: 1px solid #ccc;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  width: 17vw;
+  height: 7vw;
+  padding: 2vw;
+  border-radius: 10px;
+}
+
+.input-container.preenchido {
+  border: #e5bcbc solid 1.5px;
+}
+
+.botao-calcular-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3vw;
+}
+
+.section-calculators {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.sectioncal {
+  background-color: #F4EFEC;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  width: 27vw;
+  height: 14vw;
+  padding: 1.3vw;
+  transition: all .4s cubic-bezier(.22, .61, .36, 1);
+}
+
+.sectioncal:hover {
+  border: 1px solid #8A8F75;
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+.sectioncal h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.icon-section {
+  background-color: #F4EFEC;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  border: 0.5px solid #dfdfdf;
+  border-radius: 4px;
+  width: 2.7vw;
+  height: 2.7vw;
+  padding: 0.2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 91%;
+  margin-top: 2%;
+}
+
+.icon-section.correr{
+  padding: 0.4vw;
+}
+
+
+.sectioncal:hover .icon-section {
+  border: 1px solid #8A8F75;
+}
+
+#hum-cal-gasto {
+  color: #8A8F75;
+}
+
+#hum-cal-agua {
+  color: #D1A0A0;
+}
+
+#hum-cal-nutri {
+  color: #454545;
+}
+
+
+#resultadoLitros{
+  font-weight: 500;
+}
+
+#cor-resultadoLitros{
+  color: #D1A0A0;
+}
+
+
+
+
