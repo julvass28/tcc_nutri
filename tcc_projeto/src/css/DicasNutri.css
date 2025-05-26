@@ -250,7 +250,8 @@
     margin: 0;
   }
 }
-/* /////////////////////// */
+
+
 @media (min-width: 690px) and (max-width: 830px) {
   .dica-nutri-container {
     padding: 0 30px; /* Margem nas laterais */
