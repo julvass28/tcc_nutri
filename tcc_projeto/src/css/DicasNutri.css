@@ -57,9 +57,9 @@
   font-weight: 400;
   color: #6B6B6B;
   user-select: none;
-  box-shadow: 0 4px 4px rgba(201, 183, 169, 0.2);
+  
 }
-
+  
 .dica-nutri-btn {
   background: none;
   border: none;
@@ -71,6 +71,7 @@
   border-radius: 6px;
   color: #6B6B6B;
   font-family: 'Lustria', serif;
+  text-decoration: none;
 }
 
 .dica-nutri-btn svg, .dica-nutri-btn i {
@@ -87,9 +88,17 @@
   background-color: #D9D9C6;
 }
 
+.container-nav-dica{
+  width: 100%;
+  background-color:#E6E6D9 ;
+  box-shadow: 0 4px 4px rgba(201, 183, 169, 0.2);
+}
+
+
+
 /* Conteúdo principal */
 .dica-nutri-main {
-  max-width: 780px;
+  max-width: 880px;
   width: 100%;
   text-align: center;
   font-size: 18px;
@@ -125,7 +134,7 @@
 
 /* Cards */
 .dica-nutri-card {
-  border-radius: 6px;
+  border-radius: 10px;
   border: 3px solid #EBD6CD;
   padding: 25px;
   margin-bottom: 35px;
@@ -241,6 +250,13 @@
     margin: 0;
   }
 }
+/* /////////////////////// */
+@media (min-width: 690px) and (max-width: 830px) {
+  .dica-nutri-container {
+    padding: 0 30px; /* Margem nas laterais */
+  }
 
-
-
+  .dica-nutri-main {
+    padding: 0 12px; /* Evita grudar o texto também */
+  }
+}

@@ -30,7 +30,7 @@
   padding: 2rem;
   margin-bottom: 8rem;
   background-color: #EDE9E3;
-  border-bottom: 5px solid #b8b4b4;
+  border-bottom: 3px solid #b8b4b4;
   margin-top: 30px;  
 }
 
@@ -202,7 +202,7 @@
 .o-que-precisa-saber {
   background-color: rgb(8, 10, 1);
   margin-bottom: 50px;
-  border-bottom: 5px solid #b8b4b4;
+  border-bottom: 3px solid #DDB7AC;
   
 }
 .o-que-precisa-saber h2 {
@@ -237,7 +237,7 @@
 .estrategias {
   
   background-color: rgb(250, 244, 243);
-  border-bottom: 5px solid #DDB7AC;
+  border-bottom: 3px solid #cba196;
   
 }
 .estrategias h2 {
@@ -256,7 +256,7 @@
   margin-top: 40px;
   padding: 50px 0;
   background-color: rgb(237, 238, 234);
-  border-bottom: 5px solid #b8b4b4;
+  border-bottom: 3px solid #b8b4b4;
 }
 .dicas h2 {
   font-size: 25px;
@@ -415,11 +415,12 @@
   border: 4px solid #DDB7AC;
   padding: 20px 30px;
   border-radius: 30px;
-   max-width: 100%;
+  max-width: 80%;
   box-sizing: border-box;
   margin: 0 auto; 
-  padding: 0 2rem;
+  padding: 5 5rem;
   width: 100%;
+ text-align: center;
 }
 .pagina-especialidade .dicafinal {
   display: flex;
@@ -433,7 +434,6 @@
 
 .dicafinal p {
   font-size: 20px;
-  margin-bottom: 30px;
   color: #454545;
   font-family: 'Quicksand', sans-serif;
   font-weight: 500;
@@ -1084,20 +1084,36 @@ margin-inline: 8rem;
   .intro {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  padding: 3rem 2rem;
+  padding: 3rem 6rem;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  border-bottom: 3px solid #b8b4b4;
   }
+
+  .estrategias, .o-que-precisa-saber, .dicas{
+     width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 3rem 6rem;
+   justify-content: space-between; 
+} 
+
+ .estrategias{
+   border-bottom: 3px solid #DDB7AC;
+ }
+.o-que-precisa-saber, .dicas{
+    border-bottom: 3px solid #b8b4b4;
+}
   .intro img {
     display: block ;
     order: 2 ;
     margin: 1rem auto 0 ;
-    max-width: 80% ;
-    height: auto ;
+    max-width: 350px;
+    height: 350px ;
+  
   }
   .intro h1 { font-size: 30px; }
   .intro p  { font-size: 18px; }
@@ -1119,6 +1135,7 @@ margin-inline: 8rem;
     margin-block: 0 2rem;  
     margin-inline: 9rem;  
   }
+  
 }
 
 
@@ -1169,21 +1186,3 @@ margin-inline: 8rem;
     overflow-x: hidden;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
