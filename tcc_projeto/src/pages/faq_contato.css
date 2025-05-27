@@ -1,0 +1,171 @@
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+.faq-contato-wrapper {
+  background-color: white;
+  color: #4b5563;
+}
+
+.faq-banner {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  background-image: url('https://placehold.co/1200x600?text=Granola%20and%20Yogurt%20in%20Green%20Bowl%20on%20Green%20Cloth%20Background&font=Nunito&font-size=24&bg=9ca78d&fg=ffffff');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.faq-banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 3rem 1.5rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .faq-banner-overlay {
+    flex-direction: row;
+    gap: 4rem;
+  }
+}
+
+.faq-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: white;
+  max-width: 300px;
+}
+
+.faq-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  line-height: 1;
+  height: 64px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.faq-title {
+  font-weight: 800;
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.faq-text {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.625;
+}
+
+.faq-contact {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.375;
+}
+
+.faq-main {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.faq-heading {
+  color: #d3a9aa;
+  font-size: 1.875rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.faq-divider {
+  width: 9rem;
+  height: 0.25rem;
+  background-color: #d3a9aa;
+  margin: 0 auto 1.5rem;
+  border-radius: 0.25rem;
+}
+
+.faq-subtitle {
+  color: #718096;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.625;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-item {
+  text-align: left;
+}
+
+.faq-question {
+  width: 100%;
+  background-color: #f9e6e2;
+  border: none;
+  border-radius: 0.375rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #4b5563;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.faq-question:hover {
+  background-color: #f3dbd6;
+}
+
+.faq-icon-toggle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4b5563;
+}
+
+.faq-answer {
+  padding: 1rem 1.5rem;
+  background-color: #fff5f2;
+  border: 1px solid #f1d8d1;
+  border-top: none;
+  border-radius: 0 0 0.375rem 0.375rem;
+  font-size: 1rem;
+  color: #4b5563;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
