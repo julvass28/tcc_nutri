@@ -1,39 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import pudim from '../assets/pudim.png'; // ajuste o caminho se estiver diferente
+import '../css/ReceitaDetalhada.css';
+import ch from '../assets/ch.png';
 
-
-function PudimDeChia() {
+function ChaiLatte() {
   return (
-    <div className="receita-detalhada">
-      <Link to="/Receitas" className="voltar">← Voltar</Link>
+    <div className="receita-container">
+      <div className="banner">
+        <img src={ch} alt="Pudim de Chia" className="imagem-banner" />
+        <h1 className="titulo-sobreposto">Chai Latte</h1>
+      </div>
 
-      <h1>Pudim de Chia</h1>
+      <div className="conteudo">
+        <Link to="/Receitas" className="voltar">← Voltar</Link>
 
-      <img src={pudim} alt="Pudim de Chia" className="imagem-receita" />
+        <h2 className="subtitulo-rosa">Receita de Chai Latte:</h2>
 
-      <p className="descricao">
-        O pudim de chia é uma sobremesa saudável, feita com sementes de chia, leite (ou leite vegetal) e adoçante. 
-        Ele é rico em fibras, ômega-3 e proteínas, formando uma textura cremosa e agradável ao paladar.
-      </p>
+        <h3 className="subtitulo-verde">Ingredientes:</h3>
+      <ul class="ingredientes">
+          <li>1 xícara de leite (pode ser leite de vaca ou leite vegetal, como amêndoa, aveia ou soja)</li>
+          <li>1 sachê de chá chai (ou 1 colher de chá de chá preto misturado com especiarias como canela, cravo, gengibre e cardamomo)</li>
+          <li>1/4 xícara de água</li>
+          <li>1 colher de chá de mel ou açúcar (opcional, dependendo do seu gosto)</li>
+          <li>Canela em pó para decorar (opcional)</li>
+        </ul>
 
-      <h2>Ingredientes</h2>
-      <ul>
-        <li>3 colheres de sopa de sementes de chia</li>
-        <li>1 xícara de leite vegetal (ou leite comum)</li>
-        <li>1 colher de chá de mel ou outro adoçante</li>
-        <li>Frutas frescas ou granola (opcional)</li>
-      </ul>
+        <h3 className="subtitulo-verde">Modo de preparo:</h3>
+        <ol className="passos">
+          <li>Em uma panela pequena, adicione a água e o chá chai (ou as especiarias se estiver usando chá preto solto). Aqueça até começar a ferver.</li>
+          <li>Deixe ferver por 3 a 5 minutos para que as especiarias liberem seu sabor.</li>
+          <li>Enquanto o chá ferve, adicione o leite de sua escolha a outra panela e aqueça em fogo baixo até que comece a soltar vapor, mas sem ferver.</li>
+          <li>Coe o chá para remover as folhas e as especiarias.</li>
+          <li>Combine o chá coado com o leite aquecido e adicione o mel ou açúcar, se desejar.</li>
+          <li>Misture bem e despeje em uma xícara.</li>
+          <li>Polvilhe um pouco de canela por cima para decorar, se preferir.Agora é só aproveitar o seu chai latte! Ele é perfeito para relaxar, especialmente em dias mais frios.</li>
+        </ol>
 
-      <h2>Modo de preparo</h2>
-      <ol>
-        <li>Misture todos os ingredientes em um pote com tampa.</li>
-        <li>Deixe descansar por 5 minutos e mexa novamente.</li>
-        <li>Leve à geladeira por pelo menos 4 horas (ou de um dia para o outro).</li>
-        <li>Sirva com frutas ou granola por cima.</li>
-      </ol>
+        <h3 className="subtitulo-verde">Dicas:</h3>
+  <ul class="ingredientes">
+          <li>
+          Para um sabor mais intenso, deixe o chá e as especiarias em infusão por mais tempo.</li>
+          <li>Use um mixer ou bata o leite para criar uma espuma cremosa no chai latte.</li>
+        </ul>
+      </div>
     </div>
   );
 }
 
-export default PudimDeChia;
+export default ChaiLatte;

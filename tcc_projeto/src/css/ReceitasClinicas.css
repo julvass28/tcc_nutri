@@ -25,12 +25,14 @@
 .titulo {
   color: #d9a6a6;
   font-size: 20px;
+font-family: 'Lustria', serif;
   margin-bottom: 12px;
 }
 
 .subtitulo {
   font-size: 28px;
   color: #7A7777;
+  font-family: 'Quicksand', sans-serif;
   line-height: 1.6;
 }
 
@@ -110,6 +112,7 @@
   font-size: 18px;
   line-height: 1.6;
   margin-bottom: 20px;
+  font-weight: 500;
 }
 
 .leia-mais {
@@ -170,3 +173,4 @@ a {
   text-decoration: none;
   color: inherit;
 }
+

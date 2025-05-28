@@ -1,39 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import pudim from '../assets/pudim.png'; // ajuste o caminho se estiver diferente
+import '../css/ReceitaDetalhada.css';
+import chp from '../assets/chp.png';
 
-
-function PudimDeChia() {
+function Crepioca() {
   return (
-    <div className="receita-detalhada">
-      <Link to="/Receitas" className="voltar">← Voltar</Link>
+    <div className="receita-container">
+      <div className="banner">
+        <img src={chp} alt="Pudim de Chia" className="imagem-banner" />
+        <h1 className="titulo-sobreposto">Chips de Bata-Doce Assados</h1>
+      </div>
 
-      <h1>Pudim de Chia</h1>
+      <div className="conteudo">
+        <Link to="/Receitas" className="voltar">← Voltar</Link>
 
-      <img src={pudim} alt="Pudim de Chia" className="imagem-receita" />
+        <h2 className="subtitulo-rosa">Receita de Chips de Bata-doce Assados:</h2>
 
-      <p className="descricao">
-        O pudim de chia é uma sobremesa saudável, feita com sementes de chia, leite (ou leite vegetal) e adoçante. 
-        Ele é rico em fibras, ômega-3 e proteínas, formando uma textura cremosa e agradável ao paladar.
-      </p>
+        <h3 className="subtitulo-verde">Ingredientes:</h3>
+       <ul class="ingredientes">
+          <li> 2 batatas-doces médias</li>
+          <li> 1 colher de sopa de azeite de oliva</li>
+          <li> Sal a gosto</li>
+          <li>Pimenta-do-reino a gosto (opcional)</li>
+          <li>Ervas finas ou temperos de sua preferência (como alecrim, orégano ou pimentão).</li>
+        </ul>
 
-      <h2>Ingredientes</h2>
-      <ul>
-        <li>3 colheres de sopa de sementes de chia</li>
-        <li>1 xícara de leite vegetal (ou leite comum)</li>
-        <li>1 colher de chá de mel ou outro adoçante</li>
-        <li>Frutas frescas ou granola (opcional)</li>
-      </ul>
+        <h3 className="subtitulo-verde">Modo de preparo:</h3>
+        <ol className="passos">
+          <li> Preaqueça o forno a 180°C.</li>
+          <li>Lave bem as batatas-doces e, se preferir, pode deixar a casca. Se não gostar da casca, pode descascar.</li>
+          <li>Corte as batatas em fatias finas, o mais uniforme possível, para que as chips assem de forma igual.</li>
+          <li>Coloque as fatias de batata-doce em uma tigela e regue com o azeite de oliva.</li>
+          <li>Tempere com sal, pimenta-do-reino e as ervas ou temperos de sua preferência. Misture bem para que todas as fatias fiquem temperadas de maneira uniforme.</li>
+          <li>Forre uma assadeira com papel manteiga e distribua as fatias de batata-doce de forma que não fiquem sobrepostas. Isso ajuda a ficarem crocantes.</li>
+          <li>Leve ao forno preaquecido por cerca de 25-30 minutos. A cada 10 minutos, vire as fatias para garantir que as chips assem por igual. Fique de olho para evitar que queimem.</li>
+          <li>Quando as chips estiverem douradas e crocantes, retire do forno e deixe esfriar por alguns minutos.Agora é só aproveitar! Essas chips de batata-doce assadas ficam crocantes, saborosas e são uma ótima opção de snack saudável.</li>
+        </ol>
 
-      <h2>Modo de preparo</h2>
-      <ol>
-        <li>Misture todos os ingredientes em um pote com tampa.</li>
-        <li>Deixe descansar por 5 minutos e mexa novamente.</li>
-        <li>Leve à geladeira por pelo menos 4 horas (ou de um dia para o outro).</li>
-        <li>Sirva com frutas ou granola por cima.</li>
-      </ol>
+        <h3 className="subtitulo-verde">Dicas:</h3>
+      <ul class="ingredientes">
+          <li>Para chips mais crocantes, deixe as fatias secarem em papel-toalha antes de assar.</li>
+           <li>Vire os chips na metade do tempo para dourar por igual.</li>
+        </ul>
+      </div>
     </div>
   );
 }
 
-export default PudimDeChia;
+export default Crepioca;

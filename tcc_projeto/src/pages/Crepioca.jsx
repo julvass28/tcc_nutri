@@ -1,39 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import pudim from '../assets/pudim.png'; // ajuste o caminho se estiver diferente
+import '../css/ReceitaDetalhada.css';
+import cp from '../assets/cp.png';
 
-
-function PudimDeChia() {
+function Crepioca() {
   return (
-    <div className="receita-detalhada">
-      <Link to="/Receitas" className="voltar">← Voltar</Link>
+    <div className="receita-container">
+      <div className="banner">
+        <img src={cp} alt="Pudim de Chia" className="imagem-banner" />
+        <h1 className="titulo-sobreposto">Crepioca</h1>
+      </div>
 
-      <h1>Pudim de Chia</h1>
+      <div className="conteudo">
+        <Link to="/Receitas" className="voltar">← Voltar</Link>
 
-      <img src={pudim} alt="Pudim de Chia" className="imagem-receita" />
+        <h2 className="subtitulo-rosa">Receita de Crepioca:</h2>
 
-      <p className="descricao">
-        O pudim de chia é uma sobremesa saudável, feita com sementes de chia, leite (ou leite vegetal) e adoçante. 
-        Ele é rico em fibras, ômega-3 e proteínas, formando uma textura cremosa e agradável ao paladar.
-      </p>
+        <h3 className="subtitulo-verde">Ingredientes:</h3>
+      <ul class="ingredientes">
+          <li>2 colheres de sopa de goma de tapioca</li>
+          <li>1 ovo</li>
+          <li>Sal a gosto</li>
+          <li>Óleo ou manteiga para untar a frigideira</li>
+        </ul>
 
-      <h2>Ingredientes</h2>
-      <ul>
-        <li>3 colheres de sopa de sementes de chia</li>
-        <li>1 xícara de leite vegetal (ou leite comum)</li>
-        <li>1 colher de chá de mel ou outro adoçante</li>
-        <li>Frutas frescas ou granola (opcional)</li>
-      </ul>
+        <h3 className="subtitulo-verde">Modo de preparo:</h3>
+        <ol className="passos">
+          <li>Em uma tigela, bata o ovo e adicione as 2 colheres de goma de tapioca. Misture bem até que a massa fique homogênea. Se quiser, pode adicionar uma pitada de sal para dar um gostinho.</li>
+          <li>Aqueça uma frigideira antiaderente em fogo médio e unte com um pouco de óleo ou manteiga.</li>
+          <li>Despeje a mistura de tapioca e ovo na frigideira e espalhe bem para cobrir todo o fundo.</li>
+          <li>Cozinhe por cerca de 2-3 minutos de cada lado, até que fique dourada e firme.</li>
+        </ol>
 
-      <h2>Modo de preparo</h2>
-      <ol>
-        <li>Misture todos os ingredientes em um pote com tampa.</li>
-        <li>Deixe descansar por 5 minutos e mexa novamente.</li>
-        <li>Leve à geladeira por pelo menos 4 horas (ou de um dia para o outro).</li>
-        <li>Sirva com frutas ou granola por cima.</li>
-      </ol>
+        <h3 className="subtitulo-verde">Dicas:</h3>
+      <ul class="ingredientes">
+          <li> Você pode comer assim mesmo ou recheá-la com o que quiser, como queijo, frango, legumes, ou até mesmo algo doce, como mel ou frutas.</li>
+        </ul>
+      </div>
     </div>
   );
 }
 
-export default PudimDeChia;
+export default Crepioca;

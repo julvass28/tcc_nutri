@@ -1,39 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import pudim from '../assets/pudim.png'; // ajuste o caminho se estiver diferente
+import '../css/ReceitaDetalhada.css';
+import sme from '../assets/sme.png';
 
-
-function PudimDeChia() {
+function SmoothieEnergetico() {
   return (
-    <div className="receita-detalhada">
-      <Link to="/Receitas" className="voltar">← Voltar</Link>
+    <div className="receita-container">
+      <div className="banner">
+        <img src={sme} alt="Pudim de Chia" className="imagem-banner" />
+        <h1 className="titulo-sobreposto">Smoothie Energético de Banana e Pasta de Amendoim</h1>
+      </div>
 
-      <h1>Pudim de Chia</h1>
+      <div className="conteudo">
+        <Link to="/Receitas" className="voltar">← Voltar</Link>
 
-      <img src={pudim} alt="Pudim de Chia" className="imagem-receita" />
+        <h2 className="subtitulo-rosa">Receita de Smoothie Energético de Banana e Pasta de Amendoim:</h2>
 
-      <p className="descricao">
-        O pudim de chia é uma sobremesa saudável, feita com sementes de chia, leite (ou leite vegetal) e adoçante. 
-        Ele é rico em fibras, ômega-3 e proteínas, formando uma textura cremosa e agradável ao paladar.
-      </p>
+        <h3 className="subtitulo-verde">Ingredientes:</h3>
+  <ul class="ingredientes">
+          <li>1 banana madura </li>
+          <li>1 colher de sopa de pasta de amendoim </li>
+          <li>1/2 xícara de leite (pode ser de amêndoas, coco ou o de sua preferência)</li>
+          <li>1 colher de chá de mel ou adoçante natural (opcional)</li>
+          <li> 1/4 de xícara de aveia em flocos (opcional, para mais fibras) Gelo (a gosto)</li>
+          <li>1/2 colher de chá de canela (opcional, para um toque de sabor extra)</li>
+        </ul>
 
-      <h2>Ingredientes</h2>
-      <ul>
-        <li>3 colheres de sopa de sementes de chia</li>
-        <li>1 xícara de leite vegetal (ou leite comum)</li>
-        <li>1 colher de chá de mel ou outro adoçante</li>
-        <li>Frutas frescas ou granola (opcional)</li>
-      </ul>
+        <h3 className="subtitulo-verde">Modo de preparo:</h3>
+        <ol className="passos">
+          <li>Coloque todos os ingredientes no liquidificador: a banana, a pasta de amendoim, o leite, o mel (se estiver usando), a aveia, o gelo e a canela.</li>
+          <li>Bata até que a mistura fique cremosa e homogênea.</li>
+          <li> Se necessário, adicione mais leite para ajustar a consistência. Sirva imediatamente e aproveite!.</li>
+        </ol>
 
-      <h2>Modo de preparo</h2>
-      <ol>
-        <li>Misture todos os ingredientes em um pote com tampa.</li>
-        <li>Deixe descansar por 5 minutos e mexa novamente.</li>
-        <li>Leve à geladeira por pelo menos 4 horas (ou de um dia para o outro).</li>
-        <li>Sirva com frutas ou granola por cima.</li>
-      </ol>
+        <h3 className="subtitulo-verde">Dicas:</h3>
+        <ul class="ingredientes">
+          <li> Use banana congelada para deixar o smoothie mais cremoso e geladinho. </li>
+            <li>Adicione uma pitada de canela para dar um toque extra de sabor e ajudar no metabolismo. </li>
+        </ul>
+      </div>
     </div>
   );
 }
 
-export default PudimDeChia;
+export default SmoothieEnergetico;

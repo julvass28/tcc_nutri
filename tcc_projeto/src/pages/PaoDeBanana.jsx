@@ -1,39 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import pudim from '../assets/pudim.png'; // ajuste o caminho se estiver diferente
+import '../css/ReceitaDetalhada.css';
+import pb from '../assets/pb.png';
 
-
-function PudimDeChia() {
+function PaoDeBanana() {
   return (
-    <div className="receita-detalhada">
-      <Link to="/Receitas" className="voltar">← Voltar</Link>
+    <div className="receita-container">
+      <div className="banner">
+        <img src={pb} alt="Pudim de Chia" className="imagem-banner" />
+        <h1 className="titulo-sobreposto">Pão de Banana Fit </h1>
+      </div>
 
-      <h1>Pudim de Chia</h1>
+      <div className="conteudo">
+        <Link to="/Receitas" className="voltar">← Voltar</Link>
 
-      <img src={pudim} alt="Pudim de Chia" className="imagem-receita" />
+        <h2 className="subtitulo-rosa">Receita de Pão de Banana Fit:</h2>
 
-      <p className="descricao">
-        O pudim de chia é uma sobremesa saudável, feita com sementes de chia, leite (ou leite vegetal) e adoçante. 
-        Ele é rico em fibras, ômega-3 e proteínas, formando uma textura cremosa e agradável ao paladar.
-      </p>
+        <h3 className="subtitulo-verde">Ingredientes:</h3>
+     <ul class="ingredientes">
+          <li>2 bananas maduras amassadas</li>
+          <li>2 ovos</li>
+          <li>1 xícara de aveia em flocos</li>
+          <li>1 colher (chá) de canela</li>
+          <li>1 colher (chá) de fermento</li>
+          <li>1 colher (sopa) de mel (opcional)</li>
+        </ul>
 
-      <h2>Ingredientes</h2>
-      <ul>
-        <li>3 colheres de sopa de sementes de chia</li>
-        <li>1 xícara de leite vegetal (ou leite comum)</li>
-        <li>1 colher de chá de mel ou outro adoçante</li>
-        <li>Frutas frescas ou granola (opcional)</li>
-      </ul>
+        <h3 className="subtitulo-verde">Modo de preparo:</h3>
+        <ol className="passos">
+          <li>Misture todos os ingredientes até obter uma massa homogênea. </li>
+          <li>Despeje em uma forma untada.</li>
+          <li>Asse a 180°C por 30 minutos.</li>
+        </ol>
 
-      <h2>Modo de preparo</h2>
-      <ol>
-        <li>Misture todos os ingredientes em um pote com tampa.</li>
-        <li>Deixe descansar por 5 minutos e mexa novamente.</li>
-        <li>Leve à geladeira por pelo menos 4 horas (ou de um dia para o outro).</li>
-        <li>Sirva com frutas ou granola por cima.</li>
-      </ol>
+        <h3 className="subtitulo-verde">Dicas:</h3>
+       <ul class="ingredientes">
+          <li> Adicione castanhas ou chocolate 70% para mais sabor. </li>
+            <li>Sirva com pasta de amendoim para mais energia.</li>
+        </ul>
+      </div>
     </div>
   );
 }
 
-export default PudimDeChia;
+export default  PaoDeBanana;

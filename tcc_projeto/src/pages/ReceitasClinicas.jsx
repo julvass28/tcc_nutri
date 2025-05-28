@@ -29,7 +29,7 @@ function ReceitasClinicas() {
 
         <div className="texto">
           <h3 className="titulo">Receitinhas</h3>
-          <p className="subtitulo">Confira as receitas que preparei pra você</p>
+          <p className="subtitulo">Confira as receitas que preparei para você</p>
         </div>
       </div>
 
