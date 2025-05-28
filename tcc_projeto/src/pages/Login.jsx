@@ -18,8 +18,22 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login com:", credentials);
-    // 🔗 Backend: autenticação do usuário (email e senha)
+    fetch("http://localhost:3001/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(credentials),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.token) {
+          console.log("Login realizado:", data);
+          localStorage.setItem("token", data.token); // salva token pra usar depois
+          navigate("/"); // redireciona pra home
+        } else {
+          alert(data.erro || "Login falhou");
+        }
+      })
+      .catch((err) => console.error("Erro ao logar:", err));
 
     navigate("/"); // ⬅️ redireciona para a home após o login
   };
