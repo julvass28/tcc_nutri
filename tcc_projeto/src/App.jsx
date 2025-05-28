@@ -14,7 +14,7 @@ function App() {
     <>
       <Router>
        <Header /> 
-       {/* <IMCCalculator /> */}
+       <AGUACalculator />
         
         <Routes>
         <Route path="/especialidade/:tipo" element={<PaginaRota />} />
