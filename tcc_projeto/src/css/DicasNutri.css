@@ -57,9 +57,23 @@
   font-weight: 400;
   color: #6B6B6B;
   user-select: none;
-  
 }
   
+/* parte novaaaaaaaa */
+.nav-scroll-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dica-nutri-nav {
+  min-width: max-content;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+
+
 .dica-nutri-btn {
   background: none;
   border: none;
@@ -259,5 +273,43 @@
 
   .dica-nutri-main {
     padding: 0 12px; /* Evita grudar o texto também */
+  }
+}
+
+
+
+@media (max-width: 689px) {
+  .dica-nutri-container {
+    padding: 0 16px;
+  }
+
+  .dica-nutri-main {
+    padding: 0 12px;
+    font-size: 16px;
+  }
+
+  .dica-nutri-titulo h1 {
+    font-size: 20px;
+  }
+
+  .dica-nutri-titulo p {
+    font-size: 16px;
+  }
+
+  .dica-nutri-card p {
+    font-size: 16px;
+  }
+
+  .dica-nutri-section-title {
+    font-size: 16px;
+  }
+
+  .dica-nutri-footer {
+    font-size: 16px;
+  }
+
+  .dica-nutri-btn-agendar {
+    font-size: 16px;
+    padding: 6px 18px;
   }
 }

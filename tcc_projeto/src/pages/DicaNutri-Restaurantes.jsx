@@ -13,6 +13,7 @@ const NutriIndica = () => {
       </div>
 
 <div className='container-nav-dica'>
+  <div className='nav-scroll-wrapper'>
   <nav className="dica-nutri-nav" aria-label="Categorias">
 
     <NavLink to="/DicaNutri-Praia" className={({ isActive }) => isActive ? "dica-nutri-btn active" : "dica-nutri-btn"}>
@@ -40,11 +41,12 @@ const NutriIndica = () => {
 </NavLink>
 
   </nav>
+  </div>
 </div>
 
       <main className="dica-nutri-main"> 
        <p>
-  A RESTAURANTE pede refeições frescas e hidratantes, que proporcionem energia sem pesar. Aqui estão as opções ideais:
+  Restaurantes oferecem variedade, mas é fácil exagerar. Foque em pratos equilibrados e saborosos, que nutrem sem excessos. Confira as melhores escolhas:
 </p>
 
 

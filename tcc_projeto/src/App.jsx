@@ -17,7 +17,7 @@ import Viagem from './pages/DicaNutri-Viagem';
 export default function App() {
   return (
     <Router>
-      <Header />
+      {/* <Header /> */}
       {/* <Route path="/" element={<IMCCalculator />} /> */}
 
      

@@ -17,6 +17,7 @@ const NutriIndica = () => {
       </div>
 
 <div className='container-nav-dica'>
+  <div className='nav-scroll-wrapper'>
   <nav className="dica-nutri-nav" aria-label="Categorias">
 
     <NavLink to="/DicaNutri-Praia" className={({ isActive }) => isActive ? "dica-nutri-btn active" : "dica-nutri-btn"}>
@@ -44,6 +45,7 @@ const NutriIndica = () => {
 </NavLink>
 
   </nav>
+  </div>
 </div>
 
       <main className="dica-nutri-main"> 
