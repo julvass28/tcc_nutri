@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
  import Footer from './components/Footer';
  import IMCCalculator from './pages/IMCCalculator';
+ import AGUACalculator from './pages/AGUACalculator';
 import Sobre from './pages/Sobre';
 import PaginaRota from './pages/PaginaRota';
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -18,13 +19,11 @@ export default function App() {
     <Router>
      <Header />
       
-
-     
       <Routes>
+        <Route path="/calculadoras/consumo-agua" element={<AGUACalculator/>}/>
         <Route path="/calculadoras/imc" element={<IMCCalculator />} />
        <Route path="/especialidade/:tipo" element={<PaginaRota />} /> 
        <Route path="/sobre" element={<Sobre />} /> 
-       
         <Route path="/DicaNutri-Praia" element={<Praia />} />
         <Route path="/DicaNutri-Restaurantes" element={<Restaurantes />} />
         <Route path="/DicaNutri-FastFood" element={<FastFood />} />
