@@ -463,7 +463,7 @@ font-size: 15px;
 
 
 
-/* 🖥️ Desktops grandes */
+
 @media (max-width: 1440px) {
     .nav-text{
         font-size: 14px;

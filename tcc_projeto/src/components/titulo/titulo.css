@@ -16,7 +16,7 @@
     font-family: "Lustria", sans-serif;
     font-weight: 500;
     color: #454545;
-    font-size: 19px;
+    font-size: 1.2rem;
     margin-top: 0;
 
 }
@@ -33,9 +33,6 @@
 
 @media (max-width: 1023px)
 {
-.secao{
-    font-size: 1.2rem;
-}
 
 .min-linha{
     width: 25%;
@@ -47,6 +44,11 @@
 .titulo-principal{
     font-size: 1.3rem;
    
+}
+
+.subtitulo{
+    font-size: 0.85rem;
+    
 }
 
 }

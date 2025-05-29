@@ -42,14 +42,14 @@ import { receitasMock } from '../mocks/receitas';
 
 
 function Home() {
-   
-     useEffect(() => {
-  AOS.init({
-    duration: 2500,
-    once: false,
-    disable: false, // <<< garante que NÃO desativa no mobile
-  });
-}, []);
+
+    useEffect(() => {
+        AOS.init({
+            duration: 2500,
+            once: false,
+            disable: false, // <<< garante que NÃO desativa no mobile
+        });
+    }, []);
 
 
 
@@ -110,23 +110,23 @@ function Home() {
             </div>
 
 
-<div className="carrosel-mobile espacamento ">
+            <div className="carrosel-mobile espacamento ">
 
-    
-<CarroselMobile
-  titulo="Qual o seu objetivo?"
-  tipo="servicos"
-  dados={[
-    { id: 1, icone: <Iconclinica />, titulo: "Nutrição Clínica" },
-    { id: 2, icone: <Iconpediatria />, titulo: "Nutrição Pediátrica" },
-    { id: 3, icone: <Iconesportiva />, titulo: "Nutrição Esportiva" },
-    { id: 4, icone: <Iconemagrecer />, titulo: "Emagrecimento e Obesidade" },
-    { id: 5, icone: <Iconintolerancia />, titulo: "Intolerâncias Alimentares" },
-  ]}
-/>
-        
+
+                <CarroselMobile
+                    titulo="Qual o seu objetivo?"
+                    tipo="servicos"
+                    dados={[
+                        { id: 1, icone: <Iconclinica />, nome: "Nutrição Clínica" },
+                        { id: 2, icone: <Iconpediatria />, nome: "Nutrição Pediátrica" },
+                        { id: 3, icone: <Iconesportiva />, nome: "Nutrição Esportiva" },
+                        { id: 4, icone: <Iconemagrecer />, nome: "Emagrecimento e Obesidade" },
+                        { id: 5, icone: <Iconintolerancia />, nome: "Intolerâncias Alimentares" },
+                    ]}
+                />
+
             </div>
-            
+
             <div className="secao espacamento">
                 <Titulo texto="Qual o seu objetivo?" />
 
@@ -193,14 +193,14 @@ function Home() {
 
                 <div className="planejamento">
 
-                    <div data-aos="fade-up"  data-aos-delay="0" className="item">
+                    <div data-aos="fade-up" data-aos-delay="0" className="item">
                         <div className="img-wrapper">
                             <img src={dieta} alt="" />
                         </div>
                         <p>Dieta Personalizado</p>
                     </div>
 
-                    <div data-aos="fade-up"  data-aos-delay="150" className="item">
+                    <div data-aos="fade-up" data-aos-delay="150" className="item">
                         <div className="img-wrapper">
                             <img src={acompanhamento} alt="" />
                         </div>
@@ -208,7 +208,7 @@ function Home() {
                     </div>
 
 
-                    <div data-aos="fade-up"  data-aos-delay="300" className="item">
+                    <div data-aos="fade-up" data-aos-delay="300" className="item">
                         <div className="img-wrapper">
                             <img src={peso} alt="" />
                         </div>
@@ -216,7 +216,7 @@ function Home() {
                     </div>
 
 
-                    <div data-aos="fade-up"  data-aos-delay="450" className="item">
+                    <div data-aos="fade-up" data-aos-delay="450" className="item">
                         <div className="img-wrapper">
                             <img src={refeicao} alt="" />
                         </div>
@@ -242,25 +242,27 @@ function Home() {
                 </div>
             </div>
 
-         <div className="dicas espacamento">
-    <div className="imagem-container">
-        <img src={escolhas} alt="" />
-    </div>
-    <div className="conteudo">
-        <div className="linha-texto">
-            <Titulo texto="Em dúvida do que escolher?" mostrarLinha={false} />
-            <p>
-                Saiba exatamente o que comer (e o que evitar) em qualquer lugar!<br />
-                Descubra as melhores e piores opções em restaurantes, fast foods <br />
-                e muito mais. Com dicassimples e práticas, você pode se alimentar<br />
-                melhor sem abrir mão do sabor.
-            </p>
-            <h3>Faça escolhas mais saudáveis todos os dias!</h3>
-        </div>
+            <div className="dicas espacamento" >
+                <div className="imagem-container"  data-aos="fade-right" data-aos-duration="2000">
+                    <img src={escolhas} alt="" className='imagem-balançando' />
+                  
+                </div>
+                 
+                <div className="conteudo" data-aos="fade-right" data-aos-duration="2000">
+                    <div className="linha-texto" >
+                        <Titulo texto="Em dúvida do que escolher?"mostrarLinha={false} className='text-dicas' />
+                        <p >
+                            Saiba exatamente o que comer (e o que evitar) em qualquer lugar!<br />
+                            Descubra as melhores e piores opções em restaurantes, fast foods <br />
+                            e muito mais. Com dicassimples e práticas, você pode se alimentar<br />
+                            melhor sem abrir mão do sabor.
+                        </p>
+                        <h3>Faça escolhas mais saudáveis todos os dias!</h3>
+                    </div>
 
-        <Botao className="botao-verde" text="Ver Dicas">Ver Dicas</Botao>
-    </div>
-</div>
+                    <Botao className="botao-verde" text="Ver Dicas">Ver Dicas</Botao>
+                </div>
+            </div>
 
 
             <div className="Receitas espacamento">
@@ -275,20 +277,22 @@ function Home() {
 
             </div>
 
-            <div className="receitas-mobile">
+            <div className="receitas-mobile espacamento">
+                <CarroselMobile
+                    titulo="Receitas Saudáveis e Deliciosas"
+                    subtitulo="Encontre opções equilibradas e saborosas para sua rotina!"
+                    tipo="receitas"
+                    dados={receitasMock}
+                />
 
             </div>
+
 
             <div className="valor espacamento">
                 <div className="info-valor">
 
                     <div className="lado-imagem">
                         <div className="imagem-gradiente"></div>
-                        <div className="box-preco">
-                            <h2>R$ 150</h2>
-                            <span>consulta avulsa</span>
-                            <Botao className="botao-verde">Agendar Consulta</Botao>
-                        </div>
                     </div>
 
                     <div className="textos">
@@ -297,12 +301,23 @@ function Home() {
 
                         <p className="preco-text"><FaUser className="preco-icons" /> Atendimento individualizado</p>
                         <p className="preco-text"><FaClipboardList className="preco-icons" /> Plano alimentar personalizado</p>
-                        <p className="preco-text"><FaCommentDots className="preco-icons" /> Suporte por 30 dias via WhatsApp</p>
+                        <p className="preco-text suporte"><FaCommentDots className="preco-icons" /> Suporte por 30 dias via WhatsApp</p>
                         <p className="preco-text"><FaBook className="preco-icons" /> Receitas e materiais de apoio</p>
                     </div>
 
+                    <div className="box-preco">
+                        <div className="preco-linha">
+                            <h2>R$ 150</h2>
+                            <span>consulta avulsa</span>
+                        </div>
+                        <Botao className="botao-verde">Agendar Consulta</Botao>
+                    </div>
+
+
                 </div>
             </div>
+
+
 
             <div className="form espacamento">
 

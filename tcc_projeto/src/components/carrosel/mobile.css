@@ -1,102 +1,142 @@
 @import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+html, body {
+  overflow-x: hidden;
+}
 
-.carrosel-wrapper.servicos {
+.carrosel-wrapper {
   padding: 20px 16px;
   background-color: white;
+  width: 100%;
+}
+
+.slide-container {
+  margin: 0 -8px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.sobre-receita.servicos{
   display: block;
 }
 
-.card-mobile.servicos {
+.nome-titulo-receita.receitas{
+  font-size: 1.1rem;
+  max-width: 40vw;
+ 
+}
+
+.card-mobile {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  height: 24vh;
+  border-radius: 15px;
+  box-shadow: rgba(221, 183, 172, 1) 0px 2px 12px -2px,
+              rgba(221, 183, 172, 1) 0px 3px 7px -3px;
+  border: #DDB7AC 1px solid;
+  background-color: white;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80vw;
-  height: 20vh;
-  border-radius: 15px;
-  box-shadow: rgba(221, 183, 172, 1) 0px 2px 12px -2px, rgba(221, 183, 172, 1) 0px 3px 7px -3px;
-  padding: 30px;
-  border: #DDB7AC 1px solid;
 }
 
-.card-mobile.clicado.servicos {
+.sobre-receita.servicos{
+  display: none;
+}
+
+.card-mobile.receitas{
+    box-shadow: rgba(138, 143, 177, 100) 0px 2px 12px -2px,
+              rgba(138, 143, 177, 100) 0px 3px 7px -3px;
+  border: #8A8F75 1.3px solid;
+}
+
+.card-mobile.clicado {
   background-color: #FDFAF9;
   transform: translateY(-8px) scale(1.02);
 }
 
-.icone-mob.servicos {
+.icone-mob {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.icone-mob.servicos svg {
+.icone-mob svg {
   width: 15vw;
   height: auto;
   margin-bottom: 10px;
 }
 
-.card-mobile.servicos h3 {
+.nome-titulo {
   font-size: 1rem;
+  margin-top: 8px;
   margin-bottom: 5px;
   color: #454545;
   font-family: "Lustria", sans-serif;
   text-align: center;
+  max-width: 30vw;
 }
 
-/* slick custom */
+.nome-titulo.receitas{
+ display: none;
+}
+
+
+.imagem-receita {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
 .slick-list {
   overflow: visible;
 }
 
 .slick-dots {
-  bottom: -45px;
+  bottom: -25px;
 }
 
-/* Responsividade */
-@media (max-width: 411px) {
-  .card-mobile.servicos {
-    width: 40vw;
-  }
 
-  .icone-mob.servicos svg {
-    width: 13vw;
-    margin-bottom: 2px;
-  }
-
-  .card-mobile.servicos h3 {
-    font-size: 0.85rem;
-  }
+.slick-track {
+  display: flex !important;
+  flex-wrap: nowrap !important;
 }
 
-@media (min-width: 412px) and (max-width: 767px) {
-  .card-mobile.servicos {
-    width: 40vw;
-  }
+.slick-slide.receitas {
+  width: 50vw !important; 
+  padding: 0 8px;
+  box-sizing: border-box;
 }
 
-@media (min-width: 768px) and (max-width: 912px) {
-  .card-mobile.servicos {
-    width: 32vw;
+.card-mobile.receitas {
+  width: 100%; 
+}
+
+
+@media (max-width: 480px) {
+  .card-mobile {
     height: 22vh;
   }
 
-  .carrosel-wrapper.servicos {
-    padding: 20px 79px;
-  }
-}
-
-@media (min-width: 1024px) and (max-width: 1280px) {
-  .card-mobile.servicos {
-    width: 35vw;
-    height: 22vh;
-  }
-
-  .carrosel-wrapper.servicos {
-    padding: 20px 79px;
+  .nome-titulo-receita.receitas{
+    font-size: 1rem;
   }
 }
 
 
+
+@media (min-width: 768px) {
+  .carrosel-wrapper.receitas {
+    max-width: 100%;
+    padding: 0 24px;
+  }
+
+    .nome-titulo-receita.receitas{
+    font-size: 1.5rem;
+  }
+}
 
 

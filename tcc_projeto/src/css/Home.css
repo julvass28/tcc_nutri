@@ -15,6 +15,19 @@ body {
     box-sizing: inherit;
 }
 
+@keyframes balancar {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.imagem-balançando {
+  animation: balancar 2s ease-in-out infinite;
+}
+
+
 .espacamento {
     margin-top: 180px;
 }
@@ -103,7 +116,7 @@ body {
     font-family: "Quicksand", sans-serif;
     font-weight: 520;
     font-size: 2vw;
-    /* Tamanho de fonte fluido */
+
     letter-spacing: 2px;
     color: #454545;
     margin-bottom: 2vh;
@@ -112,7 +125,6 @@ body {
 .segundo-text {
     font-family: "Quicksand", sans-serif;
     font-size: 3vw;
-    /* Maior tamanho de fonte */
     font-weight: 600;
     color: #8A8F75;
     margin-top: 0;
@@ -159,9 +171,7 @@ body {
     display: flex;
     gap: 2vw;
     width: 25vw;
-    /* Tamanho fluido */
     height: 20vh;
-    /* Proporcional à altura da tela */
     align-items: center;
     border: solid 1.3px #DDB7AC;
     border-radius: 10px;
@@ -355,14 +365,14 @@ body {
 
 .linha-texto p {
     font-family: "Lustria", sans-serif;
-    font-size: 17px;
+    font-size: 1.1rem;
     margin-bottom: 2px;
     margin-top: 30px;
 }
 
 .conteudo h3 {
     font-family: "Poppins", sans-serif;
-    font-size: 18px;
+    font-size: 1.1rem;
     color: #454545;
 
 }
@@ -373,14 +383,14 @@ body {
     height: auto;
     margin-top: 3vh;
     overflow: hidden;
-      filter: drop-shadow(0px 2px 8px rgba(99, 99, 99, 0.2));
+    filter: drop-shadow(0px 2px 8px rgba(99, 99, 99, 0.2));
 
 }
 
 .imagem-container img {
     width: 100%;
     height: auto;
-   
+
 }
 
 
@@ -391,7 +401,6 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     width: 700px;
 }
 
@@ -405,28 +414,45 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
-
-
 }
 
+
 .info-valor {
+    display: grid;
+    grid-template-areas:
+        "imagem texto"
+        "box texto";
+    grid-template-columns: 50% 50%;
+    background-color: #F9F7F2;
     border: 2px solid #8A8F75;
     border-radius: 10px;
-    height: auto;
-    background-color: #F9F7F2;
     overflow: hidden;
-    display: flex;
-    flex-direction: row;
     width: 80vw;
+    gap: 20px;
 }
 
 .lado-imagem {
+    grid-area: imagem;
+}
+
+.textos {
+    grid-area: texto;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.box-preco {
+    grid-area: box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
-
+    justify-content: center;
+    background-color: #F9F7F2;
+    padding: 20px;
+    gap: 10px;
 }
 
 .imagem-gradiente {
@@ -438,30 +464,19 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: left center;
-
-
+    border-radius: 10px 0 0 0;
 }
 
-.box-preco {
-    margin-top: -30px;
-
-    padding: 20px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.box-preco h2 {
+.preco-linha h2 {
     font-family: "Lustria", sans-serif;
-    font-size: 37px;
+    font-size: 2.5rem;
     color: #8A8F75;
     margin: 0;
 }
 
-.box-preco span {
+.preco-linha span {
     font-family: "Poppins", sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
     color: #454545;
 }
 
@@ -469,30 +484,20 @@ body {
     margin-top: 15px;
 }
 
-.textos {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 50%;
-    padding: 40px;
-    gap: 10px;
-}
-
-
 
 .textos h1 {
     font-family: "Lustria", sans-serif;
     color: #8A8F75;
-    font-size: 40px;
-    margin-bottom: 15px;
+    font-size: 2.5rem;
 }
 
 .text-p {
     font-family: "Lustria", sans-serif;
     color: #454545;
-    font-size: 17px;
+    font-size: 1.1rem;
     font-weight: 600;
     margin-top: 0;
+
 }
 
 .preco-text {
@@ -500,7 +505,7 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    font-size: 18px;
+    font-size: 1.2rem;
 }
 
 .preco-icons {
@@ -514,14 +519,11 @@ body {
     display: none;
 }
 
-.carrosel-mobile{
-    display: none;
-}
 
 
 
 
-@media (max-width: 1024px) {
+@media (max-width: 820px) {
 
     .espacamento {
         margin-top: 80px;
@@ -554,7 +556,7 @@ body {
 
     }
 
-    .sobre-nutri{
+    .sobre-nutri {
         display: none;
     }
 
@@ -596,83 +598,218 @@ body {
     .small {
         font-size: 0.90rem;
         margin: 0;
-      
+
 
     }
 
     .mobile-hr {
-        border-top:1px solid #EDE9E3;
+        border-top: 1px solid #EDE9E3;
         width: 90vw;
         margin-bottom: 2vh;
 
 
     }
 
-    .carrosel-mobile{
+    .carrosel-mobile {
         display: block;
     }
-    .secao{
+
+    .secao {
         display: none;
     }
 
-    .planejamento{
-      flex-direction: column;
-      gap: 30px;
+    .planejamento {
+        flex-direction: column;
+        gap: 30px;
 
     }
 
-    .item{
+    .item {
         overflow: hidden;
         gap: 1vh;
     }
 
-    .img-wrapper{
-   width: 25vw ;
-   height: 11vh;
-   padding: 22px;
-   border: 3.6px solid #8A8F75;
-   
-       
+    .img-wrapper {
+        width: 25vw;
+        height: 11vh;
+        padding: 22px;
+        border: 3.6px solid #8A8F75;
+
+
     }
-    .img-wrapper img{
+
+    .img-wrapper img {
         width: 50px;
     }
 
-   .topic{
-    width: 95vw;
+    .topic {
+        width: 95vw;
 
-   }
-   
-   .icone-dois{
-    width:5vw ;
-   }
+    }
 
-   .topicos p{
-    font-size: 0.95rem;
-   
-   }
+    .icone-dois {
+        width: 5vw;
+    }
 
-   .dicas{
+    .topicos p {
+        font-size: 0.95rem;
+
+    }
+
+    .dicas {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .imagem-container {
+        width: 50vw;
+        height: auto;
+
+
+    }
+
+    .Receitas {
+        display: none;
+    }
+
+    .carrosel-mobile {
+        display: block;
+    }
+
+    .info-valor {
+        grid-template-areas:
+            "imagem"
+            "texto"
+            "box";
+        grid-template-columns: 100%;
+        width: 90vw;
+    }
+
+    .imagem-gradiente {
+        height: 200px;
+        border-radius: 10px 10px 0 0;
+
+    }
+
+    .textos {
+        padding: 20px;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .textos h1 {
+        font-size: 1.9rem;
+        text-align: center;
+        margin-top: -30px;
+        margin-bottom: 5px;
+    }
+
+    .text-p {
+        font-size: 0.95rem;
+        text-align: center;
+        margin-bottom: 30px;
+       
+
+    }
+
+    .preco-text {
+        display: flex;
+        align-items: flex-start;
+        font-size: 1rem;
+    }
+
+    .preco-icons {
+        width: 20px;
+        flex-shrink: 0;
+
+    }
+
+    .suporte {
+        max-width: 60vw;
+    }
+
+ .box-preco {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.preco-linha {
+    display: flex;
+    align-items: baseline; 
+    gap: 8px;
+ 
+}
+
+.box-preco h2 {
+    font-family: "Lustria", sans-serif;
+   font-size: 2rem;
+    color: #8A8F75;
+    margin: 0;
+}
+
+.box-preco span {
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    color: #454545;
+}
+
+
+    .imagem-container{
+        width: 55vw;
+    }
+
+    .imagem-container img{
+        width: 100%;
+    }
+
+    .text-dicas{
+        font-size: 1.5rem;
+    }
+
+    .linha-texto p{
+        font-size: 1rem;
+    }
+
+.dicas{
     height: auto;
-   }
-   .imagem-container {
-width: 50vw;
-height: auto;
+    padding: 20px;
+  
+}
+.imagem-container{
+   margin: 0;
+}
 
-   }
+}
 
-   .Receitas{
-    display: none;
-   }
+@media (min-width: 821px) {
+    .receitas-mobile {
+        display: none;
+
+    }
+
+    .carrosel-mobile {
+        display: none;
+    }
+
+    .Receitas {
+        display: block;
+
+    }
+
+    
+
+
 
 
 }
+
 /*
+
 .dicas {
     background-color: #E1E3DC;
     width: 100%;
-
     display: flex;
     justify-content: center;
     gap: 8vw;
@@ -707,8 +844,17 @@ height: auto;
     height: auto;
     margin-top: 3vh;
     overflow: hidden;
+    filter: drop-shadow(0px 2px 8px rgba(99, 99, 99, 0.2));
 
 }
+
+.imagem-container img {
+    width: 100%;
+    height: auto;
+
+}
+
+
 
 
 .conteudo {
@@ -716,8 +862,6 @@ height: auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     width: 700px;
 }
 */
-

@@ -42,21 +42,24 @@ function Carrosel({ titulo, subtitulo, dados }) {
 
   return (
     <div className="receitas">
-      <Titulo texto={titulo} mostrarLinha={false} />
-      <p>{subtitulo}</p>
-      <Slider {...settings}>
-      
-        {conteudo.map((item) => (
-           
-          <div className="card-receita" key={item.id}>
-            <img src={item.imagem} alt={item.nome} className="img-receita" />
-            <div className="sobre-receita">
-              <h3>{item.nome}</h3>
-            </div>
+     <Titulo texto={titulo} subtitulo={subtitulo} mostrarLinha={true} />
+
+<div className="carrosel-container">
+  <div className="carrosel-wrapper">
+    <Slider {...settings}>
+      {dados.map((item) => (
+        <div className="card-receita" key={item.id}>
+          <img src={item.imagem} alt={item.nome} className="img-receita" />
+          <div className="sobre-receita desktop">
+            <h3>{item.nome}</h3>
           </div>
-        
-        ))}
-      </Slider>
+        </div>
+      ))}
+    </Slider>
+  </div>
+</div>
+
+
     </div>
   );
 }
