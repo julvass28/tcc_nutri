@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom'; // Importar useLocation para acessar a rota atual
 import { LuStethoscope, LuBaby, LuDumbbell, LuHeartPulse, LuWheatOff } from 'react-icons/lu';
-import '../../css/ReceitasClinica.css';
+import '../../css/ReceitasClinicas.css';
 import comida from '../../assets/comida.jpeg';
 import suco from '../../assets/suco.png';
 import salada from '../../assets/salada.png';
