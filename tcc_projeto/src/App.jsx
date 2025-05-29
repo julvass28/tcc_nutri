@@ -7,6 +7,9 @@ import Sobre from './pages/Sobre';
 import PaginaRota from './pages/PaginaRota';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import './App.css';
+import Login from './pages/Login';
+import CriarConta from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Praia from './pages/DicaNutri-Praia';
@@ -46,13 +49,15 @@ export default function App() {
     <Router>
       <ScrollToTop />
      <Header />
-      
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/calculadoras/consumo-agua" element={<AGUACalculator/>}/>
         <Route path="/calculadoras/imc" element={<IMCCalculator />} />
        <Route path="/especialidade/:tipo" element={<PaginaRota />} /> 
-       <Route path="/sobre" element={<Sobre />} /> 
+       <Route path="/sobre" element={<Sobre />} />
+        <Route path="/login" element={<Login />} /> 
+        <Route path="/cadastro" element={<CriarConta />} />
+        <Route path="/esqueci-senha" element={<ForgotPassword />} />
         <Route path="/DicaNutri-Praia" element={<Praia />} />
         <Route path="/DicaNutri-Restaurantes" element={<Restaurantes />} />
         <Route path="/DicaNutri-FastFood" element={<FastFood />} />

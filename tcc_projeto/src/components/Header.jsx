@@ -104,7 +104,7 @@ function Header() {
             </nav>
 
             <div className="perfil">
-                <FaUser className='user' />
+                <Link to="/login"><FaUser className='user' /></Link>
             </div>
         </header>
     );
