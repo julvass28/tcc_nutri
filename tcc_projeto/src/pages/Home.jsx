@@ -58,7 +58,6 @@ function Home() {
 
     return (
         <>
-            <Header />
 
             <div className="comeco">
 

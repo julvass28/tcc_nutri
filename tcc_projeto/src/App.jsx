@@ -7,6 +7,7 @@ import Sobre from './pages/Sobre';
 import PaginaRota from './pages/PaginaRota';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import './App.css';
+import Home from './pages/Home';
 import Praia from './pages/DicaNutri-Praia';
 import Restaurantes from './pages/DicaNutri-Restaurantes';
 import FastFood from './pages/DicaNutri-FastFood';
@@ -20,6 +21,7 @@ export default function App() {
      <Header />
       
       <Routes>
+        <Route path="/" element={<Home/>}/>
         <Route path="/calculadoras/consumo-agua" element={<AGUACalculator/>}/>
         <Route path="/calculadoras/imc" element={<IMCCalculator />} />
        <Route path="/especialidade/:tipo" element={<PaginaRota />} /> 
