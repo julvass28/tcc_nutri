@@ -7,6 +7,7 @@ import Sobre from './pages/Sobre';
 import PaginaRota from './pages/PaginaRota';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import './App.css';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Praia from './pages/DicaNutri-Praia';
 import Restaurantes from './pages/DicaNutri-Restaurantes';
@@ -43,6 +44,7 @@ import PanquecaDeBanana from './pages/receitas/PanquecaDeBanana';
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
      <Header />
       
       <Routes>

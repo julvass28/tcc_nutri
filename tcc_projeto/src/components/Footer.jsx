@@ -18,30 +18,29 @@ function Footer() {
                         <ul className='list-links'>
                             <h3 className='list-text-links'> Links Úteis </h3>
 
-                            <li><Link to id='li-design'>Receitas Saudáveis</Link></li>
-                            <li><Link to id='li-design'>Dicas Alimentares</Link></li>
-                            <li><Link to id='li-design'>Nutrição Clínica</Link></li>
-                            <li><Link to id='li-design'>Sobre a  Dra. Natália Simanoviski</Link></li>
-                            <li><Link to id='li-design'>Fale Comigo</Link></li>
+                            <li><Link to="/receitas/clinica" id='li-design'>Receitas Saudáveis</Link></li>
+                            <li><Link to="/DicaNutri-Praia" id='li-design'>Dicas Alimentares</Link></li>
+                            <li><Link to="/sobre" id='li-design'>Sobre a  Dra. Natália Simanoviski</Link></li>
+                            <li><Link to="#" id='li-design'>Fale Comigo</Link></li>
                         </ul>
 
                         <ul className='list-links'>
 
                             <h3 className='list-text-servicos'> Serviços </h3>
-                            <li><Link to id='li-design'>Nutrição Esportiva</Link></li>
-                            <li><Link to id='li-design'>Nutrição Pediátrica</Link></li>
-                            <li><Link to id='li-design'>Nutrição Clínica</Link></li>
-                            <li><Link to id='li-design'>Emagrecimento e Obesidade</Link></li>
-                            <li><Link to id='li-design'>Intolerâncias Aliemtares</Link></li>
+                            <li><Link to="/especialidade/esportiva" id='li-design'>Nutrição Esportiva</Link></li>
+                            <li><Link to="/especialidade/pediatrica" id='li-design'>Nutrição Pediátrica</Link></li>
+                            <li><Link to="/especialidade/clinica" id='li-design'>Nutrição Clínica</Link></li>
+                            <li><Link to="/especialidade/emagrecimento" id='li-design'>Emagrecimento e Obesidade</Link></li>
+                            <li><Link to="/especialidade/intolerancia" id='li-design'>Intolerâncias Aliemtares</Link></li>
                         </ul>
 
                         <ul className='list-links'>
 
                             <h3 className='list-text-calculadoras'> Calculadoras</h3>
-                            <li><Link to id='li-design'>Calorias e Nutrientes</Link></li>
-                            <li><Link to id='li-design'>Gastos Caloricos</Link></li>
-                            <li><Link to id='li-design'>IMC e Peso Ideal</Link></li>
-                            <li><Link to id='li-design'>Consumo diário de Água</Link></li>
+                            <li><Link to="#" id='li-design'>Calorias e Nutrientes</Link></li>
+                            <li><Link to="#" id='li-design'>Gastos Caloricos</Link></li>
+                            <li><Link to="/calculadoras/imc" id='li-design'>IMC e Peso Ideal</Link></li>
+                            <li><Link to="/calculadoras/consumo-agua" id='li-design'>Consumo diário de Água</Link></li>
                         </ul>
                     </nav>
 
