@@ -5,6 +5,7 @@ import Carrosel from "../components/carrosel/desktop";
 import Titulo from "../components/titulo/titulo";
 import Formulario from "../components/formulario/formulario";
 import CarroselMobile from '../components/carrosel/mobile';
+import SectionCalculators from '../components/SectionCalculators';
 
 //Bibliotecas
 import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
@@ -316,10 +317,11 @@ function Home() {
                 </div>
             </div>
 
-
+                 <div className="container-section-calculadoras-home">
+                    <SectionCalculators/>
+                </div>       
 
             <div className="form espacamento">
-
                 <Formulario />
             </div>
 

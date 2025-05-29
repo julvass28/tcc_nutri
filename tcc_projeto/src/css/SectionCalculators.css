@@ -1,66 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lustria&family=Montserrat:ital,wght@0,700;1,700&display=swap" rel="stylesheet');
 
+
+.container-total-calculadoras{
+  margin-top: 120px;
+  margin-bottom: 100px;
+}
+
+.sessao-calculadoras-um{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.sessao-calculadoras-dois{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 .sessao-calculadoras-container{
     display: flex;
-    width: 50%;
-    margin-left: 25%;
+    width: 60%;
+    height: 500px;
+    margin-left: 20%;
     padding: 20px;
     font-family: 'Poppins';
-    justify-content: center;
+    justify-content: space-around;
 }
 #titulo-principal-cal{
     font-size: 30px;
     text-align: center;
     font-weight: 500;
-    margin-bottom: 10px;
     color: #454545;
-    font-family: 'Poppins';
+    font-family: 'Lustria';
+    margin-bottom: 20px;
 }
 
 .sessao-calculadoras{
-    background-color: #F4EFEC;
-    border-radius:15px ;
-    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
-    width: 300px;
-    height: 160px;
-    padding: 20px;
-    transition: all .4s cubic-bezier(.22, .61, .36, 1);
-    margin: 15px;
+ background-color: #F4EFEC;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  width: 27vw;
+  height: 14vw;
+  padding: 1.3vw;
+  transition: all .4s cubic-bezier(.22, .61, .36, 1);
   }
   .sessao-calculadoras:hover{
-    border:1px solid #8A8F75;
-    transform: translateY(-2px);
-    cursor: pointer;
+  border: 1px solid #8A8F75;
+  transform: translateY(-2px);
+  cursor: pointer;
+  }
+
+  .sessao-calculadoras:hover .bloco-icone{
+    border: 1px solid #454545;
   }
 
   .sessao-calculadoras h1{
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
+   font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
   }
   .sessao-calculadoras p{
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
   }
 
   .bloco-icone{
-    background-color: #F4EFEC;
-    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
-    border: 0.5px solid #dfdfdf;
-    border-radius: 4px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 91%;
+     background-color: #F4EFEC;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  border: 0.5px solid #dfdfdf;
+  border-radius: 4px;
+  width: 2.7vw;
+  height: 2.7vw;
+  padding: 0.2vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 91%;
+  margin-top: 4%;
   }
+
   #img-calculadoras{
-    width: 20px;
-    height: 20px;
-    padding: 1px;
-    color: #8A8F75;
+   width: 2.7vw;
+  height: 2.7vw;
+  padding: 0.1vw;
+  color: #8A8F75;
   }
 
   #titulo-gasto{
