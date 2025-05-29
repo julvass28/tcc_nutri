@@ -59,13 +59,13 @@ function Home() {
     return (
         <>
 
-            <div className="comeco">
+            <div className="home-comeco">
 
-                <div className="bloco-inicial">
-                    <div className="imagem-com-gradiente" />
+                <div className="home-bloco-inicial">
+                    <div className="home-imagem-com-gradiente" />
 
 
-                    <div className="bloco-texto">
+                    <div className="home-bloco-texto">
                         <h1>Te ajudo a transformar sua alimentação de forma leve e sem complicações!</h1>
                         <Botao className='botao-inicial'>Agendar Consulta</Botao>
                     </div>
@@ -74,9 +74,9 @@ function Home() {
 
 
 
-                <div className="descricao espacamento">
-                    <div className="infos">
-                        <img src={foto} alt="" className="foto" />
+                <div className="home-descricao espacamento">
+                    <div className="home-infos">
+                        <img src={foto} alt="" className="home-foto" />
                         <h2 className="num">CRN : 37892</h2>
                     </div>
                     <div className="sobre">
@@ -129,38 +129,38 @@ function Home() {
             <div className="secao espacamento">
                 <Titulo texto="Qual o seu objetivo?" />
 
-                <div className="categorias">
-                    <div className="linha">
-                        <div className="categoria">
-                            <Iconclinica className="icone" />
+                <div className="home-categorias">
+                    <div className="home-linha">
+                        <div className="home-categoria">
+                            <Iconclinica className="home-icone" />
                             <p>Nutrição Clínica</p>
                         </div>
 
-                        <div className="categoria">
-                            <Iconpediatria className="icone" />
+                        <div className="home-categoria">
+                            <Iconpediatria className="home-icone" />
                             <p>Nutrição Pediátrica</p>
                         </div>
 
-                        <div className="categoria">
-                            <Iconesportiva className="icone" />
+                        <div className="home-categoria">
+                            <Iconesportiva className="home-icone" />
                             <p>Nutrição Esportiva</p>
                         </div>
 
                     </div>
 
 
-                    <div className="linha linha-menor">
+                    <div className="home-linha home-linha-menor">
 
-                        <div className="categoria">
-                            <div className="conteudo-categoria">
-                                <Iconemagrecer className="icone" />
+                        <div className="home-categoria">
+                            <div className="home-conteudo-categoria">
+                                <Iconemagrecer className="home-icone" />
                                 <p>Emagrecimento <br />e Obesidade</p>
                             </div>
                         </div>
 
-                        <div className="categoria">
-                            <div className="conteudo-categoria">
-                                <Iconintolerancia className="icone" />
+                        <div className="home-categoria">
+                            <div className="home-conteudo-categoria">
+                                <Iconintolerancia className="home-icone" />
                                 <p>Intolerâncias <br /> Alimentares</p>
                             </div>
                         </div>
