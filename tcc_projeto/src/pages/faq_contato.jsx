@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import './faq_contato.css';
+import '../css/faq_contato.css';
 
 const questionsData = [
   { question: 'Como marcar sua consulta?', answer: 'Você pode marcar sua consulta entrando em contato por telefone ou e-mail.' },

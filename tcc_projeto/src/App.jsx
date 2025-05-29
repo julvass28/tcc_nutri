@@ -7,6 +7,7 @@ import Sobre from './pages/Sobre';
 import PaginaRota from './pages/PaginaRota';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import './App.css';
+import FAQContato from './pages/faq_contato';
 import Login from './pages/Login';
 import CriarConta from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
@@ -55,6 +56,7 @@ export default function App() {
         <Route path="/calculadoras/imc" element={<IMCCalculator />} />
        <Route path="/especialidade/:tipo" element={<PaginaRota />} /> 
        <Route path="/sobre" element={<Sobre />} />
+        <Route path="/contato" element={<FAQContato />} />
         <Route path="/login" element={<Login />} /> 
         <Route path="/cadastro" element={<CriarConta />} />
         <Route path="/esqueci-senha" element={<ForgotPassword />} />
