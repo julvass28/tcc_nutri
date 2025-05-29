@@ -70,9 +70,9 @@ function Header() {
 
                     <div className="mobile-only">
                         <ul className='nav-section'>
-                            <li><Link to="/"><span className="nav-text mobile">Sobre</span></Link></li>
-                            <li><Link to="/"><span className="nav-text mobile">Contato</span></Link></li>
-                            <li><Link to="/"><span className="nav-text mobile">Agendar Consulta</span></Link></li>
+                            <li><Link to="/sobre"><span className="nav-text mobile">Sobre</span></Link></li>
+                            <li><Link to="#"><span className="nav-text mobile">Contato</span></Link></li>
+                            <li><Link to="#"><span className="nav-text mobile">Agendar Consulta</span></Link></li>
                         </ul>
 
                         <div className="infos-mobile">
@@ -97,9 +97,9 @@ function Header() {
 
             <nav className='nav-itens'>
                 <ul>
-                    <li><Link to="/"><span className='nav-text'>Sobre</span></Link></li>
-                    <li><Link to="/"><span className='nav-text'>Contato</span></Link></li>
-                    <li><Link to="/"><span className='nav-text'>Agendar Consulta</span></Link></li>
+                    <li><Link to="/sobre"><span className='nav-text'>Sobre</span></Link></li>
+                    <li><Link to="#"><span className='nav-text'>Contato</span></Link></li>
+                    <li><Link to="#"><span className='nav-text'>Agendar Consulta</span></Link></li>
                 </ul>
             </nav>
 
