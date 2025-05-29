@@ -57,31 +57,31 @@ export default function App() {
         <Route path="/DicaNutri-Shopping" element={<Shopping />} />
         <Route path="/DicaNutri-Bar" element={<Bar />} />
         <Route path="/DicaNutri-Viagem" element={<Viagem />} />
-        <Route path="/Receitas" element={<ReceitasClinicas />} />
-        <Route path="/Pediatrica" element={<ReceitasPediatricas />} />
-        <Route path="/Esportiva" element={<ReceitasEsportivas />} /> 
-        <Route path="/Emagrecimento" element={<ReceitasEmagrecimento/>} />
-        <Route path="/Intolerancias" element={<ReceitasIntolerancias/>} />
-        <Route path="/pudim-de-chia" element={<PudimDeChia/>}/>
-        <Route path="/ChaiLatte" element={<ChaiLatte/>}/>
-        <Route path="/Crepioca" element={<Crepioca/>}/>
-        <Route path="/ChipsDeBatata" element={<ChipsDeBatata/>}/>
-        <Route path="/PanquecaDeBananaEAveia" element={<PanquecaDeBananaEAveia/>}/>
-        <Route path="/BoloDeCenoura" element={<BoloDeCenoura/>}/>
-        <Route path="/Nuggets" element={<Nuggets/>}/>
-        <Route path="/SmoothieDeMorango" element={<SmoothieDeMorango/>}/>
-        <Route path="/SmoothieEnergetico" element={<SmoothieEnergetico/>}/>
-        <Route path="/BarrinhaDeCereal" element={<BarrinhaDeCereal/>}/>
-        <Route path="/Hamburguer" element={<Hamburguer/>}/>
-        <Route path="/PaoDeBanana" element={<PaoDeBanana/>}/>
-        <Route path="/Suco" element={<Suco/>}/>
-        <Route path="/SaladaDeQuinoa" element={<SaladaDeQuinoa/>}/>
-        <Route path="/PaoLowCarb" element={<PaoLowCarb/>}/>
-        <Route path="/Omelete" element={<Omelete/>}/>
-        <Route path="/LeiteDeAmendoas" element={<LeiteDeAmendoas/>}/>
-        <Route path="/PaoDeQueijo" element={<PaoDeQueijo/>}/>
-        <Route path="/BoloDeCacau" element={<BoloDeCacau/>}/>
-        <Route path="/PanquecaDeBanana" element={<PanquecaDeBanana/>}/>
+        <Route path="/receitas/clinica" element={<ReceitasClinicas />} />
+        <Route path="/receitas/pediatrica" element={<ReceitasPediatricas />} />
+        <Route path="/receitas/esportiva" element={<ReceitasEsportivas />} /> 
+        <Route path="/receitas/emagrecimento" element={<ReceitasEmagrecimento/>} />
+        <Route path="/receitas/intolerancias" element={<ReceitasIntolerancias/>} />
+        <Route path="/receitas/info/PudimDeChia" element={<PudimDeChia/>}/>
+        <Route path="/receitas/info/ChaiLatte" element={<ChaiLatte/>}/>
+        <Route path="/receitas/info/Crepioca" element={<Crepioca/>}/>
+        <Route path="/receitas/info/ChipsDeBatata" element={<ChipsDeBatata/>}/>
+        <Route path="/receitas/info/PanquecaDeBananaEAveia" element={<PanquecaDeBananaEAveia/>}/>
+        <Route path="/receitas/info/BoloDeCenoura" element={<BoloDeCenoura/>}/>
+        <Route path="/receitas/info/Nuggets" element={<Nuggets/>}/>
+        <Route path="/receitas/info/SmoothieDeMorango" element={<SmoothieDeMorango/>}/>
+        <Route path="/receitas/info/SmoothieEnergetico" element={<SmoothieEnergetico/>}/>
+        <Route path="/receitas/info/BarrinhaDeCereal" element={<BarrinhaDeCereal/>}/>
+        <Route path="/receitas/info/Hamburguer" element={<Hamburguer/>}/>
+        <Route path="/receitas/info/PaoDeBanana" element={<PaoDeBanana/>}/>
+        <Route path="/receitas/info/Suco" element={<Suco/>}/>
+        <Route path="/receitas/info/SaladaDeQuinoa" element={<SaladaDeQuinoa/>}/>
+        <Route path="/receitas/info/PaoLowCarb" element={<PaoLowCarb/>}/>
+        <Route path="/receitas/info/Omelete" element={<Omelete/>}/>
+        <Route path="/receitas/info/LeiteDeAmendoas" element={<LeiteDeAmendoas/>}/>
+        <Route path="/receitas/info/PaoDeQueijo" element={<PaoDeQueijo/>}/>
+        <Route path="/receitas/info/BoloDeCacau" element={<BoloDeCacau/>}/>
+        <Route path="/receitas/info/PanquecaDeBanana" element={<PanquecaDeBanana/>}/>
       
       </Routes>
 
