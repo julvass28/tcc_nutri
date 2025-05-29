@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/ReceitaDetalhada.css';
-import ng from '../assets/ng.png';
+import '../../css/ReceitaDetalhada.css';
+import ng from '../../assets/ng.png';
 
 function Nuggets() {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/ReceitaDetalhada.css';
-import sme from '../assets/sme.png';
+import '../../css/ReceitaDetalhada.css';
+import sme from '../../assets/sme.png';
 
 function SmoothieEnergetico() {
   return (

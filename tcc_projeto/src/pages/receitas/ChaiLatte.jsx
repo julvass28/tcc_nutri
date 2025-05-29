@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/ReceitaDetalhada.css';
-import ch from '../assets/ch.png';
+import '../../css/ReceitaDetalhada.css';
+import ch from '../../assets/ch.png';
 
 function ChaiLatte() {
   return (

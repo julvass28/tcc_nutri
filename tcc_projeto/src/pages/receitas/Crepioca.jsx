@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/ReceitaDetalhada.css';
-import cp from '../assets/cp.png';
+import '../../css/ReceitaDetalhada.css';
+import cp from '../../assets/cp.png';
 
 function Crepioca() {
   return (

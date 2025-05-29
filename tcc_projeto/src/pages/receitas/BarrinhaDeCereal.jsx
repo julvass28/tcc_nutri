@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/ReceitaDetalhada.css';
-import br from '../assets/br.png';
+import '../../css/ReceitaDetalhada.css';
+import br from '../../assets/br.png';
 
 function BarrinhaDeCereal() {
   return (

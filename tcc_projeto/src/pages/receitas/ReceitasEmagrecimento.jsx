@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom'; // Importar useLocation para acessar a rota atual
 import { LuStethoscope, LuBaby, LuDumbbell, LuHeartPulse, LuWheatOff } from 'react-icons/lu';
-import '../css/ReceitasEsportivas.css';
-import comida from '../assets/comida.jpeg';
-import smoothiee from '../assets/smoothiee.png';
-import barra from '../assets/barra.png';
-import bico from '../assets/bico.png';
-import pao from '../assets/pao.png';
+import '../../css/ReceitasEmagrecimento.css';
+import comida from '../../assets/comida.jpeg';
+import suco from '../../assets/suco.png';
+import salada from '../../assets/salada.png';
+import paoo from '../../assets/paoo.png';
+import omelete from '../../assets/omelete.png';
 
 const categorias = [
   { nome: 'Clínica', icone: <LuStethoscope size={22} />, link: '/Receitas' },
@@ -16,7 +16,7 @@ const categorias = [
   { nome: 'Intolerâncias', icone: <LuWheatOff size={22} />, link: '/Intolerancias' },
 ];
 
-function ReceitasEsportivas() {
+function ReceitasEmagrecimento() {
   const location = useLocation(); // Usar useLocation para pegar a localização atual da rota
 
   return (
@@ -61,43 +61,43 @@ function ReceitasEsportivas() {
 
       {/* Sugestões de receitas */}
       <div className="pudim-container">
-        <img src={smoothiee} alt="Pudim de Chia" className="pudim-img" />
+        <img src={suco} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Smoothie Energético de Banana e Pasta de Amendoim</h2>
-          <p>Um smoothie nutritivo e cremoso, perfeito para fornecer energia antes do treino ou recuperar os músculos após atividades intensas. A banana garante carboidratos naturais, enquanto a pasta de amendoim adiciona proteínas e gorduras boas.</p>
-              <Link to="/SmoothieEnergetico" className="leia-mais">Leia mais</Link>
+          <h2>Suco Detox de Couve com Limão</h2>
+          <p>Esse suco é excelente para iniciar o dia, pois ajuda a desintoxicar o organismo, melhora a digestão e auxilia na eliminação de líquidos retidos. A couve é rica em fibras e antioxidantes, enquanto o limão contribui para a melhora da imunidade e do metabolismo.</p>
+            <Link to="/Suco" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
       <div className="pudim-container">
-        <img src={barra} alt="Pudim de Chia" className="pudim-img" />
+        <img src={salada} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Barrinha Caseira de Cereal e Castanhas</h2>
-          <p>Uma opção natural e saudável para lanches rápidos ou pré-treino. Diferente das versões industrializadas, essa barrinha é rica em fibras, proteínas e gorduras boas, garantindo energia e saciedade.</p>
-             <Link to="/BarrinhaDeCereal" className="leia-mais">Leia mais</Link>
+          <h2>Salada de Quinoa com Frango e Abacate</h2>
+          <p>Essa salada é uma combinação perfeita de proteínas, gorduras boas e fibras, promovendo saciedade e fornecendo energia sem excessos calóricos. A quinoa é um superalimento rico em aminoácidos essenciais, e o abacate adiciona cremosidade e nutrientes essenciais.</p>
+              <Link to="/SaladaDeQuinoa" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
       <div className="pudim-container">
-        <img src={bico} alt="Pudim de Chia" className="pudim-img" />
+        <img src={paoo} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Hambúrguer de Grão-de-Bico</h2>
-          <p>O hambúrguer de grão-de-bico é uma opção vegana e saudável, feito com grão-de-bico amassado, especiarias e outros ingredientes. Saboroso e nutritivo, é uma alternativa perfeita para quem busca uma refeição leve e rica em proteínas vegetais.</p>
-              <Link to="/Hamburguer" className="leia-mais">Leia mais</Link>
+          <h2>Pão Low Carb de Linhaça</h2>
+          <p>Uma alternativa saudável ao pão tradicional, sem farinha refinada e rica em fibras e proteínas. A linhaça auxilia na regulação do intestino e ajuda a prolongar a saciedade, sendo ideal para quem busca perder peso.</p>
+             <Link to="/PaoLowCarb" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
       <div className="pudim-container">
-        <img src={pao} alt="Pudim de Chia" className="pudim-img" />
+        <img src={omelete} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Pão de Banana Fit</h2>
-          <p>O Pão de Banana Fit é uma opção saudável, feito com bananas maduras, farinha integral e adoçante natural. É rico em fibras, vitaminas e minerais, perfeito para o café da manhã ou lanche. Além de ser fácil de preparar, pode ser feito sem glúten, sendo uma escolha nutritiva e saborosa.</p>
-              <Link to="/PaoDeBanana" className="leia-mais">Leia mais</Link>
+          <h2>Omelete de Claras com Espinafre </h2>
+          <p>Uma opção proteica e de baixa caloria, perfeita para quem busca emagrecimento sem perder massa muscular. As claras são fonte de proteína pura, e o espinafre adiciona fibras, ferro e antioxidantes, auxiliando na saúde geral.</p>
+             <Link to="/Omelete" className="leia-mais">Leia mais</Link>
         </div>
       </div>
     </div>
   );
 }
 
-export default ReceitasEsportivas;
+export default ReceitasEmagrecimento;
 

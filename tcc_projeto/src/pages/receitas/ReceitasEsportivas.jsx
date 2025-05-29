@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom'; // Importar useLocation para acessar a rota atual
 import { LuStethoscope, LuBaby, LuDumbbell, LuHeartPulse, LuWheatOff } from 'react-icons/lu';
-import '../css/ReceitasClinicas.css';
-import comida from '../assets/comida.jpeg';
-import pudim from '../assets/pudim.png';
-import chai from '../assets/chai.png';
-import crepe from '../assets/crepe.png';
-import chips from '../assets/chips.png';
+import '../../css/ReceitasEsportivas.css';
+import comida from '../../assets/comida.jpeg';
+import smoothiee from '../../assets/smoothiee.png';
+import barra from '../../assets/barra.png';
+import bico from '../../assets/bico.png';
+import pao from '../../assets/pao.png';
 
 const categorias = [
   { nome: 'Clínica', icone: <LuStethoscope size={22} />, link: '/Receitas' },
@@ -16,7 +16,7 @@ const categorias = [
   { nome: 'Intolerâncias', icone: <LuWheatOff size={22} />, link: '/Intolerancias' },
 ];
 
-function ReceitasClinicas() {
+function ReceitasEsportivas() {
   const location = useLocation(); // Usar useLocation para pegar a localização atual da rota
 
   return (
@@ -29,7 +29,7 @@ function ReceitasClinicas() {
 
         <div className="texto">
           <h3 className="titulo">Receitinhas</h3>
-          <p className="subtitulo">Confira as receitas que preparei para você</p>
+          <p className="subtitulo">Confira as receitas que preparei pra você</p>
         </div>
       </div>
 
@@ -61,42 +61,43 @@ function ReceitasClinicas() {
 
       {/* Sugestões de receitas */}
       <div className="pudim-container">
-        <img src={pudim} alt="Pudim de Chia" className="pudim-img" />
+        <img src={smoothiee} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Pudim de Chia</h2>
-          <p>O pudim de chia é uma sobremesa saudável feita com sementes de chia, leite (ou leite vegetal) e adoçante. As sementes formam uma textura cremosa, rica em fibras, ômega-3 e proteínas. É uma opção nutritiva e versátil, podendo ser complementado com frutas ou granola.</p>
-          <Link to="/pudim-de-chia" className="leia-mais">Leia mais</Link>
+          <h2>Smoothie Energético de Banana e Pasta de Amendoim</h2>
+          <p>Um smoothie nutritivo e cremoso, perfeito para fornecer energia antes do treino ou recuperar os músculos após atividades intensas. A banana garante carboidratos naturais, enquanto a pasta de amendoim adiciona proteínas e gorduras boas.</p>
+              <Link to="/SmoothieEnergetico" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
       <div className="pudim-container">
-        <img src={chai} alt="Pudim de Chia" className="pudim-img" />
+        <img src={barra} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Chai Latte</h2>
-          <p>O chai latte é uma bebida de origem indiana feita com chá preto, especiarias (como canela e gengibre) e leite espumado. É cremosa, aromática e conhecida por seu sabor picante e reconfortante.</p>
-          <Link to="/ChaiLatte" className="leia-mais">Leia mais</Link>
+          <h2>Barrinha Caseira de Cereal e Castanhas</h2>
+          <p>Uma opção natural e saudável para lanches rápidos ou pré-treino. Diferente das versões industrializadas, essa barrinha é rica em fibras, proteínas e gorduras boas, garantindo energia e saciedade.</p>
+             <Link to="/BarrinhaDeCereal" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
       <div className="pudim-container">
-        <img src={crepe} alt="Pudim de Chia" className="pudim-img" />
+        <img src={bico} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Crepioca</h2>
-          <p>A crepioca é uma mistura de tapioca e ovo, rápida e prática de fazer. É uma opção leve e versátil, podendo ser recheada com o que você preferir, como queijo, frango, legumes ou até doces.</p>
-          <Link to="/Crepioca" className="leia-mais">Leia mais</Link>
+          <h2>Hambúrguer de Grão-de-Bico</h2>
+          <p>O hambúrguer de grão-de-bico é uma opção vegana e saudável, feito com grão-de-bico amassado, especiarias e outros ingredientes. Saboroso e nutritivo, é uma alternativa perfeita para quem busca uma refeição leve e rica em proteínas vegetais.</p>
+              <Link to="/Hamburguer" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
       <div className="pudim-container">
-        <img src={chips} alt="Pudim de Chia" className="pudim-img" />
+        <img src={pao} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Chips de Batata-Doce Assados</h2>
-          <p>Os chips de batata-doce assados são uma alternativa saudável e crocante aos salgadinhos tradicionais. Feitos no forno com azeite e temperos, são uma ótima opção de snack que combina sabor e nutrientes em um único prato.</p>
-          <Link to="/ChipsDeBatata" className="leia-mais">Leia mais</Link>
+          <h2>Pão de Banana Fit</h2>
+          <p>O Pão de Banana Fit é uma opção saudável, feito com bananas maduras, farinha integral e adoçante natural. É rico em fibras, vitaminas e minerais, perfeito para o café da manhã ou lanche. Além de ser fácil de preparar, pode ser feito sem glúten, sendo uma escolha nutritiva e saborosa.</p>
+              <Link to="/PaoDeBanana" className="leia-mais">Leia mais</Link>
         </div>
       </div>
     </div>
   );
 }
 
-export default ReceitasClinicas;
+export default ReceitasEsportivas;
+

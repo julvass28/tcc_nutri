@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom'; // Importar useLocation para acessar a rota atual
 import { LuStethoscope, LuBaby, LuDumbbell, LuHeartPulse, LuWheatOff } from 'react-icons/lu';
-import '../css/ReceitasPediatricas.css';
-import comida from '../assets/comida.jpeg';
-import panqueca from '../assets/panqueca.png';
-import bolinho from '../assets/bolinho.png';
-import nuggets from '../assets/nuggets.png';
-import smoothie from '../assets/smoothie.png';
+import '../../css/ReceitasPediatricas.css';
+import comida from '../../assets/comida.jpeg';
+import panqueca from '../../assets/panqueca.png';
+import bolinho from '../../assets/bolinho.png';
+import nuggets from '../../assets/nuggets.png';
+import smoothie from '../../assets/smoothie.png';
 
 const categorias = [
   { nome: 'Clínica', icone: <LuStethoscope size={22} />, link: '/Receitas' },

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/ReceitaDetalhada.css';
-import bc from '../assets/bc.png';
+import '../../css/ReceitaDetalhada.css';
+import bc from '../../assets/bc.png';
 
 function BoloDeCenoura() {
   return (

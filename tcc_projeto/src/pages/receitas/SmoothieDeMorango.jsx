@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/ReceitaDetalhada.css';
-import s from '../assets/s.png';
+import '../../css/ReceitaDetalhada.css';
+import s from '../../assets/s.png';
 
 function SmoothieDeMorangoEIogurt() {
   return (

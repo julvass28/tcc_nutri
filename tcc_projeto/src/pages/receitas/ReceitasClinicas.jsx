@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom'; // Importar useLocation para acessar a rota atual
 import { LuStethoscope, LuBaby, LuDumbbell, LuHeartPulse, LuWheatOff } from 'react-icons/lu';
-import '../css/ReceitasEmagrecimento.css';
-import comida from '../assets/comida.jpeg';
-import leite from '../assets/leite.png';
-import paodq from '../assets/paodq.png';
-import bolo from '../assets/bolo.png';
-import panquecab from '../assets/panquecab.png';
+import '../../css/ReceitasClinicas.css';
+import comida from '../../assets/comida.jpeg';
+import pudim from '../../assets/pudim.png';
+import chai from '../../assets/chai.png';
+import crepe from '../../assets/crepe.png';
+import chips from '../../assets/chips.png';
 
 const categorias = [
   { nome: 'Clínica', icone: <LuStethoscope size={22} />, link: '/Receitas' },
@@ -16,7 +16,7 @@ const categorias = [
   { nome: 'Intolerâncias', icone: <LuWheatOff size={22} />, link: '/Intolerancias' },
 ];
 
-function ReceitasIntolerancias() {
+function ReceitasClinicas() {
   const location = useLocation(); // Usar useLocation para pegar a localização atual da rota
 
   return (
@@ -29,7 +29,7 @@ function ReceitasIntolerancias() {
 
         <div className="texto">
           <h3 className="titulo">Receitinhas</h3>
-          <p className="subtitulo">Confira as receitas que preparei pra você</p>
+          <p className="subtitulo">Confira as receitas que preparei para você</p>
         </div>
       </div>
 
@@ -61,46 +61,42 @@ function ReceitasIntolerancias() {
 
       {/* Sugestões de receitas */}
       <div className="pudim-container">
-        <img src={leite} alt="Pudim de Chia" className="pudim-img" />
+        <img src={pudim} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Leite de Amêndoas Caseiro</h2>
-          <p className="indicacao">Indicação: Intolerância à lactose</p> 
-          <p>Uma alternativa vegetal ao leite de vaca, ideal para quem não pode consumir laticínios. Rico em gorduras boas e sem aditivos químicos.</p>
-       <Link to="/LeiteDeAmendoas" className="leia-mais">Leia mais</Link>
+          <h2>Pudim de Chia</h2>
+          <p>O pudim de chia é uma sobremesa saudável feita com sementes de chia, leite (ou leite vegetal) e adoçante. As sementes formam uma textura cremosa, rica em fibras, ômega-3 e proteínas. É uma opção nutritiva e versátil, podendo ser complementado com frutas ou granola.</p>
+          <Link to="/pudim-de-chia" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
       <div className="pudim-container">
-        <img src={paodq} alt="Pudim de Chia" className="pudim-img" />
+        <img src={chai} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Pão de Queijo Vegano</h2>
-          <p className="indicacao">Indicação:  Intolerância ao glúten e à lactose</p> 
-          <p>Uma versão saudável do pão de queijo tradicional, sem queijo e sem farinha de trigo, mas com a mesma textura macia e saborosa.</p>
-          <Link to="/PaoDeQueijo" className="leia-mais">Leia mais</Link>
+          <h2>Chai Latte</h2>
+          <p>O chai latte é uma bebida de origem indiana feita com chá preto, especiarias (como canela e gengibre) e leite espumado. É cremosa, aromática e conhecida por seu sabor picante e reconfortante.</p>
+          <Link to="/ChaiLatte" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
       <div className="pudim-container">
-        <img src={bolo} alt="Pudim de Chia" className="pudim-img" />
+        <img src={crepe} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Bolo de Cacau Sem Ovo e Sem Leite</h2>
-          <p className="indicacao">Indicação: Intolerância à lactose e alergia ao ovo</p> 
-          <p>Um bolo fofinho e saboroso feito sem ovos ou leite, perfeito para quem tem restrições alimentares, mas não abre mão de um doce saudável.</p>
-          <Link to="/BoloDeCacau" className="leia-mais">Leia mais</Link>
+          <h2>Crepioca</h2>
+          <p>A crepioca é uma mistura de tapioca e ovo, rápida e prática de fazer. É uma opção leve e versátil, podendo ser recheada com o que você preferir, como queijo, frango, legumes ou até doces.</p>
+          <Link to="/Crepioca" className="leia-mais">Leia mais</Link>
         </div>
       </div>
 
       <div className="pudim-container">
-        <img src={panquecab} alt="Pudim de Chia" className="pudim-img" />
+        <img src={chips} alt="Pudim de Chia" className="pudim-img" />
         <div className="pudim-conteudo">
-          <h2>Panqueca de Banana  </h2>
-          <p className="indicacao">Indicação: Intolerância ao glúten e à lactose</p> 
-          <p>Essa panqueca é uma ótima opção para um café da manhã nutritivo e leve. Feita sem farinha de trigo e sem leite, é rica em fibras e energia natural da banana.</p>
-          <Link to="/PanquecaDeBanana" className="leia-mais">Leia mais</Link>
+          <h2>Chips de Batata-Doce Assados</h2>
+          <p>Os chips de batata-doce assados são uma alternativa saudável e crocante aos salgadinhos tradicionais. Feitos no forno com azeite e temperos, são uma ótima opção de snack que combina sabor e nutrientes em um único prato.</p>
+          <Link to="/ChipsDeBatata" className="leia-mais">Leia mais</Link>
         </div>
       </div>
     </div>
   );
 }
 
-export default ReceitasIntolerancias;
+export default ReceitasClinicas;

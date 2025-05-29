@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/ReceitaDetalhada.css';
-import pb from '../assets/pb.png';
+import '../../css/ReceitaDetalhada.css';
+import pb from '../../assets/pb.png';
 
 function PaoDeBanana() {
   return (

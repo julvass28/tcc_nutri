@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import pudim from '../assets/pudim.png'; // ajuste o caminho se estiver diferente
+import pudim from '../../assets/pudim.png'; // ajuste o caminho se estiver diferente
 
 
 function PudimDeChia() {

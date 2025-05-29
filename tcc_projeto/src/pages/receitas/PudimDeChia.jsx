@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/ReceitaDetalhada.css';
-import pdm from '../assets/pdm.png';
+import '../../css/ReceitaDetalhada.css';
+import pdm from '../../assets/pdm.png';
 
 function PudimDeChia() {
   return (
