@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Lustria&family=Poppins:wght@300;400;500;600;700&display=swap');
 
-.comida-img {
+.receitas-comida-img {
   margin-top: 5px;
   position: relative;
   width: 100%;
 }
 
-.texto {
+.receitas-texto {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -22,21 +22,21 @@
 }
 
 
-.titulo {
+.receitas-titulo {
   color: #d9a6a6;
   font-size: 20px;
 font-family: 'Lustria', serif;
   margin-bottom: 12px;
 }
 
-.subtitulo {
+.receitas-subtitulo {
   font-size: 28px;
   color: #7A7777;
   font-family: 'Quicksand', sans-serif;
   line-height: 1.6;
 }
 
-.titulo-frase {
+.receitas-titulo-frase {
   margin-top: 80px;
   text-align: center;
   font-size: 28px;
@@ -47,7 +47,7 @@ font-family: 'Lustria', serif;
 
 }
 
-.linha {
+.receitas-linha {
   width: 700px;
   /* largura da linha */
   height: 1.5px;
@@ -57,7 +57,7 @@ font-family: 'Lustria', serif;
   /* centraliza horizontalmente e dá um espacinho em cima */
 
 }
-.sus{
+.receitas-sus{
   margin-top: 45px;
   text-align: center;
   font-size: 45px;
@@ -115,7 +115,7 @@ font-family: 'Lustria', serif;
   font-weight: 500;
 }
 
-.leia-mais {
+.receitas-leia-mais {
   font-weight: 600;
   font-size: 16px;
   color: #8A8F75;
@@ -123,12 +123,12 @@ font-family: 'Lustria', serif;
   transition: color 0.3s ease;
 }
 
-.leia-mais:hover {
+.receitas-leia-mais:hover {
   color: #bcaea9;
 }
 
 
-.barra-categorias {
+.receitas-barra-categorias {
   margin-top: 20px;
   display: flex;
   background-color: #e9ede4;
@@ -140,7 +140,7 @@ font-family: 'Lustria', serif;
   overflow-x: auto;
 }
 
-.categoria {
+.receitas-categoria {
   display: flex;
   align-items: center;
   gap: 12px; /* Aumentei o espaço entre ícones e texto */
@@ -155,17 +155,17 @@ font-family: 'Lustria', serif;
   font-family: inherit;
 }
 
-.categoria:hover {
+.receitas-categoria:hover {
   background-color: #f0f0f0;
 }
 
-.categoria.selecionada {
+.receitas-categoria.selecionada {
   background-color: #fff;
   font-weight: bold;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.categoria svg {
+.receitas-categoria svg {
   font-size: 36px; /* Aumentei o tamanho dos ícones */
 }
 

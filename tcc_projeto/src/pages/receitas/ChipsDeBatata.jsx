@@ -5,19 +5,19 @@ import chp from '../../assets/chp.png';
 
 function Crepioca() {
   return (
-    <div className="receita-container">
-      <div className="banner">
-        <img src={chp} alt="Pudim de Chia" className="imagem-banner" />
-        <h1 className="titulo-sobreposto">Chips de Bata-Doce Assados</h1>
+    <div className="receitas-container">
+      <div className="receitas-banner">
+        <img src={chp} alt="Pudim de Chia" className="receitas-imagem-banner" />
+        <h1 className="receitas-titulo-sobreposto">Chips de Bata-Doce Assados</h1>
       </div>
 
-      <div className="conteudo">
-        <Link to="/Receitas" className="voltar">← Voltar</Link>
+      <div className="receitas-conteudo">
+        <Link to="/receitas/clinica" className="receitas-voltar">← Voltar</Link>
 
-        <h2 className="subtitulo-rosa">Receita de Chips de Bata-doce Assados:</h2>
+        <h2 className="receitas-subtitulo-rosa">Receita de Chips de Bata-doce Assados:</h2>
 
-        <h3 className="subtitulo-verde">Ingredientes:</h3>
-       <ul class="ingredientes">
+        <h3 className="receitas-subtitulo-verde">Ingredientes:</h3>
+       <ul className="receitas-ingredientes">
           <li> 2 batatas-doces médias</li>
           <li> 1 colher de sopa de azeite de oliva</li>
           <li> Sal a gosto</li>
@@ -25,8 +25,8 @@ function Crepioca() {
           <li>Ervas finas ou temperos de sua preferência (como alecrim, orégano ou pimentão).</li>
         </ul>
 
-        <h3 className="subtitulo-verde">Modo de preparo:</h3>
-        <ol className="passos">
+        <h3 className="receitas-subtitulo-verde">Modo de preparo:</h3>
+        <ol className="receitas-passos">
           <li> Preaqueça o forno a 180°C.</li>
           <li>Lave bem as batatas-doces e, se preferir, pode deixar a casca. Se não gostar da casca, pode descascar.</li>
           <li>Corte as batatas em fatias finas, o mais uniforme possível, para que as chips assem de forma igual.</li>
@@ -37,8 +37,8 @@ function Crepioca() {
           <li>Quando as chips estiverem douradas e crocantes, retire do forno e deixe esfriar por alguns minutos.Agora é só aproveitar! Essas chips de batata-doce assadas ficam crocantes, saborosas e são uma ótima opção de snack saudável.</li>
         </ol>
 
-        <h3 className="subtitulo-verde">Dicas:</h3>
-      <ul class="ingredientes">
+        <h3 className="receitas-subtitulo-verde">Dicas:</h3>
+      <ul className="receitas-ingredientes">
           <li>Para chips mais crocantes, deixe as fatias secarem em papel-toalha antes de assar.</li>
            <li>Vire os chips na metade do tempo para dourar por igual.</li>
         </ul>

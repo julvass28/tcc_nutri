@@ -1,7 +1,7 @@
 /* ReceitaDetalhada.css */
 
 /* Container geral */
-.receita-container {
+.receitas-container {
   width: 100%;
   font-family: 'Quicksand', sans-serif;
   color: #333;
@@ -9,21 +9,21 @@
 }
 
 /* Banner */
-.banner {
+.receitas-banner {
   position: relative;
   width: 100%;
   height: 380px;
   overflow: hidden;
 }
 
-.imagem-banner {
+.receitas-imagem-banner {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.titulo-sobreposto {
+.receitas-titulo-sobreposto {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -36,7 +36,7 @@
 }
 
 /* Conteúdo alinhado à esquerda */
-.conteudo {
+.receitas-conteudo {
   max-width: 700px;
   margin-left: 80px;
   padding: 40px 20px 40px 0;
@@ -45,13 +45,13 @@
 
 /* Link Voltar */
 /* Títulos */
-.subtitulo-rosa {
+.receitas-subtitulo-rosa {
   font-size: 2.3rem;
   color: #d99191;
   margin-bottom: 20px;
 }
 
-.subtitulo-verde {
+.receitas-subtitulo-verde {
   font-size: 2rem;
   color: #748567;
   margin-top: 40px;
@@ -59,7 +59,7 @@
 }
 
 /* Ingredientes e Dicas */
-ul.ingredientes, ul.dicas {
+ul.receitas-ingredientes, ul.dicas {
   list-style: disc;
   padding-left: 20px;
   margin-bottom: 24px;
@@ -67,20 +67,20 @@ ul.ingredientes, ul.dicas {
   line-height: 1.8;
 }
 
-ul.ingredientes li,
+ul.receitas-ingredientes li,
 ul.dicas li {
   margin-bottom: 12px;
 }
 
 /* Modo de preparo numerado */
-ol.passos {
+ol.receitas-passos {
   list-style: none;
   counter-reset: step;
   padding-left: 0;
   margin-bottom: 24px;
 }
 
-ol.passos li {
+ol.receitas-passos li {
   counter-increment: step;
   margin-bottom: 20px;
   display: flex;
@@ -89,7 +89,7 @@ ol.passos li {
   line-height: 1.8;
 }
 
-ol.passos li::before {
+ol.receitas-passos li::before {
   content: counter(step);
   margin-right: 12px;
   background-color: #748567;
@@ -107,7 +107,7 @@ ol.passos li::before {
 }
 
 /* Voltar */
-.voltar {
+.receitas-voltar {
   display: inline-block;
   margin-bottom: 20px;
   color: #888;
@@ -116,7 +116,7 @@ ol.passos li::before {
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.voltar:hover {
+.receitas-voltar:hover {
   color: #d99191;
   transform: translateX(-5px);
 }
