@@ -37,11 +37,11 @@ function Header() {
                             Serviços <FaChevronDown className={`seta ${openDropdown === 'servicos' ? 'rotated' : ''}`} />
                         </span>
                         <ul className={`dropdown-menu ${openDropdown === 'servicos' ? 'show' : ''}`}>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Nutrição Esportiva</Link></li>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Nutrição Pediátrica</Link></li>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Nutrição Clínica</Link></li>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Emagrecimento e Obesidade</Link></li>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Intolerâncias Alimentares</Link></li>
+                            <li><Link to="/especialidade/esportiva" onClick={() => setOpenDropdown(null)}>Nutrição Esportiva</Link></li>
+                            <li><Link to="/especialidade/pediatrica" onClick={() => setOpenDropdown(null)}>Nutrição Pediátrica</Link></li>
+                            <li><Link to="/especialidade/clinica" onClick={() => setOpenDropdown(null)}>Nutrição Clínica</Link></li>
+                            <li><Link to="/especialidade/emagrecimento" onClick={() => setOpenDropdown(null)}>Emagrecimento e Obesidade</Link></li>
+                            <li><Link to="/especialidade/intolerancia" onClick={() => setOpenDropdown(null)}>Intolerâncias Alimentares</Link></li>
                         </ul>
                     </li>
 
@@ -50,7 +50,7 @@ function Header() {
                             Blog <FaChevronDown className={`seta ${openDropdown === 'blog' ? 'rotated' : ''}`} />
                         </span>
                         <ul className={`dropdown-menu ${openDropdown === 'blog' ? 'show' : ''}`}>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Dicas Alimentares</Link></li>
+                            <li><Link to="/DicaNutri-Praia" onClick={() => setOpenDropdown(null)}>Dicas Alimentares</Link></li>
                             <li><Link to="#" onClick={() => setOpenDropdown(null)}>Receitas</Link></li>
                             <li><Link to="#" onClick={() => setOpenDropdown(null)}>Artigos</Link></li>
                         </ul>
@@ -61,10 +61,10 @@ function Header() {
                             Calculadoras <FaChevronDown className={`seta ${openDropdown === 'calculadoras' ? 'rotated' : ''}`} />
                         </span>
                         <ul className={`dropdown-menu ${openDropdown === 'calculadoras' ? 'show' : ''}`}>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Calorias e Nutrientes</Link></li>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Gastos Calóricos</Link></li>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>IMC e Peso Ideal</Link></li>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Consumo Diário de Água</Link></li>
+                            <li><Link to="/calculadoras/calorias" onClick={() => setOpenDropdown(null)}>Calorias e Nutrientes</Link></li>
+                            <li><Link to="/calculadoras/gasto-calorico" onClick={() => setOpenDropdown(null)}>Gastos Calóricos</Link></li>
+                            <li><Link to="/calculadoras/imc" onClick={() => setOpenDropdown(null)}>IMC e Peso Ideal</Link></li>
+                            <li><Link to="/calculadoras/consumo-agua" onClick={() => setOpenDropdown(null)}>Consumo Diário de Água</Link></li>
                         </ul>
                     </li>
 
@@ -92,7 +92,7 @@ function Header() {
             </nav>
 
             <div className="logo">
-                <img src={logo} alt="Logo" />
+                <Link to="/"><img src={logo} alt="Logo" /></Link>
             </div>
 
             <nav className='nav-itens'>
