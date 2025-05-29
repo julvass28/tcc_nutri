@@ -1,0 +1,54 @@
+
+.titulo-principal{
+    font-family: "Lustria", sans-serif;
+    color: #454545;
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 550;
+    margin-bottom: 12px;
+ 
+   
+   
+}
+
+.subtitulo{
+    text-align: center;
+    font-family: "Lustria", sans-serif;
+    font-weight: 500;
+    color: #454545;
+    font-size: 1.2rem;
+    margin-top: 0;
+
+}
+
+.min-linha{
+  border: none; /* Remove o estilo padrão do <hr> */
+  border-top: 1.6px solid #8A8F75; 
+    width: 10%;
+    margin: 0 auto 90px auto;
+ 
+    
+   
+}
+
+@media (max-width: 1023px)
+{
+
+.min-linha{
+    width: 25%;
+    border-top: 1.5px solid #8A8F75;
+        margin: 0 auto 60px auto;
+
+}
+
+.titulo-principal{
+    font-size: 1.3rem;
+   
+}
+
+.subtitulo{
+    font-size: 0.85rem;
+    
+}
+
+}

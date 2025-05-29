@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.botao {
+    background-color: #DDB7AC;
+    border-radius: 50px;
+    color: #454545;
+    font-family: "Lustria", serif;
+    font-size: 1.2rem;
+    width: 200px;
+    height: 48px;
+    list-style: none;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    cursor: pointer;
+    overflow: hidden;
+    font-weight: 500;
+    align-items: center;
+}
+
+.botao-verde {
+    background-color: #BEC1B3;
+}
+
+@media (max-width: 1023px) {
+
+    .botao {
+        width: 170px;
+        height: 35px;
+        font-size: 0.90rem;
+    }
+
+}

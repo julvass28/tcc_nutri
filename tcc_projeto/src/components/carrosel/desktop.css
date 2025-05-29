@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+
+
+.carrosel-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.carrosel-wrapper {
+
+    width: 100%;
+}
+
+.carrosel-wrapper .slick-slider {
+    width: 100%;
+
+}
+
+.carrosel-wrapper .slick-list {
+    overflow: hidden;
+}
+
+
+.custom-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+}
+
+.next-arrow {
+    right: -50px;
+}
+
+.prev-arrow {
+    left: -50px;
+}
+
+.icone-seta {
+    font-size: 45px;
+    color: #8A8F75;
+}
+
+
+.slick-slide {
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+
+.card-receita {
+    position: relative;
+    width: 350px;
+    overflow: hidden;
+}
+
+.img-receita {
+    opacity: 0.9;
+    width: 100%;
+    border-radius: 15px;
+    border: 5px solid #8A8F75;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.sobre-receita {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    opacity: 0.9;
+}
+
+.sobre-receita.desktop {
+    width: calc(100% - 10px);
+    height: 13vh;
+}
+
+.sobre-receita.mobile {
+    width: 100%;
+    height: 7vh;
+}
+
+.sobre-receita h3 {
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.4rem;
+    color: #333;
+    text-align: center;
+    max-width: 20vw;
+    overflow: hidden;
+}
+
+.slick-list,
+.slick-track,
+.slick-slide,
+.slide-container {
+    overflow: hidden;
+}
+
+/* No mobile libera */
+@media (max-width: 912px) {
+
+    .slick-list,
+    .slick-track,
+    .slick-slide,
+    .slide-container {
+        overflow: visible !important;
+    }
+}
+
+@media (max-width: 1025px) {
+
+    .carrosel-container {
+        max-width: 900px;
+
+    }
+
+    .sobre-receita.desktop {
+        width: calc(100% - 10px);
+        height: 7vh;
+    }
+
+    .sobre-receita h3 {
+        font-size: 1.2rem;
+    }
+
+
+}
