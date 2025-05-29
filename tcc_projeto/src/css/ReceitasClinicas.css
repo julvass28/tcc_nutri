@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Lustria&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.comida-img {
+  margin-top: 5px;
+  position: relative;
+  width: 100%;
+}
+
+.texto {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 40px 60px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  max-width: 700px;
+  width: 90%;
+  text-align: center;
+  border-top: 8px solid #e7c3bd;
+  /* LINHA ROSA */
+}
+
+
+.titulo {
+  color: #d9a6a6;
+  font-size: 20px;
+font-family: 'Lustria', serif;
+  margin-bottom: 12px;
+}
+
+.subtitulo {
+  font-size: 28px;
+  color: #7A7777;
+  font-family: 'Quicksand', sans-serif;
+  line-height: 1.6;
+}
+
+.titulo-frase {
+  margin-top: 80px;
+  text-align: center;
+  font-size: 28px;
+  font-family: 'Lustria', serif;
+  font-weight: 300;
+  /* Mais fina */
+  color: #454545;
+
+}
+
+.linha {
+  width: 700px;
+  /* largura da linha */
+  height: 1.5px;
+  /* espessura da linha */
+  background-color: #8A8F75;
+  margin: 45px auto 0;
+  /* centraliza horizontalmente e dá um espacinho em cima */
+
+}
+.sus{
+  margin-top: 45px;
+  text-align: center;
+  font-size: 45px;
+  font-family: 'Lustria', serif;
+  font-weight: 400;
+  color: #8A8F75;
+}
+
+.pudim-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border: 10px solid #f3d9d4;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  max-width: 1000px;
+  height: 380px; /* altura aumentada */
+  margin: 60px auto;
+  border-radius: 20px;
+  gap: 40px;
+  transition: transform 0.3s ease;
+}
+
+.pudim-container:hover {
+  transform: translateY(-5px);
+}
+
+.pudim-img {
+  width: 300px; /* aumentei um pouco para combinar */
+  height: 260px; /* altura da imagem aumentada para acompanhar o card */
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.pudim-conteudo {
+  flex: 1;
+  font-family: 'Quicksand', sans-serif;
+  color: #5b5b5b;
+  overflow: hidden;
+}
+
+.pudim-conteudo h2 {
+  font-family: 'Lustria', serif;
+  font-size: 26px;
+  color: #8A8F75;
+  margin-bottom: 16px;
+}
+
+.pudim-conteudo p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.leia-mais {
+  font-weight: 600;
+  font-size: 16px;
+  color: #8A8F75;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.leia-mais:hover {
+  color: #bcaea9;
+}
+
+
+.barra-categorias {
+  margin-top: 20px;
+  display: flex;
+  background-color: #e9ede4;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  justify-content: space-around;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.categoria {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Aumentei o espaço entre ícones e texto */
+  padding: 12px 24px; /* Aumentei o padding */
+  border-radius: 12px;
+  font-size: 20px; /* Aumentei o tamanho da fonte */
+  color: #5e6c5b;
+  cursor: pointer;
+  background: none;
+  border: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.categoria:hover {
+  background-color: #f0f0f0;
+}
+
+.categoria.selecionada {
+  background-color: #fff;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.categoria svg {
+  font-size: 36px; /* Aumentei o tamanho dos ícones */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
