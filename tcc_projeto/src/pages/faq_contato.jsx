@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import '../css/faq_contato.css';
+import FormularioContato from "../components/formulario/formulario";
 
 const questionsData = [
   { question: 'Como marcar sua consulta?', answer: 'Você pode marcar sua consulta entrando em contato por telefone ou e-mail.' },
@@ -32,6 +32,7 @@ export default function FAQContato() {
           </div>
         </div>
       </section>
+
       <main className="faq-main">
         <h1 className="faq-heading">Perguntas Frequentes</h1>
         <div className="faq-divider"></div>
@@ -67,6 +68,8 @@ export default function FAQContato() {
           ))}
         </div>
       </main>
+
+      <FormularioContato />
     </div>
   );
 }

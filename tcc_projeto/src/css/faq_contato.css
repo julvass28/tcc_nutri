@@ -77,10 +77,11 @@ body {
 }
 
 .faq-main {
-  max-width: 768px;
+  max-width: 850px;
   margin: 0 auto;
   padding: 3rem 1.5rem;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
 .faq-heading {
