@@ -35,7 +35,7 @@ body {
 
 
 
-.bloco-inicial {
+.home-bloco-inicial {
     margin-top: 5px;
     width: 100%;
     height: 70vh;
@@ -53,7 +53,7 @@ body {
     -webkit-mask-size: cover;
 }
 
-.imagem-com-gradiente {
+.home-imagem-com-gradiente {
     width: 55vw;
     height: 100%;
     background:
@@ -64,7 +64,7 @@ body {
 }
 
 
-.bloco-texto {
+.home-bloco-texto {
     display: flex;
     gap: 5vh;
     flex-direction: column;
@@ -90,7 +90,7 @@ body {
 
 
 
-.descricao {
+.home-descricao {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,7 +105,7 @@ body {
     padding-bottom: 12vh;
 }
 
-.foto {
+.home-foto {
     width: 30vw;
     /* Ajustando com base na largura da tela */
     height: auto;
@@ -153,7 +153,7 @@ body {
 
 
 
-.categorias {
+.home-categorias {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,13 +161,13 @@ body {
 
 }
 
-.linha {
+.home-linha {
     display: flex;
     justify-content: center;
     gap: 6vw;
 }
 
-.categoria {
+.home-categoria {
     display: flex;
     gap: 2vw;
     width: 25vw;
@@ -187,23 +187,23 @@ body {
 
 }
 
-.categoria:hover {
+.home-categoria:hover {
     background-color: #FDFAF9;
     transform: translateY(-8px) scale(1.02);
 }
 
 
-.icone {
+.home-icone {
     width: 5vw;
     height: auto;
 }
 
-.categoria p {
+.home-categoria p {
     font-size: 3vh;
     font-family: "Lustria", sans-serif;
 }
 
-.conteudo-categoria {
+.home-conteudo-categoria {
     display: flex;
     align-items: center;
     text-align: center;
