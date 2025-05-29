@@ -8,7 +8,7 @@ import FooterOnda from '../assets/Footer_onda.jsx';
 
 function Footer() {
     return (
-        <>
+        <div className='geral-footer'>
             <FooterOnda></FooterOnda>
             <footer className='footer'>
 
@@ -58,7 +58,7 @@ function Footer() {
                             </div>
                         </div>
                         <div className='logo-footer'>
-                            <img src="./src/assets/Logo.png" alt="Logo" width={200} />
+                            <img src="src\assets\img_png\Logo.png" alt="Logo" width={200} />
                             <p id='crn'>CRN : 37892 </p>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ function Footer() {
                     <p id='text-direitos-dois'>© 2025 Natália Simanoviski | Todos os direitos reservados.</p>
                 </div>
             </footer>
-        </>
+        </div>
     )
 }
 export default Footer;
