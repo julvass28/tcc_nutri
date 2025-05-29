@@ -51,7 +51,7 @@ function Header() {
                         </span>
                         <ul className={`dropdown-menu ${openDropdown === 'blog' ? 'show' : ''}`}>
                             <li><Link to="/DicaNutri-Praia" onClick={() => setOpenDropdown(null)}>Dicas Alimentares</Link></li>
-                            <li><Link to="#" onClick={() => setOpenDropdown(null)}>Receitas</Link></li>
+                            <li><Link to="/receitas/clinica" onClick={() => setOpenDropdown(null)}>Receitas</Link></li>
                             <li><Link to="#" onClick={() => setOpenDropdown(null)}>Artigos</Link></li>
                         </ul>
                     </li>
