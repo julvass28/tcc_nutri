@@ -244,7 +244,7 @@ function Home() {
 
             <div className="dicas espacamento" >
                 <div className="imagem-container"  data-aos="fade-right" data-aos-duration="2000">
-                    <img src={escolhas} alt="" className='imagem-balançando' />
+                    <img src={escolhas} alt="" />
                   
                 </div>
                  

@@ -116,6 +116,10 @@
     .slide-container {
         overflow: visible !important;
     }
+
+    .custom-arrow{
+        display: none;
+    }
 }
 
 @media (max-width: 1025px) {
