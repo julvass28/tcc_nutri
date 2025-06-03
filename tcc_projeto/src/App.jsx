@@ -3,6 +3,7 @@ import Header from './components/Header';
  import Footer from './components/Footer';
  import IMCCalculator from './pages/IMCCalculator';
  import AGUACalculator from './pages/AGUACalculator';
+ import GASTOCalculator from './pages/GASTOCalculator';
 import Sobre from './pages/Sobre';
 import PaginaRota from './pages/PaginaRota';
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -54,6 +55,7 @@ export default function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/calculadoras/consumo-agua" element={<AGUACalculator/>}/>
         <Route path="/calculadoras/imc" element={<IMCCalculator />} />
+        <Route path="/calculadoras/gasto-calorico" element={<GASTOCalculator />} />
        <Route path="/especialidade/:tipo" element={<PaginaRota />} /> 
        <Route path="/sobre" element={<Sobre />} />
         <Route path="/contato" element={<FAQContato />} />
