@@ -61,7 +61,7 @@ function Header() {
                             Calculadoras <FaChevronDown className={`seta ${openDropdown === 'calculadoras' ? 'rotated' : ''}`} />
                         </span>
                         <ul className={`dropdown-menu ${openDropdown === 'calculadoras' ? 'show' : ''}`}>
-                            <li><Link to="/calculadoras/calorias" onClick={() => setOpenDropdown(null)}>Calorias e Nutrientes</Link></li>
+                            <li><Link to="/calculadoras/calorias-nutrientes" onClick={() => setOpenDropdown(null)}>Calorias e Nutrientes</Link></li>
                             <li><Link to="/calculadoras/gasto-calorico" onClick={() => setOpenDropdown(null)}>Gastos Calóricos</Link></li>
                             <li><Link to="/calculadoras/imc" onClick={() => setOpenDropdown(null)}>IMC e Peso Ideal</Link></li>
                             <li><Link to="/calculadoras/consumo-agua" onClick={() => setOpenDropdown(null)}>Consumo Diário de Água</Link></li>
