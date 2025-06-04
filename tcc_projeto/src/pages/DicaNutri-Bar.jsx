@@ -2,10 +2,14 @@ import '../css/DicasNutri.css';
 import { FaUmbrellaBeach, FaUtensils, FaHamburger, FaShoppingBag, FaCocktail, FaCarSide } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
+import Formulario from "../components/formulario/formulario";
 
-
-// Exemplo de como importar imagem localmente:
-// import frutasImg from './assets/frutas.jpg';
+import bar1 from '../assets/dicasnutri/bar1.png';
+import bar2 from '../assets/dicasnutri/bar2.png';
+import bar3 from '../assets/dicasnutri/bar3.png';
+import bar4 from '../assets/dicasnutri/bar4.png';
+import bar5 from '../assets/dicasnutri/bar5.png';
+import bar6 from '../assets/dicasnutri/bar6.png';
 
 
 const NutriIndica = () => {
@@ -63,25 +67,25 @@ const NutriIndica = () => {
             {
               alt: "Tacos com Recheios Naturais",
               text: "Prefira versões com carne magra, frango ou peixe grelhado, acompanhados de vegetais e molhos leves.",
-              src: "https://storage.googleapis.com/a1aa/image/2c6dcbb9-e87d-4413-b4e5-5b0f5b87e5b3.jpg",
+              src: bar1,
               title: "Tacos com Recheios Naturais"
             },
             {
               alt: "Peixes Grelhados ou Assados",
               text: "Como tilápia e salmão, são leves e ricos em ômega-3.",
-              src: "https://storage.googleapis.com/a1aa/image/d5b6722b-c9fd-40ec-fa47-aaab093343a4.jpg",
+              src: bar2,
               title: "Peixes Grelhados ou Assados"
             },
             {
               alt: "Bruschettas com Pão Integral",
               text: " Versões com tomate, queijo branco e ervas frescas são saborosas e mais leves que opções fritas.",
-              src: "https://storage.googleapis.com/a1aa/image/cab77daa-b517-4051-04ad-a567d3bfb1d6.jpg",
+              src: bar3,
               title: "Bruschettas com Pão Integral"
             },
             {
               alt: "Espetinhos de frango grelhado com molho de ervas",
               text: "Proteína magra e temperos naturais fazem dessa uma excelente escolha.",
-              src: "https://storage.googleapis.com/a1aa/image/cf50c942-ef78-4310-4663-155460e36597.jpg",
+              src: bar4,
               title: "Espetinhos de frango grelhado com molho de ervas"
             }
           ].map((item, index) => (
@@ -98,13 +102,13 @@ const NutriIndica = () => {
             {
               alt: "Porções grandes de frituras (pastéis, mandioca frita)",
               text: "Rica em gordura saturada e inflamatória.",
-              src: "https://storage.googleapis.com/a1aa/image/6c2a98ae-34d1-46f5-ad0f-ab1c90f417f6.jpg",
+              src: bar5,
               title: "Porções grandes de frituras (pastéis, mandioca frita)"
             },
             {
               alt: "Bebidas alcoólicas muito doces e calóricas (caipirinhas com açúcar refinado)",
               text: " Excesso de açúcar combinado com álcool pode ser prejudicial ao metabolismo.",
-              src: "https://storage.googleapis.com/a1aa/image/86483723-6900-4224-02ea-44f8394d910d.jpg",
+              src: bar6,
               title: "Bebidas alcoólicas muito doces e calóricas (caipirinhas com açúcar refinado)"
             }
           ].map((item, index) => (
@@ -133,6 +137,9 @@ const NutriIndica = () => {
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
         <button className="dica-nutri-btn-agendar" type="button">Agendar Consulta</button>
+          <div className="form espacamento">
+                        <Formulario />
+                    </div>
       </main>
     </div>
   );

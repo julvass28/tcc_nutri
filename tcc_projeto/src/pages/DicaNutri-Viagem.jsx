@@ -2,10 +2,15 @@ import '../css/DicasNutri.css';
 import { FaUmbrellaBeach, FaUtensils, FaHamburger, FaShoppingBag, FaCocktail, FaCarSide } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
+import Formulario from "../components/formulario/formulario";
 
-
-// Exemplo de como importar imagem localmente:
-// import frutasImg from './assets/frutas.jpg';
+import viagem1 from '../assets/dicasnutri/viagem1.png';
+import viagem2 from '../assets/dicasnutri/viagem2.png';
+import viagem3 from '../assets/dicasnutri/viagem3.png';
+import viagem4 from '../assets/dicasnutri/viagem4.png';
+import viagem5 from '../assets/dicasnutri/viagem5.png';
+import viagem6 from '../assets/dicasnutri/viagem6.png';
+import viagem7 from '../assets/dicasnutri/viagem7.png';
 
 
 const NutriIndica = () => {
@@ -63,25 +68,25 @@ const NutriIndica = () => {
             {
               alt: "Sanduíches Naturais",
               text: " Feitos com pão integral, frango desfiado, atum ou queijo branco, são práticos e nutritivos.",
-              src: "https://storage.googleapis.com/a1aa/image/2c6dcbb9-e87d-4413-b4e5-5b0f5b87e5b3.jpg",
+              src: viagem1,
               title: "Sanduíches Naturais"
             },
             {
               alt: "Frutas Frescas ou Secas",
               text: " Maçã, banana e uvas são fáceis de transportar e ricas em fibras e vitaminas.",
-              src: "https://storage.googleapis.com/a1aa/image/d5b6722b-c9fd-40ec-fa47-aaab093343a4.jpg",
+              src: viagem2,
               title: "Frutas Frescas ou Secas"
             },
             {
               alt: "Saladas de Pote",
               text: "Opções pré-montadas com proteínas magras, vegetais e molho à parte são nutritivas e práticas.",
-              src: "https://storage.googleapis.com/a1aa/image/cab77daa-b517-4051-04ad-a567d3bfb1d6.jpg",
+              src: viagem3,
               title: "Saladas de Pote"
             },
             {
               alt: "Wraps Integrais com Frango ou Atum",
               text: "Mais leves que fast food e fáceis de comer na estrada ou no avião.",
-              src: "https://storage.googleapis.com/a1aa/image/cf50c942-ef78-4310-4663-155460e36597.jpg",
+              src: viagem4,
               title: "Wraps Integrais com Frango ou Atum"
             }
           ].map((item, index) => (
@@ -98,19 +103,19 @@ const NutriIndica = () => {
             {
               alt: "Doces Industriais (Donuts, Bolos de Mercado, Biscoitos Recheados)",
               text: "Excesso de açúcar e conservantes levam à fadiga e picos de glicose.",
-              src: "https://storage.googleapis.com/a1aa/image/6c2a98ae-34d1-46f5-ad0f-ab1c90f417f6.jpg",
+              src: viagem5,
               title: "Doces Industriais (Donuts, Bolos de Mercado, Biscoitos Recheados)"
             },
             {
               alt: "Embutidos (Salsicha, Salame, Mortadela, Presunto Gordo)",
               text: "Possuem muito sódio, causando retenção de líquidos e mal-estar.",
-              src: "https://storage.googleapis.com/a1aa/image/86483723-6900-4224-02ea-44f8394d910d.jpg",
+              src: viagem6,
               title: "Embutidos (Salsicha, Salame, Mortadela, Presunto Gordo)"
             },
              {
               alt: "Salgadinhos de Pacote e Snacks Ultraprocessados",
               text: "Ricos em sódio e gordura, podem causar sede excessiva e má digestão.",
-              src: "https://storage.googleapis.com/a1aa/image/86483723-6900-4224-02ea-44f8394d910d.jpg",
+              src: viagem7,
               title: "Salgadinhos de Pacote e Snacks Ultraprocessados"
             }
           ].map((item, index) => (
@@ -139,6 +144,9 @@ const NutriIndica = () => {
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
         <button className="dica-nutri-btn-agendar" type="button">Agendar Consulta</button>
+          <div className="form espacamento">
+                      <Formulario />
+                  </div>
       </main>
     </div>
   );

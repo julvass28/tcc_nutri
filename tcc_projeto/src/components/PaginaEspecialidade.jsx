@@ -9,7 +9,7 @@ import imagemPediatrica from '../assets/pediatrica.png';
 import imagemClinica from '../assets/clinica.png';
 import imagemEmagrecimento from '../assets/emagrecimento.png';
 import imagemIntolerancia from '../assets/intolerancia.png';
-
+import Formulario from "../components/formulario/formulario";
 
 const imagens = {
   esportiva: imagemEsportiva,
@@ -98,7 +98,7 @@ const PaginaEspecialidade = () => {
       </section>
 
       {/* 6. Dicas */}
-      <section className="dicas">
+      <section className="dicas-especialidades">
         <h2>{st.dicas}</h2>
         <div className="grid-cards">
           {conteudo.dicas.map((item, i) => (
@@ -164,6 +164,9 @@ const PaginaEspecialidade = () => {
         </section>
       )}
 
+            <div className="form espacamento">
+                <Formulario />
+            </div>
     </main>
   );
 };

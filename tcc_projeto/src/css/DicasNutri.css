@@ -59,7 +59,6 @@
   user-select: none;
 }
   
-/* parte novaaaaaaaa */
 .nav-scroll-wrapper {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -177,7 +176,7 @@
 }
 
 .dica-nutri-card img {
-  width: 60px;
+  width: 70px;
   height: 60px;
   border-radius: 6px;
   flex-shrink: 0;
@@ -209,13 +208,13 @@
 }
 
 .dica-nutri-btn-agendar {
-  background-color: #C9B7A9;
-  color: white;
+  background-color: #DDB7AC;
+  color: #454545;
   font-size: 18px;
   font-weight: 400;
   border: none;
-  border-radius: 9999px;
-  padding: 6px 24px;
+  border-radius: 40px;
+  padding: 10px 24px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
@@ -224,8 +223,10 @@
 }
 
 .dica-nutri-btn-agendar:hover {
-  background-color: #b3a295;
+ background-color: #b3705d;
+  color: aliceblue;
 }
+
 
 /* Divider */
 .dica-nutri-divider {

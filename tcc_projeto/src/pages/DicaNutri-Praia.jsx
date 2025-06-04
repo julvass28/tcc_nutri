@@ -2,10 +2,16 @@ import '../css/DicasNutri.css';
 import { FaUmbrellaBeach, FaUtensils, FaHamburger, FaShoppingBag, FaCocktail, FaCarSide } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
-
+import Formulario from "../components/formulario/formulario";
 
 // Exemplo de como importar imagem localmente:
-// import frutasImg from './assets/frutas.jpg';
+import praia1 from '../assets/dicasnutri/praia1.png';
+import praia2 from '../assets/dicasnutri/praia2.png';
+import praia3 from '../assets/dicasnutri/praia3.png';
+import praia4 from '../assets/dicasnutri/praia4.png';
+import praia5 from '../assets/dicasnutri/praia5.png';
+import praia6 from '../assets/dicasnutri/praia6.png';
+
 
 
 const NutriIndica = () => {
@@ -63,25 +69,25 @@ const NutriIndica = () => {
             {
               alt: "Frutas frescas",
               text: "Melancia, abacaxi, morangos e uvas são naturalmente refrescantes e ricas em vitaminas e minerais.",
-              src: "https://storage.googleapis.com/a1aa/image/2c6dcbb9-e87d-4413-b4e5-5b0f5b87e5b3.jpg",
+              src: praia1,
               title: "Frutas frescas"
             },
             {
               alt: "Água de coco",
               text: "A hidratação é essencial, e a água de coco é uma excelente alternativa, rica em eletrólitos e com um toque tropical.",
-              src: "https://storage.googleapis.com/a1aa/image/d5b6722b-c9fd-40ec-fa47-aaab093343a4.jpg",
+              src: praia2,
               title: "Água de coco"
             },
             {
               alt: "Sanduíche natural",
               text: "Opte por opções leves como sanduíches de frango grelhado, abacate e vegetais.",
-              src: "https://storage.googleapis.com/a1aa/image/cab77daa-b517-4051-04ad-a567d3bfb1d6.jpg",
+              src: praia3,
               title: "Sanduíches naturais"
             },
             {
               alt: "Castanhas e amêndoas",
               text: "Uma ótima fonte de proteínas e gorduras boas para um lanche rápido e nutritivo.",
-              src: "https://storage.googleapis.com/a1aa/image/cf50c942-ef78-4310-4663-155460e36597.jpg",
+              src: praia4,
               title: "Castanhas e amêndoas"
             }
           ].map((item, index) => (
@@ -98,13 +104,13 @@ const NutriIndica = () => {
             {
               alt: "Batatas fritas",
               text: "As frituras, como batatas fritas e salgadinhos, podem causar desconforto no calor e sobrecarregar o sistema digestivo.",
-              src: "https://storage.googleapis.com/a1aa/image/6c2a98ae-34d1-46f5-ad0f-ab1c90f417f6.jpg",
+              src: praia5,
               title: "Alimentos fritos"
             },
             {
               alt: "Espetinho de queijo coalho",
               text: "Apesar de saboroso, pode ser rico em sódio e gorduras saturadas.",
-              src: "https://storage.googleapis.com/a1aa/image/86483723-6900-4224-02ea-44f8394d910d.jpg",
+              src: praia6,
               title: "Espetinho de Queijo Coalho com Molho Industrializado"
             }
           ].map((item, index) => (
@@ -133,7 +139,11 @@ const NutriIndica = () => {
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
         <button className="dica-nutri-btn-agendar" type="button">Agendar Consulta</button>
+           <div className="form espacamento">
+                      <Formulario />
+                  </div>
       </main>
+     
     </div>
   );
 };

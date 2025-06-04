@@ -49,7 +49,7 @@ export default function App() {
   return (
     <Router>
       <ScrollToTop />
-     <Header />
+      <Header /> 
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/calculadoras/consumo-agua" element={<AGUACalculator/>}/>

@@ -2,7 +2,7 @@ import '../css/DicasNutri.css';
 import { FaUmbrellaBeach, FaUtensils, FaHamburger, FaShoppingBag, FaCocktail, FaCarSide } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
-
+import Formulario from "../components/formulario/formulario";
 
 // Exemplo de como importar imagem localmente:
 // import frutasImg from './assets/frutas.jpg';
@@ -133,6 +133,9 @@ const NutriIndica = () => {
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
         <button className="dica-nutri-btn-agendar" type="button">Agendar Consulta</button>
+          <div className="form espacamento">
+                      <Formulario />
+                  </div>
       </main>
     </div>
   );

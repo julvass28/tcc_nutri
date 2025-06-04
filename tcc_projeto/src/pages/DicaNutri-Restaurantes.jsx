@@ -2,7 +2,14 @@ import '../css/DicasNutri.css';
 import { FaUmbrellaBeach, FaUtensils, FaHamburger, FaShoppingBag, FaCocktail, FaCarSide } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
+import Formulario from "../components/formulario/formulario";
 
+import res1 from '../assets/dicasnutri/res1.png';
+import res2 from '../assets/dicasnutri/res2.png';
+import res3 from '../assets/dicasnutri/res3.png';
+import res4 from '../assets/dicasnutri/res4.png';
+import res5 from '../assets/dicasnutri/res5.png';
+import res6 from '../assets/dicasnutri/res6.png';
 
 const NutriIndica = () => {
   return (
@@ -57,25 +64,25 @@ const NutriIndica = () => {
             {
               alt: "Peixes e frutos do mar",
               text: "São fontes ricas em proteínas magras e ácidos graxos essenciais, como ômega-3.",
-              src: "https://storage.googleapis.com/a1aa/image/2c6dcbb9-e87d-4413-b4e5-5b0f5b87e5b3.jpg",
+              src: res1,
               title: "Peixes e frutos do mar"
             },
             {
               alt: "Saladas completas",
               text: "Preparadas com vegetais frescos, proteínas magras (como peito de frango grelhado) e grãos integrais.",
-              src: "https://storage.googleapis.com/a1aa/image/d5b6722b-c9fd-40ec-fa47-aaab093343a4.jpg",
+              src: res2,
               title: "Saladas completas"
             },
             {
               alt: "Sopa de legumes",
               text: "Leve e nutritiva, feita com vegetais frescos e temperos naturais, rica em fibras e vitaminas.",
-              src: "https://storage.googleapis.com/a1aa/image/cab77daa-b517-4051-04ad-a567d3bfb1d6.jpg",
+              src: res3,
               title: "Sopa de legumes"
             },
             {
               alt: "Sucos naturais",
               text: "São opções saudáveis, feitos com frutas frescas, ricos em vitaminas e antioxidantes, sem adição de açúcares refinados.",
-              src: "https://storage.googleapis.com/a1aa/image/cf50c942-ef78-4310-4663-155460e36597.jpg",
+              src: res4,
               title: "Sucos naturais"
             }
           ].map((item, index) => (
@@ -92,13 +99,13 @@ const NutriIndica = () => {
             {
               alt: "Pratos pesados",
               text: "Esses pratos costumam ter alto teor de gorduras saturadas e calorias excessivas.",
-              src: "https://storage.googleapis.com/a1aa/image/6c2a98ae-34d1-46f5-ad0f-ab1c90f417f6.jpg",
+              src: res5,
               title: "Pratos pesados"
             },
             {
               alt: "Sobremesas Calóricas",
               text: " São carregadas de açúcar, gordura e calorias extras, sem oferecer valor nutricional significativo.",
-              src: "https://storage.googleapis.com/a1aa/image/86483723-6900-4224-02ea-44f8394d910d.jpg",
+              src: res6,
               title: "Sobremesas Calóricas"
             }
           ].map((item, index) => (
@@ -127,6 +134,9 @@ const NutriIndica = () => {
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
         <button className="dica-nutri-btn-agendar" type="button">Agendar Consulta</button>
+          <div className="form espacamento">
+                        <Formulario />
+                    </div>
       </main>
     </div>
   );

@@ -2,11 +2,15 @@ import '../css/DicasNutri.css';
 import { FaUmbrellaBeach, FaUtensils, FaHamburger, FaShoppingBag, FaCocktail, FaCarSide } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
+import Formulario from "../components/formulario/formulario";
 
-
-// Exemplo de como importar imagem localmente:
-// import frutasImg from './assets/frutas.jpg';
-
+import ff1 from '../assets/dicasnutri/ff1.png';
+import ff2 from '../assets/dicasnutri/ff2.png';
+import ff3 from '../assets/dicasnutri/ff3.png';
+import ff4 from '../assets/dicasnutri/ff4.png';
+import ff5 from '../assets/dicasnutri/ff5.png';
+import ff6 from '../assets/dicasnutri/ff6.png';
+import ff7 from '../assets/dicasnutri/ff7.png';
 
 const NutriIndica = () => {
   return (
@@ -63,25 +67,25 @@ const NutriIndica = () => {
             {
               alt: "Sanduíches grelhados",
               text: " Prefira opções de carne magra, como frango grelhado, acompanhados de vegetais frescos.",
-              src: "https://storage.googleapis.com/a1aa/image/2c6dcbb9-e87d-4413-b4e5-5b0f5b87e5b3.jpg",
+              src: ff1,
               title: "Sanduíches grelhados"
             },
             {
               alt: "Wraps",
               text: "Geralmente mais leves que os hambúrgueres, com menos calorias.",
-              src: "https://storage.googleapis.com/a1aa/image/d5b6722b-c9fd-40ec-fa47-aaab093343a4.jpg",
+              src: ff2,
               title: "Wraps"
             },
             {
               alt: "Saladas com proteínas magras",
               text: "Muitas redes de fast food oferecem saladas nutritivas com opções como frango ou atum",
-              src: "https://storage.googleapis.com/a1aa/image/cab77daa-b517-4051-04ad-a567d3bfb1d6.jpg",
+              src: ff3,
               title: "Saladas com proteínas magras"
             },
             {
               alt: "Poke",
               text: "Prato havaiano nutritivo, com arroz, vegetais frescos e peixe marinado, rico em proteínas, fibras e antioxidantes. Uma opção leve e deliciosa para uma alimentação equilibrada.",
-              src: "https://storage.googleapis.com/a1aa/image/cf50c942-ef78-4310-4663-155460e36597.jpg",
+              src: ff4,
               title: "Poke"
             }
           ].map((item, index) => (
@@ -98,19 +102,19 @@ const NutriIndica = () => {
             {
               alt: "Hambúrguer duplo com bacon e molhos industrializados",
               text: "Alto teor de gorduras ruins, sódio e calorias vazias.",
-              src: "https://storage.googleapis.com/a1aa/image/6c2a98ae-34d1-46f5-ad0f-ab1c90f417f6.jpg",
+              src: ff5,
               title: "Hambúrguer duplo com bacon e molhos industrializados"
             },
             {
               alt: "Nuggets e Frituras",
               text: "Esses alimentos são ricos em gorduras ruins e aditivos, aumentando o risco de doenças e prejudicando a saúde.",
-              src: "https://storage.googleapis.com/a1aa/image/86483723-6900-4224-02ea-44f8394d910d.jpg",
+              src: ff6,
               title: "Nuggets e Frituras"
             },
               {
               alt: "Bebidas açucaradas e milkshakes",
               text: "Além de extremamente calóricos, são fontes de açúcar refinado, que não traz benefícios à saúde.",
-              src: "https://storage.googleapis.com/a1aa/image/86483723-6900-4224-02ea-44f8394d910d.jpg",
+              src: ff7,
               title: "Bebidas açucaradas e milkshakes"
             }
           ].map((item, index) => (
@@ -139,7 +143,11 @@ const NutriIndica = () => {
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
         <button className="dica-nutri-btn-agendar" type="button">Agendar Consulta</button>
+          <div className="form espacamento">
+                      <Formulario />
+                  </div>
       </main>
+      
     </div>
   );
 };

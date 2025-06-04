@@ -104,15 +104,16 @@
   background-color: #F4EFEC;
   border: 2px solid #DDB7AC;
   border-radius: 8px;
-  width: 170px;
-  min-height: 150px;
+  width: 180px;
+  min-height: 160px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card-beneficio img {
-  width: 65px;
-  height: 65px;
-  margin-bottom: 30px;
+  width: 60px;
+  height: 60px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 .card-beneficio span {
   font-size: 18px;
@@ -252,13 +253,13 @@
 
 /* Seção de Dicas       */
 
-.dicas {
+.dicas-especialidades {
   margin-top: 40px;
   padding: 50px 0;
   background-color: rgb(237, 238, 234);
   border-bottom: 3px solid #b8b4b4;
 }
-.dicas h2 {
+.dicas-especialidades h2 {
   font-size: 25px;
   margin-bottom: 25px;
   color: #454545;
@@ -335,14 +336,14 @@
 
 .o-que-precisa-saber .grid-cards,
 .estrategias   .grid-cards,
-.dicas         .grid-cards {
+.dicas-especialidades    .grid-cards {
   max-width: 1200px;  
   margin: 0 auto;      
 }
 
 .o-que-precisa-saber,
 .estrategias,
-.dicas {
+.dicas-especialidades{
   width: 100% ;
   margin-left: 0 ;
   margin-right: 0 ;
@@ -360,7 +361,7 @@
   background-color: rgb(250, 244, 243);
   border-bottom: 5px solid #DDB7AC;
 }
-.dicas {
+.dicas-especialidades {
   background-color: rgb(237, 238, 234);
   border-bottom: 5px solid #B8B4B4;
 }
@@ -483,7 +484,7 @@
 
 .o-que-precisa-saber .grid-cards,
 .estrategias .grid-cards,
-.dicas .grid-cards {
+.dicas-especialidades .grid-cards {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 4rem;       
   padding-inline: 0.5rem;       
@@ -491,13 +492,13 @@
 
 .o-que-precisa-saber,
 .estrategias,
-.dicas {
+.dicas-especialidades {
   padding-block: 2rem;
 }
 
 .o-que-precisa-saber h2,
 .estrategias h2,
-.dicas h2 {
+.dicas-especialidades h2 {
   font-size: 22px;
   margin-bottom: 2rem;
   margin-top: 1px;
@@ -523,13 +524,13 @@
 
 .o-que-precisa-saber .grid-cards,
 .estrategias   .grid-cards,
-.dicas         .grid-cards {
+.dicas-especialidades        .grid-cards {
   min-height: 250px;
 }
 
 .o-que-precisa-saber .card-info h3,
 .estrategias   .card-info h3,
-.dicas         .card-info h3 {
+.dicas-especialidades        .card-info h3 {
   font-family: 'Quicksand', sans-serif;
   font-weight: 800;
   font-size: 18px;
@@ -601,14 +602,14 @@
   }
   .o-que-precisa-saber h2,
 .estrategias h2,
-.dicas h2 {
+.dicas-especialidades h2 {
   font-size: 1rem;       
   margin-bottom: 1rem;
   text-align: center;
 }
 .o-que-precisa-saber .grid-cards,
 .estrategias .grid-cards,
-.dicas .grid-cards {
+.dicas-especialidades .grid-cards {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
@@ -619,7 +620,7 @@
 }
 .o-que-precisa-saber .card-info p,
 .estrategias .card-info p,
-.dicas .card-info p {
+.dicas-especialidades .card-info p {
   font-size: 0.875rem;    
   line-height: 1.4;
 }
@@ -797,12 +798,12 @@
   }
   .o-que-precisa-saber h2,
   .estrategias h2,
-  .dicas h2 {
+ .dicas-especialidades h2 {
     font-size: 1rem;
   }
   .o-que-precisa-saber .grid-cards,
   .estrategias .grid-cards,
-  .dicas .grid-cards {
+.dicas-especialidades .grid-cards {
     max-width: 100%;
     padding-inline: 0.5rem;
   }
@@ -823,7 +824,7 @@ margin-inline: 8rem;
   }
     .pagina-especialidade .o-que-precisa-saber .grid-cards,
     .pagina-especialidade .estrategias .grid-cards,
-    .pagina-especialidade .dicas .grid-cards {
+    .pagina-especialidade .dicas-especialidades .grid-cards {
       display: grid ;
       grid-template-columns: 1fr ;
       justify-items: center;
@@ -1084,7 +1085,7 @@ margin-inline: 8rem;
   .intro {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  padding: 3rem 6rem;
+  padding: 1rem 3rem;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -1094,7 +1095,7 @@ margin-inline: 8rem;
   border-bottom: 3px solid #b8b4b4;
   }
 
-  .estrategias, .o-que-precisa-saber, .dicas{
+  .estrategias, .o-que-precisa-saber, .dicas-especialidades{
      width: 100vw;
   margin-left: calc(-50vw + 50%);
   padding: 3rem 6rem;
@@ -1104,28 +1105,35 @@ margin-inline: 8rem;
  .estrategias{
    border-bottom: 3px solid #DDB7AC;
  }
-.o-que-precisa-saber, .dicas{
+.o-que-precisa-saber, .dicas-especialidades{
     border-bottom: 3px solid #b8b4b4;
 }
   .intro img {
     display: block ;
     order: 2 ;
     margin: 1rem auto 0 ;
-    max-width: 350px;
-    height: 350px ;
+    max-width: 300px;
+    height: 300px ;
   
   }
   .intro h1 { font-size: 30px; }
   .intro p  { font-size: 18px; }
   .grid-beneficios {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 3rem;
+
+    grid-auto-rows: auto;
+    gap: 2rem;
+    padding-inline: 1rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    box-sizing: border-box;
   }
+  
   .grid-cards {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 3rem;
   }
   .box-agendar {
+    margin-top: -50px;
     padding: 3rem 4rem;
   }
   .lista-mitos-verdades {
