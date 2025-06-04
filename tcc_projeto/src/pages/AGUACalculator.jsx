@@ -5,6 +5,7 @@ import { MdBalance } from "react-icons/md";
 import { LuGlassWater } from "react-icons/lu";
 import { PiForkKnifeFill } from "react-icons/pi";
 import { FaRunning } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 function AGUACalculator() {
 
@@ -110,16 +111,21 @@ function AGUACalculator() {
             </div>
 
             <div className="section-calculators">
+                <Link to="/calculadoras/imc">
                 <div className="sectioncal calculadora-calorias-nutrientes">
                     <h1 id="hum-cal-agua">Calculadora de IMC & Peso Ideal</h1>
                     <p>Verifique se esta no peso adequado para sua altura</p>
                     <div className="icon-section"><MdBalance id="img-calculator-icon" /></div>
                 </div>
+                </Link>
+                <Link to="/calculadoras/calorias-nutrientes">
                 <div className="sectioncal calculadora-calorias-nutrientes">
                     <h1 id="hum-cal-nutri">Calculadora de Calorias e Nutrientes</h1>
                     <p>Calcule as calorias e nutrientes dos alimentos consumidos no seu dia a dia.</p>
                     <div className="icon-section"><PiForkKnifeFill id="img-calculator-icon" /></div>
                 </div>
+                </Link>
+                <Link to="/calculadoras/gasto-calorico">
                 <div className="sectioncal calculadora-calorias-nutrientes">
                     <h1 id="hum-cal-gasto">Calculadora de Gastos Calorico</h1>
                     <p>Descubra quantas calorias seu corpo gasta por dia</p>
@@ -127,6 +133,7 @@ function AGUACalculator() {
                     <div className="icon-section"><FaRunning id="img-calculator-icon" /></div>
 
                 </div>
+                </Link>
             </div>
 
         </div>

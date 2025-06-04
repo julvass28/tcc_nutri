@@ -78,6 +78,9 @@
 
 .input-group {
   margin-bottom: 1.5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .input-group label {
@@ -109,6 +112,24 @@
   margin-left: 25%;
 }
 
+.info-imc-container.info-pag-gasto {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: space-around;
+  margin-bottom: 1vw;
+  margin-left: 5%;
+  width: 90%;
+  height:55vh;
+}
+
+.divisoria-pag-gasto{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 90%;
+}
+
 #sexo-buttons {
   display: flex;
   justify-content: center;
@@ -138,8 +159,7 @@
   text-align: center;
   border: 1px solid #ccc;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
-  width: 6vw;
-  margin-left: 5.5vw;
+  width: 7vw;
   padding: 0.3vw;
   border-radius: 5px;
 }
@@ -267,7 +287,7 @@
   border-left: 5px solid #D1A0A0;
   border-radius: 7px;
   color: #444;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .texto-explicativo.pagina-agua{
@@ -277,7 +297,7 @@
   border-left: 5px solid #8A8F75;
   border-radius: 7px;
   color: #444;
-  font-size: 0.7rem;
+  font-size: 1rem;
 }
 
 .info-paragrafos {
@@ -375,8 +395,8 @@
   text-align: center;
   border: 1px solid #ccc;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
-  width: 6vw;
-  margin-left: 5.5vw;
+  width: 7vw;
+  
   padding: 0.3vw;
   border-radius: 5px;
   transition: all 0.3s;
@@ -508,12 +528,162 @@ input[type="number"]::-webkit-outer-spin-button {
 
 #resultadoLitros{
   font-weight: 500;
+  
 }
 
 #cor-resultadoLitros{
-  color: #D1A0A0;
+  color: #e09a9a;
+  background-color: #F4EFEC;
+  padding: 0.5vw;
+  border-radius: 10px;
 }
 
 
+.input-group-gasto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group-gasto label {
+  display: block;
+  margin-bottom: 0.3vw;
+
+}
+
+.input-group-gasto input {
+  width: 100%;
+  padding: 1vw;
+  border-radius: 10px;
+}
+
+.input-container-gasto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F4EFEC;
+  border: 1px solid #ccc;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  width: 22vw;
+  height: 7vw;
+  padding: 2vw;
+  border-radius: 10px;
+}
+
+.input-container-gasto.preenchido {
+  border: #e5bcbc solid 1.5px;
+}
+
+#sexo-buttons-gasto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  height: 7vw;
+  padding: 2vw;
+  border-radius: 10px;
+  width: 22vw;
+}
+
+#sexo-buttons-gasto button {
+  width: 9vw;
+  height: 2.8vw;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  background-color: #F4EFEC;
+  cursor: pointer;
+  font-weight: medium;
+  transition: background-color 0.3s;
+}
+
+#label-sexo-button-gasto {
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  padding: 0.3vw;
+  border-radius: 5px;
+}
+
+#sexo-buttons-gasto button:hover {
+  background-color: #8a8f75;
+  color: #F4EFEC;
+}
+
+#sexo-buttons-gasto button:active {
+  background-color: #727272;
+  color: #F4EFEC;
+}
+
+#sexo-buttons-gasto button.active {
+  background-color: #D1A0A0;
+  color: #F4EFEC;
+}
+
+.gasto-calc-input{
+  width: 100%;
+  height: 3vw;
+  border-radius: 12px;
+  background-color: #F4EFEC;
+  padding: 0.5vw;
+  transition: all 0.3s;
+  border: 1px solid #ccc;
+}
+
+.gasto-calc-input:focus {
+  outline: none;
+  box-shadow: 0 0 5px #D1A0A0;
+}
+
+#objetivo-gasto-calc{
+  background-color: #F4EFEC;
+  padding: 0.8vw;
+  border-radius: 8px;
+  color: #454545;
+}
+
+.resultado-informacoes-gasto{
+  display: flex;
+  margin-bottom: 2vw;
+}
+
+.resultadoGasto{
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 1vw;
+}
 
 
+.texto-explicativo-gasto{
+  margin-top: 0.3vw;
+  width: 50%;
+  background-color: #fff9f9;
+  padding: 1%;
+  border-left: 5px solid #D1A0A0;
+  border-radius: 7px;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+#color-gasto-info{
+  background-color: #F4EFEC;
+  padding: 0.5vw;
+  border-radius: 10px;
+  color: #8A8F75;
+}
+
+.info-paragrafos.calc-gasto{
+  font-size: 0.7rem;
+  color: #454545;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: justify;
+  margin-top: 2vw;
+}
+
+.info-paragrafos.calc-gasto p{
+  margin-bottom: 0.5vw;
+}
