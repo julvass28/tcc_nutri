@@ -4,6 +4,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './mobile.css';
 import Titulo from '../titulo/titulo';
+import { Link } from 'react-router-dom';
+
 
 function CarroselMobile({ titulo, subtitulo, tipo = '', dados = [] }) {
   const [ativo, setAtivo] = useState(null);
@@ -68,6 +70,7 @@ function CarroselMobile({ titulo, subtitulo, tipo = '', dados = [] }) {
             key={item.id}
             className={`slide-container ${tipo} slick-slide ${tipo}`}
           >
+               <Link to={item.link}>
             <div
               onClick={() => handleClick(item.id)}
               className={`card-mobile ${tipo} ${ativo === item.id ? 'clicado' : ''}`}
@@ -91,6 +94,7 @@ function CarroselMobile({ titulo, subtitulo, tipo = '', dados = [] }) {
 
               </div>
             </div>
+            </Link>
           </div>
         ))}
       </Slider>

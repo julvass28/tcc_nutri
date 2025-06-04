@@ -13,25 +13,35 @@ body {
     font-size: 1.2rem;
     width: 200px;
     height: 48px;
-    list-style: none;
     border: none;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     cursor: pointer;
     overflow: hidden;
     font-weight: 500;
+    text-decoration: none; /* Remove sublinhado quando for <Link> */
+    
+    display: inline-flex; /* 🔥 Centraliza corretamente */
     align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.botao:hover {
+    transform: scale(1.05);
+}
+
+.botao:active {
+    transform: scale(0.95);
 }
 
 .botao-verde {
     background-color: #BEC1B3;
 }
 
-@media (max-width: 1023px) {
-
+@media (max-width: 480px) {
     .botao {
         width: 170px;
         height: 35px;
         font-size: 0.90rem;
     }
-
 }

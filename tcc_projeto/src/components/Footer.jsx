@@ -21,7 +21,7 @@ function Footer() {
                             <li><Link to="/receitas/clinica" id='li-design'>Receitas Saudáveis</Link></li>
                             <li><Link to="/DicaNutri-Praia" id='li-design'>Dicas Alimentares</Link></li>
                             <li><Link to="/sobre" id='li-design'>Sobre a  Dra. Natália Simanoviski</Link></li>
-                            <li><Link to="#" id='li-design'>Fale Comigo</Link></li>
+                            <li><Link to="/contato" id='li-design'>Fale Comigo</Link></li>
                         </ul>
 
                         <ul className='list-links'>
@@ -38,7 +38,7 @@ function Footer() {
 
                             <h3 className='list-text-calculadoras'> Calculadoras</h3>
                             <li><Link to="#" id='li-design'>Calorias e Nutrientes</Link></li>
-                            <li><Link to="#" id='li-design'>Gastos Caloricos</Link></li>
+                            <li><Link to="/calculadoras/gasto-calorico" id='li-design'>Gastos Caloricos</Link></li>
                             <li><Link to="/calculadoras/imc" id='li-design'>IMC e Peso Ideal</Link></li>
                             <li><Link to="/calculadoras/consumo-agua" id='li-design'>Consumo diário de Água</Link></li>
                         </ul>

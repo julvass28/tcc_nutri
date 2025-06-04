@@ -6,6 +6,7 @@ import { MdBalance } from "react-icons/md";
 import { LuGlassWater } from "react-icons/lu";
 import { PiForkKnifeFill } from "react-icons/pi";
 import { FaRunning } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 
 function IMCCalculator() {
@@ -217,16 +218,21 @@ function IMCCalculator() {
       </div>
 
       <div className="section-calculators">
+        <Link to="/calculadoras/consumo-agua">
         <div className="sectioncal calculadora-calorias-nutrientes">
           <h1 id="hum-cal-agua">Calculadora de Consumo diário de Água</h1>
           <p>Calcule a quantidade ideal de água que você deve consumir diariamente.</p>
           <div className="icon-section"><LuGlassWater id="img-calculator-icon" /></div>
         </div>
+        </Link>
+        <Link to="/calculadoras/calorias-nutrientes">
         <div className="sectioncal calculadora-calorias-nutrientes">
           <h1 id="hum-cal-nutri">Calculadora de Calorias e Nutrientes</h1>
           <p>Calcule as calorias e nutrientes dos alimentos consumidos no seu dia a dia.</p>
           <div className="icon-section"><PiForkKnifeFill id="img-calculator-icon" /></div>
         </div>
+        </Link>
+        <Link to="/calculadoras/gasto-calorico">
         <div className="sectioncal calculadora-calorias-nutrientes">
           <h1 id="hum-cal-gasto">Calculadora de Gastos Calorico</h1>
           <p>Descubra quantas calorias seu corpo gasta por dia</p>
@@ -234,6 +240,7 @@ function IMCCalculator() {
           <div className="icon-section correr"><FaRunning id="img-calculator-icon" /></div>
 
         </div>
+        </Link>
       </div>
       
     </div>
