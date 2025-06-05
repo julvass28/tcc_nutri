@@ -7,6 +7,7 @@ import pudim from '../../assets/pudim.png';
 import chai from '../../assets/chai.png';
 import crepe from '../../assets/crepe.png';
 import chips from '../../assets/chips.png';
+import SectionCalculators from '../../components/SectionCalculators';
 
 const categorias = [
   { nome: 'Clínica', icone: <LuStethoscope size={22} />, link: '/receitas/clinica' },
@@ -95,6 +96,8 @@ function ReceitasClinicas() {
           <Link to="/receitas/info/ChipsDeBatata" className="receitas-leia-mais">Leia mais</Link>
         </div>
       </div>
+
+        <SectionCalculators />
     </div>
   );
 }

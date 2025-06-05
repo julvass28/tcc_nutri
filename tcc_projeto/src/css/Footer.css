@@ -12,7 +12,7 @@
 }
 
 .footer {
-    background-color: #F4EFEC;
+    background-color: #F2EFEA;
     font-family: 'Poppins', sans-serif;
     position: relative;
     width: 100%;
@@ -77,35 +77,12 @@
     
 }
 
-.button-footer button {
-    background-color: #D1A0A0;
-    border-radius: 8.85px;
-    border: 0;
-    box-shadow: rgba(87, 87, 87, 0.5) 0 -1px 3px 0 inset, rgba(255, 255, 255, 0.1) 0 3px 6px 0;
-    color: #454545;
-    cursor: pointer;
-    display: inherit;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 12px;
-    margin-bottom: 12px;
-    min-height: 36px;
-    min-width: 100px;
-    padding: 16px;
-    position: relative;
-    text-align: center;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: baseline;
-    transition: all .4s cubic-bezier(.22, .61, .36, 1);
+.button-footer-agendar {
+  margin-bottom: 20px;
+    font-size: 1.2rem;
 }
 
-.button-footer button:hover {
-    background-color: #8A8F75;
-    color: #F4EFEC;
-    transform: translateY(-2px);
-}
+
 
 .direitos {
     display: flex;

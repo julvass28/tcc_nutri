@@ -7,6 +7,7 @@ import suco from '../../assets/suco.png';
 import salada from '../../assets/salada.png';
 import paoo from '../../assets/paoo.png';
 import omelete from '../../assets/omelete.png';
+import SectionCalculators from '../../components/SectionCalculators';
 
 const categorias = [
   { nome: 'Clínica', icone: <LuStethoscope size={22} />, link: '/receitas/clinica' },
@@ -95,6 +96,7 @@ function ReceitasEmagrecimento() {
              <Link to="/Omelete" className="receitas-leia-mais">Leia mais</Link>
         </div>
       </div>
+      <SectionCalculators />
     </div>
   );
 }

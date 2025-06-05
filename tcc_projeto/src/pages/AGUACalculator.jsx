@@ -6,6 +6,7 @@ import { LuGlassWater } from "react-icons/lu";
 import { PiForkKnifeFill } from "react-icons/pi";
 import { FaRunning } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import Botao from "../components/botao/Botao";
 
 function AGUACalculator() {
 
@@ -89,9 +90,7 @@ function AGUACalculator() {
 
             </div>
             <div className="botao-calcular-container">
-                <button className="calcular-btn btn-pagina-agua" onClick={calcularAgua}>
-                    Calcular Consumo de Agua
-                </button>
+                <Botao onClick={calcularAgua}>Calcular</Botao>
             </div>
             <div className="resultado-container">
                 {aguaLitros && (
@@ -102,9 +101,7 @@ function AGUACalculator() {
 
                         {/* Botão de recalcular */}
                         <div className="botao-calcular-container">
-                            <button className="recalcular-btn btn-pagina-agua" onClick={reCalcular}>
-                                Calcular novamente
-                            </button>
+                            <Botao onClick={reCalcular}>Calcular Novamente</Botao>
                         </div>
                     </div>
                 )}
@@ -112,27 +109,27 @@ function AGUACalculator() {
 
             <div className="section-calculators">
                 <Link to="/calculadoras/imc">
-                <div className="sectioncal calculadora-calorias-nutrientes">
-                    <h1 id="hum-cal-agua">Calculadora de IMC & Peso Ideal</h1>
-                    <p>Verifique se esta no peso adequado para sua altura</p>
-                    <div className="icon-section"><MdBalance id="img-calculator-icon" /></div>
-                </div>
+                    <div className="sectioncal calculadora-calorias-nutrientes">
+                        <h1 id="hum-cal-agua">Calculadora de IMC & Peso Ideal</h1>
+                        <p>Verifique se esta no peso adequado para sua altura</p>
+                        <div className="icon-section"><MdBalance id="img-calculator-icon" /></div>
+                    </div>
                 </Link>
                 <Link to="/calculadoras/calorias-nutrientes">
-                <div className="sectioncal calculadora-calorias-nutrientes">
-                    <h1 id="hum-cal-nutri">Calculadora de Calorias e Nutrientes</h1>
-                    <p>Calcule as calorias e nutrientes dos alimentos consumidos no seu dia a dia.</p>
-                    <div className="icon-section"><PiForkKnifeFill id="img-calculator-icon" /></div>
-                </div>
+                    <div className="sectioncal calculadora-calorias-nutrientes">
+                        <h1 id="hum-cal-nutri">Calculadora de Calorias e Nutrientes</h1>
+                        <p>Calcule as calorias e nutrientes dos alimentos consumidos no seu dia a dia.</p>
+                        <div className="icon-section"><PiForkKnifeFill id="img-calculator-icon" /></div>
+                    </div>
                 </Link>
                 <Link to="/calculadoras/gasto-calorico">
-                <div className="sectioncal calculadora-calorias-nutrientes">
-                    <h1 id="hum-cal-gasto">Calculadora de Gastos Calorico</h1>
-                    <p>Descubra quantas calorias seu corpo gasta por dia</p>
+                    <div className="sectioncal calculadora-calorias-nutrientes">
+                        <h1 id="hum-cal-gasto">Calculadora de Gastos Calorico</h1>
+                        <p>Descubra quantas calorias seu corpo gasta por dia</p>
 
-                    <div className="icon-section"><FaRunning id="img-calculator-icon" /></div>
+                        <div className="icon-section"><FaRunning id="img-calculator-icon" /></div>
 
-                </div>
+                    </div>
                 </Link>
             </div>
 

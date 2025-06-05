@@ -21,11 +21,11 @@
   text-align: center;
   margin-bottom: 32px;
   margin-top: 50px;
-  
+ 
 }
 
 .dica-nutri-titulo h1 {
-  font-weight: 400;
+  font-weight: 800;
   font-size: 25px;
   line-height: 1.2;
   color: #454545;
@@ -47,31 +47,24 @@
 .dica-nutri-nav {
   margin: 0 auto;
   padding: 6px 12px;
-  max-width: 1000px;
   width: 100%;
   background-color: #E6E6D9;
   border-radius: 6px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   font-size: 14px;
   font-weight: 400;
   color: #6B6B6B;
   user-select: none;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 5rem;
 }
   
 .nav-scroll-wrapper {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
-
-.dica-nutri-nav {
-  min-width: max-content;
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 8px;
-}
-
-
 
 .dica-nutri-btn {
   background: none;
@@ -99,6 +92,8 @@
 
 .dica-nutri-btn:not(.active):hover {
   background-color: #D9D9C6;
+  border: 1px solid #b8b8b8;
+  transition: background-color 0.5s ease;
 }
 
 .container-nav-dica{

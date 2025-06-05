@@ -7,6 +7,7 @@ import smoothiee from '../../assets/smoothiee.png';
 import barra from '../../assets/barra.png';
 import bico from '../../assets/bico.png';
 import pao from '../../assets/pao.png';
+import SectionCalculators from '../../components/SectionCalculators';
 
 const categorias = [
   { nome: 'Clínica', icone: <LuStethoscope size={22} />, link: '/receitas/clinica' },
@@ -96,6 +97,7 @@ function ReceitasEsportivas() {
               <Link to="/PaoDeBanana" className="receitas-leia-mais">Leia mais</Link>
         </div>
       </div>
+      <SectionCalculators />
     </div>
   );
 }

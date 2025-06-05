@@ -49,7 +49,21 @@ import PanquecaDeBanana from './pages/receitas/PanquecaDeBanana';
 export default function App() {
   return (
     <Router>
-      <ScrollToTop />
+      <ScrollToTop excludePaths={[
+  "/DicaNutri-Praia",
+  "/DicaNutri-Restaurantes",
+  "/DicaNutri-FastFood",
+  "/DicaNutri-Shopping",
+  "/DicaNutri-Bar",
+  "/DicaNutri-Viagem",
+  "/receitas/clinica",
+  "/receitas/pediatrica",
+  "/receitas/esportiva",
+  "/receitas/emagrecimento",
+  "/receitas/intolerancias"
+ 
+]}
+/>
       <Header /> 
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -62,6 +76,9 @@ export default function App() {
         <Route path="/login" element={<Login />} /> 
         <Route path="/cadastro" element={<CriarConta />} />
         <Route path="/esqueci-senha" element={<ForgotPassword />} />
+
+
+
         <Route path="/DicaNutri-Praia" element={<Praia />} />
         <Route path="/DicaNutri-Restaurantes" element={<Restaurantes />} />
         <Route path="/DicaNutri-FastFood" element={<FastFood />} />

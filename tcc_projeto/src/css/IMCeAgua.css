@@ -179,46 +179,11 @@
   color: #F4EFEC;
 }
 
-
-.calcular-btn.btn-pagina-imc {
-  background-color: #D1A0A0;
-  border-radius: 8.85px;
-  border: 0;
-  box-shadow: rgba(87, 87, 87, 0.5) 0 -1px 3px 0 inset, rgba(255, 255, 255, 0.1) 0 3px 6px 0;
-  color: #454545;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  width: 18vw;
-  height: 3.8vw;
-  transition: all .4s cubic-bezier(.22, .61, .36, 1);
-}
-
-.calcular-btn.btn-pagina-imc:hover {
-  background-color: #8A8F75;
-  color: #F4EFEC;
-  transform: translateY(-2px);
-}
-
-.calcular-btn.btn-pagina-agua {
-  background-color: #D1A0A0;
-  border-radius: 8.85px;
-  border: 0;
-  box-shadow: rgba(87, 87, 87, 0.5) 0 -1px 3px 0 inset, rgba(255, 255, 255, 0.1) 0 3px 6px 0;
-  color: #454545;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  width: 250px;
-  height: 50px;
-  padding: 16px;
-  transition: all .4s cubic-bezier(.22, .61, .36, 1);
-}
-
-.calcular-btn.btn-pagina-agua:hover {
-  background-color: #8A8F75;
-  color: #F4EFEC;
-  transform: translateY(-2px);
+.botao-calcular-container{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2vw;
 }
 
 .resultado {
@@ -325,28 +290,6 @@
   margin-right: 0.5vw;
 }
 
-.recalcular-btn {
-  background-color: #D1A0A0;
-  border-radius: 8.85px;
-  border: 0;
-  box-shadow: rgba(87, 87, 87, 0.5) 0 -1px 3px 0 inset, rgba(255, 255, 255, 0.1) 0 3px 6px 0;
-  color: #454545;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  width: 17vw;
-  height: 3.7vw;
-  transition: all .4s cubic-bezier(.22, .61, .36, 1);
-  margin-top: 3vw;
-
-
-}
-
-.recalcular-btn:hover {
-  background-color: #8A8F75;
-  color: #F4EFEC;
-  transform: translateY(-2px);
-}
 
 .input-group.erro input {
   box-shadow: #ff5f5f 0px 0.5px 1.5px;

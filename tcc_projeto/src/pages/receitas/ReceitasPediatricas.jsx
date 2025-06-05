@@ -7,6 +7,7 @@ import panqueca from '../../assets/panqueca.png';
 import bolinho from '../../assets/bolinho.png';
 import nuggets from '../../assets/nuggets.png';
 import smoothie from '../../assets/smoothie.png';
+import SectionCalculators from '../../components/SectionCalculators';
 
 const categorias = [
   { nome: 'Clínica', icone: <LuStethoscope size={22} />, link: '/receitas/clinica' },
@@ -95,6 +96,7 @@ function ReceitasPediatricas() {
          <Link to="/receitas/info/SmoothieDeMorango" className="receitas-leia-mais">Leia mais</Link>
         </div>
       </div>
+      <SectionCalculators />
     </div>
   );
 }

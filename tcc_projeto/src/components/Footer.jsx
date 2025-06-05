@@ -5,6 +5,7 @@ import '../css/Footer.css';
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import { FaWhatsapp, FaInstagram, FaLinkedin } from "react-icons/fa";
 import FooterOnda from '../assets/Footer_onda.jsx';
+import Botao from './botao/Botao.jsx';
 
 function Footer() {
     return (
@@ -46,9 +47,9 @@ function Footer() {
 
                     <div className='section-footer'>
                         <div className='section-pai'>
-                            <div className='button-footer'>
-                                <button>Agendar Consulta</button>
-                            </div>
+                            
+                                 <Botao className='button-footer-agendar'>Agendar Consulta</Botao>
+                            
                             <div className='icons-footer'>
                                 <FaInstagram className='icon-footer'></FaInstagram>
                                 <FaLinkedin className='icon-footer'></FaLinkedin>

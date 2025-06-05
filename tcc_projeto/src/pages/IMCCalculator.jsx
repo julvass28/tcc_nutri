@@ -7,6 +7,7 @@ import { LuGlassWater } from "react-icons/lu";
 import { PiForkKnifeFill } from "react-icons/pi";
 import { FaRunning } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import Botao from "../components/botao/Botao";	
 
 
 function IMCCalculator() {
@@ -146,10 +147,8 @@ function IMCCalculator() {
 
       </div>
       <div className="botao-calcular-container">
-        <button className="calcular-btn btn-pagina-imc" onClick={calcularIMC}>
-          Calcular IMC e Peso Ideal
-        </button>
-      </div>
+                <Botao onClick={calcularIMC}>Calcular</Botao>
+            </div>
       <div className="resultado-container">
         {resultado && (
 
@@ -208,11 +207,9 @@ function IMCCalculator() {
             </div>
 
             {/* Botão de recalcular */}
-            <div className="botao-calcular-container">
-              <button className="recalcular-btn" onClick={calcularNovamente}>
-                Calcular novamente
-              </button>
-            </div>
+                        <div className="botao-calcular-container">
+                            <Botao onClick={calcularNovamente}>Calcular Novamente</Botao>
+                        </div>
           </div>
         )}
       </div>

@@ -6,6 +6,7 @@ import { MdBalance } from "react-icons/md";
 import { LuGlassWater } from "react-icons/lu";
 import { PiForkKnifeFill } from "react-icons/pi";
 import { FaRunning } from "react-icons/fa";
+import Botao from "../components/botao/Botao";
 import { Link } from 'react-router-dom';
 
 function GASTOCalculator() {
@@ -221,10 +222,8 @@ function GASTOCalculator() {
       </div>
 
       <div className="botao-calcular-container">
-        <button className="calcular-btn btn-pagina-imc" onClick={calcular}>
-          Calcular Gasto Calórico
-        </button>
-      </div>
+                <Botao onClick={calcular}>Calcular</Botao>
+            </div>
       {showResultado && resultado && (
         <div className="gasto-calc-container">
           <div className="text-resultado"><h1>Resultado</h1></div>
@@ -241,11 +240,10 @@ function GASTOCalculator() {
             <li>Para uma alimentação equilibrada, é recomendado o consumo minímo de 1000 calorias por dia para mulheres e 1200 calorias por dia para homens.</li>
           </div>
 
-          <div className="botao-calcular-container">
-            <button className="recalcular-btn" onClick={resetForm}>
-              Calcular novamente
-            </button>
-          </div>
+          {/* Botão de recalcular */}
+                        <div className="botao-calcular-container">
+                            <Botao onClick={resetForm}>Calcular Novamente</Botao>
+                        </div>
         </div>
 
       )}

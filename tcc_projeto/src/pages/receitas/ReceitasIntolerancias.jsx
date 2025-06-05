@@ -7,6 +7,7 @@ import leite from '../../assets/leite.png';
 import paodq from '../../assets/paodq.png';
 import bolo from '../../assets/bolo.png';
 import panquecab from '../../assets/panquecab.png';
+import SectionCalculators from '../../components/SectionCalculators';
 
 const categorias = [
   { nome: 'Clínica', icone: <LuStethoscope size={22} />, link: '/receitas/clinica' },
@@ -99,6 +100,7 @@ function ReceitasIntolerancias() {
           <Link to="/PanquecaDeBanana" className="receitas-leia-mais">Leia mais</Link>
         </div>
       </div>
+      <SectionCalculators />
     </div>
   );
 }
