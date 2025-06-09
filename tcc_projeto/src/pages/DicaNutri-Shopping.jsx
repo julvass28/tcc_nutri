@@ -3,6 +3,7 @@ import { FaUmbrellaBeach, FaUtensils, FaHamburger, FaShoppingBag, FaCocktail, Fa
 import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 import Formulario from "../components/formulario/formulario";
+import Botao from '../components/botao/Botao';
 
 // Exemplo de como importar imagem localmente:
 // import frutasImg from './assets/frutas.jpg';
@@ -132,7 +133,7 @@ const NutriIndica = () => {
         <footer className="dica-nutri-footer" aria-label="Agendamento">
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
-        <button className="dica-nutri-btn-agendar" type="button">Agendar Consulta</button>
+        <Botao >Agendar Consulta</Botao>
           <div className="form espacamento">
                       <Formulario />
                   </div>

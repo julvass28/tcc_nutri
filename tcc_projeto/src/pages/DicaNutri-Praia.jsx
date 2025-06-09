@@ -11,6 +11,7 @@ import praia3 from '../assets/dicasnutri/praia3.png';
 import praia4 from '../assets/dicasnutri/praia4.png';
 import praia5 from '../assets/dicasnutri/praia5.png';
 import praia6 from '../assets/dicasnutri/praia6.png';
+import Botao from '../components/botao/Botao';
 
 
 
@@ -138,7 +139,7 @@ const NutriIndica = () => {
         <footer className="dica-nutri-footer" aria-label="Agendamento">
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
-        <button className="dica-nutri-btn-agendar" type="button">Agendar Consulta</button>
+        <Botao >Agendar Consulta</Botao>
            <div className="form espacamento">
                       <Formulario />
                   </div>

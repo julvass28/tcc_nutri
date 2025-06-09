@@ -11,6 +11,7 @@ import ff4 from '../assets/dicasnutri/ff4.png';
 import ff5 from '../assets/dicasnutri/ff5.png';
 import ff6 from '../assets/dicasnutri/ff6.png';
 import ff7 from '../assets/dicasnutri/ff7.png';
+import Botao from '../components/botao/Botao';
 
 const NutriIndica = () => {
   return (
@@ -142,7 +143,7 @@ const NutriIndica = () => {
         <footer className="dica-nutri-footer" aria-label="Agendamento">
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
-        <button className="dica-nutri-btn-agendar" type="button">Agendar Consulta</button>
+        <Botao >Agendar Consulta</Botao>
           <div className="form espacamento">
                       <Formulario />
                   </div>

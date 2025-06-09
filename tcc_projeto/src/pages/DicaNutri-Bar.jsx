@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 import Formulario from "../components/formulario/formulario";
 
+
 import bar1 from '../assets/dicasnutri/bar1.png';
 import bar2 from '../assets/dicasnutri/bar2.png';
 import bar3 from '../assets/dicasnutri/bar3.png';
 import bar4 from '../assets/dicasnutri/bar4.png';
 import bar5 from '../assets/dicasnutri/bar5.png';
 import bar6 from '../assets/dicasnutri/bar6.png';
+import Botao from '../components/botao/Botao';
 
 
 const NutriIndica = () => {
@@ -136,7 +138,7 @@ const NutriIndica = () => {
         <footer className="dica-nutri-footer" aria-label="Agendamento">
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
-        <button className="dica-nutri-btn-agendar" type="button">Agendar Consulta</button>
+        <Botao >Agendar Consulta</Botao>
           <div className="form espacamento">
                         <Formulario />
                     </div>
