@@ -1,0 +1,82 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+.config-page {
+  background: white;
+  color: #333;
+}
+.config-header {
+  background: #E6CCC7;
+  padding: 2rem 1rem 4rem;
+  position: relative;
+  text-align: center;
+}
+.config-header img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  pointer-events: none;
+}
+.config-header h1 {
+  color: #8B9279;
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+.voltar {
+  color: #8B9279;
+  font-weight: 600;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.config-main {
+  max-width: 700px;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+.config-main section {
+  background: #E6CCC7;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+.config-main h2 {
+  color: #555;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.config-main p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.campo-editar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+.campo-editar input {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.salvar {
+  text-align: right;
+}
+.salvar button {
+  background-color: #BF8B8B;
+  color: white;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.salvar button:hover {
+  background-color: #a97474;
+}

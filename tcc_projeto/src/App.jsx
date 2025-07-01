@@ -46,6 +46,9 @@ import PaoDeQueijo from './pages/receitas/PaoDeQueijo';
 import BoloDeCacau from './pages/receitas/BoloDeCacau';
 import PanquecaDeBanana from './pages/receitas/PanquecaDeBanana';
 
+import Perfil from './pages/perfil';
+import ConfiguracoesAdm from './pages/ConfiguracoesAdm';
+
 export default function App() {
   return (
     <Router>
@@ -77,7 +80,8 @@ export default function App() {
         <Route path="/cadastro" element={<CriarConta />} />
         <Route path="/esqueci-senha" element={<ForgotPassword />} />
 
-
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/configuracoesadm" element={<ConfiguracoesAdm />} />
 
         <Route path="/DicaNutri-Praia" element={<Praia />} />
         <Route path="/DicaNutri-Restaurantes" element={<Restaurantes />} />

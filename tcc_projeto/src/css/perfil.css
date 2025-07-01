@@ -1,0 +1,259 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0ebe8;
+  color: #2a2a2a;
+}
+.perfil-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+.perfil-wave {
+  background: linear-gradient(to bottom, #a9a594 60%, #d9c9c6 40%);
+  width: 100%;
+  height: 120px;
+}
+.perfil-header {
+  padding-top: 120px;
+  text-align: center;
+}
+.foto-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.foto-wrapper img {
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  border: 1px solid #2a2a2a;
+}
+.editar-foto {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.nome-usuario {
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+.linha {
+  width: 100%;
+  max-width: 1200px;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}
+.secao {
+  background: #f0ebe8;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 2rem;
+}
+.secao.branco {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.secao h2, .secao h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.campo {
+  margin-bottom: 1rem;
+}
+input[readonly] {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  width: 100%;
+  border-radius: 4px;
+}
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.campo-editavel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.senha {
+  flex-grow: 1;
+  letter-spacing: 3px;
+}
+.objetivos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.objetivo {
+  display: flex;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  color: white;
+}
+.objetivo.o1 {
+  background-color: #a9a594;
+}
+.objetivo.o2 {
+  background-color: #b97f7a;
+}
+.docs-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.doc-botoes {
+  display: flex;
+  gap: 0.5rem;
+}
+.doc-botoes button {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  background-color: #ccc;
+  color: #333;
+  border: none;
+}
+.doc-botoes button.ativo {
+  background-color: #a9a594;
+  color: white;
+}
+.doc-itens {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+}
+.doc {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 160px;
+  flex-shrink: 0;
+}
+.doc img {
+  width: 100%;
+  height: 96px;
+  object-fit: contain;
+  border-radius: 8px 8px 0 0;
+}
+.doc-info {
+  padding: 0.5rem;
+  font-size: 0.7rem;
+}
+.doc-info .sub {
+  color: gray;
+  font-style: italic;
+}
+.cards-calc {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.card {
+  flex: 1;
+  min-width: 200px;
+  background: #e6ded8;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: left;
+}
+.card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.card p {
+  font-size: 0.8rem;
+}
+.card i {
+  display: block;
+  margin-top: 1rem;
+  text-align: right;
+  font-size: 1.2rem;
+  color: #7a7a6a;
+}
+.consultas {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+}
+.consulta {
+  background: white;
+  border-radius: 8px;
+  padding: 0.5rem;
+  width: 160px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+  font-size: 0.7rem;
+}
+.consulta img {
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 0.25rem;
+}
+.consulta .sub {
+  color: gray;
+}
+.consulta .data {
+  color: #aaa;
+  font-size: 0.6rem;
+}
+.text-center {
+  text-align: center;
+}
+.contato-opcoes {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.contato-opcoes div {
+  font-size: 0.8rem;
+}
+.contato-opcoes i {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+.registro {
+  background: #e6e6d8;
+  border: 1px solid #a9a594;
+  border-radius: 10px;
+  padding: 1rem;
+}
+.registro-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.registro-info div {
+  text-align: center;
+  flex: 1;
+}
+.registro-info h2, .registro-info h3 {
+  margin: 0.5rem 0;
+}
+.btn-refeicoes {
+  background-color: #b97f7a;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.btn-refeicoes:hover {
+  background-color: #a06f6a;
+}
