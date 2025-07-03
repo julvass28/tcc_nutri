@@ -6,10 +6,15 @@ import { FaXmark } from "react-icons/fa6";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import Botao from './botao/Botao';
 import logo from "../assets/img_png/Logo.png";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
+
 
 function Header() {
     const [openMenu, setOpenMenu] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const { user } = useContext(AuthContext);
 
     const toggleDropdown = (menuName) => {
         setOpenDropdown(openDropdown === menuName ? null : menuName);
@@ -104,7 +109,13 @@ function Header() {
             </nav>
 
             <div className="perfil">
-                <Link to="/login"><FaUser className='user' /></Link>
+
+                {user && (
+                    <span style={{ marginRight: "12px" }}>
+                        Olá, <strong>{user.nome}</strong>
+                    </span>
+                )}
+                <FaUser className="user" />
             </div>
         </header>
     );
