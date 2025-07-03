@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"; // ⬅️ importando useNavigate
 import "../css/auth-pages.css";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
+
+
 
 export default function Login() {
+  const { login } = useContext(AuthContext);
   const [credentials, setCredentials] = useState({ email: "", senha: "" });
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const navigate = useNavigate(); // ⬅️ instanciando o hook
@@ -25,13 +31,8 @@ export default function Login() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.token) {
-          console.log("Login realizado:", data);
-          localStorage.setItem("token", data.token); // salva token pra usar depois
-          navigate("/"); // redireciona pra home
-        } else {
-          alert(data.erro || "Login falhou");
-        }
+        login(data.token);
+        navigate("/");
       })
       .catch((err) => console.error("Erro ao logar:", err));
 
