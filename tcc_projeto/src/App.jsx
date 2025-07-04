@@ -45,6 +45,7 @@ import LeiteDeAmendoas from './pages/receitas/LeiteDeAmendoas';
 import PaoDeQueijo from './pages/receitas/PaoDeQueijo';
 import BoloDeCacau from './pages/receitas/BoloDeCacau';
 import PanquecaDeBanana from './pages/receitas/PanquecaDeBanana';
+import BuscarAlimentos from './pages/BuscarAlimentos';
 
 export default function App() {
   return (
@@ -66,6 +67,7 @@ export default function App() {
 />
       <Header /> 
       <Routes>
+       <Route path="/buscar-alimentos" element={<BuscarAlimentos />} />
         <Route path="/" element={<Home/>}/>
         <Route path="/calculadoras/consumo-agua" element={<AGUACalculator/>}/>
         <Route path="/calculadoras/imc" element={<IMCCalculator />} />
