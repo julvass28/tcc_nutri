@@ -67,7 +67,7 @@ const perguntasEspecificas = {
                 {
                     pergunta: 'Como foram seus últimos exames laboratoriais?',
                     tipo: 'texto',
-                    subanamnese: ['Glicose', 'Colesterol', 'Pressão Arterial'],
+                    
                 },
 
             ],
@@ -140,95 +140,42 @@ const perguntasEspecificas = {
 
 
 
-
-    'pediatrica': [
+pediatrica: [
+    {
+      titulo: '1: INFORMAÇÕES DA CRIANÇA',
+      perguntas: [
+        { pergunta: 'Nome da Criança:', tipo: 'texto' },
+        { pergunta: 'Idade da Criança:', tipo: 'texto', unidade: 'anos' },
+        { pergunta: 'Relação com a criança', tipo: 'radio', opcoes: ['Pai/Mãe', 'Responsável Legal', 'Outro'] },
+        { pergunta: 'Telefone:', tipo: 'texto' },
+        { pergunta: 'Email:', tipo: 'texto' },
+        { pergunta: 'Altura:', tipo: 'texto', unidade: 'cm' },
+        { pergunta: 'Peso:', tipo: 'texto', unidade: 'kg' },
+      ],
+    },
+    {
+      titulo: '2: HÁBITOS ALIMENTARES',
+      perguntas: [
+        { pergunta: 'Como é o apetite da criança?', tipo: 'radio', opcoes: ['Come bem', 'Come pouco', 'Tem seletividade alimentar'] },
+        { pergunta: 'Frequência de consumo de doces e industrializados:', tipo: 'radio', opcoes: ['Raramente', '1x por semana', 'Todos os dias'] },
+        { pergunta: 'Como é a alimentação na escola/creche?', tipo: 'texto' },
+      ],
+    },
+    {
+      titulo: '3: SAÚDE E CRESCIMENTO',
+      perguntas: [
+        { pergunta: 'A criança tem alguma alergia ou intolerância alimentar?', tipo: 'radio', opcoes: ['Sim', 'Não'] },
         {
-            substituirComum: true,
-            comumPersonalizada: [
-                {
-                    titulo: '1: INFORMAÇÕES DA CRIANÇA',
-                    perguntas: [
-
-                        {
-                            pergunta: 'Nome da Criança:',
-                            tipo: 'texto'
-                        },
-
-                        {
-                            pergunta: 'Idade da Criança:',
-                            tipo: 'texto',
-                            unidade: 'anos'
-                        },
-                        {
-                            pergunta: 'Relação com a criança',
-                            tipo: 'radio',
-                            opcoes: ['Pai/Mãe', 'Responsável Legal', 'Outro'],
-                        },
-                        {
-                            pergunta: 'Telefone:',
-                            tipo: 'texto',
-                        },
-                        {
-                            pergunta: 'Email:',
-                            tipo: 'texto',
-                        },
-                        {
-                            pergunta: 'Altura:',
-                            tipo: 'texto',
-                            unidade: 'cm',
-                        },
-                        {
-                            pergunta: 'Peso:',
-                            tipo: 'texto',
-                            unidade: 'kg',
-                        },
-                    ],
-                },
-            ],
-            secoes: [
-                {
-                    titulo: '2: HÁBITOS ALIMENTARES',
-                    perguntas: [
-                        {
-                            pergunta: 'Como é o apetite da criança?',
-                            tipo: 'radio',
-                            opcoes: ['Come bem', 'Come pouco', 'Tem seletividade alimentar']
-                        },
-                        {
-                            pergunta: 'Frequência de consumo de doces e industrializados:',
-                            tipo: 'radio',
-                            opcoes: ['Raramente', '1x por semana', 'Todos os dias']
-                        },
-                        {
-                            pergunta: 'Como é a alimentação na escola/creche?',
-                            tipo: 'texto',
-
-                        },
-
-                        {
-                            tipo: 'titulo',
-                            texto: '3: SAÚDE E CRESCIMENTO',
-                        },
-                        {
-                            pergunta: 'A criança tem alguma alergia ou intolerância alimentar?',
-                            tipo: 'radio',
-                            opcoes: ['Sim', 'Não'],
-                        },
-
-                        {
-                            pergunta: 'Toma vitaminas ou suplementos?',
-                            tipo: 'radio_condicional_texto',
-                            opcoes: ['Sim', 'Não'],
-                            condicao: 'Sim',
-                            placeholder: 'Se sim, quais?'
-                        },
-
-                    ],
-                },
-            ],
+          pergunta: 'Toma vitaminas ou suplementos?',
+          tipo: 'radio_condicional_texto',
+          opcoes: ['Sim', 'Não'],
+          condicao: 'Sim',
+          placeholder: 'Se sim, quais?'
         },
+      ],
+    },
+  ],
 
-    ],
 
 
 

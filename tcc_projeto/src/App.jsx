@@ -45,6 +45,8 @@ import LeiteDeAmendoas from './pages/receitas/LeiteDeAmendoas';
 import PaoDeQueijo from './pages/receitas/PaoDeQueijo';
 import BoloDeCacau from './pages/receitas/BoloDeCacau';
 import PanquecaDeBanana from './pages/receitas/PanquecaDeBanana';
+import FormularioAnamnese from './pages/FormularioAnamnese';
+
 
 export default function App() {
   return (
@@ -76,6 +78,9 @@ export default function App() {
         <Route path="/login" element={<Login />} /> 
         <Route path="/cadastro" element={<CriarConta />} />
         <Route path="/esqueci-senha" element={<ForgotPassword />} />
+        <Route path="/anamnese"element={<FormularioAnamnese modalidadeSelecionada="clinica" />}
+/>
+
 
 
 
