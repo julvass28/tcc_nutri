@@ -1,17 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import '../css/BuscarAlimentos.css';
 import lupaIcon from '../assets/lupa-rosa.png';
+import { useNavigate } from 'react-router-dom';
 
 const BuscarAlimentos = () => {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
+  const navigate = useNavigate();
 
+  const handleAbrirDetalhes = (item) => {
+    // mock para a imagem e nutrientes (você pode mudar quando usar API)
+    const itemComDados = {
+      ...item,
+      imagem: require('../assets/bacon.jpg'), // ⬅️ temporário
+      quantidade: 2,
+      unidade: 'Colher de sopa',
+      nutrientes: {
+        calorias: 32,
+        proteina: 5.8,
+        gorduras: 0.8,
+        carboidratos: 0.4
+      }
+    };
+
+    navigate('/detalhes-alimento', { state: itemComDados });
+  };
 
   useEffect(() => {
-    // Adiciona classe no body
     document.body.classList.add('buscar-alimentos-body');
-
-    // Remove quando sair da página
     return () => {
       document.body.classList.remove('buscar-alimentos-body');
     };
@@ -100,13 +116,18 @@ const BuscarAlimentos = () => {
               <p>{item.descricao}</p>
               <p>{item.quantidade} – {item.kcal} kcal</p>
             </div>
-            <button className="add-button">+</button>
+            <button className="add-button" onClick={() => handleAbrirDetalhes(item)}>+</button>
+
             {/* depois adionar oq o botão de + faz */}
           </div>
         ))}
       </div>
     </div>
   );
+  
+
+
+
 };
 
 export default BuscarAlimentos;

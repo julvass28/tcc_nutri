@@ -45,10 +45,17 @@ import LeiteDeAmendoas from './pages/receitas/LeiteDeAmendoas';
 import PaoDeQueijo from './pages/receitas/PaoDeQueijo';
 import BoloDeCacau from './pages/receitas/BoloDeCacau';
 import PanquecaDeBanana from './pages/receitas/PanquecaDeBanana';
+
 import BuscarAlimentos from './pages/BuscarAlimentos';
+import DetalheAlimento from './pages/DetalheAlimento';
+import GerenciarHorarios from './pages/GerenciarHorarios';
+import EditarHorario from './pages/EditarHorario';
+import { HorarioProvider } from './context/HorarioContext';
+
 
 export default function App() {
   return (
+  <HorarioProvider>
     <Router>
       <ScrollToTop excludePaths={[
   "/DicaNutri-Praia",
@@ -66,8 +73,15 @@ export default function App() {
 ]}
 />
       <Header /> 
+     
       <Routes>
-       <Route path="/buscar-alimentos" element={<BuscarAlimentos />} />
+        
+        <Route path="/gerenciar-horarios" element={<GerenciarHorarios />} />
+        <Route path="/editar-horario/:nome" element={<EditarHorario />} />
+        <Route path="/detalhes-alimento" element={<DetalheAlimento />} />
+        <Route path="/buscar-alimentos" element={<BuscarAlimentos />} />
+
+
         <Route path="/" element={<Home/>}/>
         <Route path="/calculadoras/consumo-agua" element={<AGUACalculator/>}/>
         <Route path="/calculadoras/imc" element={<IMCCalculator />} />
@@ -118,5 +132,6 @@ export default function App() {
 
      <Footer />
     </Router>
+ </HorarioProvider>
   );
 }
