@@ -78,7 +78,7 @@ export default function App() {
         <Route path="/login" element={<Login />} /> 
         <Route path="/cadastro" element={<CriarConta />} />
         <Route path="/esqueci-senha" element={<ForgotPassword />} />
-        <Route path="/anamnese"element={<FormularioAnamnese modalidadeSelecionada="clinica" />}
+        <Route path="/anamnese"element={<FormularioAnamnese modalidadeSelecionada="emagrecimento" />}
 />
 
 

@@ -1,6 +1,6 @@
 const perguntasComum = [
     {
-        titulo: '1: INFORMAÇÕES PESSOAIS',
+        titulo: '1. INFORMAÇÕES PESSOAIS',
         perguntas: [
             {
                 pergunta: 'Nome Completo:',
@@ -8,11 +8,11 @@ const perguntasComum = [
             },
             {
                 pergunta: 'Data de Nascimento:',
-                tipo: 'texto',
+                tipo: 'date',
             },
             {
                 pergunta: 'Idade:',
-                tipo: 'texto',
+                tipo: 'number',
                 unidade: 'anos',
             },
             {
@@ -22,11 +22,11 @@ const perguntasComum = [
             },
             {
                 pergunta: 'Telefone:',
-                tipo: 'texto',
+                tipo: 'telefone',
             },
             {
                 pergunta: 'Email:',
-                tipo: 'texto',
+                tipo: 'email',
             },
             {
                 pergunta: 'Profissão:',
@@ -34,16 +34,16 @@ const perguntasComum = [
             },
             {
                 pergunta: 'Altura:',
-                tipo: 'texto',
+                tipo: 'number',
                 unidade: 'cm',
             },
             {
                 pergunta: 'Peso:',
-                tipo: 'texto',
+                tipo: 'number',
                 unidade: 'kg',
             }, {
                 pergunta: 'Percentual de Gordura (se souber)',
-                tipo: 'texto',
+                tipo: 'number',
             },
         ],
     },
@@ -52,7 +52,7 @@ const perguntasComum = [
 const perguntasEspecificas = {
     'clinica': [
         {
-            titulo: '2: HISTÓRICO MÉDICO',
+            titulo: '2. HISTÓRICO MÉDICO',
             perguntas: [
                 {
                     pergunta: 'Possui alguma condição de saúde?',
@@ -80,7 +80,7 @@ const perguntasEspecificas = {
 
     'esportiva': [
         {
-            titulo: '2: OBJETIVO NUTRICIONAL',
+            titulo: '2. OBJETIVO NUTRICIONAL',
             perguntas: [
                 {
                     pergunta: 'Objetivo principal:',
@@ -89,7 +89,7 @@ const perguntasEspecificas = {
                 },
                 {
                     tipo: 'titulo',
-                    texto: '3: TREINO E ATIVIDADE FÍSICA',
+                    texto: '3. TREINO E ATIVIDADE FÍSICA',
                 },
                 {
                     pergunta: 'Modalidade esportiva praticada:',
@@ -112,7 +112,7 @@ const perguntasEspecificas = {
                 },
                 {
                     tipo: 'titulo',
-                    texto: '4: ALIMENTAÇÃO E SUPLEMENTAÇÃO',
+                    texto: '4. ALIMENTAÇÃO E SUPLEMENTAÇÃO',
                 },
                 {
                     pergunta: 'Como é sua alimentação antes e depois dos treinos?',
@@ -142,19 +142,19 @@ const perguntasEspecificas = {
 
 pediatrica: [
     {
-      titulo: '1: INFORMAÇÕES DA CRIANÇA',
+      titulo: '1. INFORMAÇÕES DA CRIANÇA',
       perguntas: [
         { pergunta: 'Nome da Criança:', tipo: 'texto' },
-        { pergunta: 'Idade da Criança:', tipo: 'texto', unidade: 'anos' },
+        { pergunta: 'Idade da Criança:', tipo: 'number', unidade: 'anos' },
         { pergunta: 'Relação com a criança', tipo: 'radio', opcoes: ['Pai/Mãe', 'Responsável Legal', 'Outro'] },
-        { pergunta: 'Telefone:', tipo: 'texto' },
-        { pergunta: 'Email:', tipo: 'texto' },
-        { pergunta: 'Altura:', tipo: 'texto', unidade: 'cm' },
-        { pergunta: 'Peso:', tipo: 'texto', unidade: 'kg' },
+        { pergunta: 'Telefone:', tipo: 'telefone' },
+        { pergunta: 'Email:', tipo: 'email' },
+        { pergunta: 'Altura:', tipo: 'number', unidade: 'cm' },
+        { pergunta: 'Peso:', tipo: 'number', unidade: 'kg' },
       ],
     },
     {
-      titulo: '2: HÁBITOS ALIMENTARES',
+      titulo: '2. HÁBITOS ALIMENTARES',
       perguntas: [
         { pergunta: 'Como é o apetite da criança?', tipo: 'radio', opcoes: ['Come bem', 'Come pouco', 'Tem seletividade alimentar'] },
         { pergunta: 'Frequência de consumo de doces e industrializados:', tipo: 'radio', opcoes: ['Raramente', '1x por semana', 'Todos os dias'] },
@@ -162,7 +162,7 @@ pediatrica: [
       ],
     },
     {
-      titulo: '3: SAÚDE E CRESCIMENTO',
+      titulo: '3. SAÚDE E CRESCIMENTO',
       perguntas: [
         { pergunta: 'A criança tem alguma alergia ou intolerância alimentar?', tipo: 'radio', opcoes: ['Sim', 'Não'] },
         {
@@ -183,7 +183,7 @@ pediatrica: [
 
     'emagrecimento': [
         {
-            titulo: '2: HISTÓRICO DE PESO',
+            titulo: '2. HISTÓRICO DE PESO',
             perguntas: [
                 {
                     pergunta: 'Nos últimos 6 meses, seu peso:',
@@ -208,7 +208,7 @@ pediatrica: [
 
                 {
                     tipo: 'titulo',
-                    texto: '3: HÁBITOS ALIMENTARES',
+                    texto: '3. HÁBITOS ALIMENTARES',
                 },
                 {
                     pergunta: 'Quantas refeições faz por dia?',
@@ -254,7 +254,7 @@ pediatrica: [
                 },
                 {
                     tipo: 'titulo',
-                    texto: '4: ROTINA E ESTILO DE VIDA',
+                    texto: '4. ROTINA E ESTILO DE VIDA',
                 },
                 {
                     pergunta: 'Pratica atividade física?',
@@ -281,7 +281,7 @@ pediatrica: [
 
                 {
                     tipo: 'titulo',
-                    texto: '5: SAÚDE E RELAÇÃO COM A COMIDA',
+                    texto: '5. SAÚDE E RELAÇÃO COM A COMIDA',
                 },
 
                 {
@@ -329,7 +329,7 @@ pediatrica: [
 
     'intolerancias': [
         {
-            titulo: '2: HISTÓRICO DE SAÚDE E SINTOMAS',
+            titulo: '2. HISTÓRICO DE SAÚDE E SINTOMAS',
             perguntas: [
                 {
                     pergunta: 'Tem diagnóstico confirmado de intolerância alimentar?',
@@ -354,7 +354,7 @@ pediatrica: [
                 },
                 {
                     tipo: 'titulo',
-                    texto: '3: HÁBITOS ALIMENTARES E ROTINA',
+                    texto: '3. HÁBITOS ALIMENTARES E ROTINA',
                 },
                 {
                     pergunta: 'Evita os alimentos que lhe causam desconforto?',
@@ -389,7 +389,7 @@ pediatrica: [
 
                 {
                     tipo: 'titulo',
-                    texto: '4: OBJETIVOS E EXPECTATIVAS',
+                    texto: '4. OBJETIVOS E EXPECTATIVAS',
                 },
 
 

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { perguntasComum, perguntasEspecificas } from "../data/anamnesePerguntas";
 import '../css/Anamnese.css';
-import ondaAnamnese from '../assets/img_png/ondaAnamnese.png'
-
-
+import ondaAnamnese from '../assets/img_png/ondaAnamnese.png';
+import ondabaixo from '../assets/img_png/ondabaixo.png';
 
 function FormularioAnamnese({ modalidadeSelecionada }) {
     //.charAt(0) pega a priemira letra -> toUpperCase transforma em maiuscula, depois junta
@@ -58,7 +57,6 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
 
     return (
         <div className="bodyAnamnese">
-
             <form className="formAnamnese" onSubmit={handleSubmit}>
                 <div className="ondaAnamnese">
                     <img src={ondaAnamnese} alt="Onda decorativa" />
@@ -66,155 +64,192 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
 
                 <div className="conteudoAnamnese">
                     <div className="tituloform">
-                      <h1 className="tituloAnamnese">{titulo}</h1> </div>
+                        <h1 className="tituloAnamnese">{titulo}</h1>
+                    </div>
+
                     {perguntas.map((secao, index) => (
                         <div key={index}>
                             {/*verifica se titulo existe, se existir aparece o h2*/}
-                            {secao.titulo && <h2>{secao.titulo}</h2>}
+                            {secao.titulo && <h2 className="sessaoAnamnese">{secao.titulo}</h2>}
 
                             {secao.perguntas && secao.perguntas.map((perguntaObj, idx) => (
                                 <div key={idx}>
-                                    {perguntaObj.tipo === "titulo" && <h3>{perguntaObj.texto}</h3>}
+                                    {perguntaObj.tipo === "titulo" ? (
+                                        <h3 className="sessaoAnamnese">{perguntaObj.texto}</h3>
+                                    ) : (
+                                        <>
+                                            {/* Se tiver "pergunta", exibe a label */}
+                                            <div className="campoAnamnese">
+                                                {perguntaObj.pergunta && (
+                                                    <label className="labelAnamnese">{perguntaObj.pergunta}</label>
+                                                )}
 
-                                    <>
-                                        {/* Se tiver "pergunta", exibe a label */}
-                                        {perguntaObj.pergunta && <label>{perguntaObj.pergunta}</label>}
-
-                                        {/*se for do tipo texto */}
-                                        {perguntaObj.tipo === "texto" && (
-                                            <input
-                                                type="text"
-                                                placeholder={perguntaObj.placeholder || ""}
-                                                /*onChange: Sempre que o usuário digitar algo, o React captura o evento
-                                                // e: É o evento (event), que contém informações do que o usuário digitou
-                                                // e.target.value: O valor atual digitado no campo
-                                                // handleChange: Função que criamos para salvar a resposta (pergunta + valor digitado) no estado*/
-                                                onChange={(e) => handleChange(perguntaObj.pergunta, e.target.value)}
-                                            />
-                                        )}
-
-                                        {/*Campo Radio */}
-                                        {perguntaObj.tipo === "radio" && perguntaObj.opcoes.map((opcao, i) => (
-                                            <div key={i}>
-                                                <input
-                                                    type="radio"
-                                                    name={perguntaObj.pergunta} //identificar que todas as opçoes estao dentro da mesma pergunta
-                                                    value={opcao} //o valor vai ser as opções
-                                                    //so vai ficar checked se o valor salvo em respostas for igual a opção
-                                                    checked={respostas[perguntaObj.pergunta] === opcao}
-                                                    onChange={(e) => handleChange(perguntaObj.pergunta, e.target.value)}
-                                                />
-                                                {opcao}{/*aparece em texto */}
-                                            </div>
-                                        ))}
-
-                                        {/* Radio → usa evento (e.target.value) porque é uma resposta única.
-                                Checkbox → NÃO usa evento, porque acumula várias respostas e a opção 
-                                já está no contexto do map.*/}
-
-                                        {/*CAMPO CHECKBOX */}
-                                        {perguntaObj.tipo === "checkbox" && perguntaObj.opcoes.map((opcao, i) => (
-                                            <div key={i}>
-                                                <input
-                                                    type="checkbox"
-                                                    name={perguntaObj.pergunta}
-                                                    value={opcao}
-                                                    // Checkbox: permite múltiplas seleções, então usamos includes para saber se a opção foi marcada
-                                                    checked={respostas[perguntaObj.pergunta]?.includes(opcao) || false}
-                                                    onChange={() => handleCheckboxChange(perguntaObj.pergunta, opcao)}
-                                                />
-                                                {opcao}
-                                            </div>
-                                        ))}
-
-                                        {/* Radio com input texto condicional */}
-                                        {perguntaObj.tipo === "radio_condicional_texto" && perguntaObj.opcoes.map((opcao, i) => (
-                                            <div key={i}>
-                                                <input
-                                                    type="radio"
-                                                    name={perguntaObj.pergunta}
-                                                    value={opcao}
-                                                    checked={respostas[perguntaObj.pergunta] === opcao}
-                                                    onChange={(e) => handleChange(perguntaObj.pergunta, e.target.value)}
-                                                />
-                                                {opcao}
-
-                                                {/*se a opçao atual for igual a condiçao definida na pergunta*/}
-                                                {opcao === perguntaObj.condicao &&
-                                                    respostas[perguntaObj.pergunta] === opcao && (
+                                                {["texto", "email", "telefone", "number", "date"].includes(perguntaObj.tipo) && (
+                                                    <div className="inputComUnidade">
                                                         <input
-                                                            type="text"
-                                                            placeholder={perguntaObj.placeholder}
-                                                            onChange={(e) => handleChange(`${perguntaObj.pergunta}_condicional`, e.target.value)}
+                                                            className={
+                                                                ["texto", "email", "telefone"].includes(perguntaObj.tipo)
+                                                                    ? "inputAnamnese inputGrande "
+                                                                    : "inputAnamnese inputPequeno"
+                                                            }
+                                                            type={
+                                                                perguntaObj.tipo === "telefone"
+                                                                    ? "tel"
+                                                                    : perguntaObj.tipo === "texto"
+                                                                        ? "text"
+                                                                        : perguntaObj.tipo
+                                                            }
+                                                            placeholder={perguntaObj.placeholder || ""}
+                                                            onChange={(e) => handleChange(perguntaObj.pergunta, e.target.value)}
                                                         />
-                                                    )}
+                                                        {perguntaObj.unidade && <span className="unidade">{perguntaObj.unidade}</span>}
+                                                    </div>
+                                                )}
                                             </div>
-                                        ))}
 
-                                        {/* Radio com sub-checkbox condicional */}
-                                        {perguntaObj.tipo === "radio_condicional_checkbox" && perguntaObj.opcoes.map((opcao, i) => (
-                                            <div key={i}>
-                                                <input
-                                                    type="radio"
-                                                    name={perguntaObj.pergunta}
-                                                    value={opcao}
-                                                    checked={respostas[perguntaObj.pergunta] === opcao}
-                                                    onChange={(e) => handleChange(perguntaObj.pergunta, e.target.value)}
-                                                />
-                                                {opcao}
-
-                                                {opcao === perguntaObj.condicao &&
-                                                    respostas[perguntaObj.pergunta] === opcao &&
-                                                    perguntaObj.subpergunta &&
-                                                    perguntaObj.subpergunta.opcoes.map((subOpcao, s) => (
-                                                        <div key={s}>
-                                                            <input
-                                                                type="checkbox"
-                                                                name={`${perguntaObj.pergunta}_sub`}
-                                                                value={subOpcao}
-                                                                checked={respostas[`${perguntaObj.pergunta}_sub`]?.includes(subOpcao) || false}
-                                                                onChange={() => handleCheckboxChange(`${perguntaObj.pergunta}_sub`, subOpcao)}
-                                                            />
-                                                            {subOpcao}
-
-                                                            {perguntaObj.subpergunta.tipo === "checkbox_outros" &&
-                                                                subOpcao === "Outros" &&
-                                                                respostas[`${perguntaObj.pergunta}_sub`]?.includes("Outros") && (
-                                                                    <input
-                                                                        type="text"
-                                                                        placeholder="Especifique Outros..."
-                                                                        onChange={(e) => handleChange(`${perguntaObj.pergunta}_sub_outros`, e.target.value)}
-                                                                    />
-                                                                )}
-                                                        </div>
-                                                    ))}
-                                            </div>
-                                        ))}
-
-                                        {/*CAMPO FREQUÊNCIA DE CONSUMO */}
-                                        {perguntaObj.tipo === "frequencia_consumo" && perguntaObj.itens?.map((item, i) => (
-                                            <div key={i}>
-                                                <label>{item.alimento}</label>
-                                                {item.opcoes.map((opcao, j) => (
-                                                    <div key={j}>
+                                            {/*Campo Radio */}
+                                            <div className="grupoOpcao">
+                                                {perguntaObj.tipo === "radio" && perguntaObj.opcoes.map((opcao, i) => (
+                                                    <div className="linhaOpcao" key={i}>
                                                         <input
+                                                            className="inputAnamnese"
                                                             type="radio"
-                                                            name={item.alimento}
+                                                            name={perguntaObj.pergunta}
                                                             value={opcao}
-                                                            checked={respostas[item.alimento] === opcao}
-                                                            onChange={(e) => handleChange(item.alimento, e.target.value)}
+                                                            checked={respostas[perguntaObj.pergunta] === opcao}
+                                                            onChange={(e) => handleChange(perguntaObj.pergunta, e.target.value)}
                                                         />
-                                                        {opcao}
+                                                        <label className="textoOpcao">{opcao}</label>
                                                     </div>
                                                 ))}
                                             </div>
-                                        ))}
-                                    </>
+
+
+                                            {/* Radio → usa evento (e.target.value) porque é uma resposta única.
+                                            Checkbox → NÃO usa evento, porque acumula várias respostas e a opção 
+                                            já está no contexto do map.*/}
+
+                                            {/*CAMPO CHECKBOX */}
+                                            <div className="grupoOpcao" >
+                                                {perguntaObj.tipo === "checkbox" && perguntaObj.opcoes.map((opcao, i) => (
+                                                    <div className="linhaOpcao" key={i}>
+                                                        <input
+                                                            type="checkbox"
+                                                            name={perguntaObj.pergunta}
+                                                            value={opcao}
+                                                            checked={respostas[perguntaObj.pergunta]?.includes(opcao) || false}
+                                                            onChange={() => handleCheckboxChange(perguntaObj.pergunta, opcao)}
+                                                        />
+
+                                                        <label className="textoOpcao">{opcao}</label>
+                                                    </div>
+                                                ))}</div>
+
+                                            {/* Radio com input texto condicional */}
+                                            <div className="grupoOpcao" >
+                                                {perguntaObj.tipo === "radio_condicional_texto" && perguntaObj.opcoes.map((opcao, i) => (
+                                                    <div className="linhaOpcao" key={i}>
+                                                        <input
+                                                            type="radio"
+                                                            name={perguntaObj.pergunta}
+                                                            value={opcao}
+                                                            checked={respostas[perguntaObj.pergunta] === opcao}
+                                                            onChange={(e) => handleChange(perguntaObj.pergunta, e.target.value)}
+                                                        />
+
+                                                        <label className="textoOpcao">{opcao}</label>
+
+
+
+                                                        {opcao === perguntaObj.condicao &&
+                                                            respostas[perguntaObj.pergunta] === opcao && (
+                                                                <div >
+                                                                    <input className="condicaoAnamnese"
+                                                                        type="text"
+                                                                        placeholder={perguntaObj.placeholder}
+                                                                        onChange={(e) => handleChange(`${perguntaObj.pergunta}_condicional`, e.target.value)}
+                                                                    />
+                                                                </div>
+                                                            )}
+
+                                                    </div>
+                                                ))}</div>
+
+                                            {/* Radio com sub-checkbox condicional */}
+                                            <div className="grupoOpcao" >
+                                                {perguntaObj.tipo === "radio_condicional_checkbox" && perguntaObj.opcoes.map((opcao, i) => (
+                                                    <div className="linhaOpcao" key={i}>
+                                                        <input
+                                                            type="radio"
+                                                            name={perguntaObj.pergunta}
+                                                            value={opcao}
+                                                            checked={respostas[perguntaObj.pergunta] === opcao}
+                                                            onChange={(e) => handleChange(perguntaObj.pergunta, e.target.value)}
+                                                        />
+
+                                                        <label className="textoOpcao">{opcao}</label>
+
+                                                        {opcao === perguntaObj.condicao &&
+                                                            respostas[perguntaObj.pergunta] === opcao &&
+                                                            perguntaObj.subpergunta &&
+                                                            perguntaObj.subpergunta.opcoes.map((subOpcao, s) => (
+                                                                <div className="frequenciaAnamnese" key={s}>
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        name={`${perguntaObj.pergunta}_sub`}
+                                                                        value={subOpcao}
+                                                                        checked={respostas[`${perguntaObj.pergunta}_sub`]?.includes(subOpcao) || false}
+                                                                        onChange={() => handleCheckboxChange(`${perguntaObj.pergunta}_sub`, subOpcao)}
+                                                                    />
+                                                                    <label className="textoOpcao">{subOpcao}</label>
+
+                                                                    {perguntaObj.subpergunta.tipo === "checkbox_outros" &&
+                                                                        subOpcao === "Outros" &&
+                                                                        respostas[`${perguntaObj.pergunta}_sub`]?.includes("Outros") && (
+                                                                            <input className="condicaoAnamnese"
+                                                                                type="text"
+                                                                                placeholder="Especifique Outros..."
+                                                                                onChange={(e) => handleChange(`${perguntaObj.pergunta}_sub_outros`, e.target.value)}
+                                                                            />
+                                                                        )}
+                                                                </div>
+                                                            ))}
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {/*CAMPO FREQUÊNCIA DE CONSUMO */}
+                                            <div className="grupoOpcao" >
+                                                {perguntaObj.tipo === "frequencia_consumo" && perguntaObj.itens?.map((item, i) => (
+                                                    <div className="linhaOpcao linhaFrequencia" key={i}>
+                                                        <label className="alimentoAnamnese">{item.alimento}</label>
+                                                        {item.opcoes.map((opcao, j) => (
+                                                            <div className="frequenciaAnamnese" key={j}>
+                                                                <input
+                                                                    type="radio"
+                                                                    name={item.alimento}
+                                                                    value={opcao}
+                                                                    checked={respostas[item.alimento] === opcao}
+                                                                    onChange={(e) => handleChange(item.alimento, e.target.value)}
+                                                                />
+
+                                                                <label className="textoOpcao">{opcao}</label></div>
+
+                                                        ))}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             ))}
                         </div>
                     ))}
-                    <button type="submit">Enviar</button>
+                    <div className="botaoAnamnese">
+                    <button className="submitAnamnese" type="submit">Enviar</button></div>
+                </div>
+                <div className="ondaAnamnesebaixo">
+                    <img src={ondabaixo} alt="Onda decorativa" />
                 </div>
             </form>
         </div>
