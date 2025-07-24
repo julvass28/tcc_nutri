@@ -212,7 +212,7 @@ pediatrica: [
                 },
                 {
                     pergunta: 'Quantas refeições faz por dia?',
-                    tipo: 'texto',
+                    tipo: 'number',
                 },
 
                 {

@@ -180,6 +180,7 @@ label.labelAnamnese::before {
     font-size: 1.2rem;
     font-family: "Lustria", sans-serif;
     font-weight: 500;
+   
 
 }
 
@@ -254,6 +255,20 @@ input[type="checkbox"]:checked::after {
 .submitAnamnese:hover {
     transform: scale(1.05);
 }
+
+.erroMensagem {
+    color: red;
+  font-size: 0.80rem;
+  margin-top: 5px;
+  font-family: "Poppins", sans-serif;
+}
+
+.sucesso {
+  color: green;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
 
 
 
