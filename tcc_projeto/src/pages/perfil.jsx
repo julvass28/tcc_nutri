@@ -18,6 +18,13 @@ export default function Perfil() {
             src="https://storage.googleapis.com/a1aa/image/54216202-c467-43d3-29c6-1a460038de1e.jpg" 
             alt="Amanda" 
           />
+          <button className="btn-editar-foto">
+            <i className="fas fa-pencil-alt"></i>
+            <span className="editar-texto">Editar</span>
+          </button>
+        </div>
+        <div className="saudacao-texto">
+          Olá <span className="saudacao-nome">Amanda Ribeiro</span>! Tudo bem?
         </div>
       </section>
 
@@ -89,7 +96,7 @@ export default function Perfil() {
                   />
                 </div>
                 <h3 className="midia-title">Plano Nutricional - Amanda Ribeiro</h3>
-                <p className="midia-desc">Enviado por: <strong>Natália Simanoviski</strong></p>
+                <p className="midia-desc">Enviado por: <span className="midia-remetente">Natália Simanoviski</span></p>
               </article>
 
               <article className="midia-card">
@@ -102,7 +109,7 @@ export default function Perfil() {
                   />
                 </div>
                 <h3 className="midia-title">Receita do dia - Barrinha Caseira de Cereal e Castanhas</h3>
-                <p className="midia-desc">Enviado por: <strong>Natália Simanoviski</strong></p>
+                <p className="midia-desc">Enviado por: <span className="midia-remetente">Natália Simanoviski</span></p>
               </article>
 
               <div className="midia-empty">
