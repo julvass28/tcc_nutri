@@ -26,17 +26,30 @@ body {
   font-weight: 400 !important;
 }
 
-/* Saudação */
-.saudacao-texto {
-  position: absolute;
-  left: calc(50% - 160px); /* Coloca texto à esquerda da foto */
-  transform: translateX(-100%); /* Afasta texto sem empurrar foto */
-  font-size: 1rem;
-  color: #4a4a4a;
-  white-space: nowrap; /* Mantém texto em linha */
+.foto-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.saudacao-nome {
-  font-weight: 400;
+
+.foto-box {
+  position: relative; /* O botão será ancorado à foto */
+  display: inline-block;
+}
+
+.foto-box img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+}
+
+.nome-usuario {
+  font-family: 'lustria', serif;
+  font-size: 1.2rem;
+  color: #4a4a4a;
+  margin-top: 0.8rem;      /* Espaço entre foto e nome */
+  text-align: center; 
+
 }
 
 /* Header */
@@ -44,10 +57,11 @@ body {
   position: relative;
   width: 100%;
   background-color: #F4EFEC;
-  padding: 100px 0 40px;
+  padding: 100px 0 25px;
   display: flex;
-  justify-content: center; /* Centraliza foto */
+  justify-content: center;
   align-items: center;
+  box-shadow: 0 4px 8px #8d88884d; /* Sombra no fim da header */
 }
 
 .perfil-header::before {
@@ -77,19 +91,20 @@ body {
 .btn-editar-foto {
   position: absolute;
   bottom: 0;
-  right: 0;
-  background-color: #8a8f7f;
+  right: -10px; /* encosta na borda direita da foto */
+  transform-origin: right center; /* garante expansão só para a direita */
+  background-color: #8a8f75be;
   border: none;
-  border-radius: 50%; /* Círculo padrão */
-  min-width: 40px;  /* Largura mínima fixa */
+  border-radius: 50%;
+  width: 40px;
   height: 40px;
-  padding: 0 0.5rem; /* Garante área interna suficiente */
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: width 0.3s ease, border-radius 0.3s ease;
 }
 
 .btn-editar-foto i {
@@ -106,15 +121,14 @@ body {
 }
 
 .btn-editar-foto:hover {
-  border-radius: 999px; /* Retângulo arredondado no hover */
-  min-width: 70px; /* Mantém hitbox grande */
-  height: 40px;
+  width: 90px; /* expande para a direita */
+  border-radius: 999px;
 }
 
 .btn-editar-foto:hover .editar-texto {
   max-width: 50px;
   opacity: 1;
-  margin-left: 0.3rem;
+  margin-left: 8px;
 }
 
 /* Estrutura geral */
@@ -355,4 +369,3 @@ body {
   color: #9ca3af;
   text-align: left;
 }
-

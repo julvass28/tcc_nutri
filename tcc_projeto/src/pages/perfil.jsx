@@ -13,20 +13,22 @@ export default function Perfil() {
     <div className="perfil-container">
       {/* Header topo */}
       <section className="perfil-header">
-        <div className="foto-wrapper">
-          <img 
-            src="https://storage.googleapis.com/a1aa/image/54216202-c467-43d3-29c6-1a460038de1e.jpg" 
-            alt="Amanda" 
-          />
-          <button className="btn-editar-foto">
-            <i className="fas fa-pencil-alt"></i>
-            <span className="editar-texto">Editar</span>
-          </button>
-        </div>
-        <div className="saudacao-texto">
-          Olá <span className="saudacao-nome">Amanda Ribeiro</span>! Tudo bem?
-        </div>
-      </section>
+  <div className="foto-wrapper">
+<div className="foto-container">
+  <div className="foto-box">
+    <img 
+      src="https://storage.googleapis.com/a1aa/image/54216202-c467-43d3-29c6-1a460038de1e.jpg" 
+      alt="Amanda" 
+    />
+    <button className="btn-editar-foto">
+      <i className="fas fa-pencil-alt"></i>
+      <span className="editar-texto">Editar</span>
+    </button>
+  </div>
+  <div className="nome-usuario">Amanda Ribeiro</div>
+</div>
+</div>
+</section>
 
       <hr className="linha" />
 

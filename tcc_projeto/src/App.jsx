@@ -47,7 +47,6 @@ import BoloDeCacau from './pages/receitas/BoloDeCacau';
 import PanquecaDeBanana from './pages/receitas/PanquecaDeBanana';
 
 import Perfil from './pages/perfil';
-import ConfiguracoesAdm from './pages/ConfiguracoesAdm';
 
 export default function App() {
   return (
@@ -81,7 +80,6 @@ export default function App() {
         <Route path="/esqueci-senha" element={<ForgotPassword />} />
 
         <Route path="/perfil" element={<Perfil />} />
-        <Route path="/configuracoesadm" element={<ConfiguracoesAdm />} />
 
         <Route path="/DicaNutri-Praia" element={<Praia />} />
         <Route path="/DicaNutri-Restaurantes" element={<Restaurantes />} />
