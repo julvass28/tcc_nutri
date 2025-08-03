@@ -108,15 +108,42 @@ function Header() {
                 </ul>
             </nav>
 
-            <div className="perfil">
+            <div className="perfil" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                {user?.nome ? (
+                    <>
+                        <span style={{ color: "#454545" }}>
+                            Olá, <strong>{user.nome}</strong>
+                        </span>
 
-                {user && (
-                    <span style={{ marginRight: "12px" }}>
-                        Olá, <strong>{user.nome}</strong>
-                    </span>
+                        <Link to="/perfil">
+                            <FaUser className="user" title="Editar Perfil"/>
+                        </Link>
+
+                        <button
+                            onClick={() => {
+                                localStorage.removeItem("token");
+                                localStorage.removeItem("nome");
+                                window.location.reload();
+                            }}
+                            style={{
+                                background: "transparent",
+                                border: "none",
+                                cursor: "pointer",
+                                color: "#D1A0A0",
+                                marginLeft: "5px"
+                            }}
+                        >
+                            Sair(DEV)
+                        </button>
+                    </>
+                ) : (
+                    <Link to="/login">
+                        <FaUser title='Fazer login' className="user" />
+                    </Link>
                 )}
-                <FaUser className="user" />
             </div>
+
+
         </header>
     );
 }
