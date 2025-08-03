@@ -4,9 +4,12 @@
 body {
   background-color: #ffffff;
   color: #2a2a2a;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Fontes */
+/* Fontes específicas para títulos */
 .perfil-container h1,
 .perfil-container h2,
 .perfil-container h3,
@@ -14,6 +17,7 @@ body {
   font-family: 'Lustria', serif !important;
 }
 
+/* Texto e inputs */
 .perfil-container p,
 .perfil-container input,
 .perfil-container button,
@@ -26,112 +30,7 @@ body {
   font-weight: 400 !important;
 }
 
-.foto-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.foto-box {
-  position: relative; /* O botão será ancorado à foto */
-  display: inline-block;
-}
-
-.foto-box img {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-}
-
-.nome-usuario {
-  font-family: 'lustria', serif;
-  font-size: 1.2rem;
-  color: #2A2A2A;
-  margin-top: 0.8rem;      /* Espaço entre foto e nome */
-  text-align: center; 
-
-}
-
-/* Header */
-.perfil-header {
-  position: relative;
-  width: 100%;
-  background-color: #F4EFEC;
-  padding: 100px 0 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 8px #8d88884d; /* Sombra no fim da header */
-}
-
-.perfil-header::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 260px;
-  background: url('../assets/onda-duas-cores.svg') no-repeat center top;
-  background-size: 101% 101%;
-  z-index: 1;
-}
-
-/* Foto centralizada */
-.foto-wrapper {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-}
-.foto-wrapper img {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-}
-
-/* Botão editar encostando na foto */
-.btn-editar-foto {
-  position: absolute;
-  bottom: 0;
-  right: -10px; /* encosta na borda direita da foto */
-  transform-origin: right center; /* garante expansão só para a direita */
-  background-color: #8a8f75be;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  overflow: hidden;
-  transition: width 0.3s ease, border-radius 0.3s ease;
-}
-
-.btn-editar-foto i {
-  color: white;
-  font-size: 0.9rem;
-}
-
-.btn-editar-foto .editar-texto {
-  max-width: 0;
-  opacity: 0;
-  white-space: nowrap;
-  color: white;
-  transition: all 0.3s ease;
-}
-
-.btn-editar-foto:hover {
-  width: 90px; /* expande para a direita */
-  border-radius: 999px;
-}
-
-.btn-editar-foto:hover .editar-texto {
-  max-width: 50px;
-  opacity: 1;
-  margin-left: 8px;
-}
-
-/* Estrutura geral */
+/* Container e estrutura */
 .perfil-container {
   display: flex;
   flex-direction: column;
@@ -139,93 +38,207 @@ body {
   min-height: 100vh;
   position: relative;
   background-color: #ffffff;
+  padding: 0 1rem;
+  box-sizing: border-box;
 }
 
+/* Header - largura total ajustada */
+.perfil-header {
+  position: relative;
+  width: 100vw; /* ocupa toda a largura da viewport */
+  margin-left: calc(-50vw + 50%); /* compensa o padding/margem do container */
+  background-color: #F4EFEC;
+  padding: 100px 0 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px #8d88884d;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+
+/* Onda ajustada para acompanhar largura do header */
+.perfil-header::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; /* acompanha o header */
+  height: 260px;
+  background: url('../assets/onda-duas-cores.svg') no-repeat center top;
+  background-size: cover;
+  z-index: 1;
+}
+
+/* Foto e botão editar */
+.foto-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+.foto-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.foto-box {
+  position: relative;
+  display: inline-block;
+}
+.foto-box img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.btn-editar-foto {
+  position: absolute;
+  bottom: 0;
+  right: -10px;
+  background-color: #8a8f75de; /* verde original mais opaco */
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: width 0.3s ease, border-radius 0.3s ease, background-color 0.3s ease;
+}
+.btn-editar-foto:hover {
+  width: 90px;
+  border-radius: 9999px;
+  background-color: #8a8f75de;
+}
+.btn-editar-foto i {
+  color: white;
+  font-size: 0.9rem;
+}
+.btn-editar-foto .editar-texto {
+  max-width: 0;
+  opacity: 0;
+  white-space: nowrap;
+  color: white;
+  transition: all 0.3s ease;
+}
+.btn-editar-foto:hover .editar-texto {
+  max-width: 50px;
+  opacity: 1;
+  margin-left: 8px;
+}
+
+/* Nome usuário abaixo da foto */
+.nome-usuario {
+  font-family: 'Lustria', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #2a2a2a;
+  margin-top: 0.7rem;
+  min-height: 1.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Seções */
 .secao {
   background: white;
   padding: 1.5rem;
-  width: 100%; max-width: 1120px;
+  width: 100%;
+  max-width: 1120px;
   border-radius: 0.5rem;
-  margin-top: 2rem; /* Distância consistente entre header e seções */
+  margin-top: 2rem;
+  box-sizing: border-box;
 }
-
-/* Remove margens extras antes de Configurações e Mídias, já controladas acima */
 .secao + .secao {
-  margin-top: 2rem; /* Mesma distância entre todas as seções */
+  margin-top: 2rem;
 }
-
 
 .secao h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  margin-top: 0.8rem; /* Espaço controlado entre seções */
+  font-size: 1.4rem;
+  margin-bottom: 0.7rem;
+  margin-top: 0.8rem;
+  color: #3a3a3a;
 }
 
-.objetivo-title {
-  margin-bottom: 0.2rem; /* Menor espaço abaixo do título */
-}
-
-.objetivos {
-  margin-bottom: -1rem; /* Menor espaço abaixo do Objetivo Nutricional */
-}
-
-.secao + .secao {
-  margin-top: 0rem; /* Aproxima Configurações de Conta das seções acima */
-}
-
-.input-wrapper {
-  display: flex; 
-  align-items: center;
-  border: 1px solid #D1D5DB; 
-  border-radius: 5px;
-  padding: 0.4rem 0.6rem; 
-  margin-bottom: 1rem;
-  box-shadow: 0 1.2px 5px rgba(0, 0, 0, 0.041); /* sombra leve nos campos */
-  transition: border-color 0.2s ease;
-}
-
-.input-wrapper input {
-  border: none; 
-  outline: none; 
-  flex: 1;
-  font-size: 0.85rem;
-  background: transparent;
-}
-
-.input-wrapper:focus-within {
-  border-color: #9a9f85; /* verde ao focar */
-}
-
-.icon-dentro-input { color: #9a9f85; margin-left: 0.5rem; cursor: pointer; }
-
-.grid3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-}
-
-/* Objetivo Nutricional */
 .objetivo-title {
   margin-bottom: 0.4rem;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  color: #3a3a3a;
 }
 
 .objetivos {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  margin-bottom: -1rem;
 }
+
 .objetivo {
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  font-size: 0.85rem;
+  font-size: 1rem; 
   padding: 0.4rem 0.8rem;
-  border-radius: 16px;
+  border-radius: 7px;
   color: white;
 }
+
+
 .objetivo.o1 {
-  background-color: #a9a594;
+  background-color: #9A9F85; 
+}
+
+/* Inputs com estilo e foco */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #D1D5DB;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1.2px 5px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+}
+.input-wrapper:focus-within {
+  border-color: #9a9f85; 
+  box-shadow: 0 0 5px #4e504634; 
+}
+
+.input-wrapper input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 1rem;
+  background: transparent;
+  color: #4a4a4a !important;
+  transition: background-color 0.3s ease;
+  padding: 0.07rem 0.09rem; 
+  box-sizing: border-box; 
+}
+
+
+.icon-dentro-input {
+  color: #9a9f85; 
+  margin-left: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+.icon-dentro-input:hover {
+  color: #4e6542;
+}
+
+/* Grid responsivo para inputs de três colunas */
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
 }
 
 /* Mídias e Docs */
@@ -240,45 +253,50 @@ body {
   border-radius: 1rem;
   padding: 2rem;
 }
-
 .midias-title {
   font-size: 1.5rem;
   color: #4a4a4a;
   margin-bottom: 1.5rem;
 }
-
 .midias-buttons {
   display: flex;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
+.btn-selected, .btn-unselected {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: none;
+}
 
+/* Verde original */
 .btn-selected {
-  display: flex; align-items: center; gap: 0.25rem;
-  background-color: #8a8f7f; color: white;
-  font-size: 0.875rem;
-  border-radius: 0.375rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  box-shadow: none;
+  background-color: #9a9f85;
+  color: white;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.178);
 }
 
+/* Botões desmarcados */
 .btn-unselected {
-  display: flex; align-items: center; gap: 0.25rem;
-  background-color: white; color: #4a4a4a;
-  font-size: 0.875rem;
-  border-radius: 0.375rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  box-shadow: none;
+  background-color: white;
+  color: #4a4a4a;
 }
 
+/* Lista de mídias */
 .midias-list {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
 }
 
+/* Cards de mídia com animação e sombra no hover */
 .midia-card {
   background-color: white;
   border-radius: 0.75rem;
@@ -286,14 +304,19 @@ body {
   max-width: 280px;
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+.midia-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
 .midia-time {
-  color: #7a7a7a;
+  color: #4a4a4a;
   font-size: 0.75rem;
   padding: 0.75rem 1rem 0 1rem;
 }
-
 .midia-img-box {
   background-color: #ccc;
   border-radius: 0.5rem;
@@ -303,14 +326,12 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 .midia-img {
   border-radius: 0.375rem;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
 }
-
 .midia-title {
   color: #4a4a4a;
   font-size: 1rem;
@@ -318,82 +339,184 @@ body {
   line-height: 1.4;
   margin-bottom: 0.25rem;
 }
-
 .midia-desc {
-  color: #7a7a7a;
+  color: #4a4a4a;
   font-size: 0.875rem;
   padding: 0 1rem 1rem;
 }
-
 .midia-remetente {
   font-weight: 400;
 }
-
 .midia-empty {
   max-width: 280px;
-  display: flex; flex-direction: column; align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  color: #7a7a7a; font-size: 1rem;
+  color: #4a4a4a;
+  font-size: 1rem;
   position: relative;
 }
-
 .circle {
-  position: absolute; 
+  position: absolute;
   background-color: #999ca0;
 }
-
 .circle-1 {
-  width: 4rem; height: 4rem; opacity: 0.5;
-  top: 2.5rem; left: 2.5rem;
-  border-radius: 9999px; /* vira quadrado */
+  width: 4rem;
+  height: 4rem;
+  opacity: 0.5;
+  top: 2.5rem;
+  left: 2.5rem;
+  border-radius: 9999px;
 }
-
 .circle-2 {
-  width: 3.4rem; height: 3.4rem; opacity: 0.3;
-  top: 4.5rem; left: 1rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  opacity: 0.3;
+  top: 4.5rem;
+  left: 1rem;
 }
-
-
 .empty-text {
-  position: relative; z-index: 10; margin-left: 5rem;
+  position: relative;
+  z-index: 10;
+  margin-left: 5rem;
 }
 
 /* Consultas */
 .consultas-list {
-  display: flex; gap: 1rem; overflow-x: auto;
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: #9a9f85 #e0e0e0;
 }
-
+.consultas-list::-webkit-scrollbar {
+  height: 6px;
+}
+.consultas-list::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-radius: 3px;
+}
+.consultas-list::-webkit-scrollbar-thumb {
+  background-color: #9a9f85;
+  border-radius: 3px;
+}
 .consulta-card {
-  flex-shrink: 0; width: 16rem;
-  background: white; border-radius: 0.5rem;
+  flex-shrink: 0;
+  width: 16rem;
+  background: white;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(0,0,0,0.08);
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.consulta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 .consulta-img-box {
-  height: 6rem; display: flex; align-items: center; justify-content: center;
-  background: #d1d5db; border-radius: 0.5rem 0.5rem 0 0;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d1d5db;
+  border-radius: 0.5rem 0.5rem 0 0;
 }
-.consulta-img { height: 4rem; width: 4rem; }
-
+.consulta-img {
+  height: 4rem;
+  width: 4rem;
+  object-fit: cover;
+}
 .consulta-text {
   padding: 0.7rem 0.75rem 0.3rem;
-  font-size: 0.8rem;
-  font-weight: bold;  
+  font-size: 0.9rem;
+  font-weight: 600;
 }
+
 .consulta-data {
-  padding: 0 0.75rem 0.25rem; /* Igual ao .consulta-text */
-  font-size: 0.55rem;
-  color: #9ca3af;
+  padding: 0 0.75rem 0.25rem;
+  font-size: 0.875rem; /* Igual ao .midia-desc */
+  color: #4a4a4a;
   text-align: left;
 }
 
-.midias-buttons button {
-  cursor: pointer; /* mãozinha ao passar o mouse */
+/* Labels */
+.input-label {
+  margin-right: 4px;
+  color: #4a4a4a;
+  font-size: 1rem; /* Aumentado */
+  font-weight: 400;
+  white-space: nowrap;
 }
 
-.input-label {
-  margin-right: 3.8px;
-  color: #4a4a4a;
-  font-size: 0.85rem;
-  font-weight: 400; /* remove o negrito */
-  white-space: nowrap;
+/* Responsividade */
+@media (max-width: 600px) {
+  .perfil-header {
+    padding: 60px 0 15px;
+  }
+  .foto-box img {
+    width: 120px;
+    height: 120px;
+  }
+  .btn-editar-foto {
+    width: 35px;
+    height: 35px;
+  }
+  .btn-editar-foto:hover {
+    width: 70px;
+  }
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.btn-save-personal {
+  margin-top: 2rem;
+}
+
+.btn-save {
+  background-color: #9a9f85;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 0.8rem;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  display: inline-block;
+}
+
+.btn-save:hover:not(:disabled) {
+  background-color: #7d8368;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+}
+
+.btn-save:disabled {
+  background-color: #b1b5a1;
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #e6e6e6;
+}
+
+.input-wrapper.objetivo-fixo {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem; /* Espaço entre o label e o conteúdo */
+}
+
+.objetivo-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem; /* Espaço entre o ícone e o texto "Emagrecimento e Obesidade" */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+#configuracoes-conta {
+  margin-top: 2rem; /* Ajuste para o espaçamento desejado */
 }

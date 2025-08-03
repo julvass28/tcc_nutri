@@ -1,36 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../css/perfil.css';
 
+// === Funções simuladas da API ===
+const mockFetchUserData = async () => {
+  return {
+    nome: 'Amanda Ribeiro',
+    idade: '24',
+    peso: '60',
+    altura: '165',
+    email: 'amanda@example.com',
+    senha: '********',
+    foto: 'https://storage.googleapis.com/a1aa/image/54216202-c467-43d3-29c6-1a460038de1e.jpg'
+  };
+};
+
+const mockUpdateUserData = async (updatedData) => {
+  console.log("Dados enviados para backend:", updatedData);
+  return { success: true };
+};
+
 export default function Perfil() {
-  const [nome, setNome] = useState('Amanda Ribeiro');
-  const [idade, setIdade] = useState('24');
-  const [peso, setPeso] = useState('60');
-  const [altura, setAltura] = useState('165');
-  const [email, setEmail] = useState('amanda@example.com');
-  const [senha, setSenha] = useState('********');
-  
+  const [dados, setDados] = useState({
+    nome: '',
+    idade: '',
+    peso: '',
+    altura: '',
+    email: '',
+    senha: '',
+    foto: ''
+  });
+
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('recentes');
 
-  const primeiroNome = nome.split(' ')[0]; // Exibe apenas primeiro nome
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userData = await mockFetchUserData();
+        setDados(userData);
+      } catch {
+        setError('Erro ao carregar dados.');
+      }
+    };
+    fetchData();
+  }, []);
 
-  const handleIdadeChange = (e) => {
-    const valor = e.target.value.replace(/\D/g, '');
-    if (valor.length <= 2) setIdade(valor);
+  const handleChange = (campo, valor) => {
+    setDados(prev => ({ ...prev, [campo]: valor }));
   };
 
-  const handlePesoChange = (e) => {
-    const valor = e.target.value.replace(/[^0-9,]/g, '');
-    if (valor.length <= 3) setPeso(valor);
+  const handleFotoChange = () => {
+    alert("Função de upload será implementada com backend.");
   };
 
-  const handleAlturaChange = (e) => {
-    const valor = e.target.value.replace(/[^0-9,]/g, '');
-    if (valor.length <= 3) setAltura(valor);
-  };
+  const primeiroNome = dados.nome.split(' ')[0] || '';
 
-  const handleNomeChange = (e) => {
-    if (e.target.value.length <= 100) setNome(e.target.value);
+  // Função única para salvar todas as informações
+  const handleSaveAll = async () => {
+    setSaving(true);
+    setError(null);
+    try {
+      const allData = {
+        nome: dados.nome,
+        idade: dados.idade,
+        peso: dados.peso,
+        altura: dados.altura,
+        foto: dados.foto,
+        email: dados.email,
+        senha: dados.senha
+      };
+      await mockUpdateUserData(allData);
+      alert("Alterações salvas com sucesso!");
+    } catch {
+      setError("Erro ao salvar alterações.");
+    } finally {
+      setSaving(false);
+    }
   };
 
   const consultas = Array(3).fill({
@@ -41,97 +88,121 @@ export default function Perfil() {
 
   return (
     <div className="perfil-container">
+
       {/* Header topo */}
       <section className="perfil-header">
         <div className="foto-wrapper">
           <div className="foto-container">
             <div className="foto-box">
               <img 
-                src="https://storage.googleapis.com/a1aa/image/54216202-c467-43d3-29c6-1a460038de1e.jpg" 
-                alt="Amanda" 
+                src={dados.foto} 
+                alt={dados.nome} 
               />
-              <button className="btn-editar-foto">
-                <i className="fas fa-pencil-alt"></i>
+              <button className="btn-editar-foto" onClick={handleFotoChange}>
+                <i className="fas fa-pen"></i>
                 <span className="editar-texto">Editar</span>
               </button>
             </div>
-            <div className="nome-usuario">{primeiroNome}</div>
+            <div className="nome-usuario">
+              {primeiroNome.trim() !== '' ? primeiroNome : '\u00A0'}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Informações pessoais */}
-      <section className="secao">
-        <h2>Informações Pessoais</h2>
-        <div className="input-wrapper">
-          <label className="input-label">Nome:</label>
-          <input 
-            type="text" 
-            value={nome} 
-            onChange={handleNomeChange} 
-          />
-          <i className="fas fa-pencil-alt icon-dentro-input" />
-        </div>
-        <div className="grid3">
+      {/* Informações Pessoais + Configurações de Conta juntas */}
+      <section className="secao perfil-conta-combinada">
+
+        {/* Informações pessoais */}
+        <div className="subsecao">
+          <h2>Informações Pessoais</h2>
+
+          {error && <p className="error-text">{error}</p>}
+
           <div className="input-wrapper">
-            <label className="input-label">Idade:</label>
-            <input 
-              type="number" 
-              value={idade} 
-              onChange={handleIdadeChange} 
-            />
-            <i className="fas fa-pencil-alt icon-dentro-input" />
-          </div>
-          <div className="input-wrapper">
-            <label className="input-label">Peso(kg):</label>
+            <label className="input-label">Nome:</label>
             <input 
               type="text" 
-              value={peso} 
-              onChange={handlePesoChange} 
+              value={dados.nome} 
+              onChange={e => handleChange("nome", e.target.value)} 
             />
-            <i className="fas fa-pencil-alt icon-dentro-input" />
+            <i className="fas fa-pen icon-dentro-input" />
           </div>
-          <div className="input-wrapper">
-            <label className="input-label">Altura(cm):</label>
-            <input 
-              type="text" 
-              value={altura} 
-              onChange={handleAlturaChange} 
-            />
-            <i className="fas fa-pencil-alt icon-dentro-input" />
+
+          <div className="grid3">
+            <div className="input-wrapper">
+              <label className="input-label">Idade:</label>
+              <input 
+                type="number" 
+                value={dados.idade} 
+                onChange={e => handleChange("idade", e.target.value)} 
+              />
+              <i className="fas fa-pen icon-dentro-input" />
+            </div>
+            <div className="input-wrapper">
+              <label className="input-label">Peso(kg):</label>
+              <input 
+                type="text" 
+                value={dados.peso} 
+                onChange={e => handleChange("peso", e.target.value)} 
+              />
+              <i className="fas fa-pen icon-dentro-input" />
+            </div>
+            <div className="input-wrapper">
+              <label className="input-label">Altura(cm):</label>
+              <input 
+                type="text" 
+                value={dados.altura} 
+                onChange={e => handleChange("altura", e.target.value)} 
+              />
+              <i className="fas fa-pen icon-dentro-input" />
+            </div>
+          </div>
+
+          {/* Aqui está a atualização para label fixa embutida */}
+          <div className="input-wrapper objetivo-fixo">
+            <label className="input-label objetivo-label">Objetivo Nutricional:</label>
+            <div className="objetivo o1 objetivo-conteudo">
+              <i className="fas fa-weight"></i>
+              Emagrecimento e Obesidade
+            </div>
           </div>
         </div>
 
-        <h3 className="objetivo-title">Objetivo Nutricional</h3>
-        <div className="objetivos">
-          <div className="objetivo o1">
-            <i className="fas fa-weight"></i>
-            Emagrecimento e Obesidade
-          </div>
-        </div>
-      </section>
+        {/* Configurações de conta */}
+        <div className="subsecao" id="configuracoes-conta">
+          <h2>Configurações de Conta</h2>
 
-      {/* Configurações de conta */}
-      <section className="secao">
-        <h2>Configurações de Conta</h2>
-        <div className="input-wrapper">
-          <label className="input-label">Email:</label>
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-          />
-          <i className="fas fa-pencil-alt icon-dentro-input" />
+          {error && <p className="error-text">{error}</p>}
+
+          <div className="input-wrapper">
+            <label className="input-label">Email:</label>
+            <input 
+              type="email" 
+              value={dados.email} 
+              onChange={e => handleChange("email", e.target.value)} 
+            />
+            <i className="fas fa-pen icon-dentro-input" />
+          </div>
+          <div className="input-wrapper">
+            <label className="input-label">Senha:</label>
+            <input 
+              type="password" 
+              value={dados.senha} 
+              onChange={e => handleChange("senha", e.target.value)} 
+            />
+            <i className="fas fa-pen icon-dentro-input" />
+          </div>
+
+          <button 
+            className="btn-save btn-save-account" 
+            onClick={handleSaveAll} 
+            disabled={saving}
+          >
+            {saving ? "Salvando..." : "Salvar Alterações"}
+          </button>
         </div>
-        <div className="input-wrapper">
-          <label className="input-label">Senha:</label>
-          <input 
-            type="password" 
-            value={senha} 
-            onChange={(e) => setSenha(e.target.value)} 
-          />
-          <i className="fas fa-pencil-alt icon-dentro-input" />
-        </div>
+
       </section>
 
       {/* Mídias e Docs */}
@@ -207,6 +278,7 @@ export default function Perfil() {
           ))}
         </div>
       </section>
+
     </div>
   );
 }
