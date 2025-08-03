@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../css/perfil.css';
 
 export default function Perfil() {
+  const [nome, setNome] = useState('Amanda Ribeiro');
+  const [idade, setIdade] = useState('24');
+  const [peso, setPeso] = useState('60');
+  const [altura, setAltura] = useState('165');
+  const [email, setEmail] = useState('amanda@example.com');
+  const [senha, setSenha] = useState('********');
+  
+  const [selectedFilter, setSelectedFilter] = useState('recentes');
+
+  const primeiroNome = nome.split(' ')[0]; // Exibe apenas primeiro nome
+
+  const handleIdadeChange = (e) => {
+    const valor = e.target.value.replace(/\D/g, '');
+    if (valor.length <= 2) setIdade(valor);
+  };
+
+  const handlePesoChange = (e) => {
+    const valor = e.target.value.replace(/[^0-9,]/g, '');
+    if (valor.length <= 3) setPeso(valor);
+  };
+
+  const handleAlturaChange = (e) => {
+    const valor = e.target.value.replace(/[^0-9,]/g, '');
+    if (valor.length <= 3) setAltura(valor);
+  };
+
+  const handleNomeChange = (e) => {
+    if (e.target.value.length <= 100) setNome(e.target.value);
+  };
+
   const consultas = Array(3).fill({
     titulo: '1º Consulta Online - Amanda Ferreira',
     data: 'Consulta Online - 10/04/2024',
@@ -13,39 +43,63 @@ export default function Perfil() {
     <div className="perfil-container">
       {/* Header topo */}
       <section className="perfil-header">
-  <div className="foto-wrapper">
-<div className="foto-container">
-  <div className="foto-box">
-    <img 
-      src="https://storage.googleapis.com/a1aa/image/54216202-c467-43d3-29c6-1a460038de1e.jpg" 
-      alt="Amanda" 
-    />
-    <button className="btn-editar-foto">
-      <i className="fas fa-pencil-alt"></i>
-      <span className="editar-texto">Editar</span>
-    </button>
-  </div>
-  <div className="nome-usuario">Amanda Ribeiro</div>
-</div>
-</div>
-</section>
-
-      <hr className="linha" />
+        <div className="foto-wrapper">
+          <div className="foto-container">
+            <div className="foto-box">
+              <img 
+                src="https://storage.googleapis.com/a1aa/image/54216202-c467-43d3-29c6-1a460038de1e.jpg" 
+                alt="Amanda" 
+              />
+              <button className="btn-editar-foto">
+                <i className="fas fa-pencil-alt"></i>
+                <span className="editar-texto">Editar</span>
+              </button>
+            </div>
+            <div className="nome-usuario">{primeiroNome}</div>
+          </div>
+        </div>
+      </section>
 
       {/* Informações pessoais */}
       <section className="secao">
         <h2>Informações Pessoais</h2>
         <div className="input-wrapper">
-          <input type="text" value="Nome: Amanda Ribeiro" readOnly />
+          <label className="input-label">Nome:</label>
+          <input 
+            type="text" 
+            value={nome} 
+            onChange={handleNomeChange} 
+          />
           <i className="fas fa-pencil-alt icon-dentro-input" />
         </div>
         <div className="grid3">
-          {['Idade: 24', 'Peso: 60kg', 'Altura: 1,65m'].map((campo, i) => (
-            <div className="input-wrapper" key={i}>
-              <input type="text" value={campo} readOnly />
-              <i className="fas fa-pencil-alt icon-dentro-input" />
-            </div>
-          ))}
+          <div className="input-wrapper">
+            <label className="input-label">Idade:</label>
+            <input 
+              type="number" 
+              value={idade} 
+              onChange={handleIdadeChange} 
+            />
+            <i className="fas fa-pencil-alt icon-dentro-input" />
+          </div>
+          <div className="input-wrapper">
+            <label className="input-label">Peso(kg):</label>
+            <input 
+              type="text" 
+              value={peso} 
+              onChange={handlePesoChange} 
+            />
+            <i className="fas fa-pencil-alt icon-dentro-input" />
+          </div>
+          <div className="input-wrapper">
+            <label className="input-label">Altura(cm):</label>
+            <input 
+              type="text" 
+              value={altura} 
+              onChange={handleAlturaChange} 
+            />
+            <i className="fas fa-pencil-alt icon-dentro-input" />
+          </div>
         </div>
 
         <h3 className="objetivo-title">Objetivo Nutricional</h3>
@@ -61,11 +115,21 @@ export default function Perfil() {
       <section className="secao">
         <h2>Configurações de Conta</h2>
         <div className="input-wrapper">
-          <input type="text" value="Email: amanda@example.com" readOnly />
+          <label className="input-label">Email:</label>
+          <input 
+            type="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+          />
           <i className="fas fa-pencil-alt icon-dentro-input" />
         </div>
         <div className="input-wrapper">
-          <input type="text" value="Senha: ********" readOnly />
+          <label className="input-label">Senha:</label>
+          <input 
+            type="password" 
+            value={senha} 
+            onChange={(e) => setSenha(e.target.value)} 
+          />
           <i className="fas fa-pencil-alt icon-dentro-input" />
         </div>
       </section>
@@ -77,11 +141,17 @@ export default function Perfil() {
             <h2 className="midias-title">Mídias e Docs:</h2>
 
             <div className="midias-buttons">
-              <button className="btn-selected">
+              <button 
+                className={selectedFilter === 'recentes' ? 'btn-selected' : 'btn-unselected'} 
+                onClick={() => setSelectedFilter('recentes')}
+              >
                 <i className="far fa-clock"></i>
                 <span>Recentes</span>
               </button>
-              <button className="btn-unselected">
+              <button 
+                className={selectedFilter === 'todos' ? 'btn-selected' : 'btn-unselected'} 
+                onClick={() => setSelectedFilter('todos')}
+              >
                 <i className="fas fa-th-large"></i>
                 <span>Todos</span>
               </button>

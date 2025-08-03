@@ -46,7 +46,7 @@ body {
 .nome-usuario {
   font-family: 'lustria', serif;
   font-size: 1.2rem;
-  color: #4a4a4a;
+  color: #2A2A2A;
   margin-top: 0.8rem;      /* Espaço entre foto e nome */
   text-align: center; 
 
@@ -174,15 +174,28 @@ body {
 }
 
 .input-wrapper {
-  display: flex; align-items: center;
-  border: 1px solid #ccc; border-radius: 4px;
-  padding: 0.4rem 0.6rem; margin-bottom: 1rem;
+  display: flex; 
+  align-items: center;
+  border: 1px solid #D1D5DB; 
+  border-radius: 5px;
+  padding: 0.4rem 0.6rem; 
+  margin-bottom: 1rem;
+  box-shadow: 0 1.2px 5px rgba(0, 0, 0, 0.041); /* sombra leve nos campos */
+  transition: border-color 0.2s ease;
 }
+
 .input-wrapper input {
-  border: none; outline: none; flex: 1;
+  border: none; 
+  outline: none; 
+  flex: 1;
   font-size: 0.85rem;
   background: transparent;
 }
+
+.input-wrapper:focus-within {
+  border-color: #9a9f85; /* verde ao focar */
+}
+
 .icon-dentro-input { color: #9a9f85; margin-left: 0.5rem; cursor: pointer; }
 
 .grid3 {
@@ -325,19 +338,21 @@ body {
 }
 
 .circle {
-  position: absolute; border-radius: 9999px;
-  background-color: #d1d5db;
+  position: absolute; 
+  background-color: #999ca0;
 }
 
 .circle-1 {
   width: 4rem; height: 4rem; opacity: 0.5;
   top: 2.5rem; left: 2.5rem;
+  border-radius: 9999px; /* vira quadrado */
 }
 
 .circle-2 {
-  width: 4rem; height: 4rem; opacity: 0.3;
-  top: 4rem; left: 4rem;
+  width: 3.4rem; height: 3.4rem; opacity: 0.3;
+  top: 4.5rem; left: 1rem;
 }
+
 
 .empty-text {
   position: relative; z-index: 10; margin-left: 5rem;
@@ -347,6 +362,7 @@ body {
 .consultas-list {
   display: flex; gap: 1rem; overflow-x: auto;
 }
+
 .consulta-card {
   flex-shrink: 0; width: 16rem;
   background: white; border-radius: 0.5rem;
@@ -368,4 +384,16 @@ body {
   font-size: 0.55rem;
   color: #9ca3af;
   text-align: left;
+}
+
+.midias-buttons button {
+  cursor: pointer; /* mãozinha ao passar o mouse */
+}
+
+.input-label {
+  margin-right: 3.8px;
+  color: #4a4a4a;
+  font-size: 0.85rem;
+  font-weight: 400; /* remove o negrito */
+  white-space: nowrap;
 }
