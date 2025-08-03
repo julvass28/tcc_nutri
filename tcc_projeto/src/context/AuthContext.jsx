@@ -16,19 +16,32 @@ export function AuthProvider({ children }) {
       .catch(() => setUser(null));
   }, [token]);
 
-  const login = (tk) => {
-    localStorage.setItem("token", tk);
-    setToken(tk);
-  };
-
+const login = (tk) => {
+  localStorage.setItem("token", tk);
+  setToken(tk);
+  loadUser(); // <- carrega o user imediatamente
+};
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
     setToken(null);
   };
 
+  const loadUser = async () => {
+  if (!token) return;
+  try {
+    const res = await fetch("http://localhost:3001/me", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const userData = await res.json();
+    setUser(userData);
+  } catch (err) {
+    setUser(null);
+  }
+};
+
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser , token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
