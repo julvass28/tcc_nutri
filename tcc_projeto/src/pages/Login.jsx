@@ -8,10 +8,11 @@ import { AuthContext } from "../context/AuthContext";
 
 
 export default function Login() {
-  const { login } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const [credentials, setCredentials] = useState({ email: "", senha: "" });
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const navigate = useNavigate(); // ⬅️ instanciando o hook
+  const [erroLogin, setErroLogin] = useState('');
 
   useEffect(() => {
     document.body.classList.add("login-page");
@@ -22,22 +23,35 @@ export default function Login() {
     setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:3001/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(credentials),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        login(data.token);
-        navigate("/");
-      })
-      .catch((err) => console.error("Erro ao logar:", err));
+    setErroLogin(""); // limpa erros anteriores
 
-    navigate("/"); // ⬅️ redireciona para a home após o login
+    try {
+      const response = await fetch("http://localhost:3001/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErroLogin("*E-mail ou senha inválidos");
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("nome", data.nome);
+     window.location.href = "/";
+    } catch (error) {
+      console.error("Erro no login:", error);
+      setErroLogin("Erro ao conectar com o servidor");
+    }
   };
+
 
   return (
     <div className="login-body">
@@ -69,7 +83,7 @@ export default function Login() {
           <input
             name="email"
             type="email"
-            className="login-input"
+            className={`login-input ${erroLogin ? "erro-input" : ""}`}
             placeholder="E-mail"
             aria-label="E-mail"
             autoComplete="email"
@@ -78,11 +92,12 @@ export default function Login() {
             onChange={handleChange}
           />
 
+
           <div className="criar-conta-password-wrapper">
             <input
               name="senha"
               type={mostrarSenha ? "text" : "password"}
-              className="criar-conta-input criar-conta-input-password"
+              className={`criar-conta-input criar-conta-input-password ${erroLogin ? "erro-input" : ""}`}
               placeholder="Senha"
               aria-label="Senha"
               autoComplete="current-password"
@@ -90,6 +105,7 @@ export default function Login() {
               value={credentials.senha}
               onChange={handleChange}
             />
+
             <i
               className={`fas ${mostrarSenha ? "fa-eye-slash" : "fa-eye"} criar-conta-eye-icon`}
               tabIndex={-1}
@@ -105,6 +121,11 @@ export default function Login() {
           <button type="submit" className="login-submit-btn">
             Fazer Login
           </button>
+          {erroLogin && (
+            <p className="mensagem-erro" style={{ color: "#D9534F", marginTop: "10px" }}>
+              {erroLogin}
+            </p>
+          )}
         </form>
 
         <Link to="/cadastro" className="login-create-account">
