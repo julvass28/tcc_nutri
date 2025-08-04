@@ -8,12 +8,18 @@ export default function ForgotPassword() {
   const [codigo, setCodigo] = useState(Array(6).fill(""));
   const [contador, setContador] = useState(0);
   const [senha, setSenha] = useState("");
-  const [confirmarSenha, setConfirmarSenha] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [mostrarConfirmar, setMostrarConfirmar] = useState(false);
-
+  const [erroEmail, setErroEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [erroCodigo, setErroCodigo] = useState("");
   const inputsRef = useRef([]);
   const navigate = useNavigate();
+  const [toastVisivel, setToastVisivel] = useState(false);
+  const [toastTexto, setToastTexto] = useState("");
+  const [novaSenha, setNovaSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [erroSenha, setErroSenha] = useState("");
 
   useEffect(() => {
     document.body.classList.add("forgot-password-page");
@@ -26,45 +32,145 @@ export default function ForgotPassword() {
     return () => clearInterval(intervalo);
   }, [contador]);
 
-  const handleSubmitEmail = (e) => {
+  const handleSubmitEmail = async (e) => {
     e.preventDefault();
-    console.log("Solicitação de redefinição para:", email);
-    // 🔗 Backend: envio do e-mail para solicitação de recuperação de senha
-    setEtapa(2);
-  };
+    setErroEmail("");
+    setLoading(true);
 
-  const handleStartCountdown = () => {
+    try {
+      const response = await fetch("http://localhost:3001/esqueci-senha", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+      setLoading(false);
+
+      if (!response.ok) {
+        setErroEmail(data.erro || "E-mail inválido ou não encontrado");
+        return;
+      }
+
+      setEtapa(2);
+      setContador(300);
+    } catch (error) {
+      setErroEmail("Erro ao enviar código. Tente novamente.");
+      setLoading(false);
+    }
+  };
+  const handleStartCountdown = async () => {
     if (contador === 0) {
       setContador(60);
-      console.log("Código reenviado para:", email);
-      // 🔗 Backend: reenvio do código de verificação
+
+      try {
+        const response = await fetch("http://localhost:3001/esqueci-senha", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) throw new Error(data.message || "Erro ao reenviar código");
+
+        console.log("✅ Código reenviado para:", email);
+      } catch (err) {
+        alert("Erro ao reenviar código.");
+        setContador(0);
+      }
     }
   };
 
   const handleCodigoChange = (e, idx) => {
     const val = e.target.value.replace(/\D/, "");
-    if (!val) return;
     const novoCodigo = [...codigo];
     novoCodigo[idx] = val;
     setCodigo(novoCodigo);
-    if (idx < 5) inputsRef.current[idx + 1]?.focus();
-  };
 
-  const handleCodigoSubmit = (e) => {
-    e.preventDefault();
-    const codigoFinal = codigo.join("");
-    console.log("Código digitado:", codigoFinal);
-    // 🔗 Backend: verificação do código de recuperação enviado por e-mail
-    setEtapa(3);
+    if (val && idx < 5) {
+      inputsRef.current[idx + 1]?.focus();
+    } else if (!val && idx > 0) {
+      inputsRef.current[idx - 1]?.focus(); // permite voltar com backspace
+    }
   };
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Backspace") {
+        const idx = inputsRef.current.findIndex((ref) => ref === document.activeElement);
+        if (idx !== -1) {
+          const novo = [...codigo];
+          novo[idx] = "";
+          setCodigo(novo);
+        }
+      }
+    };
 
-  const handleSubmitSenha = (e) => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [codigo]);
+
+  const handleSubmitCodigo = async (e) => {
     e.preventDefault();
-    if (senha !== confirmarSenha) return;
-    console.log("Nova senha definida:", { senha, confirmarSenha });
-    // 🔗 Backend: envio da nova senha para atualizar a conta
-    navigate("/login");
+    setErroCodigo("");
+
+    const codigoCompleto = codigo.join("");
+
+    try {
+      const response = await fetch("http://localhost:3001/verificar-codigo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, codigo: codigoCompleto }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErroCodigo(data.message || "Código inválido ou expirado.");
+        return;
+      }
+
+      setEtapa(3);
+      setToastTexto("Código confirmado com sucesso!");
+      setToastVisivel(true);
+      setTimeout(() => setToastVisivel(false), 2500); // some sozinho após 2.5s
+    } catch (error) {
+      setErroCodigo("Erro ao verificar código.");
+    }
   };
+const handleSubmitSenha = async (e) => {
+  e.preventDefault();
+  setErroSenha("");
+
+  if (senha !== confirmarSenha) return;
+
+  try {
+    const response = await fetch("http://localhost:3001/redefinir-senha", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        novaSenha: senha,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      setErroSenha(data.message || "Erro ao redefinir a senha.");
+      return;
+    }
+
+    setToastTexto("Senha redefinida com sucesso!");
+    setToastVisivel(true);
+    setTimeout(() => {
+      setToastVisivel(false);
+      navigate("/login");
+    }, 2500);
+  } catch (error) {
+    setErroSenha("Erro ao redefinir a senha.");
+  }
+};
 
   const voltarEtapa = () => {
     if (etapa === 1) {
@@ -77,7 +183,12 @@ export default function ForgotPassword() {
   return (
     <div className="forgot-password-body">
       <main className="forgot-password-container">
-
+        {toastVisivel && (
+          <div className="toast toast-sucesso" role="status" aria-live="polite">
+            <i className="fas fa-check-circle toast-icone" aria-hidden="true"></i>
+            <span>{toastTexto}</span>
+          </div>
+        )}
         <div className="voltar-etapa-wrapper">
           <i className="fas fa-arrow-left voltar-etapa-icone" onClick={voltarEtapa} />
         </div>
@@ -93,13 +204,14 @@ export default function ForgotPassword() {
                 name="email"
                 type="email"
                 placeholder="E-mail"
-                className="forgot-password-input"
+                className={`forgot-password-input ${erroEmail ? "erro-borda" : ""}`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              {erroEmail && <p className="erro-texto">{erroEmail}</p>}
               <button type="submit" className="forgot-password-submit-btn">
-                Enviar
+                {loading ? "Enviando..." : "Enviar"}
               </button>
             </form>
           </>
@@ -111,13 +223,13 @@ export default function ForgotPassword() {
             <p className="forgot-password-subtitle">
               Insira o código de 6 dígitos enviado para seu e-mail.
             </p>
-            <form onSubmit={handleCodigoSubmit} className="forgot-password-form" noValidate>
+            <form onSubmit={handleSubmitCodigo} className="forgot-password-form" noValidate>
               <div className="codigo-container">
                 {codigo.map((digito, i) => (
                   <input
                     key={i}
                     ref={(el) => (inputsRef.current[i] = el)}
-                    className="codigo-digit"
+                    className={`codigo-digit ${erroCodigo ? "erro-borda" : ""}`}
                     inputMode="numeric"
                     maxLength={1}
                     value={digito}
@@ -125,13 +237,17 @@ export default function ForgotPassword() {
                   />
                 ))}
               </div>
+              {erroCodigo && <p className="erro-texto">{erroCodigo}</p>}
+
 
               <div style={{ textAlign: "left" }}>
                 <span
                   className={`reenviar-link ${contador > 0 ? "disabled" : ""}`}
                   onClick={contador === 0 ? handleStartCountdown : null}
                 >
-                  {contador > 0 ? `Reenviar código (${contador}s)` : "Reenviar código"}
+                  {contador > 0
+                    ? `Reenviar código (${Math.floor(contador / 60)}:${String(contador % 60).padStart(2, '0')})`
+                    : "Reenviar código"}
                 </span>
               </div>
 
@@ -169,9 +285,8 @@ export default function ForgotPassword() {
                   placeholder="Confirmar senha"
                   value={confirmarSenha}
                   onChange={(e) => setConfirmarSenha(e.target.value)}
-                  className={`criar-conta-input criar-conta-input-password ${
-                    senha !== confirmarSenha && confirmarSenha ? "erro-borda" : ""
-                  }`}
+                  className={`criar-conta-input criar-conta-input-password ${senha !== confirmarSenha && confirmarSenha ? "erro-borda" : ""
+                    }`}
                 />
                 <i
                   className={`fas ${mostrarConfirmar ? "fa-eye-slash" : "fa-eye"} criar-conta-eye-icon`}
@@ -194,6 +309,6 @@ export default function ForgotPassword() {
           </>
         )}
       </main>
-    </div>
+    </div >
   );
 }
