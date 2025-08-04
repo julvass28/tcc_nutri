@@ -11,9 +11,9 @@ app.use(express.json());
 app.use(authRoutes);
 
 // Sincroniza o banco com os models
-sequelize.sync().then(() => {
-  console.log("📦 Banco sincronizado com Sequelize!");
-  app.listen(process.env.PORT, () =>
-    console.log(`🚀 Servidor rodando na porta ${process.env.PORT}`)
-  );
+sequelize.sync({ alter: true }).then(() => {
+  console.log("✅ Banco sincronizado com Sequelize!");
+  app.listen(process.env.PORT || 3001, () => {
+    console.log(`🚀 Servidor rodando na porta ${process.env.PORT}`);
+  });
 });
