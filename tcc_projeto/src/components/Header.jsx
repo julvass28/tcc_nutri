@@ -6,10 +6,15 @@ import { FaXmark } from "react-icons/fa6";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import Botao from './botao/Botao';
 import logo from "../assets/img_png/Logo.png";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
+
 
 function Header() {
     const [openMenu, setOpenMenu] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const { user } = useContext(AuthContext);
 
     const toggleDropdown = (menuName) => {
         setOpenDropdown(openDropdown === menuName ? null : menuName);
@@ -103,9 +108,42 @@ function Header() {
                 </ul>
             </nav>
 
-            <div className="perfil">
-                <Link to="/login"><FaUser className='user' /></Link>
+            <div className="perfil" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                {user?.nome ? (
+                    <>
+                        <span style={{ color: "#454545" }}>
+                            Olá, <strong>{user.nome}</strong>
+                        </span>
+
+                        <Link to="/perfil">
+                            <FaUser className="user" title="Editar Perfil"/>
+                        </Link>
+
+                        <button
+                            onClick={() => {
+                                localStorage.removeItem("token");
+                                localStorage.removeItem("nome");
+                                window.location.reload();
+                            }}
+                            style={{
+                                background: "transparent",
+                                border: "none",
+                                cursor: "pointer",
+                                color: "#D1A0A0",
+                                marginLeft: "5px"
+                            }}
+                        >
+                            Sair(DEV)
+                        </button>
+                    </>
+                ) : (
+                    <Link to="/login">
+                        <FaUser title='Fazer login' className="user" />
+                    </Link>
+                )}
             </div>
+
+
         </header>
     );
 }

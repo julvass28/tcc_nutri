@@ -14,7 +14,15 @@ const Usuario = sequelize.define('Usuario', {
     genero: DataTypes.STRING,
     altura: DataTypes.FLOAT,
     peso: DataTypes.FLOAT,
-    objetivo: DataTypes.STRING
+    objetivo: DataTypes.STRING,
+    tokenRecuperacao: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    tokenExpiraEm: {
+        type: DataTypes.DATE,
+        allowNull: true,
+    }
 })
 
 module.exports = Usuario

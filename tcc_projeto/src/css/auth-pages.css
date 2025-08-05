@@ -120,6 +120,7 @@
   user-select: none;
 }
 
+
 /* === FORMULÁRIOS === */
 
 .login-form,
@@ -231,6 +232,7 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 .criar-conta-login-link,
 .reenviar-link {
   color: #c89b9b;
+  margin-top: 10px;
   font-family: "Lustria", serif;
   font-size: 1.125rem;
   text-decoration: underline;
@@ -359,4 +361,44 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 
 .voltar-etapa-icone:hover {
   color: #c89b9b;
+}
+
+.erro-borda {
+  border: 1px solid red !important;
+}
+
+.erro-texto {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+
+/* === TOAST SUCESSO (flutuante) === */
+.toast {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  background: #ecfdf5;              /* verde bem suave */
+  color: #065f46;                   /* texto verde escuro */
+  border-left: 4px solid #10b981;   /* verde sucesso */
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  animation: toast-enter 0.25s ease;
+}
+
+.toast-icone {
+  font-size: 1.125rem;
+}
+
+@keyframes toast-enter {
+  from { opacity: 0; transform: translate(-50%, -8px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
 }
