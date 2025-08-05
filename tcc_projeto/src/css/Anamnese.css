@@ -256,6 +256,16 @@ input[type="checkbox"]:checked::after {
     transform: scale(1.05);
 }
 
+button:disabled {
+  background-color: #c7c7c7;
+  cursor: not-allowed;
+}
+
+.condicionalerro{
+    display: flex;
+    gap: 8px;
+}
+
 .erroMensagem {
     color: red;
   font-size: 0.80rem;
