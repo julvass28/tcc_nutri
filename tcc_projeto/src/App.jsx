@@ -53,6 +53,7 @@ import EditarHorario from './pages/EditarHorario';
 import { HorarioProvider } from './context/HorarioContext';
 
 
+
 export default function App() {
   return (
   <HorarioProvider>
@@ -75,6 +76,8 @@ export default function App() {
       <Header /> 
      
       <Routes>
+
+         
         
         <Route path="/gerenciar-horarios" element={<GerenciarHorarios />} />
         <Route path="/editar-horario/:nome" element={<EditarHorario />} />

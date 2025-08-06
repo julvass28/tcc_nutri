@@ -1,6 +1,26 @@
 import React from 'react';
 import '../css/Sobre.css';
 
+//Componentes
+import Titulo from "../components/titulo/titulo";
+import 'aos/dist/aos.css';
+import { Link } from 'react-router-dom';
+
+
+
+//Icons
+import Iconclinica from '../assets/img_svg/clinic.svg?react';
+import Iconesportiva from '../assets/img_svg/esportiva.svg?react';
+import Iconemagrecer from '../assets/img_svg/emagrecimento.svg?react';
+import Iconintolerancia from '../assets/img_svg/intolerancia.svg?react';
+import Iconpediatria from '../assets/img_svg/pediatria.svg?react';
+
+
+//CSS
+import '../css/Home.css';
+
+
+
 export default function Sobre() {
   return (
     <main className="sobre-main">
@@ -72,8 +92,41 @@ export default function Sobre() {
             Minhas Áreas de Atuação
           </h3>
           <div className="sobre-areas">
-            {/* Botões de áreas (mesma estrutura) */}
-          </div>
+  
+
+                <div className="home-categorias">
+                    <div className="home-linha">
+
+                        <Link to="/especialidade/clinica" className="home-categoria">
+                            <Iconclinica className="home-icone" />
+                            <p>Nutrição Clínica</p>
+                        </Link>
+
+                        <Link to="/especialidade/pediatrica" className="home-categoria">
+                            <Iconpediatria className="home-icone" />
+                            <p>Nutrição Pediátrica</p>
+                        </Link>
+
+                        <Link to="/especialidade/esportiva" className="home-categoria">
+                            <Iconesportiva className="home-icone" />
+                            <p>Nutrição Esportiva</p>
+                        </Link>
+                    </div>
+
+                    <div className="home-linha home-linha-menor">
+                        <Link to="/especialidade/emagrecimento" className="home-categoria">
+                            <Iconemagrecer className="home-icone" />
+                            <p>Emagrecimento <br />e Obesidade</p>
+                        </Link>
+
+                        <Link to="/especialidade/intolerancia" className="home-categoria">
+                            <Iconintolerancia className="home-icone" />
+                            <p>Intolerâncias <br /> Alimentares</p>
+                        </Link>
+                    </div>
+                </div>
+              </div>
+        
 
           <h3 className="sobre-subtitle">
             <svg className="sobre-icon arrow-icon" viewBox="0 0 24 24" aria-hidden="true">

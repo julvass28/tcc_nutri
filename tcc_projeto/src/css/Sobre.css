@@ -1,14 +1,10 @@
-/* refazer essa parte */
-
-
 @import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
 
 html, body {
-  /* aplica Lustria em tudo */
   font-family: 'Lustria', serif;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* remove scroll horizontal */
+  overflow-x: hidden; 
 }
 
 .sobre-main {
@@ -20,19 +16,19 @@ html, body {
 .sobre-top-section {
   position: relative;
   background-color: #bec3b5;
-  padding: 1rem 6rem 5rem; /* ajusta padding interno */
+  padding: 1rem 6rem 5rem; 
 }
 
 .curved-bg-container {
-  height: 1rem; /* curva mais profunda */
+  height: 1rem; 
 }
 
 /* Cards */
 .cards-container {
   position: relative;
-  width: min(12rem, 90%);    /* responsivo em telas <370 */
+  width: min(12rem, 90%);    
   height: calc((15/12) * min(12rem, 90%));
-  margin: 0 auto;            /* sempre centraliza */
+  margin: 0 auto;            
 }
 
 /* Text + títulos */
@@ -53,19 +49,18 @@ html, body {
 }
 
 .sobre-subtitle {
-  font-size: 1.5rem;    /* antes 1.125rem */
+  font-size: 1.5rem;    
   margin-bottom: 1rem;
 }
 @media (min-width: 768px) {
   .sobre-subtitle {
-    font-size: 1.75rem; /* ainda maior em desktop */
+    font-size: 1.75rem; 
   }
 }
 
 /* espaçamento entre blocos de texto */
 .sobre-paragraph {
   margin-bottom: 2rem;  
-
 }
 .sobre-list {
   margin-bottom: 2rem;
@@ -168,8 +163,8 @@ html, body {
   margin-bottom: 1rem;
 }
 .sobre-icon {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 3rem;
+  height: 3rem;
   margin-right: 0.5rem;
   fill: currentColor;
 }
@@ -191,7 +186,8 @@ html, body {
   grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   gap: 1.5rem;
   max-width: 48rem;
-  margin: 0 auto 3rem;
+  margin: 0 auto 6rem;
+margin-top: 4rem;
 }
 .sobre-highlight-alt {
   font-style: italic;

@@ -134,9 +134,6 @@ function Home() {
                 <div className="home-categorias">
                     <div className="home-linha">
 
-
-
-
                         <Link to="/especialidade/clinica" className="home-categoria">
                             <Iconclinica className="home-icone" />
                             <p>Nutrição Clínica</p>
