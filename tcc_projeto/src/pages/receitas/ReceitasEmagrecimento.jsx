@@ -4,7 +4,7 @@ import { LuStethoscope, LuBaby, LuDumbbell, LuHeartPulse, LuWheatOff } from 'rea
 import '../../css/ReceitasClinicas.css';
 import comida from '../../assets/comida.jpeg';
 import suco from '../../assets/suco.png';
-import salada from '../../assets/salada.png';
+import salada from '../../assets/Salada.png';
 import paoo from '../../assets/paoo.png';
 import omelete from '../../assets/omelete.png';
 import SectionCalculators from '../../components/SectionCalculators';
