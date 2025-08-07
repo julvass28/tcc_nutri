@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import "../botao/botao.css";
+import "../botao/Botao.css";
 
 function Botao({ children, className = "", to, ...props }) {
   const classes = `botao ${className}`;
