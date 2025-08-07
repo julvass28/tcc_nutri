@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../css/ReceitaDetalhada.css';
-import hgb from '../../assets/hgb.png';
+import hgb from '../../assets/Hgb.png';
 
 function Hamburguer() {
   return (
