@@ -16,32 +16,41 @@ function SectionCalculators() {
                         <div className="sessao-calculadoras calculadora-agua">
                             <h1 id="titulo-agua">Calculadora de Consumo diário de Água</h1>
                             <p>Saiba quantos litros de agua precisa beber diariamente</p>
-                            <div className="bloco-icone"><LuGlassWater id="img-calculadoras" /></div>
+                            <div className="cont-bloco-icone-section">
+                                <div className="bloco-icone"><LuGlassWater id="img-calculadoras" /></div>
+                            </div>
                         </div>
                     </Link>
                     <Link to="/calculadoras/calorias-nutrientes">
                         <div className="sessao-calculadoras calculadora-nutrientes">
                             <h1 id="titulo-nutrientes">Calculadora de Calorias e Nutrientes</h1>
                             <p>Calcule as calorias e nutrientes dos alimentos consumidos no seu dia a dia.</p>
-                            <div className="bloco-icone"><PiForkKnifeFill id="img-calculadoras" /></div>
+                            <div className="cont-bloco-icone-section">
+                                <div className="bloco-icone"><PiForkKnifeFill id="img-calculadoras" /></div>
+                            </div>
                         </div>
                     </Link>
 
                 </div>
                 <div className="sessao-calculadoras-dois">
                     <Link to="/calculadoras/gasto-calorico">
-                    <div className="sessao-calculadoras calculadora-gasto">
-                        <h1 id="titulo-gasto">Calculadora de Gastos Calorico</h1>
-                        <p>Descubra quantas calorias seu corpo gasta por dia</p>
-                        <div className="bloco-icone"><FaRunning id="img-calculadoras" /></div>
-                    </div>
+                        <div className="sessao-calculadoras calculadora-gasto">
+                            <h1 id="titulo-gasto">Calculadora de Gastos Calorico</h1>
+                            <p>Descubra quantas calorias seu corpo gasta por dia</p>
+                            <div className="cont-bloco-icone-section">
+                                <div className="bloco-icone"><FaRunning id="img-calculadoras" /></div>
+                            </div>
+                            
+                        </div>
                     </Link>
                     <Link to="/calculadoras/imc">
-                    <div className="sessao-calculadoras calculadora-imc">
-                        <h1 id="titulo-imc">Calculadora de IMC & Peso Ideal</h1>
-                        <p>Verifique se esta no peso adequado para sua altura</p>
-                        <div className="bloco-icone"><MdBalance id="img-calculadoras" /></div>
-                    </div>
+                        <div className="sessao-calculadoras calculadora-imc">
+                            <h1 id="titulo-imc">Calculadora de IMC & Peso Ideal</h1>
+                            <p>Verifique se esta no peso adequado para sua altura</p>
+                            <div className="cont-bloco-icone-section">
+                                <div className="bloco-icone"><MdBalance id="img-calculadoras" /></div>
+                            </div>
+                        </div>
                     </Link>
                 </div>
             </section>
