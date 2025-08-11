@@ -58,7 +58,7 @@ function Footer() {
                             </div>
                         </div>
                         <div className='logo-footer'>
-                            <img src="src\assets\img_png\Logo.png" alt="Logo" width={200} />
+                            <img src="../assets/img_png/Logo.png" alt="Logo" width={200} />
                             <p id='crn'>CRN : 37892 </p>
                         </div>
                     </div>
