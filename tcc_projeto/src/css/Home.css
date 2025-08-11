@@ -1,1415 +1,1231 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lustria&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
-
-
 
 .espacamento {
-    margin-top: 180px;
+  margin-top: 180px;
 }
 
-
-
-
 .home-bloco-inicial {
-    margin-top: 5px;
-    width: 100%;
-    height: 70vh;
-    position: relative;
-    overflow: hidden;
-    background-color: #EFEBE9;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    mask-image: url('../assets/img_svg/onda.svg');
-    mask-repeat: no-repeat;
-    mask-size: cover;
-    -webkit-mask-image: url('../assets/img_svg/onda.svg');
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-size: cover;
+  margin-top: 5px;
+  width: 100%;
+  height: 70vh;
+  position: relative;
+  overflow: hidden;
+  background-color: #efebe9;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  mask-image: url("../assets/img_svg/onda.svg");
+  mask-repeat: no-repeat;
+  mask-size: cover;
+  -webkit-mask-image: url("../assets/img_svg/onda.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: cover;
 }
 
 .home-imagem-com-gradiente {
-    width: 55vw;
-    height: 100%;
-    background:
-        linear-gradient(to right, rgba(245, 243, 240, 0) 60%, #EFEBE9 100%),
-        url('../assets/img_png/imagem.jpg') no-repeat center center;
-    background-size: cover;
-    background-repeat: no-repeat;
+  width: 55vw;
+  height: 100%;
+  background: linear-gradient(
+      to right,
+      rgba(245, 243, 240, 0) 60%,
+      #efebe9 100%
+    ),
+    url("../assets/img_png/imagem.jpg") no-repeat center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-
 
 .home-bloco-texto {
-    display: flex;
-    gap: 5vh;
-    flex-direction: column;
-    align-items: center;
-    max-width: 600px;
-    position: absolute;
-    right: 15vh;
-    top: 40%;
-    transform: translateY(-50%);
-    color: #8A8F75;
-    text-align: center;
-    font-family: "Lustria", sans-serif;
-    font-size: 13px;
-
+  display: flex;
+  gap: 5vh;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  position: absolute;
+  right: 15vh;
+  top: 40%;
+  transform: translateY(-50%);
+  color: #8a8f75;
+  text-align: center;
+  font-family: "Lustria", sans-serif;
+  font-size: 13px;
 }
 
-
-
-
-
-
-
-
-
-
 .home-descricao {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    gap: 10vw;
+  gap: 10vw;
 }
 
 .sobre-home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 12vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 12vh;
 }
 
 .home-foto {
-    width: 30vw;
-    /* Ajustando com base na largura da tela */
-    height: auto;
-    max-width: 380px;
+  width: 30vw;
+  /* Ajustando com base na largura da tela */
+  height: auto;
+  max-width: 380px;
 }
 
 .primeiro-text-home {
-    font-family: "Quicksand", sans-serif;
-    font-weight: 520;
-    font-size: 2vw;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 520;
+  font-size: 2vw;
 
-    letter-spacing: 2px;
-    color: #454545;
-    margin-bottom: 2vh;
+  letter-spacing: 2px;
+  color: #454545;
+  margin-bottom: 2vh;
 }
 
 .segundo-text-home {
-    font-family: "Quicksand", sans-serif;
-    font-size: 3vw;
-    font-weight: 600;
-    color: #8A8F75;
-    margin-top: 0;
-    letter-spacing: 2px;
-    margin-bottom: 3vh;
+  font-family: "Quicksand", sans-serif;
+  font-size: 3vw;
+  font-weight: 600;
+  color: #8a8f75;
+  margin-top: 0;
+  letter-spacing: 2px;
+  margin-bottom: 3vh;
 }
 
 .terceiro-text-home {
-    font-family: "Quicksand", sans-serif;
-    font-size: 3vh;
-    font-weight: 520;
-    color: #454545;
-    letter-spacing: 2px;
-    margin-bottom: 5vh;
-    margin-top: 0;
-    text-align: center;
+  font-family: "Quicksand", sans-serif;
+  font-size: 3vh;
+  font-weight: 520;
+  color: #454545;
+  letter-spacing: 2px;
+  margin-bottom: 5vh;
+  margin-top: 0;
+  text-align: center;
 }
 
 .num-home {
-    font-family: "Quicksand", sans-serif;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #8A8F75;
+  font-family: "Quicksand", sans-serif;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #8a8f75;
 }
 
-
-
 .home-categorias {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 7vh;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7vh;
 }
 
 .home-linha {
-    display: flex;
-    justify-content: center;
-    gap: 6vw;
+  display: flex;
+  justify-content: center;
+  gap: 6vw;
 }
 
 .home-categoria {
-    display: flex;
-    gap: 2vw;
-    width: 25vw;
-    height: 20vh;
-    align-items: center;
-    border: solid 1.3px #DDB7AC;
-    border-radius: 10px;
-    justify-content: center;
-    font-family: "Lustria", sans-serif;
-    color: #454545;
-    font-weight: 570;
-    font-size: 2.5vh;
-    text-align: center;
-    box-shadow: rgba(221, 183, 172, 0.7) 1.95px 1.95px 2.6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
+  display: flex;
+  gap: 2vw;
+  width: 25vw;
+  height: 20vh;
+  align-items: center;
+  border: solid 1.3px #ddb7ac;
+  border-radius: 10px;
+  justify-content: center;
+  font-family: "Lustria", sans-serif;
+  color: #454545;
+  font-weight: 570;
+  font-size: 2.5vh;
+  text-align: center;
+  box-shadow: rgba(221, 183, 172, 0.7) 1.95px 1.95px 2.6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .home-categoria:hover {
-    background-color: #FDFAF9;
-    transform: translateY(-8px) scale(1.02);
+  background-color: #fdfaf9;
+  transform: translateY(-8px) scale(1.02);
 }
 
-
 .home-icone {
-    width: 5vw;
-    height: auto;
+  width: 5vw;
+  height: auto;
 }
 
 .home-categoria p {
-    font-size: 3vh;
-    font-family: "Lustria", sans-serif;
+  font-size: 3vh;
+  font-family: "Lustria", sans-serif;
 }
 
 .home-conteudo-categoria {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    gap: 30px;
-
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 30px;
 }
-
-
 
 .btn-dois-home {
-    margin: 5vh auto 0 auto;
-    display: block;
+  margin: 5vh auto 0 auto;
+  display: block;
 }
 
-
 .sobre-nutri-home {
-    overflow: hidden;
-    background-color: #F4EFEC;
-    height: 70vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  overflow: hidden;
+  background-color: #f4efec;
+  height: 70vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .infos-dois-home {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .text-small-home {
-    font-size: 1.2rem;
-    margin-bottom: 1vh;
-
+  font-size: 1.2rem;
+  margin-bottom: 1vh;
 }
 
 .text-medium-home {
-    color: #000;
-    font-size: 2.5rem;
-    color: #454545;
-    margin: 0;
-    margin-bottom: 2vh;
-    font-weight: 500;
-
+  color: #000;
+  font-size: 2.5rem;
+  color: #454545;
+  margin: 0;
+  margin-bottom: 2vh;
+  font-weight: 500;
 }
 
 .text-large-home {
-    margin: 0;
-    margin-bottom: 4vh;
-    font-size: 2.6rem;
-
+  margin: 0;
+  margin-bottom: 4vh;
+  font-size: 2.6rem;
 }
 
 .small-home {
-    font-size: 1.3rem;
-    max-width: 38vw;
-    text-align: start;
-
-
+  font-size: 1.3rem;
+  max-width: 38vw;
+  text-align: start;
 }
 
 .color-text {
-    color: #8A8F75;
-    display: inline;
-    margin: 0;
-    padding: 0;
-    line-height: inherit;
-    font-weight: inherit;
-
+  color: #8a8f75;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  line-height: inherit;
+  font-weight: inherit;
 }
 
 .foto-nutri-home img {
-    width: 30vw;
-    height: auto;
+  width: 30vw;
+  height: auto;
 }
 
-
-
-
 .planejamento-home {
-    display: flex;
-    justify-content: center;
-    gap: 10vw;
-
+  display: flex;
+  justify-content: center;
+  gap: 10vw;
 }
 
 .item-home {
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
-    align-items: center;
-    text-align: center;
-
-
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  align-items: center;
+  text-align: center;
 }
 
 .img-wrapper-home {
-    border-radius: 50%;
-    border: 4px solid #8A8F75;
-    padding: 66px;
-    display: flex;
-    width: 10vw;
-    height: 16vh;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
+  border-radius: 50%;
+  border: 4px solid #8a8f75;
+  padding: 66px;
+  display: flex;
+  width: 10vw;
+  height: 16vh;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .img-wrapper-home img {
-    width: 80px;
-    height: auto;
-    object-fit: contain;
+  width: 80px;
+  height: auto;
+  object-fit: contain;
 }
 
 .item-home p {
-    font-family: "Lustria", sans-serif;
-    font-size: 15px;
-
+  font-family: "Lustria", sans-serif;
+  font-size: 15px;
 }
 
 .funcionamento-home {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
 
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .topic-home {
-    display: flex;
-    gap: 2vw;
-    background-color: #EDE9E3;
-    width: 60vw;
-    border: 5px solid #DDB7AC;
-    padding: 5vh;
-    min-height: 25vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  display: flex;
+  gap: 2vw;
+  background-color: #ede9e3;
+  width: 60vw;
+  border: 5px solid #ddb7ac;
+  padding: 5vh;
+  min-height: 25vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-
-
-
 
 .topicos-home p {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-family: "Poppins", sans-serif;
-    color: #454545;
-    font-size: 1.3rem;
-    margin: 25px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: "Poppins", sans-serif;
+  color: #454545;
+  font-size: 1.3rem;
+  margin: 25px 0;
 }
 
-
 .topic-home button {
-    margin-top: 30px;
-
+  margin-top: 30px;
 }
 
 .icone-dois-home {
-    width: 2vw;
-    height: auto;
-    color: #454545;
+  width: 2vw;
+  height: auto;
+  color: #454545;
 }
 
 .dicas-home {
-    background-color: #E1E3DC;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 8vw;
-    align-items: center;
-    height: 60vh;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    overflow: hidden;
+  background-color: #e1e3dc;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8vw;
+  align-items: center;
+  height: 60vh;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  overflow: hidden;
 }
 
 .linha-texto-dicas {
-    max-width: 60vw;
-    margin-bottom: 2vh;
+  max-width: 60vw;
+  margin-bottom: 2vh;
 }
 
 .linha-texto-dicas p {
-    font-family: "Lustria", sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 2px;
-    margin-top: 20px;
-    max-width: 37vw;
-    line-height: 1.3;
-    margin-bottom: 10px;
+  font-family: "Lustria", sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 2px;
+  margin-top: 20px;
+  max-width: 37vw;
+  line-height: 1.3;
+  margin-bottom: 10px;
 }
 
-
-
 .conteudo-dicas h3 {
-    font-family: "Poppins", sans-serif;
-    font-size: 1.1rem;
-    color: #454545;
-    margin-bottom: 15px;
-
+  font-family: "Poppins", sans-serif;
+  font-size: 1.1rem;
+  color: #454545;
+  margin-bottom: 15px;
 }
 
 .imagem-container-dicas {
-    width: 30vw;
-    display: flex;
-    height: auto;
-    margin-top: 3vh;
-    overflow: hidden;
-    filter: drop-shadow(0px 2px 8px rgba(99, 99, 99, 0.2));
-
+  width: 30vw;
+  display: flex;
+  height: auto;
+  margin-top: 3vh;
+  overflow: hidden;
+  filter: drop-shadow(0px 2px 8px rgba(99, 99, 99, 0.2));
 }
 
 .imagem-container-dicas img {
-    width: 100%;
-    height: auto;
-
+  width: 100%;
+  height: auto;
 }
 
-
-
-
 .conteudo-dicas {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 700px;
 }
 
 .btn-receitas-home {
-    display: flex;
-    justify-content: center;
-    margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
 }
 
 .valor-home {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
 .info-valor-home {
-    display: grid;
-    grid-template-areas:
-        "imagem texto"
-        "box texto";
-    grid-template-columns: 50% 50%;
-    background-color: #F9F7F2;
-    border: 2px solid #8A8F75;
-    border-radius: 10px;
-    overflow: hidden;
-    width: 80vw;
-    gap: 20px;
+  display: grid;
+  grid-template-areas:
+    "imagem texto"
+    "box texto";
+  grid-template-columns: 50% 50%;
+  background-color: #f9f7f2;
+  border: 2px solid #8a8f75;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 80vw;
+  gap: 20px;
 }
 
 .lado-imagem {
-    grid-area: imagem;
+  grid-area: imagem;
 }
 
 .textos-home {
-    grid-area: texto;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 30px;
+  grid-area: texto;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
 }
 
 .box-preco-home {
-    grid-area: box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #F9F7F2;
-    padding: 20px;
-    gap: 10px;
+  grid-area: box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f7f2;
+  padding: 20px;
+  gap: 10px;
 }
 
 .imagem-gradiente-home {
-    width: 100%;
-    height: 380px;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 75%, #F9F7F2 100%),
-        linear-gradient(to right, rgba(255, 255, 255, 0) 65%, #F9F7F2 100%),
-        url('../assets/img_png/food.avif') no-repeat center left;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: left center;
-    border-radius: 10px 0 0 0;
+  width: 100%;
+  height: 380px;
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0) 75%,
+      #f9f7f2 100%
+    ),
+    linear-gradient(to right, rgba(255, 255, 255, 0) 65%, #f9f7f2 100%),
+    url("../assets/img_png/food.avif") no-repeat center left;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left center;
+  border-radius: 10px 0 0 0;
 }
 
 .preco-linha-home h2 {
-    font-family: "Lustria", sans-serif;
-    font-size: 2.5rem;
-    color: #8A8F75;
-    margin: 0;
+  font-family: "Lustria", sans-serif;
+  font-size: 2.5rem;
+  color: #8a8f75;
+  margin: 0;
 }
 
 .preco-linha-home span {
-    font-family: "Poppins", sans-serif;
-    font-size: 1rem;
-    color: #454545;
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: #454545;
 }
 
 .botao-verde {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
-
 .textos-home h1 {
-    font-family: "Lustria", sans-serif;
-    color: #8A8F75;
-    font-size: 2.5rem;
+  font-family: "Lustria", sans-serif;
+  color: #8a8f75;
+  font-size: 2.5rem;
 }
 
 .text-p-home {
-    font-family: "Lustria", sans-serif;
-    color: #454545;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-top: 0;
-
+  font-family: "Lustria", sans-serif;
+  color: #454545;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 0;
 }
 
 .preco-text-home {
-    font-family: "Lustria", sans-serif;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 1.2rem;
+  font-family: "Lustria", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.2rem;
 }
 
 .preco-icons-home {
-    color: #8A8F75;
-    width: 20px;
-    height: auto;
-
+  color: #8a8f75;
+  width: 20px;
+  height: auto;
 }
 
 .sobre-nutri-mobile {
-    display: none;
+  display: none;
 }
 
 .receitas-mobile,
 .carrosel-mobile {
-    display: none;
+  display: none;
 }
 
-
-
-
-
 @media (max-width: 766px) {
-
-    .home-descricao,
-    .descricao-home,
-    .sobre-nutri-home,
-    .secao-home,
-    .Receitas {
-        display: none;
-    }
-
-
-    .receitas-mobile,
-    .carrosel-mobile {
-        display: block;
-    }
-
-    .home-descricao {
-        display: none;
-    }
-
-    .espacamento {
-        margin-top: 80px;
-    }
-
-    .home-bloco-inicial {
-        height: 20vh;
-        mask-size: cover;
-
-
-    }
-
-    .botao-inicial-home {
-        display: none;
-    }
-
-
-
-    .home-bloco-texto {
-        right: 2vh;
-        max-width: 200px;
-        text-align: center;
-        line-height: 1.3;
-        top: 40%;
-    }
-
-    .home-bloco-texto h1 {
-        font-size: 0.90rem;
-    }
-
-    .descricao-home {
-        display: none;
-
-    }
-
-
-
-    .sobre-nutri-mobile {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .foto-nutri-home img {
-        width: 50vw;
-    }
-
-    .infos-dois-home {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    .text-small-home {
-        font-size: 1rem;
-        margin-bottom: 0.75vh;
-
-
-    }
-
-    .text-medium-home {
-        font-size: 1.5rem;
-        margin-bottom: 0.75vh;
-    }
-
-    .text-large-home {
-        font-size: 1.6rem;
-        margin-bottom: 0.75vh;
-    }
-
-    .small-home {
-        font-size: 0.90rem;
-        margin: 0;
-        max-width: 70vw;
-        margin-bottom: 35px;
-
-
-    }
-
-    .mobile-hr {
-        border-top: 1px solid #EDE9E3;
-        width: 90vw;
-        margin-bottom: 2vh;
-
-
-    }
-
-
-
-    .planejamento-home {
-        flex-direction: column;
-        gap: 40px;
-
-    }
-
-    .item-home {
-        overflow: hidden;
-        gap: 2vh;
-    }
-
-    .item-home p {
-        font-size: 1rem;
-    }
-
-
-    .img-wrapper-home {
-        width: 23vw;
-        height: 23vw;
-        padding: 22px;
-        border: 3.6px solid #8A8F75;
-
-
-    }
-
-    .img-wrapper-home img {
-        width: 50px;
-    }
-
-    .topic-home {
-        width: 95vw;
-
-    }
-
-    .icone-dois-home {
-        width: 5vw;
-    }
-
-    .topicos-home p {
-        font-size: 0.95rem;
-
-    }
-
-    .dicas-home {
-        flex-direction: column;
-        height: auto;
-        padding: 15px;
-    }
-
-
-
-    .info-valor-home {
-        grid-template-areas:
-            "imagem"
-            "texto"
-            "box";
-        grid-template-columns: 100%;
-        width: 90vw;
-    }
-
-    .imagem-gradiente-home {
-        height: 200px;
-        border-radius: 10px 10px 0 0;
-
-    }
-
-    .textos-home {
-        padding: 20px;
-        gap: 15px;
-        align-items: center;
-    }
-
-    .textos-home h1 {
-        font-size: 1.9rem;
-        text-align: center;
-        margin-top: -30px;
-        margin-bottom: 5px;
-    }
-
-    .text-p-home {
-        font-size: 0.95rem;
-        text-align: center;
-        margin-bottom: 30px;
-
-
-    }
-
-    .preco-text-home {
-        display: flex;
-        align-items: flex-start;
-        font-size: 1rem;
-        margin-bottom: 17px;
-    }
-
-    .preco-icons-home {
-        width: 20px;
-        flex-shrink: 0;
-
-    }
-
-    .suporte-home {
-        max-width: 60vw;
-    }
-
-    .box-preco-home {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .preco-linha-home {
-        display: flex;
-        align-items: baseline;
-        gap: 8px;
-
-    }
-
-    .box-preco-home h2 {
-        font-family: "Lustria", sans-serif;
-        font-size: 2rem;
-        color: #8A8F75;
-        margin: 0;
-    }
-
-    .box-preco-home span {
-        font-family: "Poppins", sans-serif;
-        font-size: 1rem;
-        color: #454545;
-    }
-
-
-    .imagem-container-dicas {
-        width: 55vw;
-    }
-
-    .imagem-container-dicas img {
-        width: 100%;
-    }
-
-
-
-    .linha-texto-dicas p {
-        font-size: 1rem;
-        max-width: 90vw;
-        line-height: 1.4;
-    }
-
-
-
-
+  .home-descricao,
+  .descricao-home,
+  .sobre-nutri-home,
+  .secao-home,
+  .Receitas {
+    display: none;
+  }
+
+  .receitas-mobile,
+  .carrosel-mobile {
+    display: block;
+  }
+
+  .home-descricao {
+    display: none;
+  }
+
+  .espacamento {
+    margin-top: 80px;
+  }
+
+  .home-bloco-inicial {
+    height: 20vh;
+    mask-size: cover;
+  }
+
+  .botao-inicial-home {
+    display: none;
+  }
+
+  .home-bloco-texto {
+    right: 2vh;
+    max-width: 200px;
+    text-align: center;
+    line-height: 1.3;
+    top: 40%;
+  }
+
+  .home-bloco-texto h1 {
+    font-size: 0.9rem;
+  }
+
+  .descricao-home {
+    display: none;
+  }
+
+  .sobre-nutri-mobile {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .foto-nutri-home img {
+    width: 50vw;
+  }
+
+  .infos-dois-home {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .text-small-home {
+    font-size: 1rem;
+    margin-bottom: 0.75vh;
+  }
+
+  .text-medium-home {
+    font-size: 1.5rem;
+    margin-bottom: 0.75vh;
+  }
+
+  .text-large-home {
+    font-size: 1.6rem;
+    margin-bottom: 0.75vh;
+  }
+
+  .small-home {
+    font-size: 0.9rem;
+    margin: 0;
+    max-width: 70vw;
+    margin-bottom: 35px;
+  }
+
+  .mobile-hr {
+    border-top: 1px solid #ede9e3;
+    width: 90vw;
+    margin-bottom: 2vh;
+  }
+
+  .planejamento-home {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .item-home {
+    overflow: hidden;
+    gap: 2vh;
+  }
+
+  .item-home p {
+    font-size: 1rem;
+  }
+
+  .img-wrapper-home {
+    width: 23vw;
+    height: 23vw;
+    padding: 22px;
+    border: 3.6px solid #8a8f75;
+  }
+
+  .img-wrapper-home img {
+    width: 50px;
+  }
+
+  .topic-home {
+    width: 95vw;
+  }
+
+  .icone-dois-home {
+    width: 5vw;
+  }
+
+  .topicos-home p {
+    font-size: 0.95rem;
+  }
+
+  .dicas-home {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+  }
+
+  .info-valor-home {
+    grid-template-areas:
+      "imagem"
+      "texto"
+      "box";
+    grid-template-columns: 100%;
+    width: 90vw;
+  }
+
+  .imagem-gradiente-home {
+    height: 200px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .textos-home {
+    padding: 20px;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .textos-home h1 {
+    font-size: 1.9rem;
+    text-align: center;
+    margin-top: -30px;
+    margin-bottom: 5px;
+  }
+
+  .text-p-home {
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .preco-text-home {
+    display: flex;
+    align-items: flex-start;
+    font-size: 1rem;
+    margin-bottom: 17px;
+  }
+
+  .preco-icons-home {
+    width: 20px;
+    flex-shrink: 0;
+  }
+
+  .suporte-home {
+    max-width: 60vw;
+  }
+
+  .box-preco-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .preco-linha-home {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .box-preco-home h2 {
+    font-family: "Lustria", sans-serif;
+    font-size: 2rem;
+    color: #8a8f75;
+    margin: 0;
+  }
+
+  .box-preco-home span {
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    color: #454545;
+  }
+
+  .imagem-container-dicas {
+    width: 55vw;
+  }
+
+  .imagem-container-dicas img {
+    width: 100%;
+  }
+
+  .linha-texto-dicas p {
+    font-size: 1rem;
+    max-width: 90vw;
+    line-height: 1.4;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
+  /* ----- Elementos escondidos ----- */
+  .home-descricao,
+  .descricao-home,
+  .sobre-nutri-home,
+  .secao-home,
+  .Receitas {
+    display: none;
+  }
 
-    /* ----- Elementos escondidos ----- */
-    .home-descricao,
-    .descricao-home,
-    .sobre-nutri-home,
-    .secao-home,
-    .Receitas {
-        display: none;
-    }
+  .receitas-mobile,
+  .carrosel-mobile {
+    display: block;
+  }
 
+  .sobre-nutri-mobile {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
 
-    .receitas-mobile,
-    .carrosel-mobile {
-        display: block;
-    }
+  .espacamento {
+    margin-top: 80px;
+  }
 
-    .sobre-nutri-mobile {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
+  .home-bloco-inicial {
+    height: 30vh;
+    mask-size: cover;
+  }
 
+  .botao-inicial-home {
+    display: none;
+  }
 
-    .espacamento {
-        margin-top: 80px;
-    }
+  .home-bloco-texto {
+    right: 2vh;
+    max-width: 50vw;
+    text-align: center;
+    line-height: 1.3;
+    top: 35%;
+  }
 
-    .home-bloco-inicial {
-        height: 30vh;
-        mask-size: cover;
-    }
+  .home-bloco-texto h1 {
+    font-size: 1.2rem;
+  }
 
-    .botao-inicial-home {
-        display: none;
-    }
+  .foto-nutri-home img {
+    width: 50vw;
+    margin-bottom: 1vh;
+  }
 
-    .home-bloco-texto {
-        right: 2vh;
-        max-width: 50vw;
-        text-align: center;
-        line-height: 1.3;
-        top: 35%;
-    }
+  .infos-dois-home {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 
-    .home-bloco-texto h1 {
-        font-size: 1.2rem;
-    }
+  .text-small-home {
+    font-size: 1.3rem;
+    margin-bottom: 0.85vh;
+  }
 
+  .text-medium-home {
+    font-size: 1.7rem;
+    margin-bottom: 0.85vh;
+  }
 
-    .foto-nutri-home img {
-        width: 50vw;
-        margin-bottom: 1vh;
-    }
+  .text-large-home {
+    font-size: 1.9rem;
+    margin-bottom: 0.85vh;
+  }
 
-    .infos-dois-home {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
+  .small-home {
+    font-size: 1.3rem;
+    margin: 0;
+    max-width: 70vw;
+    margin-bottom: 40px;
+  }
 
+  .mobile-hr {
+    border-top: 1px solid #ede9e3;
+    width: 90vw;
+    margin-bottom: 2vh;
+  }
 
-    .text-small-home {
-        font-size: 1.3rem;
-        margin-bottom: 0.85vh;
-    }
+  .planejamento-home {
+    flex-direction: column;
+    gap: 40px;
+  }
 
-    .text-medium-home {
-        font-size: 1.7rem;
-        margin-bottom: 0.85vh;
-    }
+  .item-home {
+    overflow: hidden;
+    gap: 2vh;
+  }
 
-    .text-large-home {
-        font-size: 1.9rem;
-        margin-bottom: 0.85vh;
-    }
+  .item-home p {
+    font-size: 1.1rem;
+  }
 
-    .small-home {
-        font-size: 1.3rem;
-        margin: 0;
-        max-width: 70vw;
-      margin-bottom: 40px;
+  .img-wrapper-home {
+    width: 20vw;
+    height: 20vw;
+    padding: 22px;
+    border: 3.6px solid #8a8f75;
+  }
 
-    }
+  .img-wrapper-home img {
+    width: 70px;
+  }
 
+  .topic-home {
+    width: 95vw;
+  }
 
-    .mobile-hr {
-        border-top: 1px solid #EDE9E3;
-        width: 90vw;
-        margin-bottom: 2vh;
-    }
+  .icone-dois-home {
+    width: 5vw;
+  }
 
+  .topicos-home p {
+    font-size: 1rem;
+  }
 
-    .planejamento-home {
-        flex-direction: column;
-        gap: 40px;
-    }
+  .dicas-home {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+  }
 
-    .item-home {
-        overflow: hidden;
-        gap: 2vh;
-    }
+  .imagem-container-dicas {
+    width: 55vw;
+    height: auto;
+    margin: 0;
+  }
 
-    .item-home p {
-        font-size: 1.1rem;
-    }
+  .imagem-container-dicas img {
+    width: 100%;
+  }
 
-    .img-wrapper-home {
-        width: 20vw;
-        height: 20vw;
-        padding: 22px;
-        border: 3.6px solid #8A8F75;
-    }
+  .linha-texto-dicas p {
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 1.2;
+    max-width: 60vw;
+  }
 
-    .img-wrapper-home img {
-        width: 70px;
-    }
+  .info-valor-home {
+    grid-template-areas:
+      "imagem"
+      "texto"
+      "box";
+    grid-template-columns: 100%;
+    width: 90vw;
+  }
 
+  .imagem-gradiente-home {
+    height: 250px;
+    border-radius: 10px 10px 0 0;
+  }
 
-    .topic-home {
-        width: 95vw;
-    }
+  .textos-home {
+    padding: 20px;
+    gap: 15px;
+    align-items: center;
+  }
 
-    .icone-dois-home {
-        width: 5vw;
-    }
+  .textos-home h1 {
+    font-size: 2.1rem;
+    text-align: center;
+    margin-top: -30px;
+    margin-bottom: 5px;
+  }
 
-    .topicos-home p {
-        font-size: 1rem;
-    }
+  .text-p-home {
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 30px;
+  }
 
-    .dicas-home {
-        flex-direction: column;
-        height: auto;
-        padding: 15px;
-    }
+  .preco-text-home {
+    display: flex;
+    align-items: flex-start;
+    font-size: 1.1rem;
+    margin-bottom: 17px;
+  }
 
-    .imagem-container-dicas {
-        width: 55vw;
-        height: auto;
-        margin: 0;
-    }
+  .preco-icons-home {
+    width: 23px;
+    flex-shrink: 0;
+  }
 
-    .imagem-container-dicas img {
-        width: 100%;
-    }
+  .suporte-home {
+    margin-left: 30px;
+  }
 
+  .box-preco-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 
+  .preco-linha-home {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
 
-    .linha-texto-dicas p {
-        font-size: 1.5rem;
-        text-align: center;
-        line-height: 1.2;
-        max-width: 60vw;
-    }
+  .box-preco-home h2 {
+    font-family: "Lustria", sans-serif;
+    font-size: 2.1rem;
+    color: #8a8f75;
+    margin: 0;
+  }
 
-
-
-    .info-valor-home {
-        grid-template-areas:
-            "imagem"
-            "texto"
-            "box";
-        grid-template-columns: 100%;
-        width: 90vw;
-    }
-
-    .imagem-gradiente-home {
-        height: 250px;
-        border-radius: 10px 10px 0 0;
-    }
-
-    .textos-home {
-        padding: 20px;
-        gap: 15px;
-        align-items: center;
-    }
-
-    .textos-home h1 {
-        font-size: 2.1rem;
-        text-align: center;
-        margin-top: -30px;
-        margin-bottom: 5px;
-    }
-
-    .text-p-home {
-        font-size: 1.1rem;
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
-    .preco-text-home {
-        display: flex;
-        align-items: flex-start;
-        font-size: 1.1rem;
-        margin-bottom: 17px;
-    }
-
-    .preco-icons-home {
-        width: 23px;
-        flex-shrink: 0;
-    }
-
-    .suporte-home {
-        margin-left: 30px;
-    }
-
-    .box-preco-home {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .preco-linha-home {
-        display: flex;
-        align-items: baseline;
-        gap: 8px;
-    }
-
-    .box-preco-home h2 {
-        font-family: "Lustria", sans-serif;
-        font-size: 2.1rem;
-        color: #8A8F75;
-        margin: 0;
-    }
-
-    .box-preco-home span {
-        font-family: "Poppins", sans-serif;
-        font-size: 1rem;
-        color: #454545;
-    }
+  .box-preco-home span {
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    color: #454545;
+  }
 }
 
-
-@media (min-width: 1024px) and (max-width:1440px) {
-
-    .carrosel-mobile,
-    .receitas-mobile,
-    .sobre-nutri-mobile {
-        display: none;
-    }
-
-
-    .Receitas,
-    .secao-home {
-        display: block;
-    }
-
-    .home-bloco-inicial {
-        height: 25vh;
-        mask-size: cover;
-    }
-
-    .botao-inicial {
-        display: block;
-    }
-
-
-
-    .home-bloco-texto {
-        right: 1vh;
-        max-width: 38vh;
-        text-align: center;
-        gap: 2vh;
-    }
-
-    .home-bloco-texto h1 {
-        font-size: 1.5rem;
-    }
-
-
-
-
-    .home-descricao {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-left: 30px;
-        gap: 5vw;
-
-    }
-
-    .sobre-home {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-    }
-
-    .home-foto {
-        width: 35vw;
-        height: auto;
-        max-width: 70VW;
-
-
-    }
-
-    .home-infos {
-        padding-bottom: 10vh;
-    }
-
-    .primeiro-text-home {
-        font-family: "Quicksand", sans-serif;
-        font-weight: 520;
-        font-size: 1.8rem;
-
-        letter-spacing: 2px;
-        color: #454545;
-        margin-bottom: 1.3vh;
-    }
-
-    .segundo-text-home {
-        font-family: "Quicksand", sans-serif;
-        font-size: 2.3rem;
-        font-weight: 600;
-        color: #8A8F75;
-        margin-top: 0;
-        letter-spacing: 2px;
-        margin-bottom: 1.3vh;
-    }
-
-    .terceiro-text-home {
-        font-family: "Quicksand", sans-serif;
-        font-size: 1.5rem;
-        font-weight: 520;
-        color: #454545;
-        letter-spacing: 2px;
-        margin-bottom: 3vh;
-        margin-top: 0;
-        text-align: center;
-    }
-
-    .num-home {
-        font-family: "Quicksand", sans-serif;
-        text-align: center;
-        font-weight: 600;
-        font-size: 1.5rem;
-        color: #8A8F75;
-    }
-
-
-
-
-
-
-
-    .home-categorias {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 7vh;
-
-    }
-
-
-    .home-categoria {
-        padding: 15px;
-        width: 27vw;
-        height: 9vh;
-        overflow: hidden;
-
-
-
-    }
-
-
-
-
-    .home-icone {
-        width: 8vw;
-
-    }
-
-
-
-    .home-categoria p {
-        font-size: 1.3rem;
-
-    }
-
-
-
-
-
-
-
-    .sobre-nutri-home {
-        height: 50vh;
-        padding: 30px;
-    }
-
-    .text-small-home {
-        font-size: 1.4rem;
-        margin-bottom: 1vh;
-
-    }
-
-    .text-medium-home {
-        font-size: 2.4rem;
-        color: #454545;
-        margin: 0;
-        margin-bottom: 1vh;
-        font-weight: 500;
-    }
-
-    .text-large-home {
-        margin: 0;
-        margin-bottom: 4vh;
-        font-size: 2.5rem;
-    }
-
-    .small-home {
-        font-size: 1.3rem;
-        max-width: 40vw;
-
-    }
-
-    .color-text {
-        color: #8A8F75;
-    }
-
-    .foto-nutri-home img {
-        width: 35vw;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    .planejamento-home {
-        flex-direction: column;
-        gap: 40px;
-
-    }
-
-    .item-home {
-        overflow: hidden;
-        gap: 2vh;
-    }
-
-    .item-home p {
-        font-size: 1.3rem;
-    }
-
-
-    .img-wrapper-home {
-        width: 20vw;
-        height: 20vw;
-        padding: 22px;
-        border: 3.6px solid #8A8F75;
-
-
-    }
-
-    .img-wrapper-home img {
-        width: 10vw;
-    }
-
-    .topic-home {
-        width: 95vw;
-
-    }
-
-    .icone-dois-home {
-        width: 4vw;
-    }
-
-    .topicos-home p {
-        font-size: 1.2rem;
-
-    }
-
-    .dicas-home {
-        padding: 10px;
-        height: 30vh;
-
-    }
-
-
-
-    .linha-texto-dicas p {
-        font-family: "Lustria", sans-serif;
-        font-size: 1.2rem;
-        max-width: 45vw;
-        margin-top: 5px;
-    }
-
-    .conteudo-dicas h3 {
-
-        font-size: 1.1rem;
-        margin: 0;
-
-    }
-
-    .imagem-container-dicas {
-        width: 60vw;
-
-        margin-top: 3vh;
-        overflow: hidden;
-
-    }
-
-    .imagem-container-dicas img {
-        width: 100%;
-        height: auto;
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-    .imagem-gradiente-home {
-        width: 100%;
-        height: 300px;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 75%, #F9F7F2 100%),
-            linear-gradient(to right, rgba(255, 255, 255, 0) 65%, #F9F7F2 100%),
-            url('../assets/img_png/food.avif') no-repeat center left;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: left center;
-        border-radius: 10px 0 0 0;
-    }
-
-
-
-    .text-p-home {
-        font-size: 0.95rem;
-        text-align: center;
-        margin-bottom: 30px;
-
-
-    }
-
-    .preco-text-home {
-        display: flex;
-        align-items: flex-start;
-        font-size: 1rem;
-        margin-bottom: 17px;
-    }
-
-
-    .textos-home h1 {
-        font-size: 2rem;
-    }
-
-
-
-    .textos-home{
-        gap: 20px;
-    }
-
-
-
-
-    .box-preco-home {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .preco-linha-home {
-        display: flex;
-        align-items: baseline;
-        gap: 8px;
-
-    }
-
-    .box-preco-home h2 {
-        font-family: "Lustria", sans-serif;
-        font-size: 2rem;
-        color: #8A8F75;
-        margin: 0;
-    }
-
-    .box-preco-home span {
-        font-family: "Poppins", sans-serif;
-        font-size: 1rem;
-        color: #454545;
-    }
-
-
+@media (min-width: 1024px) and (max-width: 1440px) {
+  .carrosel-mobile,
+  .receitas-mobile,
+  .sobre-nutri-mobile {
+    display: none;
+  }
+
+  .Receitas,
+  .secao-home {
+    display: block;
+  }
+
+  .home-bloco-inicial {
+    height: 25vh;
+    mask-size: cover;
+  }
+
+  .botao-inicial {
+    display: block;
+  }
+
+  .home-bloco-texto {
+    right: 1vh;
+    max-width: 38vh;
+    text-align: center;
+    gap: 2vh;
+  }
+
+  .home-bloco-texto h1 {
+    font-size: 1.5rem;
+  }
+
+  .home-descricao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+    gap: 5vw;
+  }
+
+  .sobre-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .home-foto {
+    width: 35vw;
+    height: auto;
+    max-width: 70vw;
+  }
+
+  .home-infos {
+    padding-bottom: 10vh;
+  }
+
+  .primeiro-text-home {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 520;
+    font-size: 1.8rem;
+
+    letter-spacing: 2px;
+    color: #454545;
+    margin-bottom: 1.3vh;
+  }
+
+  .segundo-text-home {
+    font-family: "Quicksand", sans-serif;
+    font-size: 2.3rem;
+    font-weight: 600;
+    color: #8a8f75;
+    margin-top: 0;
+    letter-spacing: 2px;
+    margin-bottom: 1.3vh;
+  }
+
+  .terceiro-text-home {
+    font-family: "Quicksand", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 520;
+    color: #454545;
+    letter-spacing: 2px;
+    margin-bottom: 3vh;
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .num-home {
+    font-family: "Quicksand", sans-serif;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #8a8f75;
+  }
+
+  .home-categorias {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7vh;
+  }
+
+  .home-categoria {
+    padding: 15px;
+    width: 27vw;
+    height: 9vh;
+    overflow: hidden;
+  }
+
+  .home-icone {
+    width: 8vw;
+  }
+
+  .home-categoria p {
+    font-size: 1.3rem;
+  }
+
+  .sobre-nutri-home {
+    height: 50vh;
+    padding: 30px;
+  }
+
+  .text-small-home {
+    font-size: 1.4rem;
+    margin-bottom: 1vh;
+  }
+
+  .text-medium-home {
+    font-size: 2.4rem;
+    color: #454545;
+    margin: 0;
+    margin-bottom: 1vh;
+    font-weight: 500;
+  }
+
+  .text-large-home {
+    margin: 0;
+    margin-bottom: 4vh;
+    font-size: 2.5rem;
+  }
+
+  .small-home {
+    font-size: 1.3rem;
+    max-width: 40vw;
+  }
+
+  .color-text {
+    color: #8a8f75;
+  }
+
+  .foto-nutri-home img {
+    width: 35vw;
+  }
+
+  .planejamento-home {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .item-home {
+    overflow: hidden;
+    gap: 2vh;
+  }
+
+  .item-home p {
+    font-size: 1.3rem;
+  }
+
+  .img-wrapper-home {
+    width: 20vw;
+    height: 20vw;
+    padding: 22px;
+    border: 3.6px solid #8a8f75;
+  }
+
+  .img-wrapper-home img {
+    width: 10vw;
+  }
+
+  .topic-home {
+    width: 95vw;
+  }
+
+  .icone-dois-home {
+    width: 4vw;
+  }
+
+  .topicos-home p {
+    font-size: 1.2rem;
+  }
+
+  .dicas-home {
+    padding: 10px;
+    height: 30vh;
+  }
+
+  .linha-texto-dicas p {
+    font-family: "Lustria", sans-serif;
+    font-size: 1.2rem;
+    max-width: 45vw;
+    margin-top: 5px;
+  }
+
+  .conteudo-dicas h3 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .imagem-container-dicas {
+    width: 60vw;
+
+    margin-top: 3vh;
+    overflow: hidden;
+  }
+
+  .imagem-container-dicas img {
+    width: 100%;
+    height: auto;
+  }
+
+  .imagem-gradiente-home {
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 75%,
+        #f9f7f2 100%
+      ),
+      linear-gradient(to right, rgba(255, 255, 255, 0) 65%, #f9f7f2 100%),
+      url("../assets/img_png/food.avif") no-repeat center left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left center;
+    border-radius: 10px 0 0 0;
+  }
+
+  .text-p-home {
+    font-size: 0.95rem;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .preco-text-home {
+    display: flex;
+    align-items: flex-start;
+    font-size: 1rem;
+    margin-bottom: 17px;
+  }
+
+  .textos-home h1 {
+    font-size: 2rem;
+  }
+
+  .textos-home {
+    gap: 20px;
+  }
+
+  .box-preco-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .preco-linha-home {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .box-preco-home h2 {
+    font-family: "Lustria", sans-serif;
+    font-size: 2rem;
+    color: #8a8f75;
+    margin: 0;
+  }
+
+  .box-preco-home span {
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    color: #454545;
+  }
 }

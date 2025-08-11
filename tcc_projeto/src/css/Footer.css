@@ -1,158 +1,246 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.geral-footer{
-    margin-top: 100px;
-    margin-bottom: 30px;
+.geral-footer {
+  margin-top: 100px;
 }
 
 .footer {
-    background-color: #F2EFEA;
-    font-family: 'Poppins', sans-serif;
-    position: relative;
-    width: 100%;
-    height: 293px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 0%;
-    padding: 5px 0 0 0;
+  background-color: #f4efec;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+ 
+  margin: 0%;
+  padding: 5px 0 0 0;
 }
 
 .footer-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 0%;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around; /*  flex-direction: column;  */
+  padding: 0%;
+  margin-bottom: 20px;
 }
 
 .nav-footer-um {
-    display: flex;
-
+  display: flex; /*flex-direction: column;*/
 }
 
-.list-links {
-    display: flex;
-    flex-direction: column;
-    margin-right: 80px;
+.list-links-footer {
+  display: flex;
+  flex-direction: column;
+  margin-right: 80px;
 }
 
-.list-links h3 {
-    font-size: 15px;
-    margin-bottom: 10px;
-    color: #454545;
-    font-weight: 500;
+.list-text-links-x {
+  display: flex;
+  flex-direction: column;
 }
 
-.list-links li {
-    transition: 100ms linear;
-    transform-origin: right;
-
+.list-links-footer-mobile {
+  display: none;
+}
+.list-links-footer-active {
+  display: flex;
 }
 
-.list-links li:hover {
-    transform: scaleX(0.98);
+.list-links-footer h3 {
+  font-size: 15px;
+  margin-bottom: 10px;
+  color: #454545;
+  font-weight: 500;
+}
+
+.list-links-footer li {
+  transition: 100ms linear;
+  transform-origin: right;
+}
+
+.list-links-footer li:hover {
+  transform: scaleX(0.98);
 }
 
 #li-design {
-    font-size: 14px;
-    font-weight: 300;
-    color: #454545;
+  font-size: 14px;
+  font-weight: 300;
+  color: #454545;
 }
 
 #li-design:hover {
-    color: #a2a2a2;
-
+  color: #a2a2a2;
 }
 
 .section-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-footer-mobile {
+  display: none;
 }
 
 .button-footer-agendar {
   margin-bottom: 20px;
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 
-
-
 .direitos {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #F4EFEC;
-    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f4efec;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 
 #text-direitos-um {
-    margin-top: 12px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #454545;
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #454545;
 }
 
 #text-direitos-dois {
-    font-size: 12px;
-    font-weight: 300;
-    color: #808080;
-    margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 300;
+  color: #808080;
+  margin-bottom: 10px;
 }
 
 .section-footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .section-pai {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logo-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .logo-footer p {
-    font-size: 10px;
-    margin-top: 0%;
-    color: #8A8F75;
-    font-weight: 420;
+  font-size: 10px;
+  margin-top: 0%;
+  color: #8a8f75;
+  font-weight: 420;
 }
 
 .icons-footer {
-    display: flex;
-    justify-content: space-between;
-    width: 100px;
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
 }
 
 .icon-footer {
-    width: 20px;
-    height: 20px;
-    color: #8A8F75;
-    transition: 150ms linear;
-
+  width: 20px;
+  height: 20px;
+  color: #8a8f75;
+  transition: 150ms linear;
 }
 
 .icon-footer:hover {
-    color: #b88f8f;
-    cursor: pointer;
-    transform: scale(1.1);
+  color: #b88f8f;
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .onda-svg-footer {
+  width: 100%;
+  display: block;
+}
+
+@media (max-width: 480px) {
+
+  .footer-container {
+    flex-direction: column;
+    margin-top: 30px;
+    height: 300px;
+  }
+
+  .nav-footer-um {
+    flex-direction: column;
+    height: 115vw;
+  }
+
+  .list-links-footer {
+    height: 38vh;
+    margin-right: 0%;
+    margin-left: 20px;
+  }
+
+  .list-links-footer h3 {
+    font-size: 12px;
+    margin: 0%;
+  }
+
+  #li-design {
+    font-size: 8px;
+    margin: 0%;
+  }
+
+  .section-footer {
+    display: none;
+  }
+
+  .list-links-footer-x {
+    display: flex;
     width: 100%;
-    display: block;
+  }
+  .list-links-footer li{
+    height: 22px;
+  }
+  .list-text-links-x {
+    margin-right: 0%;
+  }
+  .section-footer-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+  }
+  .icon-footer {
+    width: 10px;
+    height: 10px;
+  }
+  .icons-footer {
+    width: 60px;
+  }
+  .logo-footer img {
+    width: 135px;
+    height: 50px;
+  }
+
+  .button-footer-agendar {
+    font-size: 0.6rem;
+    width: 30vw;
+    height: 8vw;
+    margin-bottom: 5px;
+  }
+
+  .direitos {
+    height: 8vh;
+  }
+
+  #text-direitos-um {
+    font-size: 0.5rem;
+  }
+
+  #text-direitos-dois {
+    font-size: 0.5rem;
+  }
 }
