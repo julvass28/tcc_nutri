@@ -164,24 +164,37 @@
   display: block;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 361px) {
 
+  .list-links-footer-active{
+  display :none;
+}
+  .list-links-footer-mobile{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 1rem;
+    
+  }
   .footer-container {
     flex-direction: column;
     margin-top: 30px;
     height: 300px;
+    
   }
 
   .nav-footer-um {
     flex-direction: column;
-    height: 115vw;
+    height: 370px;
+    
   }
 
   .list-links-footer {
     height: 38vh;
     margin-right: 0%;
-    margin-left: 20px;
+    margin-left: 1rem;
+    
   }
+  
 
   .list-links-footer h3 {
     font-size: 12px;
@@ -200,6 +213,8 @@
   .list-links-footer-x {
     display: flex;
     width: 100%;
+    justify-content: space-between;
+    
   }
   .list-links-footer li{
     height: 22px;
@@ -244,3 +259,97 @@
     font-size: 0.5rem;
   }
 }
+@media (min-width: 361px) and (max-width: 376px) {
+
+  .list-links-footer-active{
+  display :none;
+}
+  .list-links-footer-mobile{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 1rem;
+    
+  }
+  .footer-container {
+    flex-direction: column;
+    margin-top: 30px;
+    height: 300px;
+    padding: 0 0.5rem 0 0.5rem;
+  }
+
+  .nav-footer-um {
+    flex-direction: column;
+    height: 370px;
+  }
+
+  .list-links-footer {
+    height: 38vh;
+    margin-right: 0%;
+    margin-left: 1rem;
+  }
+  
+
+  .list-links-footer h3 {
+    font-size: 13px;
+    margin: 0%;
+  }
+
+  #li-design {
+    font-size: 9px;
+    margin: 0%;
+  }
+
+  .section-footer {
+    display: none;
+  }
+
+  .list-links-footer-x {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    
+  }
+  .list-links-footer li{
+    height: 22px;
+  }
+  .list-text-links-x {
+    margin-right: 0%;
+  }
+  .section-footer-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+  }
+  .icon-footer {
+    width: 10px;
+    height: 10px;
+  }
+  .icons-footer {
+    width: 60px;
+  }
+  .logo-footer img {
+    width: 135px;
+    height: 50px;
+  }
+
+  .button-footer-agendar {
+    font-size: 0.6rem;
+    width: 30vw;
+    height: 8vw;
+    margin-bottom: 5px;
+  }
+
+  .direitos {
+    height: 8vh;
+  }
+
+  #text-direitos-um {
+    font-size: 0.5rem;
+  }
+
+  #text-direitos-dois {
+    font-size: 0.5rem;
+  }
+}
+
