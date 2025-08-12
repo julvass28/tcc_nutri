@@ -140,7 +140,7 @@ function Footer() {
                 </li>
                 <li>
                   <Link to="/especialidade/intolerancia" id="li-design">
-                    Intolerâncias Aliemtares
+                    Intolerâncias Alimentares
                   </Link>
                 </li>
               </ul>

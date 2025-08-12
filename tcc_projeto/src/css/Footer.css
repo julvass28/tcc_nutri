@@ -531,3 +531,41 @@
     font-size: 0.5rem;
   }
 }
+
+@media (min-width: 480px) and (max-width: 1025px){
+  #li-design {
+  font-size: 1.2vw;
+}
+.list-links-footer h3 {
+  font-size: 1.5vw;
+  margin-bottom: 10px;
+}
+.list-links-footer{
+  height: 200px;
+  width: 175px;
+  margin: 0;
+  
+}
+.list-links-footer li {
+  font-size: 0.01vw;
+  margin: 0;
+}
+.button-footer-agendar {
+  margin-bottom: 5px;
+  font-size: 2vw;
+  width: 20vw;
+  height: 5vw;
+}
+
+.footer-container{
+  height: 23vw;
+  padding: 0 1rem 0 1rem;
+  
+}
+
+.section-footer{
+  height: 25vw;
+}
+
+}
+                           
