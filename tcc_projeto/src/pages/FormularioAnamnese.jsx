@@ -55,11 +55,11 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                         break;
 
                     case "radio_condicional_texto":
-                     //cria um objeto ja que condicional depende da validaçao de radio
-                     //defini resposta e condicional no ...register de cada input
-                     //refine= validaçoes perzonalizadas do zod
-                     //trim remove espaços em branco
-                        
+                        //cria um objeto ja que condicional depende da validaçao de radio
+                        //defini resposta e condicional no ...register de cada input
+                        //refine= validaçoes perzonalizadas do zod
+                        //trim remove espaços em branco
+
                         campos[chave] = z.object({
                             resposta: z.string({ required_error: '*Selecione uma opção' }).min(1, '*Selecione uma opção'),
                             condicional: z.string().optional(),
@@ -80,8 +80,8 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                         const frequenciaShape = {};
                         perguntaObj.itens?.forEach(item => {
                             frequenciaShape[item.alimento] = z.string({
-                                required_error: `Selecione uma opção para ${item.alimento}`
-                            }).nonempty(`Selecione uma opção para ${item.alimento}`);
+                                required_error: `Selecione uma opção `
+                            }).nonempty(`Selecione uma opção`);
                         });
                         campos[chave] = z.object(frequenciaShape);
                         break;
@@ -199,15 +199,16 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                         <h3 className="sessaoAnamnese">{perguntaObj.texto}</h3>
                                     ) : (
                                         <>
-                                            {typeof errors[perguntaObj.pergunta]?.message === 'string' && (
-                                                <p className="erroMensagem">{errors[perguntaObj.pergunta].message}</p>
-                                            )}
+                                            {perguntaObj.tipo !== "radio_condicional_texto" &&
+                                                typeof errors[perguntaObj.pergunta]?.message === 'string' && (
+                                                    <p className="erroMensagem">{errors[perguntaObj.pergunta].message}</p>
+                                                )}
+
 
 
                                             <div className="campoAnamnese">
 
-                                                {perguntaObj.pergunta && (
-
+                                                {perguntaObj.pergunta && !perguntaObj.ocultarLabel && (
                                                     <label className="labelAnamnese">{perguntaObj.pergunta}</label>
                                                 )}
 
@@ -268,11 +269,11 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                                 <div className="grupoOpcao">
 
 
+
                                                     {perguntaObj.opcoes.map((opcao, i) => (
                                                         <div className="linhaOpcao" key={i}>
                                                             <input
                                                                 type="checkbox"
-
                                                                 onChange={() => {
                                                                     //verfica o que o usuario ja marcou, se nao marcou nada []
                                                                     const current = watch(perguntaObj.pergunta) || [];
@@ -287,9 +288,11 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                                                 value={opcao}
 
                                                             />
+
                                                             <label className="textoOpcao">{opcao}</label>
 
                                                         </div>
+
                                                     ))}
 
                                                 </div>
@@ -297,8 +300,17 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
 
                                             {/* RADIO CONDICIONAL COM TEXTO */}
                                             {perguntaObj.tipo === "radio_condicional_texto" && (
+
+
                                                 <div className="grupoOpcao">
+                                                    {errors[perguntaObj.pergunta]?.condicional?.message && (
+                                                        <p className="erroMensagem">
+                                                            {errors[perguntaObj.pergunta].condicional.message}
+                                                        </p>
+                                                    )}
+
                                                     {perguntaObj.opcoes.map((opcao, i) => (
+
                                                         <div className="linhaOpcao" key={i}>
                                                             <input
                                                                 type="radio"
@@ -306,6 +318,7 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                                                 value={opcao}
 
                                                             />
+
                                                             <label className="textoOpcao">{opcao}</label>
 
 
@@ -320,11 +333,7 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                                                             placeholder={perguntaObj.placeholder}
                                                                             {...register(`${perguntaObj.pergunta}.condicional`)}
                                                                         />
-                                                                        {errors[perguntaObj.pergunta]?.condicional?.message && (
-                                                                            <p className="erroMensagem">
-                                                                                {errors[perguntaObj.pergunta].condicional.message}
-                                                                            </p>
-                                                                        )}
+                                                                        
                                                                     </div>
                                                                 )}
 
@@ -406,6 +415,8 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                             {/* FREQUÊNCIA DE CONSUMO */}
                                             {perguntaObj.tipo === "frequencia_consumo" && (
                                                 <div className="grupoOpcao">
+
+
                                                     {perguntaObj.itens?.map((item, i) => (
                                                         <div className="linhaOpcao linhaFrequencia" key={i}>
                                                             <label className="alimentoAnamnese">{item.alimento}</label>
@@ -420,7 +431,6 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                                                 </div>
                                                             ))}
 
-                                                            {/* Mensagem de erro por alimento */}
                                                             {errors[perguntaObj.pergunta]?.[item.alimento]?.message && (
                                                                 <p className="erroMensagem">
                                                                     {errors[perguntaObj.pergunta][item.alimento].message}
@@ -430,6 +440,7 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                                     ))}
                                                 </div>
                                             )}
+
 
 
                                         </>

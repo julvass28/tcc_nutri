@@ -28,10 +28,7 @@ const perguntasComum = [
                 pergunta: 'Email:',
                 tipo: 'email',
             },
-            {
-                pergunta: 'Profissão:',
-                tipo: 'texto',
-            },
+           
             {
                 pergunta: 'Altura:',
                 tipo: 'number',
@@ -41,9 +38,6 @@ const perguntasComum = [
                 pergunta: 'Peso:',
                 tipo: 'number',
                 unidade: 'kg',
-            }, {
-                pergunta: 'Percentual de Gordura (se souber)',
-                tipo: 'number',
             },
         ],
     },
@@ -236,6 +230,8 @@ pediatrica: [
                 },
                 {
                     titulo: 'Frequência de Consumo',
+                    pergunta: 'frequencia_habitos',
+                      ocultarLabel: true,
                     tipo: 'frequencia_consumo',
                     itens: [
                         {
@@ -266,6 +262,8 @@ pediatrica: [
                 {
 
                     tipo: 'frequencia_consumo',
+                    pergunta: 'frequencia_sono',
+                      ocultarLabel: true,
                     itens: [
                         {
                             alimento: 'Sono:',
@@ -303,6 +301,8 @@ pediatrica: [
                 {
 
                     tipo: 'frequencia_consumo',
+                    pergunta: 'frequencia_alimentar',
+                      ocultarLabel: true,
                     itens: [
                         {
                             alimento: 'Belisca entre refeições?',
