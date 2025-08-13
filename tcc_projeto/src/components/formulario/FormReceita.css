@@ -1,0 +1,72 @@
+.form-container {
+  background-color: #e7c3bd; /* rosa-bege suave da paleta */
+  width: 90%;
+  max-width: 800px;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 40px auto; /* centraliza na tela */
+}
+
+.form-title {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.form-container label {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.form-container input[type="text"],
+.form-container textarea,
+.form-container select {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-family: 'Quicksand', sans-serif;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.form-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-container select {
+  max-width: 300px;
+}
+
+.form-container .button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.form-container button {
+  background-color: #e3aca1;
+  color: white;
+  border: none;
+  padding: 16px 50px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: #ca9d94;
+}
