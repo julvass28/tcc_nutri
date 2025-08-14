@@ -10,9 +10,9 @@ const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
-const FRONTEND_URL = process.env.FRONTEND_URL || '*';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://tcc-nutri.vercel.app/';
 app.use(cors({
-  origin: FRONTEND_URL === '*' ? true : [FRONTEND_URL],
+  origin: FRONTEND_URL === 'https://tcc-nutri.vercel.app/' ? true : [FRONTEND_URL],
   credentials: true
 }));
 
