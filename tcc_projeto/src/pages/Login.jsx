@@ -45,7 +45,7 @@ export default function Login() {
       }
 
       localStorage.setItem("token", data.token);
-      localStorage.setItem("nome", data.nome);
+      localStorage.setItem("nome", data.usuario?.nome || "");
      window.location.href = "/";
     } catch (error) {
       console.error("Erro no login:", error);
