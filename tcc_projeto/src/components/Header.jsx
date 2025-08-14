@@ -134,11 +134,6 @@ function Header() {
                   Receitas
                 </Link>
               </li>
-              <li>
-                <Link to="#" onClick={() => setOpenDropdown(null)}>
-                  Artigos
-                </Link>
-              </li>
             </ul>
           </li>
 
@@ -161,14 +156,6 @@ function Header() {
                 openDropdown === "calculadoras" ? "show" : ""
               }`}
             >
-              <li>
-                <Link
-                  to="/calculadoras/calorias-nutrientes"
-                  onClick={() => setOpenDropdown(null)}
-                >
-                  Calorias e Nutrientes
-                </Link>
-              </li>
               <li>
                 <Link
                   to="/calculadoras/gasto-calorico"

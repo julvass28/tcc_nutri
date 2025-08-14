@@ -179,7 +179,7 @@ function Home() {
                         sua alimentação em algo leve e equilibrado.</span> Além
                         de nutri, quero ser sua amiga nessa jornada.
                         Vamos juntos?</p>
-                    <Botao className="btn-dois" text="+Sobre Mim" >+Sobre Mim</Botao>
+                    <Botao className="btn-dois" to="/sobre" text="+Sobre Mim" >+Sobre Mim</Botao>
                 </div>
 
                 <div className="foto-nutri-home">
@@ -276,7 +276,7 @@ function Home() {
 
                 />
                 <div className="btn-receitas-home">
-                    <Botao to="/receitas/clinica" text="Ver Receitas">Ver Receitas</Botao></div>
+                    <Botao to="/receitas/ReceitasClinicas" text="Ver Receitas">Ver Receitas</Botao></div>
 
             </div>
 
