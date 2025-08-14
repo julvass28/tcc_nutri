@@ -8,6 +8,7 @@ import { AuthContext } from "../context/AuthContext";
 
 
 export default function Login() {
+  const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
   const { setUser } = useContext(AuthContext);
   const [credentials, setCredentials] = useState({ email: "", senha: "" });
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -28,7 +29,7 @@ export default function Login() {
     setErroLogin(""); // limpa erros anteriores
 
     try {
-      const response = await fetch("http://localhost:3001/login", {
+      const response = await fetch(`${API}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

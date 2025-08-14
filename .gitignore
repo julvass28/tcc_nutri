@@ -25,7 +25,5 @@ dist-ssr
 
 
 # Ignorar variáveis sensíveis do backend
-backend/.env
+.env
 
-# Ignorar variáveis do front se tiver também
-tccprojeto/.env

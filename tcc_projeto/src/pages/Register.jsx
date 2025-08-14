@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../css/auth-pages.css";
 
 export default function CriarConta() {
+  const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
   const [formData, setFormData] = useState({
     nome: "",
     sobrenome: "",
@@ -35,7 +36,7 @@ export default function CriarConta() {
 
     if (formData.senha !== formData.confirmarSenha) return;
 
-    fetch("http://localhost:3001/register", {
+    fetch(`${API}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
