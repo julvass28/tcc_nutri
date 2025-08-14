@@ -4,16 +4,13 @@ import "../css/auth-pages.css";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
-
-
-
 export default function Login() {
   const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
-  const { setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [credentials, setCredentials] = useState({ email: "", senha: "" });
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const navigate = useNavigate(); // ⬅️ instanciando o hook
-  const [erroLogin, setErroLogin] = useState('');
+  const [erroLogin, setErroLogin] = useState("");
 
   useEffect(() => {
     document.body.classList.add("login-page");
@@ -44,15 +41,24 @@ export default function Login() {
         return;
       }
 
+      // salva credenciais
       localStorage.setItem("token", data.token);
       localStorage.setItem("nome", data.usuario?.nome || "");
-     window.location.href = "/";
+      // atualiza o contexto pra refletir no Header imediatamente
+      if (data.usuario) {
+        setUser({
+          id: data.usuario.id,
+          nome: data.usuario.nome,
+          email: data.usuario.email,
+        });
+      }
+      // navega sem recarregar a página
+      navigate("/");
     } catch (error) {
       console.error("Erro no login:", error);
       setErroLogin("Erro ao conectar com o servidor");
     }
   };
-
 
   return (
     <div className="login-body">
@@ -64,12 +70,20 @@ export default function Login() {
           entre com sua conta
         </p>
 
-        <button type="button" className="login-btn login-btn-google" aria-label="Continuar com o Google">
+        <button
+          type="button"
+          className="login-btn login-btn-google"
+          aria-label="Continuar com o Google"
+        >
           <i className="fab fa-google login-icon"></i>
           Continuar com o Google
         </button>
 
-        <button type="button" className="login-btn login-btn-facebook" aria-label="Continuar com o Facebook">
+        <button
+          type="button"
+          className="login-btn login-btn-facebook"
+          aria-label="Continuar com o Facebook"
+        >
           <i className="fab fa-facebook-f login-icon"></i>
           Continuar com o Facebook
         </button>
@@ -93,12 +107,13 @@ export default function Login() {
             onChange={handleChange}
           />
 
-
           <div className="criar-conta-password-wrapper">
             <input
               name="senha"
               type={mostrarSenha ? "text" : "password"}
-              className={`criar-conta-input criar-conta-input-password ${erroLogin ? "erro-input" : ""}`}
+              className={`criar-conta-input criar-conta-input-password ${
+                erroLogin ? "erro-input" : ""
+              }`}
               placeholder="Senha"
               aria-label="Senha"
               autoComplete="current-password"
@@ -108,7 +123,9 @@ export default function Login() {
             />
 
             <i
-              className={`fas ${mostrarSenha ? "fa-eye-slash" : "fa-eye"} criar-conta-eye-icon`}
+              className={`fas ${
+                mostrarSenha ? "fa-eye-slash" : "fa-eye"
+              } criar-conta-eye-icon`}
               tabIndex={-1}
               onClick={() => setMostrarSenha((prev) => !prev)}
               style={{ cursor: "pointer" }}
@@ -123,7 +140,10 @@ export default function Login() {
             Fazer Login
           </button>
           {erroLogin && (
-            <p className="mensagem-erro" style={{ color: "#D9534F", marginTop: "10px" }}>
+            <p
+              className="mensagem-erro"
+              style={{ color: "#D9534F", marginTop: "10px" }}
+            >
               {erroLogin}
             </p>
           )}
