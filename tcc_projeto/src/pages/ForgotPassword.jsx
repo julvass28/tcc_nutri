@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../css/auth-pages.css";
 
 export default function ForgotPassword() {
+  const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
   const [etapa, setEtapa] = useState(1);
   const [email, setEmail] = useState("");
   const [codigo, setCodigo] = useState(Array(6).fill(""));
@@ -38,7 +39,7 @@ export default function ForgotPassword() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3001/esqueci-senha", {
+      const response = await fetch(`${API}/esqueci-senha`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -64,7 +65,7 @@ export default function ForgotPassword() {
       setContador(60);
 
       try {
-        const response = await fetch("http://localhost:3001/esqueci-senha", {
+        const response = await fetch(`${API}/esqueci-senha`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
@@ -117,7 +118,7 @@ export default function ForgotPassword() {
     const codigoCompleto = codigo.join("");
 
     try {
-      const response = await fetch("http://localhost:3001/verificar-codigo", {
+      const response = await fetch(`${API}/verificar-codigo`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, codigo: codigoCompleto }),
@@ -145,11 +146,12 @@ const handleSubmitSenha = async (e) => {
   if (senha !== confirmarSenha) return;
 
   try {
-    const response = await fetch("http://localhost:3001/redefinir-senha", {
+    const response = await fetch(`${API}/redefinir-senha`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email,
+        codigo: codigo.join(""),
         novaSenha: senha,
       }),
     });
