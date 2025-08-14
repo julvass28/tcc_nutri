@@ -276,7 +276,7 @@ function Home() {
 
                 />
                 <div className="btn-receitas-home">
-                    <Botao to="/receitas/ReceitasClinicas" text="Ver Receitas">Ver Receitas</Botao></div>
+                    <Botao to="/receitas/clinicas" text="Ver Receitas">Ver Receitas</Botao></div>
 
             </div>
 
