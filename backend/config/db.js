@@ -1,3 +1,4 @@
+// backend/config/db.js
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
@@ -6,21 +7,27 @@ const {
   DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
 } = process.env;
 
-const common = {
+const base = {
   dialect: 'mysql',
   logging: false,
-  dialectOptions: {}
 };
 
-// Em provedores gerenciados, quase sempre precisa SSL
-common.dialectOptions.ssl = { require: true, rejectUnauthorized: false };
+let sequelize;
 
-const sequelize = DATABASE_URL
-  ? new Sequelize(DATABASE_URL, common)
-  : new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-      ...common,
-      host: DB_HOST,
-      port: DB_PORT || 3306
-    });
+if (DATABASE_URL) {
+  // Produção / serviços gerenciados → geralmente exigem SSL
+  sequelize = new Sequelize(DATABASE_URL, {
+    ...base,
+    dialectOptions: { ssl: { require: true, rejectUnauthorized: false } }
+  });
+} else {
+  // Localhost → sem SSL
+  sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+    ...base,
+    host: DB_HOST,
+    port: DB_PORT || 3306,
+  });
+}
 
 module.exports = sequelize;
+

@@ -11,13 +11,18 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 
 const FRONTEND_URL = (process.env.FRONTEND_URL || 'https://tcc-nutri.vercel.app').replace(/\/$/, '');
+const allowedOrigins = [FRONTEND_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'];
+
 app.use(cors({
-  origin: [FRONTEND_URL],
+  origin: (origin, cb) => {
+    if (!origin) return cb(null, true); // Postman/CLI
+    return cb(null, allowedOrigins.includes(origin));
+  },
+  credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
-app.options('*', cors());
+// ✖ NÃO usar app.options('*') aqui (Express 5 não curte esse curinga)
 
 app.use(express.json());
 app.use(helmet());

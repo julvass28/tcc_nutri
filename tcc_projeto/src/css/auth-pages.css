@@ -159,13 +159,13 @@
 .criar-conta-password-wrapper {
   position: relative;
   width: 100%;
-  margin-bottom: 1.5rem;
+  
 }
 
 .criar-conta-eye-icon {
   position: absolute;
   right: 1rem;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
   color: #9ca3af;
   cursor: pointer;
@@ -397,6 +397,96 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 .toast-icone {
   font-size: 1.125rem;
 }
+
+
+/* ====== AUTH COMPACT (tema & espaçamento) ====== */
+.auth-compact .login-input,
+.auth-compact .criar-conta-input,
+.auth-compact .forgot-password-input,
+.auth-compact .criar-conta-input-password {
+  margin-bottom: 1rem; /* antes era 1.5rem: mais compacto */
+}
+
+/* Bordas de erro no tom do tema (rose) */
+.auth-compact .erro-borda {
+  border-color: #e96969 !important;
+  box-shadow: 0 0 0 2px rgba(200, 155, 155, 0.25) !important;
+}
+
+/* Texto de erro no tom do tema + menos respiro */
+.auth-compact .erro-texto {
+  color: #e96969;                 /* antes era vermelho forte */
+  font-size: 0.75rem;
+  margin: 0px 0 10px;             /* coladinho no input, sem “buracos” */
+  line-height: 1.2;
+}
+
+/* Quando o input tá em foco + erro, mantém a cor do foco do tema */
+.auth-compact .login-input:focus,
+.auth-compact .criar-conta-input:focus,
+.auth-compact .forgot-password-input:focus,
+.auth-compact .criar-conta-input-password:focus {
+  border-color: #9a9f85;
+  box-shadow: 0 0 0 2px #9a9f85;
+}
+
+/* Link "Esqueceu a senha?" sem abrir buracão quando tem erro acima */
+.auth-compact .login-forgot-password {
+  margin-top: 0.25rem;
+}
+
+/* Botão com leve ajuste quando tem erro logo acima */
+.auth-compact .login-submit-btn {
+  margin-top: 0.5rem;
+}
+
+/* ===== Popup de carregamento central ===== */
+.auth-loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(231, 224, 221, 0.75); /* fundo do site com transparência */
+  display: grid;
+  place-items: center;
+  z-index: 2000;
+  animation: fadeInOverlay .15s ease;
+}
+
+.auth-loading-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  min-width: 240px;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  box-shadow: 0 12px 30px rgba(0,0,0,.12);
+  border-left: 4px solid #c89b9b;  /* tom do tema */
+  color: #4a4a4a;
+  font-family: "Poppins", sans-serif;
+}
+
+.auth-loading-card i {
+  font-size: 1.25rem;
+  color: #c89b9b;
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0 }
+  to   { opacity: 1 }
+}
+
+/* botão com cara de link */
+.as-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+}
+
+
+
 
 @keyframes toast-enter {
   from { opacity: 0; transform: translate(-50%, -8px); }
