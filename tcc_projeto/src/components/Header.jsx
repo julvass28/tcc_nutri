@@ -1,24 +1,18 @@
+// tcc_projeto/src/components/Header.jsx
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../css/Header.css";
-import {
-  FaWhatsapp,
-  FaInstagram,
-  FaUser,
-  FaChevronDown,
-  FaBars,
-} from "react-icons/fa";
+import { FaWhatsapp, FaInstagram, FaUser, FaChevronDown, FaBars } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import Botao from "./botao/Botao";
 import logo from "../assets/img_png/Logo.png";
-import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 function Header() {
   const [openMenu, setOpenMenu] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext); // <-- agora com setUser
 
   const toggleDropdown = (menuName) => {
     setOpenDropdown(openDropdown === menuName ? null : menuName);
@@ -244,33 +238,39 @@ function Header() {
         </ul>
       </nav>
 
-      <div
-        className="perfil"
-        style={{ display: "flex", alignItems: "center", gap: "10px" }}
-      >
+       <div className="perfil" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         {user?.nome ? (
           <>
             <span style={{ color: "#454545" }}>
               Olá, <strong>{user.nome}</strong>
             </span>
 
-            <Link to="/perfil">
-              <FaUser className="user" title="Editar Perfil" />
+            <Link to="/perfil" title="Editar Perfil" style={{ display: "inline-flex", alignItems: "center" }}>
+              {user?.fotoUrl ? (
+                <img
+                  src={user.fotoUrl}
+                  alt={user.nome}
+                  style={{
+                    width: 28, height: 28, borderRadius: "50%",
+                    objectFit: "cover", border: "1px solid #d1a0a0"
+                  }}
+                />
+              ) : (
+                <FaUser className="user" />
+              )}
             </Link>
 
+            {/* BOTÃO DEV TEMPORÁRIO */}
             <button
               onClick={() => {
                 localStorage.removeItem("token");
                 localStorage.removeItem("nome");
-                if (setUser) setUser(null); // reflete imediatamente no Header
-                window.location.reload(); // garante sessão limpa
+                setUser && setUser(null);
+                window.location.reload();
               }}
               style={{
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                color: "#D1A0A0",
-                marginLeft: "5px",
+                background: "transparent", border: "none", cursor: "pointer",
+                color: "#D1A0A0", marginLeft: 5
               }}
             >
               Sair(DEV)

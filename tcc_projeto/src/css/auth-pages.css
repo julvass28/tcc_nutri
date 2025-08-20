@@ -486,6 +486,88 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 }
 
 
+/* ===== Medidor de força de senha ===== */
+.pwd-meter {
+  margin: 6px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pwd-bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 999px;
+  background: #eee;
+  position: relative;
+  overflow: hidden;
+}
+.pwd-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  transition: width .25s ease, background-color .25s ease;
+}
+.pwd-bar.s0::after { width: 10%; background: #ea7575; } /* muito fraca */
+.pwd-bar.s1::after { width: 30%; background: #e8a3a3; } /* fraca */
+.pwd-bar.s2::after { width: 60%; background: #c89b9b; } /* ok (rosa do tema) */
+.pwd-bar.s3::after { width: 85%; background: #b0c3a1; } /* forte (transição) */
+.pwd-bar.s4::after { width: 100%; background: #9a9f85; } /* muito forte (verde do tema) */
+
+.pwd-label {
+  font-size: .85rem;
+  user-select: none;
+  color: #6b7280;
+}
+.pwd-label.s0,.pwd-label.s1 { color: #e35c5c; }
+.pwd-label.s2 { color: #e27777; }
+.pwd-label.s3,.pwd-label.s4 { color: #768a62; }
+
+/* checklist de requisitos */
+.pwd-reqs {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 14px;
+  font-size: 0.7rem;
+  color: #6b7280;
+}
+.pwd-reqs li {
+  position: relative;
+  padding-left: 18px;
+  line-height: 1.2;
+}
+.pwd-reqs li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  top: -1px;
+  font-weight: bold;
+  color: #e27777;
+}
+.pwd-reqs li.ok { color: #566b49; }
+.pwd-reqs li.ok::before {
+  content: "✓";
+  color: #9a9f85;
+}
+
+/* Compactação já usada no Login */
+.auth-compact .erro-borda {
+  border-color: #e27777 !important;
+  box-shadow: 0 0 0 2px rgba(200,155,155,.25) !important;
+}
+.auth-compact .erro-texto {
+  color: #e27777;
+  font-size: 0.7rem;
+  margin: 0px 0 10px;
+  line-height: 1.2;
+}
+
+
+
+
 
 
 @keyframes toast-enter {
