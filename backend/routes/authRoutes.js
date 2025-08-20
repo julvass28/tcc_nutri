@@ -1,3 +1,4 @@
+// backend/routes/authRoutes.js
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
@@ -5,19 +6,18 @@ const authMiddleware = require("../middleware/auth");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
 const Usuario = require("../models/Usuario");
 
-// GET /me → retorna os dados do usuário logado
+// GET /me
 router.get("/me", authMiddleware, async (req, res) => {
   try {
     const usuario = await Usuario.findByPk(req.user.id, {
-      attributes: ["id", "nome", "email"] // evita mandar senha
+      attributes: ["id", "nome", "email", "fotoUrl", "sobrenome", "data_nascimento", "genero", "altura", "peso", "objetivo"]
     });
-
-    if (!usuario) {
-      return res.status(404).json({ erro: "Usuário não encontrado" });
-    }
-
+    if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
     res.json(usuario);
   } catch (err) {
     res.status(500).json({ erro: "Erro ao buscar usuário" });
@@ -146,6 +146,77 @@ router.post("/redefinir-senha", async (req, res) => {
   } catch (error) {
     console.error("Erro ao redefinir senha:", error);
     res.status(500).json({ message: "Erro interno ao redefinir a senha." });
+  }
+});
+
+/** ================== PERFIL: ATUALIZAÇÃO TEXTUAL ================== */
+router.put('/perfil', authMiddleware, async (req, res) => {
+  try {
+    const { nome, sobrenome, email, data_nascimento, genero, altura, peso, objetivo } = req.body;
+
+    const usuario = await Usuario.findByPk(req.user.id);
+    if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
+
+    // Evitar conflito de e-mail duplicado
+    if (email && email !== usuario.email) {
+      const jaExiste = await Usuario.findOne({ where: { email } });
+      if (jaExiste) return res.status(409).json({ erro: "E-mail já em uso." });
+    }
+
+    await usuario.update({
+      nome, sobrenome, email, data_nascimento, genero, altura, peso, objetivo
+    });
+
+    res.json({ message: "Perfil atualizado com sucesso." });
+  } catch (err) {
+    console.error("Erro ao atualizar perfil:", err);
+    res.status(500).json({ erro: "Erro interno ao atualizar perfil." });
+  }
+});
+
+/** ================== PERFIL: UPLOAD DE FOTO ================== */
+const uploadDir = path.join(__dirname, '..', 'uploads', 'avatars');
+fs.mkdirSync(uploadDir, { recursive: true });
+
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => {
+    const ext = (file.originalname.split('.').pop() || 'jpg').toLowerCase();
+    cb(null, `${req.user.id}-${Date.now()}.${ext}`);
+  }
+});
+const upload = multer({
+  storage,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
+  fileFilter: (_req, file, cb) => {
+    const ok = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'].includes(file.mimetype);
+    cb(ok ? null : new Error('Formato de imagem inválido (use JPG/PNG/WebP).'), ok);
+  }
+});
+
+router.post('/perfil/foto', authMiddleware, upload.single('foto'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ erro: "Arquivo não enviado." });
+
+    const usuario = await Usuario.findByPk(req.user.id);
+    if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
+
+    // apaga anterior (opcional)
+    if (usuario.fotoUrl && usuario.fotoUrl.includes('/uploads/avatars/')) {
+      const oldName = path.basename(usuario.fotoUrl);
+      const oldPath = path.join(uploadDir, oldName);
+      fs.existsSync(oldPath) && fs.unlinkSync(oldPath);
+    }
+
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
+    const url = `${baseUrl}/uploads/avatars/${req.file.filename}`;
+
+    await usuario.update({ fotoUrl: url });
+
+    res.json({ message: "Foto atualizada!", fotoUrl: url });
+  } catch (err) {
+    console.error("Erro upload foto:", err);
+    res.status(500).json({ erro: "Erro ao salvar foto." });
   }
 });
 

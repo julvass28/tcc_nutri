@@ -1,3 +1,4 @@
+// backend/models/Usuario.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
@@ -10,11 +11,18 @@ const Usuario = sequelize.define('Usuario', {
     allowNull: false
   },
   senha: DataTypes.STRING,
-  data_nascimento: DataTypes.DATE, // se quiser data sem hora, pode trocar pra DATEONLY
+  data_nascimento: DataTypes.DATE,
   genero: DataTypes.STRING,
   altura: DataTypes.FLOAT,
   peso: DataTypes.FLOAT,
   objetivo: DataTypes.STRING,
+
+  // NOVO:
+  fotoUrl: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+
   tokenRecuperacao: {
     type: DataTypes.STRING,
     allowNull: true,
@@ -25,4 +33,4 @@ const Usuario = sequelize.define('Usuario', {
   }
 });
 
-module.exports = Usuario; // <-- sem acento e variável certa
+module.exports = Usuario;

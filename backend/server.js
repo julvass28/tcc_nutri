@@ -1,11 +1,13 @@
+// backend/server.js
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
+const path = require('path');
 require('dotenv').config();
 
 const sequelize = require('./config/db');
-require('./models/Usuario'); // registra o model
+require('./models/Usuario');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
@@ -15,20 +17,25 @@ const allowedOrigins = [FRONTEND_URL, 'http://localhost:5173', 'http://127.0.0.1
 
 app.use(cors({
   origin: (origin, cb) => {
-    if (!origin) return cb(null, true); // Postman/CLI
+    if (!origin) return cb(null, true);
     return cb(null, allowedOrigins.includes(origin));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-// ✖ NÃO usar app.options('*') aqui (Express 5 não curte esse curinga)
 
 app.use(express.json());
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
+
 app.use(compression());
 
-// Healthcheck pra monitorar no Render
+// NOVO: servir uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Healthcheck
 app.get('/health', (_req, res) => res.status(200).json({ ok: true }));
 
 // Rotas
@@ -40,8 +47,11 @@ const port = process.env.PORT || 3001;
   try {
     await sequelize.authenticate();
     console.log('✅ Conexão com DB OK');
-    // Em produção, evite alter: true. Se quiser manter, saiba que pode quebrar schema.
-    await sequelize.sync(); // simples. Se tiver migrations, rode elas via script.
+
+    // ⚠️ DEV ONLY (rodar 1x para criar coluna fotoUrl):
+    await sequelize.sync();
+    // Depois de criado, volte para: await sequelize.sync();
+
     console.log('✅ Sequelize sync OK');
 
     app.listen(port, () => {
