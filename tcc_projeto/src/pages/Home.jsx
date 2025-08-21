@@ -32,6 +32,7 @@ import escolhas from '../assets/img_png/escolha.png';
 
 // CSS
 import '../css/Home.css';
+import '../css/home-login-modal.css'; // << novo CSS do modal
 
 // Arquivo Mocks
 import { receitasMock } from '../mocks/receitas';
@@ -48,87 +49,42 @@ function Home() {
   const [canClose, setCanClose] = useState(false);
 
   useEffect(() => {
-    AOS.init({
-      duration: 2500,
-      once: false,
-      disable: false,
-    });
+    AOS.init({ duration: 2500, once: false, disable: false });
   }, []);
 
-  // Abre o modal automaticamente ao entrar na Home se não estiver logado
   useEffect(() => {
     if (!user) {
       setShowLoginModal(true);
       setCanClose(false);
-      const t = setTimeout(() => setCanClose(true), 5000); // libera o X após 5s
+      const t = setTimeout(() => setCanClose(true), 5000);
       return () => clearTimeout(t);
     } else {
       setShowLoginModal(false);
     }
   }, [user]);
 
-  // Evita scroll do body quando o modal está aberto
   useEffect(() => {
-    if (showLoginModal) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = showLoginModal ? "hidden" : "";
     return () => (document.body.style.overflow = "");
   }, [showLoginModal]);
 
   return (
     <>
-      {/* MODAL DE LOGIN NA HOME */}
       {showLoginModal && !user && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,0.45)",
-            zIndex: 3000,
-            display: "grid",
-            placeItems: "center",
-            padding: "16px"
-          }}
-          role="dialog"
-          aria-modal="true"
-        >
-          <div style={{
-            position: "relative",
-            width: "100%",
-            maxWidth: "520px",
-            maxHeight: "90vh",
-            overflowY: "auto",
-            borderRadius: "12px",
-            boxShadow: "0 20px 60px rgba(0,0,0,.35)"
-          }}>
-            {/* botão X que só aparece depois de 5s */}
+        <div className="home-login-overlay" role="dialog" aria-modal="true">
+          <div className="home-login-backdrop" />
+          <div className="home-login-dialog">
             {canClose && (
               <button
+                className="home-login-close"
                 onClick={() => setShowLoginModal(false)}
                 title="Fechar"
-                style={{
-                  position: "absolute",
-                  top: 8,
-                  right: 8,
-                  zIndex: 10,
-                  background: "rgba(0,0,0,.55)",
-                  color: "#fff",
-                  border: "none",
-                  width: 36,
-                  height: 36,
-                  borderRadius: "999px",
-                  cursor: "pointer",
-                  fontSize: 18
-                }}
+                aria-label="Fechar"
               >
-                ✕
+                <span>✕</span>
               </button>
             )}
-
-            {/* Reutilizando a página de Login dentro do modal */}
-            <div style={{ background: "#fff", borderRadius: "12px" }}>
+            <div className="home-login-content">
               <Login _inlineFromHome />
             </div>
           </div>
