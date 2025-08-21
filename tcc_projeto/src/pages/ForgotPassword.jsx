@@ -1,3 +1,7 @@
+// (arquivo completo igual ao seu enviado)
+// Alteração pontual: no submit da senha, mantém data.message do backend
+// para exibir "Nova senha não pode ser igual à anterior." quando vier do servidor.
+
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/auth-pages.css";
@@ -16,7 +20,6 @@ function LoadingOverlay({ show, text = "Carregando..." }) {
   );
 }
 
-// ===== helpers comuns =====
 const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v || "").trim());
 const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
@@ -59,7 +62,7 @@ export default function ForgotPassword() {
   const [verificando, setVerificando] = useState(false);
   const inputsRef = useRef([]);
 
-  // Etapa 3 (reforçada)
+  // Etapa 3
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -68,7 +71,6 @@ export default function ForgotPassword() {
   const score = passwordScore(senha);
   const label = scoreLabel(score);
 
-  // Toasts
   const [toastVisivel, setToastVisivel] = useState(false);
   const [toastTexto, setToastTexto] = useState("");
 
@@ -79,14 +81,12 @@ export default function ForgotPassword() {
     return () => document.body.classList.remove("forgot-password-page");
   }, []);
 
-  // countdown
   useEffect(() => {
     if (contador <= 0) return;
     const intervalo = setInterval(() => setContador((prev) => prev - 1), 1000);
     return () => clearInterval(intervalo);
   }, [contador]);
 
-  // ===== helpers etapa 2 =====
   const isSixDigits = (arr) => arr.join("").length === 6 && arr.every((d) => /^\d$/.test(d));
   const handlePasteCodigo = (e) => {
     const paste = (e.clipboardData.getData("text") || "").replace(/\D/g, "").slice(0, 6);
@@ -100,7 +100,6 @@ export default function ForgotPassword() {
     if (paste.length === 6) setTimeout(() => submitCodigo(novo.join("")), 50);
   };
 
-  // ====== ETAPA 1: enviar código ======
   const handleSubmitEmail = async (e) => {
     e.preventDefault();
     setErroEmail("");
@@ -148,7 +147,6 @@ export default function ForgotPassword() {
     }
   };
 
-  // ====== ETAPA 2: reenviar código (com overlay) ======
   const handleStartCountdown = async () => {
     if (contador !== 0) return;
 
@@ -175,7 +173,6 @@ export default function ForgotPassword() {
     }
   };
 
-  // ====== ETAPA 2: inputs do código ======
   const handleCodigoChange = (e, idx) => {
     const val = e.target.value.replace(/\D/, "");
     const novo = [...codigo];
@@ -203,7 +200,6 @@ export default function ForgotPassword() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [codigo]);
 
-  // ====== ETAPA 2: submit verificação ======
   const submitCodigo = async (codigoCompleto) => {
     setErroCodigo("");
     setVerificando(true);
@@ -253,7 +249,6 @@ export default function ForgotPassword() {
     await submitCodigo(full);
   };
 
-  // ====== ETAPA 3: redefinir senha (com força) ======
   const senhaAtendeRequisitos = () => {
     const s = senha || "";
     const req = {
@@ -301,6 +296,7 @@ export default function ForgotPassword() {
       if (left) await sleep(left);
 
       if (!response.ok) {
+        // Mostra exatamente a mensagem do backend (inclui caso de "mesma senha")
         setErroSenha(data.message || "Erro ao redefinir a senha.");
         setShowOverlay(false);
         return;
@@ -427,7 +423,6 @@ export default function ForgotPassword() {
               Crie uma nova senha forte para manter sua conta segura.
             </p>
             <form onSubmit={handleSubmitSenha} className="forgot-password-form auth-compact" noValidate>
-              {/* senha */}
               <div className="criar-conta-password-wrapper">
                 <input
                   type={mostrarSenha ? "text" : "password"}
@@ -446,7 +441,6 @@ export default function ForgotPassword() {
                 />
               </div>
 
-              {/* medidor força */}
               <div className="pwd-meter">
                 <div className={`pwd-bar s${score}`} aria-hidden="true" />
                 <span className={`pwd-label s${score}`}>{label}</span>
@@ -459,7 +453,6 @@ export default function ForgotPassword() {
                 <li className={/[^A-Za-z0-9]/.test(senha) ? "ok" : ""}>Símbolo</li>
               </ul>
 
-              {/* confirmar */}
               <div className="criar-conta-password-wrapper">
                 <input
                   type={mostrarConfirmar ? "text" : "password"}

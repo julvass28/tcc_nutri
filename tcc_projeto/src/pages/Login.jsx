@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../css/auth-pages.css";
 import { AuthContext } from "../context/AuthContext";
 
@@ -17,37 +17,35 @@ function LoadingOverlay({ show, text = "Carregando..." }) {
   );
 }
 
-export default function Login() {
+export default function Login(props) {
   const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
-  const { login } = useContext(AuthContext); // <<< usa o login do contexto
+  const { login } = useContext(AuthContext);
   const MIN_LOADING_MS = 1000;
 
   const [showOverlay, setShowOverlay] = useState(false);
+  const [overlayText, setOverlayText] = useState("Carregando...");
   const [credentials, setCredentials] = useState({ email: "", senha: "" });
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [erroLogin, setErroLogin] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({});
 
+  // popup sugerindo criar conta se e-mail não existir
+  const [askRegister, setAskRegister] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.body.classList.add("login-page");
-    return () => document.body.classList.remove("login-page");
-  }, []);
+    if (!props._inlineFromHome) {
+      document.body.classList.add("login-page");
+      return () => document.body.classList.remove("login-page");
+    }
+  }, [props._inlineFromHome]);
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setFieldErrors((f) => ({ ...f, [e.target.name]: "" }));
     setErroLogin("");
-  };
-
-  const handleGoForgot = async (e) => {
-    e.preventDefault();
-    if (isLoading) return;
-    setShowOverlay(true);
-    await sleep(1200);
-    navigate("/esqueci-senha");
   };
 
   const validarCampos = () => {
@@ -62,6 +60,22 @@ export default function Login() {
     if (!senha) errors.senha = "Informe sua senha.";
 
     return errors;
+  };
+
+  const handleGoForgot = async (e) => {
+    e.preventDefault();
+    if (isLoading) return;
+    setOverlayText("Preparando etapa de verificação...");
+    setShowOverlay(true);
+    await sleep(1200);
+    navigate("/esqueci-senha");
+  };
+
+  const handleGoRegister = async () => {
+    setOverlayText("Abrindo criação de conta...");
+    setShowOverlay(true);
+    await sleep(900);
+    navigate("/cadastro");
   };
 
   const handleSubmit = async (e) => {
@@ -91,11 +105,18 @@ export default function Login() {
         if (left) await sleep(left);
 
         setIsLoading(false);
+
+        // 404 -> e-mail não cadastrado
+        if (response.status === 404 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(credentials.email.trim())) {
+          setAskRegister(true);
+          setErroLogin("");
+          return;
+        }
+
         setErroLogin("E-mail ou senha incorretos. Verifique e tente novamente.");
         return;
       }
 
-      // >>> usa o fluxo oficial do contexto (salva token e carrega /me)
       login(data.token);
 
       const elapsed = performance.now() - t0;
@@ -115,6 +136,35 @@ export default function Login() {
 
   return (
     <div className="login-body">
+      {/* Modal sugerindo criar conta */}
+      {askRegister && (
+        <div className="auth-loading-overlay" role="dialog" aria-modal="true">
+          <div className="auth-loading-card" style={{ flexDirection: "column", alignItems: "stretch", minWidth: 280 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <i className="fas fa-user-plus" aria-hidden="true" />
+              <strong>E-mail não cadastrado</strong>
+            </div>
+            <p style={{ margin: "6px 0 12px", color: "#4a4a4a" }}>
+              O e-mail <b>{credentials.email}</b> não está cadastrado. Deseja criar uma conta?
+            </p>
+            <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+              <button
+                onClick={() => setAskRegister(false)}
+                style={{ background: "transparent", border: "1px solid #ddd", borderRadius: 8, padding: "8px 12px", cursor: "pointer" }}
+              >
+                Agora não
+              </button>
+              <button
+                onClick={handleGoRegister}
+                style={{ background: "#c89b9b", color: "#fff", border: "none", borderRadius: 8, padding: "8px 12px", cursor: "pointer" }}
+              >
+                Criar conta
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <main className="login-container">
         <h1 className="login-title">Fazer Login</h1>
         <p className="login-subtitle">
@@ -193,10 +243,16 @@ export default function Login() {
           {erroLogin && <p className="erro-texto">{erroLogin}</p>}
         </form>
 
-        <Link to="/cadastro" className="login-create-account">
+        {/* botão "Criar Conta" com spinner/overlay antes de navegar */}
+        <button
+          onClick={handleGoRegister}
+          className="login-create-account as-button"
+          style={{ textDecoration: "underline" }}
+        >
           Criar Conta
-        </Link>
-        <LoadingOverlay show={showOverlay} text="Preparando etapa de verificação..." />
+        </button>
+
+        <LoadingOverlay show={showOverlay} text={overlayText} />
       </main>
     </div>
   );

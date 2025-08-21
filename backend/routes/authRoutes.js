@@ -31,7 +31,7 @@ router.post('/login', authController.login);
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: Number(process.env.EMAIL_PORT || 587),
-  secure: Number(process.env.EMAIL_PORT) === 465, // 465 = SSL
+  secure: Number(process.env.EMAIL_PORT) === 465,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
@@ -134,6 +134,12 @@ router.post("/redefinir-senha", async (req, res) => {
       return res.status(400).json({ message: "Código inválido ou expirado." });
     }
 
+    // <<< NOVO: impede usar a mesma senha de antes
+    const mesmaSenha = await bcrypt.compare(novaSenha, usuario.senha);
+    if (mesmaSenha) {
+      return res.status(400).json({ message: "Nova senha não pode ser igual à anterior." });
+    }
+
     const senhaHash = await bcrypt.hash(novaSenha, 10);
 
     await usuario.update({
@@ -157,7 +163,6 @@ router.put('/perfil', authMiddleware, async (req, res) => {
     const usuario = await Usuario.findByPk(req.user.id);
     if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
 
-    // Evitar conflito de e-mail duplicado
     if (email && email !== usuario.email) {
       const jaExiste = await Usuario.findOne({ where: { email } });
       if (jaExiste) return res.status(409).json({ erro: "E-mail já em uso." });
@@ -187,7 +192,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
   storage,
-  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
+  limits: { fileSize: 2 * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
     const ok = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'].includes(file.mimetype);
     cb(ok ? null : new Error('Formato de imagem inválido (use JPG/PNG/WebP).'), ok);
@@ -201,7 +206,6 @@ router.post('/perfil/foto', authMiddleware, upload.single('foto'), async (req, r
     const usuario = await Usuario.findByPk(req.user.id);
     if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
 
-    // apaga anterior (opcional)
     if (usuario.fotoUrl && usuario.fotoUrl.includes('/uploads/avatars/')) {
       const oldName = path.basename(usuario.fotoUrl);
       const oldPath = path.join(uploadDir, oldName);
@@ -209,9 +213,9 @@ router.post('/perfil/foto', authMiddleware, upload.single('foto'), async (req, r
     }
 
     const proto = req.headers['x-forwarded-proto'] || req.protocol;
-const host = req.get('host');
-const baseUrl = process.env.PUBLIC_BASE_URL || `${proto}://${host}`;
-const url = `${baseUrl}/uploads/avatars/${req.file.filename}`;
+    const host = req.get('host');
+    const baseUrl = process.env.PUBLIC_BASE_URL || `${proto}://${host}`;
+    const url = `${baseUrl}/uploads/avatars/${req.file.filename}`;
 
     await usuario.update({ fotoUrl: url });
 
