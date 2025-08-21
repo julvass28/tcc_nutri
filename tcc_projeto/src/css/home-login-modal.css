@@ -40,8 +40,8 @@
 /* Botão X flutuando para fora do card */
 .home-login-close {
   position: absolute;
-  top: -14px;          /* "mais para fora" */
-  right: -14px;        /* "mais para fora" */
+  top: 0px;          /* "mais para fora" */
+  right: 0px;        /* "mais para fora" */
   width: 42px;
   height: 42px;
   border-radius: 999px;
