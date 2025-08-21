@@ -33,13 +33,13 @@ app.use(helmet({
 
 app.use(compression());
 
-// NOVO: servir uploads
+// servir uploads estáticos
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Healthcheck
+// healthcheck
 app.get('/health', (_req, res) => res.status(200).json({ ok: true }));
 
-// Rotas
+// rotas
 app.use(authRoutes);
 
 const port = process.env.PORT || 3001;
@@ -49,9 +49,8 @@ const port = process.env.PORT || 3001;
     await sequelize.authenticate();
     console.log('✅ Conexão com DB OK');
 
-    // ⚠️ DEV ONLY (rodar 1x para criar coluna fotoUrl):
+    // criação/alteração de tabelas (uma vez que o modelo mudou)
     await sequelize.sync();
-    // Depois de criado, volte para: await sequelize.sync();
 
     console.log('✅ Sequelize sync OK');
 
@@ -63,5 +62,3 @@ const port = process.env.PORT || 3001;
     process.exit(1);
   }
 })();
-
-await sequelize.sync(); // uso diário

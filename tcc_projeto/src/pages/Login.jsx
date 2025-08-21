@@ -19,9 +19,9 @@ function LoadingOverlay({ show, text = "Carregando..." }) {
 
 export default function Login() {
   const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
-  const { setUser } = useContext(AuthContext);
-  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const { login } = useContext(AuthContext); // <<< usa o login do contexto
   const MIN_LOADING_MS = 1000;
+
   const [showOverlay, setShowOverlay] = useState(false);
   const [credentials, setCredentials] = useState({ email: "", senha: "" });
   const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -38,16 +38,18 @@ export default function Login() {
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    setFieldErrors((f) => ({ ...f, [e.target.name]: "" })); // limpa erro do campo ao digitar
+    setFieldErrors((f) => ({ ...f, [e.target.name]: "" }));
     setErroLogin("");
   };
+
   const handleGoForgot = async (e) => {
     e.preventDefault();
-    if (isLoading) return; // evita conflito com submit
+    if (isLoading) return;
     setShowOverlay(true);
-    await sleep(1200); // deixa aparecer com calma
+    await sleep(1200);
     navigate("/esqueci-senha");
   };
+
   const validarCampos = () => {
     const errors = {};
     const email = credentials.email.trim();
@@ -73,7 +75,7 @@ export default function Login() {
     }
 
     setIsLoading(true);
-    const t0 = performance.now(); // pra calcular quanto já levou
+    const t0 = performance.now();
 
     try {
       const response = await fetch(`${API}/login`, {
@@ -84,43 +86,22 @@ export default function Login() {
       const data = await response.json();
 
       if (!response.ok) {
-        // falha → segura um pouquinho o spinner pra UX ficar suave
         const elapsed = performance.now() - t0;
-        const left = Math.max(0, 600 - elapsed); // garante pelo menos 600ms
+        const left = Math.max(0, 600 - elapsed);
         if (left) await sleep(left);
 
         setIsLoading(false);
-        setErroLogin(
-          "E-mail ou senha incorretos. Verifique e tente novamente."
-        );
+        setErroLogin("E-mail ou senha incorretos. Verifique e tente novamente.");
         return;
       }
 
-    localStorage.setItem("token", data.token);
-localStorage.setItem("nome", data.usuario?.nome || "");
-
-// busca o perfil completo (inclui fotoUrl)
-try {
-  const me = await fetch(`${API}/me`, {
-    headers: { Authorization: `Bearer ${data.token}` }
-  });
-  const u = await me.json();
-  setUser(u);
-} catch {
-  // fallback com o que veio do /login
-  setUser({
-    id: data.usuario.id,
-    nome: data.usuario.nome,
-    email: data.usuario.email,
-    fotoUrl: data.usuario.fotoUrl || ""
-  });
-}
+      // >>> usa o fluxo oficial do contexto (salva token e carrega /me)
+      login(data.token);
 
       const elapsed = performance.now() - t0;
-      const left = Math.max(0, MIN_LOADING_MS - elapsed); // segura até dar 1.5s
+      const left = Math.max(0, MIN_LOADING_MS - elapsed);
       if (left) await sleep(left);
 
-      // não precisamos dar setIsLoading(false); navegar desmonta o componente
       navigate("/");
     } catch (err) {
       const elapsed = performance.now() - t0;
@@ -158,11 +139,7 @@ try {
           <hr className="login-hr" />
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="login-form auth-compact"
-          noValidate
-        >
+        <form onSubmit={handleSubmit} className="login-form auth-compact" noValidate>
           <input
             name="email"
             type="email"
@@ -184,9 +161,7 @@ try {
             <input
               name="senha"
               type={mostrarSenha ? "text" : "password"}
-              className={`criar-conta-input criar-conta-input-password ${
-                fieldErrors.senha ? "erro-borda" : ""
-              }`}
+              className={`criar-conta-input criar-conta-input-password ${fieldErrors.senha ? "erro-borda" : ""}`}
               placeholder="Senha"
               autoComplete="current-password"
               value={credentials.senha}
@@ -195,9 +170,7 @@ try {
               aria-describedby={fieldErrors.senha ? "erro-senha" : undefined}
             />
             <i
-              className={`fas ${
-                mostrarSenha ? "fa-eye-slash" : "fa-eye"
-              } criar-conta-eye-icon`}
+              className={`fas ${mostrarSenha ? "fa-eye-slash" : "fa-eye"} criar-conta-eye-icon`}
               onClick={() => setMostrarSenha((prev) => !prev)}
               style={{ cursor: "pointer" }}
             />
@@ -208,25 +181,12 @@ try {
             </p>
           )}
 
-          <button
-            type="button"
-            onClick={handleGoForgot}
-            className="login-forgot-password as-button"
-          >
+          <button type="button" onClick={handleGoForgot} className="login-forgot-password as-button">
             Esqueceu a senha?
           </button>
 
-          <button
-            type="submit"
-            className="login-submit-btn"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <i
-                className="fas fa-spinner fa-spin"
-                style={{ marginRight: 8 }}
-              />
-            ) : null}
+          <button type="submit" className="login-submit-btn" disabled={isLoading}>
+            {isLoading ? <i className="fas fa-spinner fa-spin" style={{ marginRight: 8 }} /> : null}
             {isLoading ? "Entrando..." : "Fazer Login"}
           </button>
 

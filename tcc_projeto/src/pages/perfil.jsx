@@ -6,18 +6,17 @@ import { AuthContext } from '../context/AuthContext';
 import { objetivoLabel } from '../utils/objetivos';
 
 export default function Perfil() {
-  
   const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
-  const { token } = useContext(AuthContext);
+  const { token, setUser } = useContext(AuthContext); // <<< pega setUser pra refletir no Header
 
   const [dados, setDados] = useState({
     nome: '',
     sobrenome: '',
-    idade: '', // calculada se quiser, por enquanto mantemos manual
+    idade: '',
     peso: '',
     altura: '',
     email: '',
-    senha: '********', // campo visual, não salvamos aqui
+    senha: '********',
     foto: '',
     data_nascimento: '',
     genero: '',
@@ -44,7 +43,7 @@ export default function Perfil() {
           email: u.email || '',
           altura: u.altura ?? '',
           peso: u.peso ?? '',
-          data_nascimento: u.data_nascimento ? u.data_nascimento.slice(0,10) : '',
+          data_nascimento: u.data_nascimento ? String(u.data_nascimento).slice(0,10) : '',
           genero: u.genero || '',
           objetivo: u.objetivo || '',
           foto: u.fotoUrl || ''
@@ -64,11 +63,10 @@ export default function Perfil() {
   const handleFotoInput = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    // preview local
+
     const url = URL.createObjectURL(file);
     setFotoPreview(url);
 
-    // upload
     const form = new FormData();
     form.append('foto', file);
     try {
@@ -79,16 +77,19 @@ export default function Perfil() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.erro || 'Falha no upload');
+
       setDados(prev => ({ ...prev, foto: data.fotoUrl }));
       setFotoPreview(data.fotoUrl);
+
+      // >>> reflete no Header instantaneamente
+      setUser?.(prev => (prev ? { ...prev, fotoUrl: data.fotoUrl } : prev));
+
       alert("Foto atualizada!");
     } catch (err) {
       alert("Erro ao enviar foto. Use JPG/PNG/WebP até 2MB.");
-      // volta pra anterior se quiser
     }
   };
 
-  // salvar todas as informações de perfil (exceto senha)
   const handleSaveAll = async () => {
     setSaving(true);
     setError(null);
@@ -133,8 +134,6 @@ export default function Perfil() {
 
   return (
     <div className="perfil-container">
-
-      {/* Header topo */}
       <section className="perfil-header">
         <div className="foto-wrapper">
           <div className="foto-container">
@@ -161,10 +160,7 @@ export default function Perfil() {
         </div>
       </section>
 
-      {/* Informações Pessoais + Configurações de Conta */}
       <section className="secao perfil-conta-combinada">
-
-        {/* Informações pessoais */}
         <div className="subsecao">
           <h2>Informações Pessoais</h2>
           {error && <p className="error-text">{error}</p>}
@@ -185,7 +181,6 @@ export default function Perfil() {
             <div className="input-wrapper">
               <label className="input-label">Data de Nascimento:</label>
               <input type="date" value={dados.data_nascimento} onChange={e => handleChange("data_nascimento", e.target.value)} />
-              
             </div>
             <div className="input-wrapper">
               <label className="input-label">Peso(kg):</label>
@@ -208,7 +203,6 @@ export default function Perfil() {
           </div>
         </div>
 
-        {/* Configurações de conta */}
         <div className="subsecao" id="configuracoes-conta">
           <h2>Configurações de Conta</h2>
           {error && <p className="error-text">{error}</p>}
@@ -219,7 +213,6 @@ export default function Perfil() {
             <i className="fas fa-pen icon-dentro-input" />
           </div>
 
-          {/* Senha fica para uma tela própria (ou fluxo "alterar senha") */}
           <div className="input-wrapper">
             <label className="input-label">Senha:</label>
             <input type="password" value="********" readOnly />
@@ -230,14 +223,10 @@ export default function Perfil() {
             {saving ? "Salvando..." : "Salvar Alterações"}
           </button>
         </div>
-
       </section>
 
-      {/* … restante (mídias/consultas) igual ao seu atual … */}
       <section className="secao">
-        <div className="midias-container">
-          {/* ... mantém sua UI mock ... */}
-        </div>
+        <div className="midias-container">{/* mock */}</div>
       </section>
 
       <section className="secao">
