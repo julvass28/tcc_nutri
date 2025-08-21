@@ -11,6 +11,7 @@ require('./models/Usuario');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
+app.set('trust proxy', 1);
 
 const FRONTEND_URL = (process.env.FRONTEND_URL || 'https://tcc-nutri.vercel.app').replace(/\/$/, '');
 const allowedOrigins = [FRONTEND_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'];
@@ -62,3 +63,5 @@ const port = process.env.PORT || 3001;
     process.exit(1);
   }
 })();
+
+await sequelize.sync(); // uso diário

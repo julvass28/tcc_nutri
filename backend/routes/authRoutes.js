@@ -208,8 +208,10 @@ router.post('/perfil/foto', authMiddleware, upload.single('foto'), async (req, r
       fs.existsSync(oldPath) && fs.unlinkSync(oldPath);
     }
 
-    const baseUrl = `${req.protocol}://${req.get('host')}`;
-    const url = `${baseUrl}/uploads/avatars/${req.file.filename}`;
+    const proto = req.headers['x-forwarded-proto'] || req.protocol;
+const host = req.get('host');
+const baseUrl = process.env.PUBLIC_BASE_URL || `${proto}://${host}`;
+const url = `${baseUrl}/uploads/avatars/${req.file.filename}`;
 
     await usuario.update({ fotoUrl: url });
 

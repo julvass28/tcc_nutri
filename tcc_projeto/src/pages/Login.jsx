@@ -96,16 +96,25 @@ export default function Login() {
         return;
       }
 
-      // sucesso → garante tempo mínimo antes de navegar
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("nome", data.usuario?.nome || "");
-      if (data.usuario) {
-        setUser({
-          id: data.usuario.id,
-          nome: data.usuario.nome,
-          email: data.usuario.email,
-        });
-      }
+    localStorage.setItem("token", data.token);
+localStorage.setItem("nome", data.usuario?.nome || "");
+
+// busca o perfil completo (inclui fotoUrl)
+try {
+  const me = await fetch(`${API}/me`, {
+    headers: { Authorization: `Bearer ${data.token}` }
+  });
+  const u = await me.json();
+  setUser(u);
+} catch {
+  // fallback com o que veio do /login
+  setUser({
+    id: data.usuario.id,
+    nome: data.usuario.nome,
+    email: data.usuario.email,
+    fotoUrl: data.usuario.fotoUrl || ""
+  });
+}
 
       const elapsed = performance.now() - t0;
       const left = Math.max(0, MIN_LOADING_MS - elapsed); // segura até dar 1.5s

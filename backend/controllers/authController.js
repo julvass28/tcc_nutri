@@ -36,15 +36,18 @@ exports.login = async (req, res) => {
       { expiresIn: '1d' }
     );
 
-    res.status(200).json({
-      msg: "Login realizado com sucesso",
-      token,
-      usuario: {
-        id: usuario.id,
-        nome: usuario.nome,
-        email: usuario.email
-      }
-    });
+  res.status(200).json({
+  msg: "Login realizado com sucesso",
+  token,
+  usuario: {
+    id: usuario.id,
+    nome: usuario.nome,
+    sobrenome: usuario.sobrenome,
+    email: usuario.email,
+    fotoUrl: usuario.fotoUrl
+  }
+});
+
 
   } catch (err) {
     console.error("Erro no login:", err);
