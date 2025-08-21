@@ -43,25 +43,25 @@ import { AuthContext } from "../context/AuthContext";
 // Página de Login reutilizada no modal
 import Login from "./Login";
 
+
 function Home() {
-  const { user } = useContext(AuthContext);
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [canClose, setCanClose] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
-    AOS.init({ duration: 2500, once: false, disable: false });
-  }, []);
+    const lastVisit = localStorage.getItem("lastVisit");
+    const isLogged = localStorage.getItem("user"); // ou seu token de login
 
-  useEffect(() => {
-    if (!user) {
-      setShowLoginModal(true);
-      setCanClose(false);
-      const t = setTimeout(() => setCanClose(true), 3000);
-      return () => clearTimeout(t);
-    } else {
-      setShowLoginModal(false);
+    const now = Date.now();
+    const oneDay = 24 * 60 * 60 * 1000; // 24h em ms
+    // se quiser 7 dias, troca pra 7 * oneDay
+
+    if (!isLogged) {
+      if (!lastVisit || now - parseInt(lastVisit, 10) > oneDay) {
+        setShowLogin(true);
+        localStorage.setItem("lastVisit", now.toString());
+      }
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = showLoginModal ? "hidden" : "";
@@ -70,20 +70,13 @@ function Home() {
 
   return (
     <>
-      {showLoginModal && !user && (
-        <div className="home-login-overlay" role="dialog" aria-modal="true">
-          <div className="home-login-backdrop" />
+        {showLogin && (
+        <div className="home-login-overlay">
+          <div className="home-login-backdrop"></div>
           <div className="home-login-dialog">
-            {canClose && (
-              <button
-                className="home-login-close"
-                onClick={() => setShowLoginModal(false)}
-                title="Fechar"
-                aria-label="Fechar"
-              >
-                <span>✕</span>
-              </button>
-            )}
+            <button className="home-login-close" onClick={() => setShowLogin(false)}>
+              <span>✕</span>
+            </button>
             <div className="home-login-content">
               <Login _inlineFromHome />
             </div>
