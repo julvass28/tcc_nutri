@@ -56,7 +56,7 @@ function Home() {
     if (!user) {
       setShowLoginModal(true);
       setCanClose(false);
-      const t = setTimeout(() => setCanClose(true), 5000);
+      const t = setTimeout(() => setCanClose(true), 3000);
       return () => clearTimeout(t);
     } else {
       setShowLoginModal(false);
