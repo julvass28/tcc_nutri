@@ -43,25 +43,25 @@ import { AuthContext } from "../context/AuthContext";
 // Página de Login reutilizada no modal
 import Login from "./Login";
 
-
 function Home() {
-  const [showLogin, setShowLogin] = useState(false);
+  const { user } = useContext(AuthContext);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [canClose, setCanClose] = useState(false);
 
   useEffect(() => {
-    const lastVisit = localStorage.getItem("lastVisit");
-    const isLogged = localStorage.getItem("user"); // ou seu token de login
-
-    const now = Date.now();
-    const oneDay = 24 * 60 * 60 * 1000; // 24h em ms
-    // se quiser 7 dias, troca pra 7 * oneDay
-
-    if (!isLogged) {
-      if (!lastVisit || now - parseInt(lastVisit, 10) > oneDay) {
-        setShowLogin(true);
-        localStorage.setItem("lastVisit", now.toString());
-      }
-    }
+    AOS.init({ duration: 2500, once: false, disable: false });
   }, []);
+
+  useEffect(() => {
+    if (!user) {
+      setShowLoginModal(true);
+      setCanClose(false);
+      const t = setTimeout(() => setCanClose(true), 5000);
+      return () => clearTimeout(t);
+    } else {
+      setShowLoginModal(false);
+    }
+  }, [user]);
 
   useEffect(() => {
     document.body.style.overflow = showLoginModal ? "hidden" : "";
