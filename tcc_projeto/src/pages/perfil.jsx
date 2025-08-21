@@ -3,8 +3,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../css/perfil.css';
 import { AuthContext } from '../context/AuthContext';
+import { objetivoLabel } from '../utils/objetivos';
 
 export default function Perfil() {
+  
   const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
   const { token } = useContext(AuthContext);
 
@@ -183,7 +185,7 @@ export default function Perfil() {
             <div className="input-wrapper">
               <label className="input-label">Data de Nascimento:</label>
               <input type="date" value={dados.data_nascimento} onChange={e => handleChange("data_nascimento", e.target.value)} />
-              <i className="fas fa-pen icon-dentro-input" />
+              
             </div>
             <div className="input-wrapper">
               <label className="input-label">Peso(kg):</label>
@@ -201,7 +203,7 @@ export default function Perfil() {
             <label className="input-label objetivo-label">Objetivo Nutricional:</label>
             <div className="objetivo o1 objetivo-conteudo">
               <i className="fas fa-weight"></i>
-              {dados.objetivo || '—'}
+              {objetivoLabel(dados.objetivo) || "—"}
             </div>
           </div>
         </div>
