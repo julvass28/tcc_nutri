@@ -43,6 +43,9 @@ import { AuthContext } from "../context/AuthContext";
 // Página de Login reutilizada no modal
 import Login from "./Login";
 
+const STORAGE_KEY = "homeLoginLastShownAt";
+const MODAL_COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24h (ajuste se quiser: ex. 7 * 24 * 60 * 60 * 1000)
+
 function Home() {
   const { user } = useContext(AuthContext);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -52,21 +55,40 @@ function Home() {
     AOS.init({ duration: 2500, once: false, disable: false });
   }, []);
 
+  // Exibe o modal apenas se:
+  // - usuário NÃO estiver logado
+  // - e nunca mostramos antes, ou já passou o cooldown
   useEffect(() => {
-    if (!user) {
+    if (user) {
+      setShowLoginModal(false);
+      return;
+    }
+
+    const lastStr = localStorage.getItem(STORAGE_KEY);
+    const last = lastStr ? parseInt(lastStr, 10) : 0;
+    const now = Date.now();
+
+    if (!last || now - last > MODAL_COOLDOWN_MS) {
       setShowLoginModal(true);
       setCanClose(false);
-      const t = setTimeout(() => setCanClose(true), 5000);
+      localStorage.setItem(STORAGE_KEY, String(now)); // marca quando mostramos
+      const t = setTimeout(() => setCanClose(true), 5000); // 5s pro X
       return () => clearTimeout(t);
     } else {
       setShowLoginModal(false);
     }
   }, [user]);
 
+  // Bloqueia scroll do body quando o modal estiver aberto
   useEffect(() => {
     document.body.style.overflow = showLoginModal ? "hidden" : "";
-    return () => (document.body.style.overflow = "");
+    return () => { document.body.style.overflow = ""; };
   }, [showLoginModal]);
+
+  // Fechar modal manualmente (mantém o cooldown já salvo quando abriu)
+  const handleCloseModal = () => {
+    setShowLoginModal(false);
+  };
 
   return (
     <>
@@ -77,7 +99,7 @@ function Home() {
             {canClose && (
               <button
                 className="home-login-close"
-                onClick={() => setShowLoginModal(false)}
+                onClick={handleCloseModal}
                 title="Fechar"
                 aria-label="Fechar"
               >
