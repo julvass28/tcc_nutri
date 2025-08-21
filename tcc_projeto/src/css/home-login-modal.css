@@ -44,7 +44,7 @@
   right: -18px;     /* vai pra fora na direita */
   width: 44px;
   height: 44px;
-  border-radius: 999px;
+  border-radius: 20px;
   border: 0;
   background: #111827;
   color: #fff;
@@ -61,7 +61,7 @@
 
 .home-login-close:hover {
   transform: scale(1.08);
-  background: #0b0f1a;
+  background: #0b0f1a87;
   box-shadow:
     0 18px 34px rgba(0,0,0,.36),
     0 4px 10px rgba(0,0,0,.22),
