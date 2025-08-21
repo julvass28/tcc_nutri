@@ -1,40 +1,15 @@
-/* ===== Overlay do modal de login na Home ===== */
-.home-login-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 3000;
-  display: grid;
-  place-items: center;
-  pointer-events: auto;
-}
-
-/* Backdrop com blur e leve vinheta */
-.home-login-backdrop {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(120% 120% at 50% 30%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.45) 100%);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
 /* Card do modal */
 .home-login-dialog {
   position: relative;
   width: min(92vw, 560px);
   border-radius: 16px;
-  overflow: hidden;                 /* evita scroll interno visível */
+  overflow: visible;               /* <<< libera o X para sair pra fora */
   background: #fff;
   box-shadow:
     0 40px 80px rgba(0,0,0,.35),
     0 8px 24px rgba(0,0,0,.18);
   transform: translateY(8px) scale(.98);
   animation: homeLoginEnter .28s ease-out forwards;
-}
-
-/* Conteúdo do modal (o <Login/>) */
-.home-login-content {
-  /* sem scroll interno — deixa o conteúdo do Login adequar-se */
-  max-height: none;
 }
 
 /* Botão X flutuando para fora do card */
@@ -74,21 +49,7 @@
   transform: translateY(-1px);
 }
 
-
-/* Entrada suave */
-@keyframes homeLoginEnter {
-  from {
-    opacity: 0;
-    transform: translateY(18px) scale(.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Responsividade — mantém o modal grande, sem scroll interno.
-   Em telas muito pequenas, apenas reduz a largura para caber. */
+/* Responsividade — mantém o modal grande, sem scroll interno. */
 @media (max-width: 420px) {
   .home-login-dialog {
     width: min(94vw, 520px);
@@ -100,25 +61,4 @@
     width: 40px;
     height: 40px;
   }
-}
-
-/* Ajuste visual da página de Login quando renderizada no modal:
-   tira a cor de fundo e espaçamentos excedentes do container interno. */
-.home-login-dialog .login-body {
-  background: transparent !important;
-  min-height: unset !important;
-  padding: 0 !important;
-  display: block !important; /* evita centralização dupla */
-}
-.home-login-dialog .login-container {
-  margin: 0;
-  border-radius: 0;
-  box-shadow: none;
-  max-width: 100%;
-  padding: 1.5rem 1.75rem;    /* levemente mais compacto no modal */
-}
-
-/* Deixa o título e botões um pouco mais “card face” no modal */
-.home-login-dialog .login-title {
-  margin-top: .25rem;
 }
