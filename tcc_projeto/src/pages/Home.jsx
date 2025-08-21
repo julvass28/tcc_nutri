@@ -70,13 +70,20 @@ function Home() {
 
   return (
     <>
-        {showLogin && (
-        <div className="home-login-overlay">
-          <div className="home-login-backdrop"></div>
+      {showLoginModal && !user && (
+        <div className="home-login-overlay" role="dialog" aria-modal="true">
+          <div className="home-login-backdrop" />
           <div className="home-login-dialog">
-            <button className="home-login-close" onClick={() => setShowLogin(false)}>
-              <span>✕</span>
-            </button>
+            {canClose && (
+              <button
+                className="home-login-close"
+                onClick={() => setShowLoginModal(false)}
+                title="Fechar"
+                aria-label="Fechar"
+              >
+                <span>✕</span>
+              </button>
+            )}
             <div className="home-login-content">
               <Login _inlineFromHome />
             </div>
