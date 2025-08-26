@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../css/auth-pages.css";
 import { AuthContext } from "../context/AuthContext";
 
@@ -29,11 +29,13 @@ export default function Login(props) {
   const [erroLogin, setErroLogin] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({});
-
-  // popup sugerindo criar conta se e-mail não existir
   const [askRegister, setAskRegister] = useState(false);
 
+  // banner quando veio do logout
+  const [logoutHint, setLogoutHint] = useState(false);
+
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (!props._inlineFromHome) {
@@ -41,6 +43,21 @@ export default function Login(props) {
       return () => document.body.classList.remove("login-page");
     }
   }, [props._inlineFromHome]);
+
+  // Se veio de um logout, mostra um mini loading e habilita o banner
+  useEffect(() => {
+    if (location.state?.fromLogout) {
+      (async () => {
+        setOverlayText("Encerrando sessão...");
+        setShowOverlay(true);
+        await sleep(900);
+        setShowOverlay(false);
+        setLogoutHint(true);
+        // limpa o state para não reaparecer caso o usuário recarregue a página
+        navigate(location.pathname, { replace: true, state: {} });
+      })();
+    }
+  }, [location.state, navigate, location.pathname]);
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -52,13 +69,9 @@ export default function Login(props) {
     const errors = {};
     const email = credentials.email.trim();
     const senha = credentials.senha.trim();
-
     if (!email) errors.email = "Informe seu e-mail.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      errors.email = "E-mail inválido.";
-
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "E-mail inválido.";
     if (!senha) errors.senha = "Informe sua senha.";
-
     return errors;
   };
 
@@ -106,7 +119,6 @@ export default function Login(props) {
 
         setIsLoading(false);
 
-        // 404 -> e-mail não cadastrado
         if (response.status === 404 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(credentials.email.trim())) {
           setAskRegister(true);
           setErroLogin("");
@@ -166,6 +178,16 @@ export default function Login(props) {
       )}
 
       <main className="login-container">
+        {/* Banner curto quando veio do logout */}
+        {logoutHint && (
+          <div className="logout-banner" role="status" aria-live="polite">
+            <i className="fas fa-door-open" aria-hidden="true" />
+            <span>
+              Você saiu com segurança. <b>Faça login</b> para continuar acompanhando suas consultas.
+            </span>
+          </div>
+        )}
+
         <h1 className="login-title">Fazer Login</h1>
         <p className="login-subtitle">
           Para acessar suas consultas e dietas,
@@ -243,7 +265,6 @@ export default function Login(props) {
           {erroLogin && <p className="erro-texto">{erroLogin}</p>}
         </form>
 
-        {/* botão "Criar Conta" com spinner/overlay antes de navegar */}
         <button
           onClick={handleGoRegister}
           className="login-create-account as-button"

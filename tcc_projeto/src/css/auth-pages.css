@@ -566,6 +566,25 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 }
 
 
+/* ===== Banner curto após logout ===== */
+.logout-banner {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin: -6px 0 14px;          /* aproxima do título */
+  padding: .6rem .8rem;
+  border-radius: .5rem;
+  background: #fff7f7;          /* tom suave do tema */
+  color: #6b4b4b;
+  border-left: 4px solid #c89b9b;
+  box-shadow: 0 6px 16px rgba(0,0,0,.06);
+  font-size: .95rem;
+}
+
+.logout-banner i {
+  color: #c89b9b;
+  font-size: 1rem;
+}
 
 
 
