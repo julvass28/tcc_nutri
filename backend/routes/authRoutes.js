@@ -1,31 +1,43 @@
 // backend/routes/authRoutes.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const authController = require('../controllers/authController');
+const authController = require("../controllers/authController");
 const authMiddleware = require("../middleware/auth");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-const fs = require('fs');
-const path = require('path');
-const multer = require('multer');
+const fs = require("fs");
+const path = require("path");
+const multer = require("multer");
 const Usuario = require("../models/Usuario");
 
 // GET /me
 router.get("/me", authMiddleware, async (req, res) => {
   try {
     const usuario = await Usuario.findByPk(req.user.id, {
-      attributes: ["id", "nome", "email", "fotoUrl", "sobrenome", "data_nascimento", "genero", "altura", "peso", "objetivo"]
+      attributes: [
+        "id",
+        "nome",
+        "email",
+        "fotoUrl",
+        "sobrenome",
+        "data_nascimento",
+        "genero",
+        "altura",
+        "peso",
+        "objetivo",
+      ],
     });
-    if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
+    if (!usuario)
+      return res.status(404).json({ erro: "Usuário não encontrado" });
     res.json(usuario);
   } catch (err) {
     res.status(500).json({ erro: "Erro ao buscar usuário" });
   }
 });
 
-router.post('/register', authController.register);
-router.post('/login', authController.login);
+router.post("/register", authController.register);
+router.post("/login", authController.login);
 
 // Transporter universal (SMTP real)
 const transporter = nodemailer.createTransport({
@@ -34,8 +46,8 @@ const transporter = nodemailer.createTransport({
   secure: Number(process.env.EMAIL_PORT) === 465,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
+    pass: process.env.EMAIL_PASS,
+  },
 });
 
 // 1) Solicitar código
@@ -59,7 +71,7 @@ router.post("/esqueci-senha", async (req, res) => {
     await transporter.sendMail({
       from: `"Natalia Simonovski" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Seu código de verificação - Natalia Simonovski',
+      subject: "Seu código de verificação - Natalia Simonovski",
       html: `
       <div style="background-color:#ECE7E6;padding:40px 20px;font-family:sans-serif;color:#8A8F75;max-width:600px;margin:auto;border-radius:12px;">
         <div style="background-color:#FFFFFF;padding:30px;border-radius:12px;box-shadow:0 4px 8px rgba(0,0,0,0.05);">
@@ -86,13 +98,15 @@ router.post("/esqueci-senha", async (req, res) => {
             Desenvolvido por Equipe Neven
           </p>
         </div>
-      </div>`
+      </div>`,
     });
 
     res.json({ msg: "Código enviado com sucesso!" });
   } catch (error) {
     console.log("🛑 ERRO AO ENVIAR CÓDIGO:", error.message);
-    res.status(500).json({ erro: "Erro ao enviar e-mail", detalhes: error.message });
+    res
+      .status(500)
+      .json({ erro: "Erro ao enviar e-mail", detalhes: error.message });
   }
 });
 
@@ -127,8 +141,11 @@ router.post("/redefinir-senha", async (req, res) => {
       return res.status(404).json({ message: "Usuário não encontrado." });
     }
 
-    const expirou = !usuario.tokenExpiraEm || (new Date().getTime() > new Date(usuario.tokenExpiraEm).getTime());
-    const codigoOk = usuario.tokenRecuperacao && usuario.tokenRecuperacao === codigo;
+    const expirou =
+      !usuario.tokenExpiraEm ||
+      new Date().getTime() > new Date(usuario.tokenExpiraEm).getTime();
+    const codigoOk =
+      usuario.tokenRecuperacao && usuario.tokenRecuperacao === codigo;
 
     if (!codigoOk || expirou) {
       return res.status(400).json({ message: "Código inválido ou expirado." });
@@ -137,7 +154,9 @@ router.post("/redefinir-senha", async (req, res) => {
     // <<< NOVO: impede usar a mesma senha de antes
     const mesmaSenha = await bcrypt.compare(novaSenha, usuario.senha);
     if (mesmaSenha) {
-      return res.status(400).json({ message: "Nova senha não pode ser igual à anterior." });
+      return res
+        .status(400)
+        .json({ message: "Nova senha não pode ser igual à anterior." });
     }
 
     const senhaHash = await bcrypt.hash(novaSenha, 10);
@@ -145,7 +164,7 @@ router.post("/redefinir-senha", async (req, res) => {
     await usuario.update({
       senha: senhaHash,
       tokenRecuperacao: null,
-      tokenExpiraEm: null
+      tokenExpiraEm: null,
     });
 
     res.json({ message: "Senha atualizada com sucesso!" });
@@ -156,20 +175,38 @@ router.post("/redefinir-senha", async (req, res) => {
 });
 
 /** ================== PERFIL: ATUALIZAÇÃO TEXTUAL ================== */
-router.put('/perfil', authMiddleware, async (req, res) => {
+/** ================== PERFIL: ATUALIZAÇÃO TEXTUAL ================== */
+router.put("/perfil", authMiddleware, async (req, res) => {
   try {
-    const { nome, sobrenome, email, data_nascimento, genero, altura, peso, objetivo } = req.body;
+    const {
+      nome,
+      sobrenome,
+      email,
+      data_nascimento,
+      genero,
+      altura,
+      peso,
+      objetivo,
+    } = req.body;
 
     const usuario = await Usuario.findByPk(req.user.id);
-    if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
+    if (!usuario)
+      return res.status(404).json({ erro: "Usuário não encontrado" });
 
-    if (email && email !== usuario.email) {
-      const jaExiste = await Usuario.findOne({ where: { email } });
-      if (jaExiste) return res.status(409).json({ erro: "E-mail já em uso." });
+    // 🚫 NÃO PERMITE alterar e-mail (requisito)
+    if (typeof email !== "undefined" && email !== usuario.email) {
+      return res.status(400).json({ erro: "E-mail não pode ser alterado." });
     }
 
     await usuario.update({
-      nome, sobrenome, email, data_nascimento, genero, altura, peso, objetivo
+      nome,
+      sobrenome,
+      // email intencionalmente NÃO vai aqui
+      data_nascimento,
+      genero,
+      altura,
+      peso,
+      objetivo,
     });
 
     res.json({ message: "Perfil atualizado com sucesso." });
@@ -180,50 +217,62 @@ router.put('/perfil', authMiddleware, async (req, res) => {
 });
 
 /** ================== PERFIL: UPLOAD DE FOTO ================== */
-const uploadDir = path.join(__dirname, '..', 'uploads', 'avatars');
+const uploadDir = path.join(__dirname, "..", "uploads", "avatars");
 fs.mkdirSync(uploadDir, { recursive: true });
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
-    const ext = (file.originalname.split('.').pop() || 'jpg').toLowerCase();
+    const ext = (file.originalname.split(".").pop() || "jpg").toLowerCase();
     cb(null, `${req.user.id}-${Date.now()}.${ext}`);
-  }
+  },
 });
 const upload = multer({
   storage,
   limits: { fileSize: 2 * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
-    const ok = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'].includes(file.mimetype);
-    cb(ok ? null : new Error('Formato de imagem inválido (use JPG/PNG/WebP).'), ok);
-  }
+    const ok = ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(
+      file.mimetype
+    );
+    cb(
+      ok ? null : new Error("Formato de imagem inválido (use JPG/PNG/WebP)."),
+      ok
+    );
+  },
 });
 
-router.post('/perfil/foto', authMiddleware, upload.single('foto'), async (req, res) => {
-  try {
-    if (!req.file) return res.status(400).json({ erro: "Arquivo não enviado." });
+router.post(
+  "/perfil/foto",
+  authMiddleware,
+  upload.single("foto"),
+  async (req, res) => {
+    try {
+      if (!req.file)
+        return res.status(400).json({ erro: "Arquivo não enviado." });
 
-    const usuario = await Usuario.findByPk(req.user.id);
-    if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
+      const usuario = await Usuario.findByPk(req.user.id);
+      if (!usuario)
+        return res.status(404).json({ erro: "Usuário não encontrado" });
 
-    if (usuario.fotoUrl && usuario.fotoUrl.includes('/uploads/avatars/')) {
-      const oldName = path.basename(usuario.fotoUrl);
-      const oldPath = path.join(uploadDir, oldName);
-      fs.existsSync(oldPath) && fs.unlinkSync(oldPath);
+      if (usuario.fotoUrl && usuario.fotoUrl.includes("/uploads/avatars/")) {
+        const oldName = path.basename(usuario.fotoUrl);
+        const oldPath = path.join(uploadDir, oldName);
+        fs.existsSync(oldPath) && fs.unlinkSync(oldPath);
+      }
+
+      const proto = req.headers["x-forwarded-proto"] || req.protocol;
+      const host = req.get("host");
+      const baseUrl = process.env.PUBLIC_BASE_URL || `${proto}://${host}`;
+      const url = `${baseUrl}/uploads/avatars/${req.file.filename}`;
+
+      await usuario.update({ fotoUrl: url });
+
+      res.json({ message: "Foto atualizada!", fotoUrl: url });
+    } catch (err) {
+      console.error("Erro upload foto:", err);
+      res.status(500).json({ erro: "Erro ao salvar foto." });
     }
-
-    const proto = req.headers['x-forwarded-proto'] || req.protocol;
-    const host = req.get('host');
-    const baseUrl = process.env.PUBLIC_BASE_URL || `${proto}://${host}`;
-    const url = `${baseUrl}/uploads/avatars/${req.file.filename}`;
-
-    await usuario.update({ fotoUrl: url });
-
-    res.json({ message: "Foto atualizada!", fotoUrl: url });
-  } catch (err) {
-    console.error("Erro upload foto:", err);
-    res.status(500).json({ erro: "Erro ao salvar foto." });
   }
-});
+);
 
 module.exports = router;
