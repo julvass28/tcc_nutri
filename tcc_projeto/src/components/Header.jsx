@@ -1,7 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useContext, useEffect, useRef } from "react";
 import "../css/Header.css";
-import { FaWhatsapp, FaInstagram, FaUser, FaChevronDown, FaBars } from "react-icons/fa";
+import {
+  FaWhatsapp,
+  FaInstagram,
+  FaUser,
+  FaChevronDown,
+  FaBars,
+} from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import { HiOutlineEnvelope } from "react-icons/hi2";
 import Botao from "./botao/Botao";
@@ -35,7 +41,8 @@ function Header() {
   useEffect(() => {
     const onClickOutside = (e) => {
       if (!perfilRef.current) return;
-      if (openPerfilMenu && !perfilRef.current.contains(e.target)) setOpenPerfilMenu(false);
+      if (openPerfilMenu && !perfilRef.current.contains(e.target))
+        setOpenPerfilMenu(false);
     };
     const onEsc = (e) => e.key === "Escape" && setOpenPerfilMenu(false);
     document.addEventListener("mousedown", onClickOutside);
@@ -68,50 +75,164 @@ function Header() {
         <ul>
           <li className="dropdown nav-section">
             <span
-              className={`nav-text ${openDropdown === "servicos" ? "ativo" : ""}`}
+              className={`nav-text ${
+                openDropdown === "servicos" ? "ativo" : ""
+              }`}
               onClick={() => toggleDropdown("servicos")}
             >
-              Serviços <FaChevronDown className={`seta ${openDropdown === "servicos" ? "rotated" : ""}`} />
+              Serviços{" "}
+              <FaChevronDown
+                className={`seta ${
+                  openDropdown === "servicos" ? "rotated" : ""
+                }`}
+              />
             </span>
-            <ul className={`dropdown-menu ${openDropdown === "servicos" ? "show" : ""}`}>
-              <li><Link to="/especialidade/esportiva" onClick={() => setOpenDropdown(null)}>Nutrição Esportiva</Link></li>
-              <li><Link to="/especialidade/pediatrica" onClick={() => setOpenDropdown(null)}>Nutrição Pediátrica</Link></li>
-              <li><Link to="/especialidade/clinica" onClick={() => setOpenDropdown(null)}>Nutrição Clínica</Link></li>
-              <li><Link to="/especialidade/emagrecimento" onClick={() => setOpenDropdown(null)}>Emagrecimento e Obesidade</Link></li>
-              <li><Link to="/especialidade/intolerancia" onClick={() => setOpenDropdown(null)}>Intolerâncias Alimentares</Link></li>
-            </ul>
-          </li>
-
-          <li className="dropdown nav-section">
-            <span className={`nav-text ${openDropdown === "blog" ? "ativo" : ""}`} onClick={() => toggleDropdown("blog")}>
-              Blog <FaChevronDown className={`seta ${openDropdown === "blog" ? "rotated" : ""}`} />
-            </span>
-            <ul className={`dropdown-menu ${openDropdown === "blog" ? "show" : ""}`}>
-              <li><Link to="/DicaNutri-Praia" onClick={() => setOpenDropdown(null)}>Dicas Alimentares</Link></li>
-              <li><Link to="/receitas/clinica" onClick={() => setOpenDropdown(null)}>Receitas</Link></li>
+            <ul
+              className={`dropdown-menu ${
+                openDropdown === "servicos" ? "show" : ""
+              }`}
+            >
+              <li>
+                <Link
+                  to="/especialidade/esportiva"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  Nutrição Esportiva
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/especialidade/pediatrica"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  Nutrição Pediátrica
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/especialidade/clinica"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  Nutrição Clínica
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/especialidade/emagrecimento"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  Emagrecimento e Obesidade
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/especialidade/intolerancia"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  Intolerâncias Alimentares
+                </Link>
+              </li>
             </ul>
           </li>
 
           <li className="dropdown nav-section">
             <span
-              className={`nav-text ${openDropdown === "calculadoras" ? "ativo" : ""}`}
+              className={`nav-text ${openDropdown === "blog" ? "ativo" : ""}`}
+              onClick={() => toggleDropdown("blog")}
+            >
+              Blog{" "}
+              <FaChevronDown
+                className={`seta ${openDropdown === "blog" ? "rotated" : ""}`}
+              />
+            </span>
+            <ul
+              className={`dropdown-menu ${
+                openDropdown === "blog" ? "show" : ""
+              }`}
+            >
+              <li>
+                <Link
+                  to="/DicaNutri-Praia"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  Dicas Alimentares
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/receitas/clinica"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  Receitas
+                </Link>
+              </li>
+            </ul>
+          </li>
+
+          <li className="dropdown nav-section">
+            <span
+              className={`nav-text ${
+                openDropdown === "calculadoras" ? "ativo" : ""
+              }`}
               onClick={() => toggleDropdown("calculadoras")}
             >
-              Calculadoras <FaChevronDown className={`seta ${openDropdown === "calculadoras" ? "rotated" : ""}`} />
+              Calculadoras{" "}
+              <FaChevronDown
+                className={`seta ${
+                  openDropdown === "calculadoras" ? "rotated" : ""
+                }`}
+              />
             </span>
-            <ul className={`dropdown-menu ${openDropdown === "calculadoras" ? "show" : ""}`}>
-              <li><Link to="/calculadoras/gasto-calorico" onClick={() => setOpenDropdown(null)}>Gastos Calóricos</Link></li>
-              <li><Link to="/calculadoras/imc" onClick={() => setOpenDropdown(null)}>IMC e Peso Ideal</Link></li>
-              <li><Link to="/calculadoras/consumo-agua" onClick={() => setOpenDropdown(null)}>Consumo Diário de Água</Link></li>
+            <ul
+              className={`dropdown-menu ${
+                openDropdown === "calculadoras" ? "show" : ""
+              }`}
+            >
+              <li>
+                <Link
+                  to="/calculadoras/gasto-calorico"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  Gastos Calóricos
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/calculadoras/imc"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  IMC e Peso Ideal
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/calculadoras/consumo-agua"
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  Consumo Diário de Água
+                </Link>
+              </li>
             </ul>
           </li>
 
           {/* Links avulsos mobile */}
           <div className="mobile-only">
             <ul className="nav-section">
-              <li><Link to="/sobre"><span className="nav-text mobile">Sobre</span></Link></li>
-              <li><Link to="/contato"><span className="nav-text mobile">Contato</span></Link></li>
-              <li><Link to="#"><span className="nav-text mobile">Agendar Consulta</span></Link></li>
+              <li>
+                <Link to="/sobre">
+                  <span className="nav-text mobile">Sobre</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/contato">
+                  <span className="nav-text mobile">Contato</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="#">
+                  <span className="nav-text mobile">Agendar Consulta</span>
+                </Link>
+              </li>
             </ul>
 
             <div className="infos-mobile">
@@ -134,15 +255,29 @@ function Header() {
           <div className="perfil-mobile-bloco">
             <div className="perfil-mobile-header">
               {user?.fotoUrl ? (
-                <img src={user.fotoUrl} alt={user.nome} className="perfil-mobile-foto" />
+                <img
+                  src={user.fotoUrl}
+                  alt={user.nome}
+                  className="perfil-mobile-foto"
+                />
               ) : (
                 <FaUser className="perfil-mobile-icon" />
               )}
-              <span>Olá, <strong>{user.nome}</strong></span>
+              <span>
+                Olá, <strong>{user.nome}</strong>
+              </span>
             </div>
             <ul className="perfil-mobile-menu">
-              <li><Link to="/perfil" onClick={() => setOpenMenu(false)}>Meu Perfil</Link></li>
-              <li><button onClick={handleLogoutAndGoLogin} className="logout-btn">Sair</button></li>
+              <li>
+                <Link to="/perfil" onClick={() => setOpenMenu(false)}>
+                  Meu Perfil
+                </Link>
+              </li>
+              <li>
+                <button onClick={handleLogoutAndGoLogin} className="logout-btn">
+                  Sair
+                </button>
+              </li>
             </ul>
           </div>
         )}
@@ -150,15 +285,29 @@ function Header() {
 
       {/* Logo central */}
       <div className="logo">
-        <Link to="/"><img src={logo} alt="Logo" /></Link>
+        <Link to="/">
+          <img src={logo} alt="Logo" />
+        </Link>
       </div>
 
       {/* Menu desktop à direita */}
       <nav className="nav-itens right">
         <ul>
-          <li><Link to="/sobre"><span className="nav-text">Sobre</span></Link></li>
-          <li><Link to="/contato"><span className="nav-text">Contato</span></Link></li>
-          <li><Link to="#"><span className="nav-text">Agendar Consulta</span></Link></li>
+          <li>
+            <Link to="/sobre">
+              <span className="nav-text">Sobre</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/contato">
+              <span className="nav-text">Contato</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="#">
+              <span className="nav-text">Agendar Consulta</span>
+            </Link>
+          </li>
         </ul>
       </nav>
 
@@ -169,13 +318,19 @@ function Header() {
             <button
               type="button"
               className="perfil-trigger"
-              onClick={() => setOpenPerfilMenu(v => !v)}
+              onClick={() => setOpenPerfilMenu((v) => !v)}
               aria-haspopup="menu"
               aria-expanded={openPerfilMenu}
             >
-              <span className="perfil-nome">Olá, <strong>{user.nome}</strong></span>
+              <span className="perfil-nome">
+                Olá, <strong>{user.nome}</strong>
+              </span>
               {user?.fotoUrl ? (
-                <img src={user.fotoUrl} alt={user.nome} className="perfil-foto" />
+                <img
+                  src={user.fotoUrl}
+                  alt={user.nome}
+                  className="perfil-foto"
+                />
               ) : (
                 <FaUser className="user" />
               )}
@@ -183,13 +338,31 @@ function Header() {
 
             {openPerfilMenu && (
               <ul className="perfil-dropdown-menu" role="menu">
-                <li role="none"><Link role="menuitem" to="/perfil" onClick={() => setOpenPerfilMenu(false)}>Meu Perfil</Link></li>
-                <li role="none"><button role="menuitem" onClick={handleLogoutAndGoLogin} className="logout-btn">Sair</button></li>
+                <li role="none">
+                  <Link
+                    role="menuitem"
+                    to="/perfil"
+                    onClick={() => setOpenPerfilMenu(false)}
+                  >
+                    Meu Perfil
+                  </Link>
+                </li>
+                <li role="none">
+                  <button
+                    role="menuitem"
+                    onClick={handleLogoutAndGoLogin}
+                    className="logout-btn"
+                  >
+                    Sair
+                  </button>
+                </li>
               </ul>
             )}
           </div>
         ) : (
-          <Link to="/login"><FaUser title="Fazer login" className="user" /></Link>
+          <Link to="/login">
+            <FaUser title="Fazer login" className="user" />
+          </Link>
         )}
       </div>
     </header>

@@ -520,3 +520,213 @@ body {
 #configuracoes-conta {
   margin-top: 2rem; /* Ajuste para o espaçamento desejado */
 }
+
+
+
+
+/* ====== VISUAL NOVO DO MODO LEITURA ====== */
+.perfil-view-grid.pretty {
+  --card-radius: 12px;
+  --card-border:  #d1a0a0;
+  --card-shadow: 0 4px 14px rgba(0,0,0,.06);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.perfil-view-item {
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  padding: .9rem 1rem;
+  background: #fff;
+  box-shadow: var(--card-shadow);
+  width: 18vw;
+  
+}
+.perfil-view-label {
+  display: block;
+  font-size: .8rem;
+  color: #6b7280;
+  margin-bottom: .25rem;
+}
+.perfil-view-value {
+  display: block;
+  font-size: 0.9rem;
+  color: #000000;
+}
+.perfil-view-value.mono { 
+  font-family: 'Poppins', sans-serif;
+}
+
+.perfil-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ====== CTA QUANDO NÃO HÁ CONSULTAS ====== */
+.consultas-cta {
+  border: 1px dashed #c6c6c6;
+  border-radius: 12px;
+  padding: 1.1rem 1.2rem;
+  background: #faf8f7;
+  text-align: center;
+}
+.consultas-cta-badge {
+  display: inline-block;
+  background: #fff;
+  color: #826a6a;
+  border: 1px solid #eadfdf;
+  padding: .3rem .6rem;
+  border-radius: 999px;
+  font-size: .85rem;
+  margin-bottom: .5rem;
+}
+.consultas-cta-text {
+  color: #4a4a4a;
+  margin: .2rem auto 1rem;
+  max-width: 46ch;
+}
+.consultas-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .6rem 1rem;
+  border-radius: .6rem;
+  background: #c89b9b;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(0,0,0,.12);
+  transition: transform .1s ease, box-shadow .2s ease;
+}
+.consultas-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.16); }
+
+/* ====== PÁGINA DE EDIÇÃO: LAYOUT MELHORADO ====== */
+.perfil-editar .secao { margin-top: 1rem; }
+.editar-topbar {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  width: 100%;
+  max-width: 1120px;
+  margin: 1rem auto 0;
+  padding: 0 1rem;
+}
+.editar-topbar h2 { margin: 0; font-size: 1.25rem; color: #3a3a3a; }
+.editar-back {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: #fff; border: 1px solid #ddd; color: #4a4a4a;
+  padding: .45rem .7rem; border-radius: .6rem; cursor: pointer;
+  transition: background .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.editar-back:hover { background: #d1a0a0; box-shadow: 0 6px 16px rgba(0,0,0,.12); color: #ffffff; }
+
+.grid2 {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem;
+}
+.grid3 {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem;
+}
+@media (max-width: 720px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .grid3 { grid-template-columns: 1fr; }
+}
+
+/* linha final: email (display), senha (input) e botão alterar senha lado a lado */
+.grid-email-senha {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+@media (max-width: 900px) {
+  .grid-email-senha { grid-template-columns: 1fr; }
+}
+
+/* caixa de exibição (para email) */
+.display-box {
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: .75rem .9rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.display-label {
+  display: block; font-size: .8rem; color: #6b7280; margin-bottom: .2rem;
+}
+.display-value {
+  display: block; color: #374151; font-size: 1rem;
+}
+.display-value.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+.btn-outline {
+  background: #fff;
+  color: #4a4a4a;
+  border: 1px solid #d8d8d8;
+  padding: .6rem .9rem;
+  border-radius: .6rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,.06);
+  transition: background .2s ease, box-shadow .2s ease, transform .1s ease;
+}
+.btn-outline:hover { background: #d1a0a0; box-shadow: 0 6px 16px rgba(0,0,0,.12); color: #ffffff; }
+
+.select-input-editar {
+  all: unset;
+  appearance: none;            /* Remove aparência padrão do navegador */
+  width: 100%;
+  max-width: 300px;
+  padding: 0.6rem 2.5rem 0.6rem 0.8rem;
+  background-color: #ffffff;   /* fundo no tom do tema */
+  color: #2a2a2a;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  margin-left: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  /* Ícone de seta (SVG inline) */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239a9f85'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 10px 6px;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.select-input-editar:focus {
+  outline: 2px solid #9a9f85;
+  outline-offset: 2px;
+  border-color: #9a9f85;
+  box-shadow: 0 0 0 2px rgba(154,159,133,0.25);
+}
+
+.select-input-editar option {
+  background-color: #fff;
+  color: #2a2a2a;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+
+
+.editar-actions {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* leve reforço em inputs dentro do modo edição */
+.perfil-editar .input-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 1.2px 6px rgba(0,0,0,.05);
+}
+.perfil-editar .input-wrapper:focus-within {
+  border-color: #c7cdb6;
+  box-shadow: 0 0 0 3px rgba(154,159,133,.22);
+}

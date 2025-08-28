@@ -1,9 +1,5 @@
-// (arquivo completo igual ao seu enviado)
-// Alteração pontual: no submit da senha, mantém data.message do backend
-// para exibir "Nova senha não pode ser igual à anterior." quando vier do servidor.
-
 import React, { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../css/auth-pages.css";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -75,6 +71,10 @@ export default function ForgotPassword() {
   const [toastTexto, setToastTexto] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // <<< NOVO: alvo de retorno (se veio do Editar Perfil, volta pra lá; senão, Login)
+  const backTarget = location.state?.from || "/login";
 
   useEffect(() => {
     document.body.classList.add("forgot-password-page");
@@ -296,7 +296,7 @@ export default function ForgotPassword() {
       if (left) await sleep(left);
 
       if (!response.ok) {
-        // Mostra exatamente a mensagem do backend (inclui caso de "mesma senha")
+        // mantém a mensagem do backend (ex.: "Nova senha não pode ser igual à anterior.")
         setErroSenha(data.message || "Erro ao redefinir a senha.");
         setShowOverlay(false);
         return;
@@ -316,8 +316,9 @@ export default function ForgotPassword() {
     }
   };
 
+  // <<< NOVO: usa o destino correto
   const voltarEtapa = () => {
-    if (etapa === 1) navigate("/login");
+    if (etapa === 1) navigate(backTarget);
     else setEtapa((prev) => prev - 1);
   };
 
