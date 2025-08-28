@@ -4,6 +4,7 @@ import '../css/perfil.css';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { OBJETIVOS } from '../utils/objetivos';
+import { Link } from 'react-router-dom';
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
@@ -114,9 +115,10 @@ export default function PerfilEditar() {
 
       {/* Barra de voltar fixa/simples */}
       <div className="editar-topbar">
-        <button className="editar-back" onClick={() => navigate(-1)}>
+        <Link to="/perfil"><button className="editar-back">
           <i className="fas fa-arrow-left" /> Voltar
         </button>
+        </Link>
         <h2>Editar perfil</h2>
       </div>
 
