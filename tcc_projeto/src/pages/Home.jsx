@@ -5,6 +5,7 @@ import Titulo from "../components/titulo/titulo";
 import Formulario from "../components/formulario/formulario";
 import CarroselMobile from '../components/carrosel/mobile';
 import SectionCalculators from '../components/SectionCalculators';
+import Agendar from "./Agenda";
 
 //Bibliotecas
 import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
@@ -109,8 +110,7 @@ function Home() {
 
 
             </div>
-
-
+    
             <div className="carrosel-mobile espacamento ">
 
 
