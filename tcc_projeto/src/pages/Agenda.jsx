@@ -1,105 +1,188 @@
-// Agendar.jsx (exemplo)
+// src/pages/Agendar.jsx
 import { useEffect, useState } from "react";
+import Titulo from "../components/titulo/titulo";
+
+//CALENDARIO
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+import { format } from "date-fns";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
+function toISODate(d) {
+    return format(d, "yyyy-MM-dd");
+}
+// Quantos dias tem o mês (month = 0..11)
+function daysInMonth(year, monthIndex0) {
+    return new Date(year, monthIndex0 + 1, 0).getDate();
+}
+const ESPECIALIDADES = [
+    "Nutrição Clínica",
+    "Nutrição Esportiva",
+    "Nutrição Pediátrica",
+    "Emagrecimento",
+    "Intolerâncias Alimentares",
+];
 export default function Agendar() {
-  const [date, setDate] = useState("");
-  const [slots, setSlots] = useState([]);
-  const [paymentRef, setPaymentRef] = useState(null);
-  const [expiresAt, setExpiresAt] = useState(null);
-  const [countdown, setCountdown] = useState("");
+    const [especialidade, setEspecialidade] = useState(
+        localStorage.getItem("especialidade") || ESPECIALIDADES[0]
+    );
 
-  useEffect(() => {
-    if (!date) return;
-    fetch(`${API}/agenda/slots?date=${date}`)
-      .then(r => r.json())
-      .then(data => setSlots(data.slots ?? []))
-      .catch(() => setSlots([]));
-  }, [date]);
-
-  // contador do hold
-  useEffect(() => {
-    if (!expiresAt) return;
-    const i = setInterval(() => {
-      const end = new Date(expiresAt).getTime();
-      const diff = end - Date.now();
-      if (diff <= 0) {
-        setCountdown("expirado");
-        clearInterval(i);
-      } else {
-        const m = Math.floor(diff / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
-        setCountdown(`${m}m ${s}s`);
-      }
-    }, 1000);
-    return () => clearInterval(i);
-  }, [expiresAt]);
-
-  async function criarHold(time) {
-    const body = { date, time, usuario_id: 123 }; // trocar pelo ID real se tiver login
-    const r = await fetch(`${API}/agenda/hold`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" /*, Authorization: `Bearer ${jwt}`*/ },
-      body: JSON.stringify(body),
+    // calendário/seleção
+    const [month, setMonth] = useState(() => {
+        const now = new Date();
+        return new Date(now.getFullYear(), now.getMonth(), 1);
     });
-    const data = await r.json();
-    if (!r.ok) {
-      alert(data.erro || "Falha ao segurar horário.");
-      return;
-    }
-    setPaymentRef(data.payment_ref);
-    setExpiresAt(data.expires_at);
-    sessionStorage.setItem("payment_ref", data.payment_ref);
-  }
+    const [selected, setSelected] = useState(null);          // Date | null
+    const [date, setDate] = useState("");                   // "YYYY-MM-DD" (para chamar a API)
 
-  async function confirmar() {
-    const ref = paymentRef || sessionStorage.getItem("payment_ref");
-    if (!ref) { alert("Sem payment_ref"); return; }
-    const r = await fetch(`${API}/agenda/confirmar`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ payment_ref: ref }),
-    });
-    const data = await r.json();
-    if (!r.ok) { alert(data.erro || "Falha ao confirmar."); return; }
-    alert("Agendamento confirmado!");
-    // opcional: recarregar slots
-    if (date) {
-      const resp = await fetch(`${API}/agenda/slots?date=${date}`);
-      const d = await resp.json();
-      setSlots(d.slots ?? []);
-    }
-  }
+    // disponibilidade do mês: { "YYYY-MM-DD": true/false }
+    const [mapDisponibilidade, setMapDisponibilidade] = useState({});
+    const [loadingMes, setLoadingMes] = useState(false);
 
-  return (
-    <div style={{ maxWidth: 520, margin: "40px auto", fontFamily: "sans-serif" }}>
-      <h1>Agendar consulta</h1>
+    // slots do dia
+    const [slots, setSlots] = useState([]);
+    const [loadingSlots, setLoadingSlots] = useState(false);
 
-      <label>Escolha a data:</label>
-      <input type="date" value={date} onChange={e => setDate(e.target.value)} />
+    // salva especialidade no localStorage
+    useEffect(() => {
+        localStorage.setItem("especialidade", especialidade);
+    }, [especialidade]);
 
-      <div style={{ marginTop: 16 }}>
-        {slots.map(s => (
-          <button
-            key={s.time}
-            onClick={() => criarHold(s.time)}
-            disabled={!s.available || !!paymentRef}
-            style={{ margin: 4, padding: "8px 12px", opacity: s.available ? 1 : 0.4 }}
-          >
-            {s.time}
-          </button>
-        ))}
-      </div>
+    // quando selecionar um dia no calendário, atualiza a string ISO p/ API
+    useEffect(() => {
+        if (!selected) {
+            setDate("");
+            setSlots([]);
+            return;
+        }
+        setDate(toISODate(selected));
+    }, [selected]);
 
-      {paymentRef && (
-        <div style={{ marginTop: 16, padding: 12, border: "1px solid #ddd" }}>
-          <p><strong>Reserva temporária criada.</strong></p>
-          <p>Ref: {paymentRef}</p>
-          <p>Expira em: {countdown}</p>
-          <button onClick={confirmar}>Confirmar pagamento (simular)</button>
+    // pinta disponibilidade do mês (DEMO: 1 request por dia do mês)
+    useEffect(() => {
+        const y = month.getFullYear();
+        const m = month.getMonth();
+        const total = daysInMonth(y, m);
+        setLoadingMes(true);
+
+        (async () => {
+            try {
+                const entries = await Promise.all(
+                    Array.from({ length: total }, (_, i) => {
+                        const d = new Date(y, m, i + 1);
+                        const iso = toISODate(d);
+                        return fetch(`${API}/agenda/slots?date=${iso}`)
+                            .then((r) => r.json())
+                            .then((data) => {
+                                const tem = (data?.slots || []).some((s) => s.available);
+                                return [iso, tem];
+                            })
+                            .catch(() => [iso, false]);
+                    })
+                );
+                setMapDisponibilidade(Object.fromEntries(entries));
+            } finally {
+                setLoadingMes(false);
+            }
+        })();
+    }, [month]);
+
+    // busca slots do dia escolhido
+    useEffect(() => {
+        if (!date) {
+            setSlots([]);
+            return;
+        }
+        setLoadingSlots(true);
+        (async () => {
+            try {
+                const r = await fetch(`${API}/agenda/slots?date=${date}`);
+                const data = await r.json();
+                setSlots(data.slots ?? []);
+            } catch (err) {
+                console.error("Erro buscando slots", err);
+                setSlots([]);
+            } finally {
+                setLoadingSlots(false);
+            }
+        })();
+    }, [date]);
+
+    // regras pra colorir dias no calendário
+    const modifiers = {
+        available: (day) => mapDisponibilidade[toISODate(day)] === true,
+        unavailable: (day) => mapDisponibilidade[toISODate(day)] === false,
+    };
+    const modifiersClassNames = {
+        available: "rdp-day_available",
+        unavailable: "rdp-day_unavailable",
+    };
+
+
+    return (
+        <div className="bodyAgendamento">
+            <Titulo
+                texto="AGENDAMENTO"
+                subtitulo={`Para agendar sua consulta nutricional, por favor, escolha o dia e o horário que melhor se encaixam em sua agenda.`}
+                mostrarLinha={true}
+            />
+
+            <div className="especialidadesAgenda">
+                <h2 className="h2Agenda">Escolha a Especialidade:</h2>
+
+                <div className="catAgendar" >
+                    {ESPECIALIDADES.map((s) => (
+                        <button
+                            key={s}
+                            onClick={() => setEspecialidade(s)}
+                        >
+                            {s}
+                        </button>
+                    ))}
+                </div>
+
+                <small> Escolhida: <b>{especialidade}</b>  </small>
+            </div>
+
+            {/* Calendário */}
+            <div className="CalendarioAgenda">
+                <div className="calender">
+                    <DayPicker
+                        mode="single"
+                        month={month}
+                        onMonthChange={setMonth}
+                        selected={selected}
+                        onSelect={setSelected}
+                        modifiers={modifiers}
+                        modifiersClassNames={modifiersClassNames}
+                        disabled={modifiers.unavailable}
+                        captionLayout="dropdown"
+                        showOutsideDays
+                    />
+
+                    {loadingMes && <p>Carregando disponibilidade do mês…</p>}
+                </div>
+            </div>
+
+            {/* Slots do dia */}
+            {selected && (
+                <div style={{ marginTop: 16 }}>
+                    <h3>Horários em {date}</h3>
+                    {loadingSlots ? (
+                        <p>Carregando horários…</p>
+                    ) : (
+                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                            {slots.map((s) => (
+                                <button key={s.time} disabled={!s.available}>
+                                    {s.time}
+                                </button>
+                            ))}
+                            {slots.length === 0 && <p>Nenhum horário para este dia.</p>}
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 }

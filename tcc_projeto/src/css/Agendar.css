@@ -1,0 +1,28 @@
+/* Tema rosinha do react-day-picker */
+.rdp {
+  --rdp-accent-color: #f59bc6;     /* cor de destaque (rosinha) */
+  --rdp-accent-background: #fde4ef;/* fundo quando selecionado/hover */
+  --rdp-outline: 2px solid #f59bc6;
+  --rdp-outline-selected: 2px solid #f472b6;
+  --rdp-background-color: #fff;
+  --rdp-cell-size: 40px;
+  --rdp-font-family: inherit;
+  --rdp-month_caption-font-size: 16px;
+}
+
+/* Dias com disponibilidade */
+.rdp-day_available {
+  background: #e9fbee;       /* verdinho claro */
+  color: #0f5132;
+  border-radius: 8px;
+}
+
+/* Dias sem disponibilidade (desabilitados) */
+.rdp-day_unavailable,
+.rdp-day_disabled {
+  color: #177bdf;
+  background: #f3f4f6;
+  border-radius: 8px;
+  cursor: not-allowed;
+  opacity: .8;
+}

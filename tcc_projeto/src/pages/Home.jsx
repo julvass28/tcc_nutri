@@ -5,7 +5,7 @@ import Titulo from "../components/titulo/titulo";
 import Formulario from "../components/formulario/formulario";
 import CarroselMobile from '../components/carrosel/mobile';
 import SectionCalculators from '../components/SectionCalculators';
-import Agendar from "./Agenda";
+
 
 //Bibliotecas
 import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
@@ -110,6 +110,12 @@ function Home() {
 
 
             </div>
+
+             <Link to="/agendar">
+        <button style={{ padding: '8px 14px' }}>
+          Agendar consulta
+        </button>
+      </Link>
     
             <div className="carrosel-mobile espacamento ">
 
