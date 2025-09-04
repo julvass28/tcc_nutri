@@ -1,13 +1,18 @@
-const Usuario = require('../models/Usuario')
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const Usuario = require("../models/Usuario");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 exports.register = async (req, res) => {
   try {
     const { senha, ...resto } = req.body;
     const senhaCriptografada = await bcrypt.hash(senha, 10);
-    const novoUsuario = await Usuario.create({ ...resto, senha: senhaCriptografada });
-    res.status(201).json({ msg: "Usuário criado com sucesso", usuario: novoUsuario });
+    const novoUsuario = await Usuario.create({
+      ...resto,
+      senha: senhaCriptografada,
+    });
+    res
+      .status(201)
+      .json({ msg: "Usuário criado com sucesso", usuario: novoUsuario });
   } catch (error) {
     console.error("Erro ao registrar:", error);
     res.status(500).json({ erro: "Erro ao registrar" });
@@ -31,24 +36,23 @@ exports.login = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: usuario.id, email: usuario.email },
+      { id: usuario.id, email: usuario.email, isAdmin: !!usuario.isAdmin },
       process.env.JWT_SECRET,
-      { expiresIn: '1d' }
+      { expiresIn: "1d" }
     );
 
-  res.status(200).json({
-  msg: "Login realizado com sucesso",
-  token,
-  usuario: {
-    id: usuario.id,
-    nome: usuario.nome,
-    sobrenome: usuario.sobrenome,
-    email: usuario.email,
-    fotoUrl: usuario.fotoUrl
-  }
-});
-
-
+    res.status(200).json({
+      msg: "Login realizado com sucesso",
+      token,
+      usuario: {
+        id: usuario.id,
+        nome: usuario.nome,
+        sobrenome: usuario.sobrenome,
+        email: usuario.email,
+        fotoUrl: usuario.fotoUrl,
+        isAdmin: !!usuario.isAdmin,
+      },
+    });
   } catch (err) {
     console.error("Erro no login:", err);
     res.status(500).json({ erro: "Erro no servidor" });
