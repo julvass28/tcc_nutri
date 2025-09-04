@@ -1,13 +1,15 @@
 // src/pages/Agendar.jsx
 import { useEffect, useState } from "react";
 import Titulo from "../components/titulo/titulo";
+import '../css/Agendar.css'
 
 //CALENDARIO
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { format } from "date-fns";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API = "http://localhost:3001"; // força local por enquanto
+
 
 function toISODate(d) {
     return format(d, "yyyy-MM-dd");
@@ -68,6 +70,7 @@ export default function Agendar() {
 
         (async () => {
             try {
+
                 const entries = await Promise.all(
                     Array.from({ length: total }, (_, i) => {
                         const d = new Date(y, m, i + 1);
@@ -78,7 +81,7 @@ export default function Agendar() {
                                 const tem = (data?.slots || []).some((s) => s.available);
                                 return [iso, tem];
                             })
-                            .catch(() => [iso, false]);
+                            .catch(() => [iso, null]);
                     })
                 );
                 setMapDisponibilidade(Object.fromEntries(entries));
@@ -95,19 +98,22 @@ export default function Agendar() {
             return;
         }
         setLoadingSlots(true);
+
         (async () => {
             try {
-                const r = await fetch(`${API}/agenda/slots?date=${date}`);
-                const data = await r.json();
-                setSlots(data.slots ?? []);
+                console.log(`🔎 Buscando slots para ${date} em ${API}/agenda/slots?date=${date}`);
+                const r = await fetch(`${API}/agenda/slots?date=${date}`, { mode: 'cors' });
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                const json = await r.json();
+                setSlots(Array.isArray(json.slots) ? json.slots : []);
             } catch (err) {
-                console.error("Erro buscando slots", err);
+                console.error('Erro buscando slots', err);
                 setSlots([]);
             } finally {
                 setLoadingSlots(false);
             }
         })();
-    }, [date]);
+    }, [date, API]);
 
     // regras pra colorir dias no calendário
     const modifiers = {
@@ -129,7 +135,8 @@ export default function Agendar() {
             />
 
             <div className="especialidadesAgenda">
-                <h2 className="h2Agenda">Escolha a Especialidade:</h2>
+            <div className="h2divAgen">
+                <h2 className="h2Agenda">Escolha a Especialidade:</h2></div>
 
                 <div className="catAgendar" >
                     {ESPECIALIDADES.map((s) => (

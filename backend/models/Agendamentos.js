@@ -17,7 +17,7 @@ const Agendamento = sequelize.define('Agendamento',{// Agendamento= nome do modu
     tableName: 'agendamentos', //nome da tabela
     underscored:true, //cria snake_case
     indexes:[ //indice que facilita busca no bd
-        {unique:true, fields:[inicio]} //unico, e pega inico de referencia, para evitar duas pessoas no mesmo horario
+        {unique:true, fields:['inicio']} //unico, e pega inico de referencia, para evitar duas pessoas no mesmo horario
     ]
 });
 

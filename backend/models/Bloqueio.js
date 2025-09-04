@@ -15,6 +15,8 @@ const Bloqueio = sequelize.define('Bloqueio',{
         {fields:['inicio', 'fim']},
 
     ]
+
+    
 });
 
 module.exports=Bloqueio;

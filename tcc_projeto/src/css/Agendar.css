@@ -1,8 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lustria&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+.h2Agenda {
+  color: #b81f69;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.catAgendar button{
+  color: #b81f69;
+}
 /* Tema rosinha do react-day-picker */
 .rdp {
-  --rdp-accent-color: #f59bc6;     /* cor de destaque (rosinha) */
+  --rdp-accent-color: #b81f69;     /* cor de destaque (rosinha) */
   --rdp-accent-background: #fde4ef;/* fundo quando selecionado/hover */
-  --rdp-outline: 2px solid #f59bc6;
+  --rdp-outline: 2px solid #b41964;
   --rdp-outline-selected: 2px solid #f472b6;
   --rdp-background-color: #fff;
   --rdp-cell-size: 40px;
@@ -12,15 +37,15 @@
 
 /* Dias com disponibilidade */
 .rdp-day_available {
-  background: #e9fbee;       /* verdinho claro */
-  color: #0f5132;
+  background: #efecf0;       /* verdinho claro */
+  color: #dd19bc;
   border-radius: 8px;
 }
 
 /* Dias sem disponibilidade (desabilitados) */
 .rdp-day_unavailable,
 .rdp-day_disabled {
-  color: #177bdf;
+  color: #3f0c3c;
   background: #f3f4f6;
   border-radius: 8px;
   cursor: not-allowed;
