@@ -1,14 +1,29 @@
-
+// importando os icons usados na parte de especialidade
 import e1 from '../assets/icons/e1.png';
 import e2 from '../assets/icons/e2.png';
 import e3 from '../assets/icons/e3.png';
 import e4 from '../assets/icons/e4.png';
 import e5 from '../assets/icons/e5.png';
 
-// import growth from '../assets/icons/growth.svg';
-// import nutrition from '../assets/icons/nutrition.svg';
-// import brain from '../assets/icons/brain.svg';
-// import immunity from '../assets/icons/immunity.svg';
+import f1 from '../assets/icons/f1.png';
+import f2 from '../assets/icons/f2.png';
+import f3 from '../assets/icons/f3.png';
+import f4 from '../assets/icons/f4.png';
+import f5 from '../assets/icons/f5.png';
+
+import g1 from '../assets/icons/g1.png';
+import g2 from '../assets/icons/g2.png';
+import g3 from '../assets/icons/g3.png';
+import g4 from '../assets/icons/g4.png';
+
+
+import h3 from '../assets/icons/h3.png';
+import h4 from '../assets/icons/h4.png';
+import h5 from '../assets/icons/h5.png';
+
+import i3 from '../assets/icons/i3.png';
+import i4 from '../assets/icons/i4.png';
+import i5 from '../assets/icons/i5.png';
 
 import mito1 from '../assets/icons/mito1.png';
 import mito2 from '../assets/icons/mito2.png';
@@ -96,11 +111,11 @@ const conteudosEspecialidades = {
       mitosVerdades: 'Mitos e Verdades sobre a Nutrição Pediátria',
     },
     beneficios: [
-      { titulo: 'Crescimento Saudável ', icone: e1 },
-      { titulo: 'Fortalecimento do sistema imunológico',    icone: e2 },
-      { titulo: 'Evolução cognitivo',    icone: e3},
-      { titulo: 'Melhora no aprendizado',   icone: e4 },
-      { titulo: ' Prevenção de doenças',   icone: e5 },
+      { titulo: 'Crescimento Saudável ', icone: f1 },
+      { titulo: 'Fortalecimento do sistema imunológico',    icone: f2 },
+      { titulo: 'Evolução cognitivo',    icone: f3},
+      { titulo: 'Melhora no aprendizado',   icone: f4 },
+      { titulo: ' Prevenção de doenças',   icone: f5 },
     ],
     avaliacaoTitulo: 'Nutrição Pediátrica: O que você precisa saber',
     oQuePrecisaSaber: [ 
@@ -154,10 +169,10 @@ const conteudosEspecialidades = {
       mitosVerdades: 'Mitos e Verdades sobre Nutrição Clínica',
     },
     beneficios: [
-      { titulo: 'Melhora na qualidade de vida', icone: e1 },
-      { titulo: 'Prevenção e tratamento de doenças',    icone: e2 },
-      { titulo: 'Apoio no tratamento de doenças',    icone: e3},
-      { titulo: 'Controle de Peso',   icone: e4 },
+      { titulo: 'Melhora na qualidade de vida', icone: g1 },
+      { titulo: 'Prevenção e tratamento de doenças',    icone: g2 },
+      { titulo: 'Apoio no tratamento de doenças',    icone: g3},
+      { titulo: 'Controle de Peso',   icone: g4 },
       { titulo: 'Atenção individualizada',   icone: e5 },
     ],
     avaliacaoTitulo: 'Intolerância Alimentar: O que você precisa saber',
@@ -215,11 +230,11 @@ const conteudosEspecialidades = {
       mitosVerdades: 'Mitos e Verdades sobre Emagrecimento e Obesidade',
     },
     beneficios: [
-      { titulo: 'Redução da Gordura Corporal', icone: e1 },
-      { titulo: 'Aumento de energia',    icone: e2 },
-      { titulo: 'Controle do peso',    icone: e3},
-      { titulo: 'Melhora da autoestima',   icone: e4 },
-      { titulo: 'Melhora da Saúde',   icone: e5 },
+      { titulo: 'Redução da Gordura Corporal', icone: e4 },
+      { titulo: 'Aumento de energia',    icone: g2 },
+      { titulo: 'Controle do peso',    icone: h3},
+      { titulo: 'Melhora da autoestima',   icone: h4 },
+      { titulo: 'Melhora da Saúde',   icone: h5 },
     ],
     avaliacaoTitulo: 'Emagrecimento e Obesidade: O que você precisa saber',
     oQuePrecisaSaber: [ 
@@ -277,11 +292,11 @@ const conteudosEspecialidades = {
       mitosVerdades: 'Mitos e Verdades sobre Intolerância Alimentar',
     },
     beneficios: [
-      { titulo: 'Melhora na qualidade de vida', icone: e1 },
-      { titulo: 'Mais energia e disposição',    icone: e2 },
-      { titulo: 'Digestão mais eficiente',    icone: e3},
-      { titulo: ' Menos inflamação e dores',   icone: e4 },
-      { titulo: 'Fortalecimento imunológico',   icone: e5 },
+      { titulo: 'Melhora na qualidade de vida', icone: f5 },
+      { titulo: 'Mais energia e disposição',    icone: e5 },
+      { titulo: 'Digestão mais eficiente',    icone: i3},
+      { titulo: ' Menos inflamação e dores',   icone: i4 },
+      { titulo: 'Fortalecimento imunológico',   icone: i5 },
     ],
     avaliacaoTitulo: 'Intolerância Alimentar: O que você precisa saber',
     oQuePrecisaSaber: [ 

@@ -171,9 +171,9 @@
 }
 
 .dica-nutri-card img {
-  width: 70px;
-  height: 60px;
-  border-radius: 6px;
+  width: 60px;
+  height: 50px;
+  border-radius: 2px;
   flex-shrink: 0;
   object-fit: cover;
   margin-right: 16px;
