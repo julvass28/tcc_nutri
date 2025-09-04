@@ -1,19 +1,37 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-const sequelize = require('./config/db');
-const Usuario = require('./models/Usuario'); // força a criação da tabela
-const authRoutes = require('./routes/authRoutes');
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
+
+import { initDb } from "./src/db/index.js";
+import paymentsRouter from "./src/routes/payments.js";
+import { rawBody, webhookHandler } from "./src/webhooks/mercadopago.js";
 
 const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(authRoutes);
 
-// Sincroniza o banco com os models
-sequelize.sync({ alter: true }).then(() => {
-  console.log("✅ Banco sincronizado com Sequelize!");
-  app.listen(process.env.PORT || 3001, () => {
-    console.log(`🚀 Servidor rodando na porta ${process.env.PORT}`);
+// CORS básico: ajuste para teu domínio em produção
+app.use(cors({ origin: process.env.FRONT_URL, credentials: true }));
+
+// JSON normal para todas as rotas (menos o webhook)
+app.use(express.json());
+
+app.get("/health", (_, res) => res.json({ ok: true }));
+
+// Rotas REST de pagamento
+app.use("/api/payments", paymentsRouter);
+
+// Webhook do MP precisa de RAW body pra validar assinatura
+app.post("/api/payments/webhook", rawBody, webhookHandler);
+
+// Sobe servidor depois de garantir conexão + tabelas
+const PORT = process.env.PORT || 3000;
+initDb()
+  .then(() => {
+    app.listen(PORT, () =>
+      console.log(`✅ Server ON at http://localhost:${PORT}`)
+    );
+  })
+  .catch((err) => {
+    console.error("DB init failed:", err);
+    process.exit(1);
   });
-});

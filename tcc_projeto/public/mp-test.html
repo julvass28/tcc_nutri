@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>MP Brick Test</title>
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+</head>
+<body>
+  <h3>Teste Card Brick isolado</h3>
+  <div id="card"></div>
+  <script>
+    const mp = new MercadoPago("APP_USR-69fc4acc-5c71-4dc6-a8f6-c060908ab894", { locale: "pt-BR" });
+    mp.bricks().create("cardPayment", "card", {
+      initialization: { amount: 180 },
+      callbacks: {
+        onSubmit: async ({ formData }) => {
+          alert("Token: " + (formData.token || formData.cardToken || JSON.stringify(formData)));
+        },
+        onError: (e) => alert("Form error: " + (e?.message || JSON.stringify(e)))
+      }
+    });
+  </script>
+</body>
+</html>
