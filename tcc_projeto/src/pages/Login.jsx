@@ -30,8 +30,6 @@ export default function Login(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState({});
   const [askRegister, setAskRegister] = useState(false);
-
-  // banner quando veio do logout
   const [logoutHint, setLogoutHint] = useState(false);
 
   const navigate = useNavigate();
@@ -44,7 +42,6 @@ export default function Login(props) {
     }
   }, [props._inlineFromHome]);
 
-  // Se veio de um logout, mostra um mini loading e habilita o banner
   useEffect(() => {
     if (location.state?.fromLogout) {
       (async () => {
@@ -53,7 +50,6 @@ export default function Login(props) {
         await sleep(900);
         setShowOverlay(false);
         setLogoutHint(true);
-        // limpa o state para não reaparecer caso o usuário recarregue a página
         navigate(location.pathname, { replace: true, state: {} });
       })();
     }
@@ -70,7 +66,8 @@ export default function Login(props) {
     const email = credentials.email.trim();
     const senha = credentials.senha.trim();
     if (!email) errors.email = "Informe seu e-mail.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "E-mail inválido.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+      errors.email = "E-mail inválido.";
     if (!senha) errors.senha = "Informe sua senha.";
     return errors;
   };
@@ -119,13 +116,18 @@ export default function Login(props) {
 
         setIsLoading(false);
 
-        if (response.status === 404 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(credentials.email.trim())) {
+        if (
+          response.status === 404 &&
+          /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(credentials.email.trim())
+        ) {
           setAskRegister(true);
           setErroLogin("");
           return;
         }
 
-        setErroLogin("E-mail ou senha incorretos. Verifique e tente novamente.");
+        setErroLogin(
+          "E-mail ou senha incorretos. Verifique e tente novamente."
+        );
         return;
       }
 
@@ -135,7 +137,11 @@ export default function Login(props) {
       const left = Math.max(0, MIN_LOADING_MS - elapsed);
       if (left) await sleep(left);
 
-      navigate("/");
+      if (data?.usuario?.isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       const elapsed = performance.now() - t0;
       const left = Math.max(0, 700 - elapsed);
@@ -148,27 +154,56 @@ export default function Login(props) {
 
   return (
     <div className="login-body">
-      {/* Modal sugerindo criar conta */}
       {askRegister && (
         <div className="auth-loading-overlay" role="dialog" aria-modal="true">
-          <div className="auth-loading-card" style={{ flexDirection: "column", alignItems: "stretch", minWidth: 280 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+          <div
+            className="auth-loading-card"
+            style={{
+              flexDirection: "column",
+              alignItems: "stretch",
+              minWidth: 280,
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                marginBottom: 8,
+              }}
+            >
               <i className="fas fa-user-plus" aria-hidden="true" />
               <strong>E-mail não cadastrado</strong>
             </div>
             <p style={{ margin: "6px 0 12px", color: "#4a4a4a" }}>
-              O e-mail <b>{credentials.email}</b> não está cadastrado. Deseja criar uma conta?
+              O e-mail <b>{credentials.email}</b> não está cadastrado. Deseja
+              criar uma conta?
             </p>
-            <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+            <div
+              style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}
+            >
               <button
                 onClick={() => setAskRegister(false)}
-                style={{ background: "transparent", border: "1px solid #ddd", borderRadius: 8, padding: "8px 12px", cursor: "pointer" }}
+                style={{
+                  background: "transparent",
+                  border: "1px solid #ddd",
+                  borderRadius: 8,
+                  padding: "8px 12px",
+                  cursor: "pointer",
+                }}
               >
                 Agora não
               </button>
               <button
                 onClick={handleGoRegister}
-                style={{ background: "#c89b9b", color: "#fff", border: "none", borderRadius: 8, padding: "8px 12px", cursor: "pointer" }}
+                style={{
+                  background: "#c89b9b",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: 8,
+                  padding: "8px 12px",
+                  cursor: "pointer",
+                }}
               >
                 Criar conta
               </button>
@@ -178,12 +213,12 @@ export default function Login(props) {
       )}
 
       <main className="login-container">
-        {/* Banner curto quando veio do logout */}
         {logoutHint && (
           <div className="logout-banner" role="status" aria-live="polite">
             <i className="fas fa-door-open" aria-hidden="true" />
             <span>
-              Você saiu com segurança. <b>Faça login</b> para continuar acompanhando suas consultas.
+              Você saiu com segurança. <b>Faça login</b> para continuar
+              acompanhando suas consultas.
             </span>
           </div>
         )}
@@ -211,7 +246,11 @@ export default function Login(props) {
           <hr className="login-hr" />
         </div>
 
-        <form onSubmit={handleSubmit} className="login-form auth-compact" noValidate>
+        <form
+          onSubmit={handleSubmit}
+          className="login-form auth-compact"
+          noValidate
+        >
           <input
             name="email"
             type="email"
@@ -233,7 +272,9 @@ export default function Login(props) {
             <input
               name="senha"
               type={mostrarSenha ? "text" : "password"}
-              className={`criar-conta-input criar-conta-input-password ${fieldErrors.senha ? "erro-borda" : ""}`}
+              className={`criar-conta-input criar-conta-input-password ${
+                fieldErrors.senha ? "erro-borda" : ""
+              }`}
               placeholder="Senha"
               autoComplete="current-password"
               value={credentials.senha}
@@ -242,7 +283,9 @@ export default function Login(props) {
               aria-describedby={fieldErrors.senha ? "erro-senha" : undefined}
             />
             <i
-              className={`fas ${mostrarSenha ? "fa-eye-slash" : "fa-eye"} criar-conta-eye-icon`}
+              className={`fas ${
+                mostrarSenha ? "fa-eye-slash" : "fa-eye"
+              } criar-conta-eye-icon`}
               onClick={() => setMostrarSenha((prev) => !prev)}
               style={{ cursor: "pointer" }}
             />
@@ -253,12 +296,25 @@ export default function Login(props) {
             </p>
           )}
 
-          <button type="button" onClick={handleGoForgot} className="login-forgot-password as-button">
+          <button
+            type="button"
+            onClick={handleGoForgot}
+            className="login-forgot-password as-button"
+          >
             Esqueceu a senha?
           </button>
 
-          <button type="submit" className="login-submit-btn" disabled={isLoading}>
-            {isLoading ? <i className="fas fa-spinner fa-spin" style={{ marginRight: 8 }} /> : null}
+          <button
+            type="submit"
+            className="login-submit-btn"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <i
+                className="fas fa-spinner fa-spin"
+                style={{ marginRight: 8 }}
+              />
+            ) : null}
             {isLoading ? "Entrando..." : "Fazer Login"}
           </button>
 

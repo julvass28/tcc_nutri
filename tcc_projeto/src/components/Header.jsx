@@ -273,6 +273,15 @@ function Header() {
                   Meu Perfil
                 </Link>
               </li>
+
+              {user?.isAdmin && (
+                <li>
+                  <Link to="/admin" onClick={() => setOpenMenu(false)}>
+                    Página Admin
+                  </Link>
+                </li>
+              )}
+
               <li>
                 <button onClick={handleLogoutAndGoLogin} className="logout-btn">
                   Sair
@@ -347,6 +356,19 @@ function Header() {
                     Meu Perfil
                   </Link>
                 </li>
+
+                {user?.isAdmin && (
+                  <li role="none">
+                    <Link
+                      role="menuitem"
+                      to="/admin"
+                      onClick={() => setOpenPerfilMenu(false)}
+                    >
+                      Página Admin
+                    </Link>
+                  </li>
+                )}
+
                 <li role="none">
                   <button
                     role="menuitem"
