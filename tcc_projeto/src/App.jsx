@@ -75,9 +75,9 @@ export default function App() {
   "/receitas/pediatrica",
   "/receitas/esportiva",
   "/receitas/emagrecimento",
-  "/receitas/intolerancias"
+  "/receitas/intolerancias",
  
-           ]}
+]}
 />
       <Header /> 
       <Routes>
