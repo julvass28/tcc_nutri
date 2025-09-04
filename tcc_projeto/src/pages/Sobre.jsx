@@ -1,141 +1,128 @@
 import React from 'react';
+
+// Ordem importa: Home.css antes, depois Sobre.css
+import '../css/Home.css';
 import '../css/Sobre.css';
 
-//Componentes
-import Titulo from "../components/titulo/titulo";
-import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
+import 'aos/dist/aos.css';
 
+// Componentes
+import CarroselMobile from '../components/carrosel/mobile';
 
-
-//Icons
+// Ícones (SVG como React)
 import Iconclinica from '../assets/img_svg/clinic.svg?react';
 import Iconesportiva from '../assets/img_svg/esportiva.svg?react';
 import Iconemagrecer from '../assets/img_svg/emagrecimento.svg?react';
 import Iconintolerancia from '../assets/img_svg/intolerancia.svg?react';
 import Iconpediatria from '../assets/img_svg/pediatria.svg?react';
 
-
-//CSS
-import '../css/Home.css';
-
-
-
 export default function Sobre() {
   return (
-    <main className="sobre-main">
-      {/* Top curved background area */}
-      <section className="sobre-top-section">
-        <div className="curved-bg-container" aria-hidden="true">
-          <svg
-            className="curved-bg-svg"
-            fill="none"
-            preserveAspectRatio="none"
-            viewBox="0 0 1440 150"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M0 150C120 150 240 0 480 0C720 0 720 150 960 150C1200 150 1320 0 1440 0V150H0Z"
-              className="curved-bg-path"
-            />
-          </svg>
-        </div>
-
-        <div className="sobre-top-content">
-          {/* Wrapper for photo + white card */}
+    <main className="sobre-main bg-branco">
+      {/* HERO sem onda */}
+      <section className="sobre-hero">
+        <div className="sobre-hero-inner">
           <div className="cards-container">
             <div className="white-card" aria-hidden="true" />
             <div className="photo-card" aria-label="Foto Nutri">
+              {/* Quando quiser trocar por imagem:
+                  <img className="photo-img" src="/caminho/da/imagem.jpg" alt="Foto da nutricionista" />
+               */}
               Foto<br />Nutri
             </div>
           </div>
 
-          {/* Text content */}
           <div className="sobre-text">
-            <h2 className="sobre-title">
-              Sobre Mim<br />Sua Nutricionista Online
-            </h2>
-            <div className="sobre-divider" />
+            <h1 className="sobre-title">
+              Sobre Mim <span className="divider-dot" aria-hidden>•</span> Sua Nutricionista Online
+            </h1>
             <p className="sobre-intro">
               <span className="sobre-highlight">Sou nutricionista por paixão</span>, ajudando você a encontrar equilíbrio e saúde em cada refeição.
             </p>
+
+            <div className="sobre-cta">
+              <Link to="/consultas" className="btn-agendar">Agendar consulta</Link>
+              {/* Removido o botão "Ver especialidades" */}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Content below curved area */}
+      {/* CONTEÚDO */}
       <section className="sobre-content">
         <article className="sobre-article">
-          <h3 className="sobre-subtitle">
-            Dra. Natália Simanoviski&nbsp;-&nbsp;CRN: 37892
-          </h3>
-          <p className="sobre-paragraph">
-            Nutricionista especializada em saúde e bem-estar, com um olhar atento às suas necessidades individuais. Meu compromisso é te ajudar a alcançar equilíbrio e qualidade de vida através da alimentação – sem dietas restritivas, com estratégias eficazes e personalizadas.
+          <h2 className="section-title">
+            Dra. Natália Simanoviski <span className="crn">CRN 37892</span>
+          </h2>
+
+          <p className="lead">
+            Nutricionista especializada em saúde e bem-estar, com um olhar atento às suas necessidades individuais. Meu compromisso
+            é te ajudar a alcançar equilíbrio e qualidade de vida através da alimentação – sem dietas restritivas, com estratégias
+            eficazes e personalizadas.
           </p>
 
-          <h3 className="sobre-subtitle">
-            <svg className="sobre-icon arrow-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M10 17l5-5-5-5v10zM5 19h2v-14H5v14z" />
-            </svg>
-            Formação e Especializações
-          </h3>
+          <h3 className="section-title">Formação e Especializações</h3>
           <ul className="sobre-list">
             <li>Graduação em Nutrição pelo Centro Universitário São Camilo.</li>
             <li>Pós-graduação em Nutrição Clínica Pediátrica pelo Instituto da Criança do HCFMUSP.</li>
             <li>Pós-graduação em Nutrição Clínica Pediátrica pelo Instituto da Criança do HCFMUSP.</li>
           </ul>
 
-          <h3 className="sobre-subtitle">
-            <svg className="sobre-icon arrow-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M10 17l5-5-5-5v10zM5 19h2v-14H5v14z" />
-            </svg>
-            Minhas Áreas de Atuação
-          </h3>
+          <h3 className="section-title">Minhas Áreas de Atuação</h3>
           <div className="sobre-areas">
-  
+            {/* Mobile: Carrossel */}
+            <div className="sobre-areas-carousel">
+              <CarroselMobile
+              
+                tipo="servicos"
+                dados={[
+                  { id: 1, icone: <Iconclinica />, nome: "Nutrição Clínica",  link: "/especialidade/clinica" },
+                  { id: 2, icone: <Iconpediatria />, nome: "Nutrição Pediátrica", link: "/especialidade/pediatrica" },
+                  { id: 3, icone: <Iconesportiva />, nome: "Nutrição Esportiva", link: "/especialidade/esportiva" },
+                  { id: 4, icone: <Iconemagrecer />, nome: "Emagrecimento e Obesidade", link: "/especialidade/emagrecimento" },
+                  { id: 5, icone: <Iconintolerancia />, nome: "Intolerâncias Alimentares", link: "/especialidade/intolerancia" },
+                ]}
+              />
+            </div>
 
-                <div className="home-categorias">
-                    <div className="home-linha">
+            {/* Desktop/Tablet: duas fileiras centralizadas (Home) */}
+            <div className="home-categorias sobre-areas-grid">
+              <div className="home-linha">
+                <Link to="/especialidade/clinica" className="home-categoria">
+                  <Iconclinica className="home-icone" />
+                  <p>Nutrição Clínica</p>
+                </Link>
 
-                        <Link to="/especialidade/clinica" className="home-categoria">
-                            <Iconclinica className="home-icone" />
-                            <p>Nutrição Clínica</p>
-                        </Link>
+                <Link to="/especialidade/esportiva" className="home-categoria">
+                  <Iconesportiva className="home-icone" />
+                  <p>Nutrição Esportiva</p>
+                </Link>
 
-                        <Link to="/especialidade/pediatrica" className="home-categoria">
-                            <Iconpediatria className="home-icone" />
-                            <p>Nutrição Pediátrica</p>
-                        </Link>
-
-                        <Link to="/especialidade/esportiva" className="home-categoria">
-                            <Iconesportiva className="home-icone" />
-                            <p>Nutrição Esportiva</p>
-                        </Link>
-                    </div>
-
-                    <div className="home-linha home-linha-menor">
-                        <Link to="/especialidade/emagrecimento" className="home-categoria">
-                            <Iconemagrecer className="home-icone" />
-                            <p>Emagrecimento <br />e Obesidade</p>
-                        </Link>
-
-                        <Link to="/especialidade/intolerancia" className="home-categoria">
-                            <Iconintolerancia className="home-icone" />
-                            <p>Intolerâncias <br /> Alimentares</p>
-                        </Link>
-                    </div>
-                </div>
+                <Link to="/especialidade/pediatrica" className="home-categoria">
+                  <Iconpediatria className="home-icone" />
+                  <p>Nutrição Pediátrica</p>
+                </Link>
               </div>
-        
 
-          <h3 className="sobre-subtitle">
-            <svg className="sobre-icon arrow-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M10 17l5-5-5-5v10zM5 19h2v-14H5v14z" />
-            </svg>
-            Qual é o meu Diferencial?
-          </h3>
+              <div className="home-linha home-linha-menor">
+                <Link to="/especialidade/emagrecimento" className="home-categoria">
+                  <Iconemagrecer className="home-icone" />
+                  <p>Emagrecimento e Obesidade</p>
+                </Link>
+
+                <Link to="/especialidade/intolerancia" className="home-categoria">
+                  <Iconintolerancia className="home-icone" />
+                  <p>Intolerâncias Alimentares</p>
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <h3 className="section-title">Qual é o meu Diferencial?</h3>
           <p className="sobre-paragraph">
-            Mais do que nutricionista, quero ser <span className="sobre-highlight-alt">sua amiga e parceira</span>. Com um atendimento humanizado e acolhedor, te guio para uma alimentação equilibrada e leve, respeitando sua individualidade.
+            Mais do que nutricionista, quero ser <span className="sobre-highlight-alt">sua amiga e parceira</span>. Com um atendimento
+            humanizado e acolhedor, te guio para uma alimentação equilibrada e leve, respeitando sua individualidade.
           </p>
         </article>
       </section>
