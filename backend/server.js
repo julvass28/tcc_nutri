@@ -17,3 +17,5 @@ sequelize.sync().then(() => {
     console.log(`🚀 Servidor rodando na porta ${process.env.PORT}`)
   );
 });
+ const receitaRoutes = require("./routes/receitaRoutes");
+app.use(receitaRoutes);
