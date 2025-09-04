@@ -58,7 +58,6 @@ import UsersPage from "./pages/admin/UsersPage";
 
 export default function App() {
   return (
-  <HorarioProvider>
     <Router>
       <ScrollToTop
         excludePaths={[
@@ -138,6 +137,5 @@ export default function App() {
         </Route>
       </Routes>
     </Router>
- </HorarioProvider>
   );
 }
