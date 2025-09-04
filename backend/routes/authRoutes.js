@@ -1,4 +1,3 @@
-// backend/routes/authRoutes.js
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
@@ -26,6 +25,7 @@ router.get("/me", authMiddleware, async (req, res) => {
         "altura",
         "peso",
         "objetivo",
+        "isAdmin",
       ],
     });
     if (!usuario)
@@ -151,7 +151,6 @@ router.post("/redefinir-senha", async (req, res) => {
       return res.status(400).json({ message: "Código inválido ou expirado." });
     }
 
-    // <<< NOVO: impede usar a mesma senha de antes
     const mesmaSenha = await bcrypt.compare(novaSenha, usuario.senha);
     if (mesmaSenha) {
       return res
@@ -175,7 +174,6 @@ router.post("/redefinir-senha", async (req, res) => {
 });
 
 /** ================== PERFIL: ATUALIZAÇÃO TEXTUAL ================== */
-/** ================== PERFIL: ATUALIZAÇÃO TEXTUAL ================== */
 router.put("/perfil", authMiddleware, async (req, res) => {
   try {
     const {
@@ -193,7 +191,6 @@ router.put("/perfil", authMiddleware, async (req, res) => {
     if (!usuario)
       return res.status(404).json({ erro: "Usuário não encontrado" });
 
-    // 🚫 NÃO PERMITE alterar e-mail (requisito)
     if (typeof email !== "undefined" && email !== usuario.email) {
       return res.status(400).json({ erro: "E-mail não pode ser alterado." });
     }
@@ -201,7 +198,6 @@ router.put("/perfil", authMiddleware, async (req, res) => {
     await usuario.update({
       nome,
       sobrenome,
-      // email intencionalmente NÃO vai aqui
       data_nascimento,
       genero,
       altura,

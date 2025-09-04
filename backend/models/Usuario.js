@@ -1,14 +1,14 @@
 // backend/models/Usuario.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/db");
 
-const Usuario = sequelize.define('Usuario', {
+const Usuario = sequelize.define("Usuario", {
   nome: DataTypes.STRING,
   sobrenome: DataTypes.STRING,
   email: {
     type: DataTypes.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
   },
   senha: DataTypes.STRING,
   data_nascimento: DataTypes.DATE,
@@ -17,6 +17,11 @@ const Usuario = sequelize.define('Usuario', {
   peso: DataTypes.FLOAT,
   objetivo: DataTypes.STRING,
 
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   // NOVO:
   fotoUrl: {
     type: DataTypes.STRING,
@@ -30,7 +35,7 @@ const Usuario = sequelize.define('Usuario', {
   tokenExpiraEm: {
     type: DataTypes.DATE,
     allowNull: true,
-  }
+  },
 });
 
 module.exports = Usuario;
