@@ -58,7 +58,7 @@ const PaginaEspecialidade = () => {
       <section className="agendamento">
         <div className="box-agendar">
           <p>Agende sua Consulta e tenha um plano alimentar personalizado</p>
-          <button>Agendar Consulta</button>
+          <button  to="/agendar-consulta">Agendar Consulta</button>
         </div>
       </section>
 

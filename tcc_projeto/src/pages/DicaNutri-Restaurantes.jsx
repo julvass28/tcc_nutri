@@ -134,7 +134,7 @@ const NutriIndica = () => {
         <footer className="dica-nutri-footer" aria-label="Agendamento">
           AGENDE SUA CONSULTA E TENHA DICAS EXCLUSIVAS
         </footer>
-        <Botao >Agendar Consulta</Botao>
+        <Botao to="/agendar-consulta">Agendar Consulta</Botao>
           <div className="form espacamento">
                         <Formulario />
                     </div>

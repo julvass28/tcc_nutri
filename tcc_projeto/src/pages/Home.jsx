@@ -118,7 +118,7 @@ function Home() {
           <div className="home-imagem-com-gradiente" />
           <div className="home-bloco-texto">
             <h1>Te ajudo a transformar sua alimentação de forma leve e sem complicações!</h1>
-            <Botao className='botao-inicial-home'>Agendar Consulta</Botao>
+            <Botao className='botao-inicial-home' to="/agendar-consulta">Agendar Consulta</Botao>
           </div>
         </div>
 
@@ -319,7 +319,7 @@ function Home() {
               <h2>R$ 150</h2>
               <span>consulta avulsa</span>
             </div>
-            <Botao className="botao-verde">Agendar Consulta</Botao>
+            <Botao className="botao-verde" to="/agendar-consulta">Agendar Consulta</Botao>
           </div>
         </div>
       </div>
