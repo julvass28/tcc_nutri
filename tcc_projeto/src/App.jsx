@@ -46,7 +46,7 @@ import PaoDeQueijo from "./pages/receitas/PaoDeQueijo";
 import BoloDeCacau from "./pages/receitas/BoloDeCacau";
 import PanquecaDeBanana from "./pages/receitas/PanquecaDeBanana";
 import PerfilEditar from "./pages/PerfilEditar";
-
+import AgendarConsulta from "./pages/agendar_consulta";
 import Perfil from "./pages/perfil";
 
 export default function App() {
@@ -82,6 +82,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<CriarConta />} />
         <Route path="/esqueci-senha" element={<ForgotPassword />} />
+        <Route path="/agendar-consulta" element={<AgendarConsulta />} />
 
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/perfil/editar" element={<PerfilEditar />} />
