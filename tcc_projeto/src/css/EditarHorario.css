@@ -1,0 +1,52 @@
+.pagina-editar-horario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f7f3;
+  min-height: 100vh;
+}
+
+.pagina-editar-horario h1 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #3e3e3e;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.nome-refeicao {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.pagina-editar-horario input[type="time"] {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1px solid #b4b8a8;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  margin-bottom: 30px;
+  width: 200px;
+  text-align: center;
+}
+
+.pagina-editar-horario button {
+  background-color: #c89b9b;
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 500;
+}
+
+.pagina-editar-horario button:hover {
+  background-color: #a67777;
+}

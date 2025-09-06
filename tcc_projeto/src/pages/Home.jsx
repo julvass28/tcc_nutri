@@ -169,23 +169,31 @@ function Home() {
         />
       </div>
 
-      <div className="secao-home espacamento">
-        <Titulo texto="Qual o seu objetivo?" />
-        <div className="home-categorias">
-          <div className="home-linha">
-            <Link to="/especialidade/clinica" className="home-categoria">
-              <Iconclinica className="home-icone" />
-              <p>Nutrição Clínica</p>
-            </Link>
-            <Link to="/especialidade/pediatrica" className="home-categoria">
-              <Iconpediatria className="home-icone" />
-              <p>Nutrição Pediátrica</p>
-            </Link>
-            <Link to="/especialidade/esportiva" className="home-categoria">
-              <Iconesportiva className="home-icone" />
-              <p>Nutrição Esportiva</p>
-            </Link>
-          </div>
+            <div className="secao-home espacamento">
+                <Titulo texto="Qual o seu objetivo?" />
+
+                <div className="home-categorias">
+                    <div className="home-linha">
+
+
+
+
+                        <Link to="/especialidade/clinica" className="home-categoria">
+                            <Iconclinica className="home-icone" />
+                            <p>Nutrição Clínica</p>
+                        </Link>
+
+                        <Link to="/especialidade/pediatrica" className="home-categoria">
+                            <Iconpediatria className="home-icone" />
+                            <p>Nutrição Pediátrica</p>
+                        </Link>
+
+                        <Link to="/especialidade/esportiva" className="home-categoria">
+                            <Iconesportiva className="home-icone" />
+                            <p>Nutrição Esportiva</p>
+                        </Link>
+                    </div>
+
 
           <div className="home-linha home-linha-menor">
             <Link to="/especialidade/emagrecimento" className="home-categoria">

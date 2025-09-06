@@ -1,6 +1,5 @@
 // src/pages/agendar_consulta.jsx
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/agendar_consulta.css";
 
 import phoneImg from "../assets/phone_cuate.png";
@@ -8,8 +7,6 @@ import avocadoImg from "../assets/avocado_toast.png";
 import Botao from "../components/botao/Botao";
 
 export default function Agendamento() {
-  const navigate = useNavigate();
-
   const scrollToConteudo = () => {
     document.getElementById("conteudo")?.scrollIntoView({
       behavior: "smooth",
@@ -17,7 +14,6 @@ export default function Agendamento() {
     });
   };
 
-  // lista de benefícios (evita repetição no JSX)
   const beneficios = [
     { icon: "fa-solid fa-user", texto: "Atendimento individualizado" },
     { icon: "fa-solid fa-apple-whole", texto: "Plano alimentar personalizado" },
@@ -48,7 +44,7 @@ export default function Agendamento() {
 
             <div className="hero-actions">
               <Botao onClick={scrollToConteudo}>Ver detalhes</Botao>
-              {/* <Botao onClick={() => navigate("/selecionar-data")}>Agendar consulta</Botao> */}
+              {/* <Botao to="/selecionar-data">Agendar consulta</Botao> */}
             </div>
           </div>
         </div>
@@ -65,20 +61,20 @@ export default function Agendamento() {
           consulta.
         </p>
 
-        <article className="card">
-          <h4>Consulta de Nutrição</h4>
+        {/* Card de consulta (classes escopadas) */}
+        <article className="ag-card">
+          <h4 className="ag-card__heading">Consulta de Nutrição</h4>
 
-          <div className="card-layout">
+          <div className="ag-card__layout">
             <img
               src={avocadoImg}
               alt="Torrada com abacate e ovo frito"
-              className="card-img"
+              className="ag-card__img"
               loading="lazy"
             />
 
-            <div className="card-info">
+            <div className="ag-card__info">
               <p className="destaque">Avaliação completa e plano personalizado</p>
-
               <ul>
                 {beneficios.map(({ icon, texto }) => (
                   <li key={texto}>
@@ -90,7 +86,7 @@ export default function Agendamento() {
             </div>
           </div>
 
-          <p className="preco">
+          <p className="ag-card__price">
             preço fixo de: <span>R$ 80,00</span>
           </p>
         </article>

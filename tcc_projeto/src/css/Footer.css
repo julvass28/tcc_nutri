@@ -566,6 +566,27 @@
 .section-footer{
   height: 25vw;
 }
-
 }
                            
+/* quando o CTA some, centraliza verticalmente a coluna da direita */
+.section-footer.no-cta {
+  justify-content: center;      /* centraliza verticalmente */
+  gap: 0.5rem;                  /* leve respiro entre logo e ícones */
+  transform: translateY(-25px);   /* sobe ~8px */
+}
+
+/* no mobile, sobe um pouquinho menos pra não colar demais */
+@media (max-width: 480px) {
+  .section-footer.no-cta {
+    transform: translateY(-4px);
+  }
+}
+
+/* ícones que “desceram” pra perto da logo: dá um espacinho do CRN */
+.section-footer.no-cta .logo-footer .icons-footer,
+.section-footer-mobile .logo-footer .icons-footer {
+  margin-top: 8px;
+}
+
+/* (opcional) Remover espaço extra quando o CTA existe, mantendo layout atual */
+.section-footer .section-pai { margin-bottom: 8px; }

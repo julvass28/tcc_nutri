@@ -1,19 +1,21 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./App.css";
+
+import ScrollToTop from "./components/ScrollToTop";
+import PublicLayout from "./layouts/PublicLayout";
+
+// Páginas públicas
+import Home from "./pages/Home";
 import IMCCalculator from "./pages/IMCCalculator";
 import AGUACalculator from "./pages/AGUACalculator";
 import GASTOCalculator from "./pages/GASTOCalculator";
 import Sobre from "./pages/Sobre";
 import PaginaRota from "./pages/PaginaRota";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "./App.css";
 import FAQContato from "./pages/faq_contato";
 import Login from "./pages/Login";
 import CriarConta from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
-import ScrollToTop from "./components/ScrollToTop";
-import Home from "./pages/Home";
 import Praia from "./pages/DicaNutri-Praia";
 import Restaurantes from "./pages/DicaNutri-Restaurantes";
 import FastFood from "./pages/DicaNutri-FastFood";
@@ -46,8 +48,14 @@ import PaoDeQueijo from "./pages/receitas/PaoDeQueijo";
 import BoloDeCacau from "./pages/receitas/BoloDeCacau";
 import PanquecaDeBanana from "./pages/receitas/PanquecaDeBanana";
 import PerfilEditar from "./pages/PerfilEditar";
-import AgendarConsulta from "./pages/agendar_consulta";
 import Perfil from "./pages/perfil";
+import AgendarConsulta from "./pages/agendar_consulta";
+
+// Admin
+import ProtectedRouteAdmin from "./routes/ProtectedRouteAdmin";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import UsersPage from "./pages/admin/UsersPage";
 
 export default function App() {
   return (
@@ -67,92 +75,69 @@ export default function App() {
           "/receitas/intolerancias",
         ]}
       />
-      <Header />
+
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/calculadoras/consumo-agua" element={<AGUACalculator />} />
-        <Route path="/calculadoras/imc" element={<IMCCalculator />} />
-        <Route
-          path="/calculadoras/gasto-calorico"
-          element={<GASTOCalculator />}
-        />
-        <Route path="/especialidade/:tipo" element={<PaginaRota />} />
-        <Route path="/sobre" element={<Sobre />} />
-        <Route path="/contato" element={<FAQContato />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cadastro" element={<CriarConta />} />
-        <Route path="/esqueci-senha" element={<ForgotPassword />} />
-        <Route path="/agendar-consulta" element={<AgendarConsulta />} />
+        {/* Layout PÚBLICO com Header/Footer */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/calculadoras/consumo-agua" element={<AGUACalculator />} />
+          <Route path="/calculadoras/imc" element={<IMCCalculator />} />
+          <Route path="/calculadoras/gasto-calorico" element={<GASTOCalculator />} />
+          <Route path="/especialidade/:tipo" element={<PaginaRota />} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/contato" element={<FAQContato />} />
+          <Route path="/agendar-consulta" element={<AgendarConsulta />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cadastro" element={<CriarConta />} />
+          <Route path="/esqueci-senha" element={<ForgotPassword />} />
+          <Route path="/perfil" element={<Perfil />} />
+          <Route path="/perfil/editar" element={<PerfilEditar />} />
+          <Route path="/DicaNutri-Praia" element={<Praia />} />
+          <Route path="/DicaNutri-Restaurantes" element={<Restaurantes />} />
+          <Route path="/DicaNutri-FastFood" element={<FastFood />} />
+          <Route path="/DicaNutri-Shopping" element={<Shopping />} />
+          <Route path="/DicaNutri-Bar" element={<Bar />} />
+          <Route path="/DicaNutri-Viagem" element={<Viagem />} />
+          <Route path="/receitas/clinica" element={<ReceitasClinicas />} />
+          <Route path="/receitas/pediatrica" element={<ReceitasPediatricas />} />
+          <Route path="/receitas/esportiva" element={<ReceitasEsportivas />} />
+          <Route path="/receitas/emagrecimento" element={<ReceitasEmagrecimento />} />
+          <Route path="/receitas/intolerancias" element={<ReceitasIntolerancias />} />
+          <Route path="/receitas/info/PudimDeChia" element={<PudimDeChia />} />
+          <Route path="/receitas/info/ChaiLatte" element={<ChaiLatte />} />
+          <Route path="/receitas/info/Crepioca" element={<Crepioca />} />
+          <Route path="/receitas/info/ChipsDeBatata" element={<ChipsDeBatata />} />
+          <Route path="/receitas/info/PanquecaDeBananaEAveia" element={<PanquecaDeBananaEAveia />} />
+          <Route path="/receitas/info/BoloDeCenoura" element={<BoloDeCenoura />} />
+          <Route path="/receitas/info/Nuggets" element={<Nuggets />} />
+          <Route path="/receitas/info/SmoothieDeMorango" element={<SmoothieDeMorango />} />
+          <Route path="/receitas/info/SmoothieEnergetico" element={<SmoothieEnergetico />} />
+          <Route path="/receitas/info/BarrinhaDeCereal" element={<BarrinhaDeCereal />} />
+          <Route path="/receitas/info/Hamburguer" element={<Hamburguer />} />
+          <Route path="/receitas/info/PaoDeBanana" element={<PaoDeBanana />} />
+          <Route path="/receitas/info/Suco" element={<Suco />} />
+          <Route path="/receitas/info/SaladaDeQuinoa" element={<SaladaDeQuinoa />} />
+          <Route path="/receitas/info/PaoLowCarb" element={<PaoLowCarb />} />
+          <Route path="/receitas/info/Omelete" element={<Omelete />} />
+          <Route path="/receitas/info/LeiteDeAmendoas" element={<LeiteDeAmendoas />} />
+          <Route path="/receitas/info/PaoDeQueijo" element={<PaoDeQueijo />} />
+          <Route path="/receitas/info/BoloDeCacau" element={<BoloDeCacau />} />
+          <Route path="/receitas/info/PanquecaDeBanana" element={<PanquecaDeBanana />} />
+        </Route>
 
-        <Route path="/perfil" element={<Perfil />} />
-        <Route path="/perfil/editar" element={<PerfilEditar />} />
-        <Route path="/DicaNutri-Praia" element={<Praia />} />
-        <Route path="/DicaNutri-Restaurantes" element={<Restaurantes />} />
-        <Route path="/DicaNutri-FastFood" element={<FastFood />} />
-        <Route path="/DicaNutri-Shopping" element={<Shopping />} />
-        <Route path="/DicaNutri-Bar" element={<Bar />} />
-        <Route path="/DicaNutri-Viagem" element={<Viagem />} />
-        <Route path="/receitas/clinica" element={<ReceitasClinicas />} />
-        <Route path="/receitas/pediatrica" element={<ReceitasPediatricas />} />
-        <Route path="/receitas/esportiva" element={<ReceitasEsportivas />} />
+        {/* Layout ADMIN sem Header/Footer */}
         <Route
-          path="/receitas/emagrecimento"
-          element={<ReceitasEmagrecimento />}
-        />
-        <Route
-          path="/receitas/intolerancias"
-          element={<ReceitasIntolerancias />}
-        />
-        <Route path="/receitas/info/PudimDeChia" element={<PudimDeChia />} />
-        <Route path="/receitas/info/ChaiLatte" element={<ChaiLatte />} />
-        <Route path="/receitas/info/Crepioca" element={<Crepioca />} />
-        <Route
-          path="/receitas/info/ChipsDeBatata"
-          element={<ChipsDeBatata />}
-        />
-        <Route
-          path="/receitas/info/PanquecaDeBananaEAveia"
-          element={<PanquecaDeBananaEAveia />}
-        />
-        <Route
-          path="/receitas/info/BoloDeCenoura"
-          element={<BoloDeCenoura />}
-        />
-        <Route path="/receitas/info/Nuggets" element={<Nuggets />} />
-        <Route
-          path="/receitas/info/SmoothieDeMorango"
-          element={<SmoothieDeMorango />}
-        />
-        <Route
-          path="/receitas/info/SmoothieEnergetico"
-          element={<SmoothieEnergetico />}
-        />
-        <Route
-          path="/receitas/info/BarrinhaDeCereal"
-          element={<BarrinhaDeCereal />}
-        />
-        <Route path="/receitas/info/Hamburguer" element={<Hamburguer />} />
-        <Route path="/receitas/info/PaoDeBanana" element={<PaoDeBanana />} />
-        <Route path="/receitas/info/Suco" element={<Suco />} />
-        <Route
-          path="/receitas/info/SaladaDeQuinoa"
-          element={<SaladaDeQuinoa />}
-        />
-        <Route path="/receitas/info/PaoLowCarb" element={<PaoLowCarb />} />
-        <Route path="/receitas/info/Omelete" element={<Omelete />} />
-        <Route
-          path="/receitas/info/LeiteDeAmendoas"
-          element={<LeiteDeAmendoas />}
-        />
-        <Route path="/receitas/info/PaoDeQueijo" element={<PaoDeQueijo />} />
-        <Route path="/receitas/info/BoloDeCacau" element={<BoloDeCacau />} />
-        <Route
-          path="/receitas/info/PanquecaDeBanana"
-          element={<PanquecaDeBanana />}
-        />
+          path="/admin"
+          element={
+            <ProtectedRouteAdmin>
+              <AdminLayout />
+            </ProtectedRouteAdmin>
+          }
+        >
+          <Route index element={<AdminDashboard />} />
+          <Route path="users" element={<UsersPage />} />
+        </Route>
       </Routes>
-
-      <Footer />
     </Router>
   );
 }

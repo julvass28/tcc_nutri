@@ -273,6 +273,15 @@ function Header() {
                   Meu Perfil
                 </Link>
               </li>
+
+              {user?.isAdmin && (
+                <li>
+                  <Link to="/admin" onClick={() => setOpenMenu(false)}>
+                    Página Admin
+                  </Link>
+                </li>
+              )}
+
               <li>
                 <button onClick={handleLogoutAndGoLogin} className="logout-btn">
                   Sair
@@ -304,7 +313,7 @@ function Header() {
             </Link>
           </li>
           <li>
-            <Link to="#">
+            <Link to="/agendar-consulta">
               <span className="nav-text">Agendar Consulta</span>
             </Link>
           </li>
@@ -347,6 +356,19 @@ function Header() {
                     Meu Perfil
                   </Link>
                 </li>
+
+                {user?.isAdmin && (
+                  <li role="none">
+                    <Link
+                      role="menuitem"
+                      to="/admin"
+                      onClick={() => setOpenPerfilMenu(false)}
+                    >
+                      Página Admin
+                    </Link>
+                  </li>
+                )}
+
                 <li role="none">
                   <button
                     role="menuitem"

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 /* Paleta base + ícones */
 :root{
   --bg: #ffffff;
@@ -42,16 +45,10 @@ h2, h3, h4 {
   margin: 0 auto;
 }
 
-.hero-img {
-  width: min(380px, 100%);
-  justify-self: center;
-}
+.hero-img { width: min(380px, 100%); justify-self: center; }
 
 .hero-text { max-width: 640px; }
-.hero-text h2 {
-  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
-  margin-bottom: .75rem;
-}
+.hero-text h2 { font-size: clamp(1.75rem, 2.5vw, 2.25rem); margin-bottom: .75rem; }
 .hero-text h2 span { color: var(--accent); }
 .hero-text p { font-size: 1rem; line-height: 1.7; opacity: .95; }
 
@@ -62,8 +59,6 @@ h2, h3, h4 {
   margin-top: 1.25rem;
   justify-content: flex-end;
 }
-
-/* dá um pequeno respiro quando o botão aparece nessas seções */
 .hero-actions .botao { margin-right: .25rem; }
 .cta .botao { margin-top: .25rem; }
 
@@ -83,47 +78,39 @@ h2, h3, h4 {
   gap: .5rem;
   align-items: center;
 }
+.conteudo p { font-size: 1.05rem; line-height: 1.7; margin-bottom: 1.25rem; }
 
-.conteudo p {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  margin-bottom: 1.25rem;
-}
-
-/* ---------- CARD ---------- */
-.card {
+/* ---------- CARD (escopado) ---------- */
+.ag-card {
   background: var(--card);
   border-radius: .75rem;
   padding: 1.25rem 1.25rem .75rem;
   margin-bottom: 2rem;
 }
 
-.card h4 {
-  font-size: 1.35rem;
-  margin-bottom: .9rem;
-  margin-left: .4rem;
-}
+.ag-card__heading { font-size: 1.35rem; margin-bottom: .9rem; margin-left: .4rem; }
 
-/* Grid do card (com respiro lateral interno) */
-.card-layout {
+/* o grid passa a esticar os filhos na vertical */
+.ag-card__layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(1rem, 3vw, 2rem);
-  align-items: start;
-  padding: 0 0.4rem;
+  align-items: stretch;        /* ✅ estica ambos */
+  padding: 0 .4rem;
 }
 
-/* Imagem com altura fixa */
-.card-img {
+/* imagem preenche 100% da altura da linha, com um mínimo */
+.ag-card__img {
   width: 100%;
-  height: var(--card-col-h);
+  height: 100%;                /* ✅ iguala à altura do card ao lado */
+  min-height: var(--card-col-h);
   border-radius: .5rem;
   object-fit: cover;
   display: block;
 }
 
-/* Painel de infos */
-.card-info {
+/* painel também ocupa 100%, com mesmo mínimo */
+.ag-card__info {
   background: var(--card-inner);
   padding: 1.25rem;
   border-radius: .5rem;
@@ -133,32 +120,22 @@ h2, h3, h4 {
   display: flex;
   flex-direction: column;
   gap: .75rem;
-  min-height: 180px;
-  height: auto;
+  height: 100%;                /* ✅ iguala */
+  min-height: var(--card-col-h);
   overflow: visible;
 }
 
-.card-info .destaque {
-  font-weight: 600;
-  font-size: 1.2rem;
-  margin-bottom: .5rem;
-}
+.ag-card__info .destaque { font-weight: 600; font-size: 1.2rem; margin-bottom: .5rem; }
 
-.card-info ul {
+.ag-card__info ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
   gap: .35rem;
 }
-
-.card-info ul li {
-  display: flex;
-  gap: .5rem;
-  align-items: center;
-}
-
-.card-info ul li i.icon {
+.ag-card__info li { display: flex; gap: .5rem; align-items: center; }
+.ag-card__info i.icon {
   color: var(--icon-green);
   font-size: 1.1rem;
   line-height: 1;
@@ -168,14 +145,13 @@ h2, h3, h4 {
 }
 
 /* preço */
-.preco {
+.ag-card__price {
   margin: .6rem .4rem 0 .4rem; /* top right bottom left */
   text-align: right;
   color: var(--text);
-  font-size: .87rem;       /* controla “preço fixo de:” */
+  font-size: .87rem; /* controla “preço fixo de:” */
 }
-
-.preco span {
+.ag-card__price span {
   font-size: 1.3rem;
   font-weight: 400;
   font-family: 'Lustria', serif;
@@ -187,7 +163,6 @@ h2, h3, h4 {
   max-width: 480px;
   margin: 2rem auto 2.5rem;
 }
-
 .cta p {
   color: var(--green);
   font-size: 1.4rem;
@@ -195,7 +170,7 @@ h2, h3, h4 {
   margin-bottom: .9rem;
   text-transform: uppercase;
   letter-spacing: .5px;
-  font-family: 'Quicksand', serif;
+  font-family: 'Quicksand', serif; /* mantém como estava */
 }
 
 /* ---------- RESPONSIVO ---------- */
@@ -204,37 +179,8 @@ h2, h3, h4 {
   .hero-text { margin: 0 auto; }
   .hero-actions { justify-content: center; }
 
-  .card-layout { grid-template-columns: 1fr; }
-
-  .card-img { height: auto; max-height: none; }
-  .card-info { height: auto; min-height: auto; }
-
-  .preco { text-align: left; }
-}
-
-/* Garantias de esticar a coluna de infos (mantém o visual que você curtiu) */
-.card .card-layout {
-  justify-items: stretch !important;
-  align-items: start;
-}
-
-.card .card-layout .card-info {
-  width: 100% !important;
-  max-width: none !important;
-  box-sizing: border-box;
-  justify-self: stretch !important;
-  align-self: stretch !important;
-  margin: 0 !important;
-  text-align: left !important;
-}
-
-.card .card-layout .card-info > * { max-width: 100%; }
-
-.card-info,
-.card-info:focus,
-.card-info:focus-visible,
-.card-info:focus-within {
-  border: 0 !important;
-  outline: 0 !important;
-  box-shadow: none !important;
+  .ag-card__layout { grid-template-columns: 1fr; }
+  .ag-card__img { height: auto; max-height: none; min-height: 0;}
+  .ag-card__info { height: auto; min-height: 0; }
+  .ag-card__price { text-align: left; }
 }

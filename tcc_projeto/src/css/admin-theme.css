@@ -1,0 +1,145 @@
+/* Tema admin alinhado à paleta do site (oliva/rosé/pastel) */
+.admin-shell{
+  --bg: #ECE7E6;           /* fundo pastel do site */
+  --surface: #FFFFFF;
+  --text: #2E2E2E;
+  --muted: #6B6B6B;
+  --border: #E8E4E2;
+
+  --brand-olive: #8A8F75;  /* oliva */
+  --brand-rose:  #D1A0A0;  /* rosé */
+  --accent: var(--brand-rose);
+  --primary: var(--brand-olive);
+
+  --radius: 14px;
+  --shadow-sm: 0 2px 6px rgba(0,0,0,.06);
+  --shadow-md: 0 10px 24px rgba(0,0,0,.10);
+}
+
+/* layout base */
+.admin-shell{display:flex;min-height:100vh;background:var(--bg);color:var(--text);}
+
+.admin-aside{
+  width:240px;background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+}
+.brand{
+  font-weight:700;font-size:16px;padding:16px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:8px;color:var(--primary);
+}
+.brand .dot{width:8px;height:8px;border-radius:999px;background:var(--primary);display:inline-block}
+
+.menu{padding:10px}
+.menu-item{
+  display:flex;align-items:center;gap:10px;color:#3f3f3f;text-decoration:none;
+  padding:10px 12px;border-radius:12px;margin:4px 0;border:1px solid transparent;
+}
+.menu-item:hover{background:rgba(138,143,117,.08);border-color:rgba(138,143,117,.18)}
+.menu-item.active{background:rgba(138,143,117,.14);border-color:rgba(138,143,117,.3);color:#1c1c1c}
+
+.admin-body{flex:1;display:flex;flex-direction:column;min-width:0}
+.admin-topbar{
+  position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:10px 16px;
+}
+.admin-topbar h1{font-size:16px;margin:0;color:#3a3a3a}
+
+.me{
+  display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--border);
+  border-radius:999px;background:var(--surface)
+}
+.btn-logout{
+  padding:8px 12px;border-radius:12px;border:1px solid var(--accent);background:#fff;color:var(--accent);cursor:pointer
+}
+.btn-logout:hover{background:rgba(209,160,160,.10)}
+
+.admin-main{padding:16px}
+
+/* dashboard cartões */
+.admin-dash h2{margin:0 0 8px}
+.cards{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px
+}
+.card{
+  display:flex;gap:12px;align-items:center;padding:14px;border-radius:16px;border:1px solid var(--border);
+  background:var(--surface);text-decoration:none;color:inherit;box-shadow:var(--shadow-sm)
+}
+.card:hover{background:#fafafa;border-color:rgba(138,143,117,.25)}
+.card span{display:block;color:#6b7280;font-size:13px}
+
+/* toolbar/busca */
+.toolbar{display:flex;gap:12px;align-items:center;margin:0 0 12px;flex-wrap:wrap}
+.searchbox{
+  display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:12px;padding:8px 10px;
+  background:var(--surface);min-width:260px;box-shadow:var(--shadow-sm)
+}
+.searchbox input{border:none;outline:none;min-width:180px;background:transparent}
+
+/* tabela */
+.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px;border-bottom:1px solid #f1eeec;text-align:left}
+th{
+  background:#faf9f9;font-weight:600;user-select:none;color:#494949;
+}
+th[role="button"]{cursor:pointer}
+
+.actions{display:flex;gap:8px}
+button{
+  padding:8px 12px;border-radius:12px;border:1px solid var(--border);background:#fff;cursor:pointer
+}
+
+.btn-danger{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+.btn-danger:hover{filter:brightness(.96)}
+
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid var(--border);font-size:12px;background:#fff}
+.badge.ok{background:rgba(138,143,117,.10);border-color:rgba(138,143,117,.25);color:#2a3a2a}
+
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;border:1px solid var(--border)}
+.pill.muted{color:#666;background:#f7f6f5}
+
+.pager{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin-top:12px}
+
+/* modal (perfil) + diálogo (confirm) */
+.modal-backdrop,.cd-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px;z-index:60
+}
+.modal-card,.cd-card{
+  background:var(--surface);width:min(720px,100%);border-radius:16px;padding:20px;
+  box-shadow:var(--shadow-md);border:1px solid var(--border)
+}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.modal-head .x{border:none;background:transparent;font-size:18px;cursor:pointer}
+
+.profile-row{display:flex;gap:16px;align-items:flex-start}
+.avatar-placeholder{
+  width:80px;height:80px;border-radius:12px;display:grid;place-items:center;background:#f0efee;font-weight:700;color:#888
+}
+
+/* ConfirmDialog botões */
+.cd-title{margin:0 0 6px;font-size:18px}
+.cd-message{margin:0 0 16px;color:#444}
+.cd-actions{display:flex;gap:8px;justify-content:flex-end}
+.cd-btn{padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:#fff;cursor:pointer}
+.cd-btn.outlined{border-color:var(--border)}
+.cd-btn.danger{background:var(--accent);color:#fff;border-color:var(--accent)}
+.cd-btn.danger:hover{filter:brightness(.96)}
+
+
+/* Botão outline padrão do tema (usado na topbar) */
+.btn-outline{
+  padding: 4px 6px;
+  margin-right: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--primary);
+  background: #fff;
+  color: var(--primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.btn-outline:hover{
+  background: rgb(138, 143, 117); /* oliva suave */
+}
