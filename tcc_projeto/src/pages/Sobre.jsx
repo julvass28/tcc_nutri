@@ -42,7 +42,7 @@ export default function Sobre() {
             </p>
 
             <div className="sobre-cta">
-              <Link to="/consultas" className="btn-agendar">Agendar consulta</Link>
+              <Link to="/agendar-consulta" className="btn-agendar">Agendar consulta</Link>
               {/* Removido o botão "Ver especialidades" */}
             </div>
           </div>
