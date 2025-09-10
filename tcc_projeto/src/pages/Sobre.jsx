@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Contato from "../components/Contato";
 // Ordem importa: Home.css antes, depois Sobre.css
 import '../css/Home.css';
 import '../css/Sobre.css';
@@ -126,6 +126,8 @@ export default function Sobre() {
           </p>
         </article>
       </section>
+      <Contato/>
     </main>
+    
   );
 }

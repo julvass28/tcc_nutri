@@ -6,6 +6,8 @@ import Formulario from "../components/formulario/formulario";
 import CarroselMobile from '../components/carrosel/mobile';
 import SectionCalculators from '../components/SectionCalculators';
 
+import Contato from "../components/Contato";
+
 // Bibliotecas
 import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
@@ -324,15 +326,14 @@ function Home() {
         </div>
       </div>
 
-      <div className="container-section-calculadoras-home">
-        <SectionCalculators />
-      </div>
-
-      <div className="form espacamento">
-        <Formulario />
-      </div>
-    </>
-  );
+            <div className="container-section-calculadoras-home">
+                <SectionCalculators />
+            </div>
+<Contato />
+            <div className="form espacamento">
+                <Formulario />
+            </div>
+        </>
+    );
 }
-
 export default Home;

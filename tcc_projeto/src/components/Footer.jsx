@@ -63,64 +63,69 @@ function Footer() {
               </div>
             </ul>
 
-            <div className="list-links-footer-active">
-              <ul className="list-links-footer">
-                <h3 className="list-text-servicos"> Serviços </h3>
-                <li><Link to="/especialidade/esportiva" id="li-design">Nutrição Esportiva</Link></li>
-                <li><Link to="/especialidade/pediatrica" id="li-design">Nutrição Pediátrica</Link></li>
-                <li><Link to="/especialidade/clinica" id="li-design">Nutrição Clínica</Link></li>
-                <li><Link to="/especialidade/emagrecimento" id="li-design">Emagrecimento e Obesidade</Link></li>
-                <li><Link to="/especialidade/intolerancia" id="li-design">Intolerâncias Aliemtares</Link></li>
-              </ul>
+                        <ul className='list-links'>
 
-              <ul className="list-links-footer">
-                <h3 className="list-text-calculadoras"> Calculadoras</h3>
-                <li><Link to="#" id="li-design">Calorias e Nutrientes</Link></li>
-                <li><Link to="/calculadoras/gasto-calorico" id="li-design">Gastos Caloricos</Link></li>
-                <li><Link to="/calculadoras/imc" id="li-design">IMC e Peso Ideal</Link></li>
-                <li><Link to="/calculadoras/consumo-agua" id="li-design">Consumo diário de Água</Link></li>
-              </ul>
-            </div>
+                            <h3 className='list-text-servicos'> Serviços </h3>
+                            <li><Link to="/especialidade/esportiva" id='li-design'>Nutrição Esportiva</Link></li>
+                            <li><Link to="/especialidade/pediatrica" id='li-design'>Nutrição Pediátrica</Link></li>
+                            <li><Link to="/especialidade/clinica" id='li-design'>Nutrição Clínica</Link></li>
+                            <li><Link to="/especialidade/emagrecimento" id='li-design'>Emagrecimento e Obesidade</Link></li>
+                            <li><Link to="/especialidade/intolerancia" id='li-design'>Intolerâncias Alimentares</Link></li>
+                        </ul>
 
-            {/* BLOCO DESKTOP */}
-            <div className="list-links-footer-mobile">
-              <ul className="list-links-footer">
-                <h3 className="list-text-servicos"> Serviços </h3>
-                <li><Link to="/especialidade/esportiva" id="li-design">Nutrição Esportiva</Link></li>
-                <li><Link to="/especialidade/pediatrica" id="li-design">Nutrição Pediátrica</Link></li>
-                <li><Link to="/especialidade/clinica" id="li-design">Nutrição Clínica</Link></li>
-                <li><Link to="/especialidade/emagrecimento" id="li-design">Emagrecimento e Obesidade</Link></li>
-                <li><Link to="/especialidade/intolerancia" id="li-design">Intolerâncias Alimentares</Link></li>
-              </ul>
+                        <ul className='list-links'>
 
-              <ul className="list-links-footer">
-                <h3 className="list-text-calculadoras"> Calculadoras</h3>
-                <li><Link to="#" id="li-design">Calorias e Nutrientes</Link></li>
-                <li><Link to="/calculadoras/gasto-calorico" id="li-design">Gastos Caloricos</Link></li>
-                <li><Link to="/calculadoras/imc" id="li-design">IMC e Peso Ideal</Link></li>
-                <li><Link to="/calculadoras/consumo-agua" id="li-design">Consumo diário de Água</Link></li>
-              </ul>
-            </div>
-          </nav>
+                            <h3 className='list-text-calculadoras'> Calculadoras</h3>
+                            <li><Link to="#" id='li-design'>Calorias e Nutrientes</Link></li>
+                            <li><Link to="/calculadoras/gasto-calorico" id='li-design'>Gastos Caloricos</Link></li>
+                            <li><Link to="/calculadoras/imc" id='li-design'>IMC e Peso Ideal</Link></li>
+                            <li><Link to="/calculadoras/consumo-agua" id='li-design'>Consumo diário de Água</Link></li>
+                        </ul>
+                    </nav>
 
-          {/* COLUNA DIREITA (desktop) */}
-          <div className={`section-footer ${hideCta ? "no-cta" : ""}`}>
-            {!hideCta && (
-              <div className="section-pai">
-                <Botao className="button-footer-agendar" to="/agendar-consulta">
-                  Agendar Consulta
-                </Botao>
-                <Icons />
-              </div>
-            )}
+                    <div className='section-footer'>
+                        <div className='section-pai'>
+                            
+                                 <Botao className='button-footer-agendar'>Agendar Consulta</Botao>
+                            
+                           <div className='icons-footer'>
+                               
+  <a
+    href="https://instagram.com/seu_user_aqui" //link do instagram
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Abrir Instagram"
+    title="Instagram"
+  >
+    <FaInstagram className="icon-footer" />
+  </a>
 
-            <div className="logo-footer">
-              <img src={logo} alt="Logo" width={200} />
-              <p id="crn">CRN : 37892 </p>
-              {hideCta && <Icons />}{/* ícones “descem” quando CTA some */}
-            </div>
-          </div>
-        </div>
+  <a
+    href="https://wa.me/5511976120337?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta." //link 
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Enviar WhatsApp"
+    title="WhatsApp"
+  >
+    <FaWhatsapp className="icon-footer" />
+  </a>
+
+  <a
+    href="mailto:dranatalia@simanovski.com?subject=Agendamento%20de%20consulta&body=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta." //link 
+    target="_blank"
+    aria-label="Enviar e-mail"
+    title="E-mail"
+  >
+    <HiOutlineEnvelope className="icon-footer" />
+  </a>
+</div>
+                        </div>
+                        <div className='logo-footer'>
+                            <img src="src\assets\img_png\Logo.png" alt="Logo" width={200} />
+                            <p id='crn'>CRN : 37892 </p>
+                        </div>
+                    </div>
+                </div>
 
         <div className="direitos">
           <p id="text-direitos-um">
