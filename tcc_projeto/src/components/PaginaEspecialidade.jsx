@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import './PaginaEspecialidade.css';
 import conteudosEspecialidades from '../data/conteudosEspecialidades';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
+import Contato from "../components/Contato";
 import imagemEsportiva from '../assets/esportiva.png';
 import imagemPediatrica from '../assets/pediatrica.png';
 import imagemClinica from '../assets/clinica.png';
@@ -55,10 +56,12 @@ const PaginaEspecialidade = () => {
       </section>
 
       {/* 3. Agendamento */}
-      <section className="agendamento">
-        <div className="box-agendar">
+      <section className="agendamento-esp">
+        <div className="box-agendar-esp">
           <p>Agende sua Consulta e tenha um plano alimentar personalizado</p>
-          <button>Agendar Consulta</button>
+          <Link to="/agendar-consulta">
+  <button>Agendar Consulta</button>
+</Link>
         </div>
       </section>
 
@@ -164,6 +167,8 @@ const PaginaEspecialidade = () => {
         </section>
       )}
 
+
+<Contato/>
             <div className="form espacamento">
                 <Formulario />
             </div>

@@ -32,7 +32,7 @@ function Footer() {
                             <li><Link to="/especialidade/pediatrica" id='li-design'>Nutrição Pediátrica</Link></li>
                             <li><Link to="/especialidade/clinica" id='li-design'>Nutrição Clínica</Link></li>
                             <li><Link to="/especialidade/emagrecimento" id='li-design'>Emagrecimento e Obesidade</Link></li>
-                            <li><Link to="/especialidade/intolerancia" id='li-design'>Intolerâncias Aliemtares</Link></li>
+                            <li><Link to="/especialidade/intolerancia" id='li-design'>Intolerâncias Alimentares</Link></li>
                         </ul>
 
                         <ul className='list-links'>
@@ -50,12 +50,39 @@ function Footer() {
                             
                                  <Botao className='button-footer-agendar'>Agendar Consulta</Botao>
                             
-                            <div className='icons-footer'>
-                                <FaInstagram className='icon-footer'></FaInstagram>
-                                <FaLinkedin className='icon-footer'></FaLinkedin>
-                                <FaWhatsapp className='icon-footer'></FaWhatsapp>
-                                <HiOutlineEnvelope className='icon-footer'></HiOutlineEnvelope>
-                            </div>
+<div className='icons-footer'>
+                               
+  <a
+    href="https://instagram.com/seu_user_aqui" //link do instagram
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Abrir Instagram"
+    title="Instagram"
+  >
+    <FaInstagram className="icon-footer" />
+  </a>
+
+  <a
+    href="https://wa.me/5511976120337?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta." //link 
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Enviar WhatsApp"
+    title="WhatsApp"
+  >
+    <FaWhatsapp className="icon-footer" />
+  </a>
+
+  <a
+    href="mailto:dranatalia@simanovski.com?subject=Agendamento%20de%20consulta&body=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta." //link 
+    target="_blank"
+    aria-label="Enviar e-mail"
+    title="E-mail"
+  >
+    <HiOutlineEnvelope className="icon-footer" />
+  </a>
+</div>
+
+                            
                         </div>
                         <div className='logo-footer'>
                             <img src="src\assets\img_png\Logo.png" alt="Logo" width={200} />
