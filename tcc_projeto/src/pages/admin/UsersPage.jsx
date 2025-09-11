@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import "../../css/admin-theme.css";
+
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -275,34 +277,50 @@ export default function UsersPage() {
         onClose={() => setConfirmOpen(false)}
       />
 
-      <style>{`
-        .toolbar{display:flex;gap:12px;align-items:center;margin:0 0 12px;flex-wrap:wrap}
-        .searchbox{display:flex;align-items:center;gap:8px;border:1px solid #e5e7eb;border-radius:12px;padding:8px 10px;background:#fff;min-width:260px}
-        .searchbox input{border:none;outline:none;min-width:180px}
-        .chk{display:flex;align-items:center;gap:8px;color:#333}
-        .table-wrap { overflow:auto; border:1px solid #e5e7eb; border-radius:12px; background:#fff; }
-        table { width:100%; border-collapse:collapse; }
-        th, td { padding:12px; border-bottom:1px solid #f2f2f2; text-align:left; }
-        th { background:#fafafa; font-weight:600; user-select:none; }
-        th[role="button"]{cursor:pointer}
-        .actions{display:flex;gap:8px}
-        button { padding:8px 12px; border-radius:10px; border:1px solid #e5e7eb; background:#fff; cursor:pointer }
-        button:hover { background:#f7f7f7 }
-        .btn-danger { background:#e74c3c; color:#fff; border:1px solid #e74c3c }
-        .btn-danger:hover{ filter:brightness(.95) }
-        .badge{display:inline-block;padding:2px 8px;border-radius:999px;border:1px solid #e5e7eb;font-size:12px}
-        .badge.ok{background:#e8f7ef;border-color:#bfe8d0}
-        .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;border:1px solid #eee}
-        .pill.muted{color:#777;background:#f7f7f7}
-        .pager{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin-top:12px}
-        .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
-        .modal-card{background:#fff;width:min(720px, 100%);border-radius:16px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.15)}
-        .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-        .modal-head .x{border:none;background:transparent;font-size:18px;cursor:pointer}
-        .profile-row{display:flex;gap:16px;align-items:flex-start}
-        .avatar-placeholder{width:80px;height:80px;border-radius:12px;display:grid;place-items:center;background:#f0f0f0;font-weight:700;color:#888}
-        h2{margin:0 0 12px}
-      `}</style>
+     <style>{`
+  .toolbar{
+    display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px
+  }
+  .searchbox{
+    flex:1; min-width:240px; display:flex; align-items:center; gap:8px;
+    background:#fff;border:1px solid var(--border);border-radius:999px;padding:8px 12px;
+  }
+  .searchbox input{
+    border:none;outline:none;flex:1;background:transparent;font:inherit;color:inherit;
+  }
+
+  .table-wrap{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:auto}
+  table{width:100%;border-collapse:collapse;min-width:760px}
+  th,td{padding:12px;border-bottom:1px solid #f1eeec;text-align:left}
+  th{background:#faf9f9;font-weight:600;user-select:none;color:#494949}
+  th[role="button"]{cursor:pointer}
+
+  .actions{display:flex;gap:8px}
+  button{padding:8px 12px;border-radius:12px;border:1px solid var(--border);background:#fff;cursor:pointer}
+  .btn-danger{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+  .btn-danger:hover{filter:brightness(.96)}
+
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;border:1px solid var(--border)}
+  .pill.muted{color:#666;background:#f7f6f5}
+
+  .pager{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin-top:12px}
+
+  .modal-backdrop{
+    position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px;z-index:60
+  }
+  .modal-card{
+    background:#fff;width:min(720px,100%);border-radius:16px;padding:20px;
+    box-shadow:var(--shadow-md);border:1px solid var(--border)
+  }
+  .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .modal-head .x{border:none;background:transparent;font-size:18px;cursor:pointer}
+  .profile-row{display:flex;gap:16px;align-items:flex-start}
+  .avatar-placeholder{
+    width:80px;height:80px;border-radius:12px;display:inline-grid;place-items:center;background:#f0f0f0;font-weight:700;color:#888
+  }
+  h2{margin:0 0 12px}
+`}</style>
+
     </div>
   );
 }

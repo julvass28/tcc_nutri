@@ -1,68 +1,132 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+// src/pages/admin/AdminLayout.jsx
+import React, { useContext, useEffect, useState } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import {
+  FaGlobe,
+  FaSignOutAlt,
+  FaHouseUser,
+  FaUsers,
+  FaBars,
+} from "react-icons/fa";
 import "../../css/admin-theme.css";
 
 export default function AdminLayout() {
-  const { user, logout } = useContext(AuthContext);
-  const loc = useLocation();
+  const { logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const goLogout = () => {
-    logout?.();
-    navigate("/login", { state: { fromLogout: true } });
+  const handleLogoutAndGoLogin = async () => {
+    try {
+      await logout?.();
+    } finally {
+      navigate("/login", { state: { fromLogout: true } });
+    }
   };
 
-  const isActive = (path) => loc.pathname === path;
+  // fecha no ESC
+  useEffect(() => {
+    const onKey = (e) => e.key === "Escape" && setSidebarOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
-    <div className="admin-shell">
-      <aside className="admin-aside">
-        <div className="brand">
-          <span className="dot" /> Painel Admin
+    <div className={`admin-shell ${sidebarOpen ? "" : "nav-collapsed"}`}>
+      {/* TOPBAR FIXA */}
+      <header className="admin-topbar fixed">
+        <div className="admin-topbar__left">
+          <button
+            type="button"
+            className="hamburger"
+            aria-label="Abrir menu"
+            onClick={() => setSidebarOpen((v) => !v)}
+          >
+            <FaBars />
+          </button>
+          <span className="dot" />
+          <strong>Área Administrativa</strong>
         </div>
 
-        <nav className="menu">
-          <Link
-            className={`menu-item ${isActive("/admin") ? "active" : ""}`}
+        <div className="admin-topbar__right">
+          <span className="me">
+            {user?.nome ? <small>{user.nome}</small> : <small>Admin</small>}
+          </span>
+
+          <NavLink to="/" className="btn-top">
+            <FaGlobe />
+            <span>Ver site</span>
+          </NavLink>
+
+          <button className="btn-top danger" onClick={handleLogoutAndGoLogin}>
+            <FaSignOutAlt />
+            <span>Sair</span>
+          </button>
+        </div>
+      </header>
+
+      {/* SIDEBAR (off-canvas) */}
+      <aside className="admin-sidebar fixed" aria-label="Menu lateral">
+        <div className="admin-sidebar__brand">Painel Admin</div>
+
+        <nav className="side-nav">
+          <NavLink
+            end
             to="/admin"
+            className={({ isActive }) =>
+              "nav-link" + (isActive ? " active" : "")
+            }
+            onClick={() => setSidebarOpen(false)}
           >
-            <i className="fas fa-gauge" /> <span>Início</span>
-          </Link>
-          <Link
-            className={`menu-item ${isActive("/admin/users") ? "active" : ""}`}
+            <FaHouseUser className="ico" />
+            <span>Início</span>
+          </NavLink>
+
+          <NavLink
             to="/admin/users"
+            className={({ isActive }) =>
+              "nav-link" + (isActive ? " active" : "")
+            }
+            onClick={() => setSidebarOpen(false)}
           >
-            <i className="fas fa-users" /> <span>Usuários</span>
-          </Link>
-        
+            <FaUsers className="ico" />
+            <span>Usuários</span>
+          </NavLink>
+
+         <NavLink
+  to="/admin/receitas"
+  className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
+  onClick={() => setSidebarOpen(false)}
+>
+  <span className="ico">🍲</span>
+  <span>Receitas</span>
+</NavLink>
+          {/* Libera quando tiver as páginas:
+          <NavLink to="/admin/agenda" className={({isActive}) => "nav-link" + (isActive ? " active" : "")} onClick={() => setSidebarOpen(false)}>
+            <FaCalendarAlt className="ico" /><span>Agenda</span>
+          </NavLink>
+          <NavLink to="/admin/consultas" className={({isActive}) => "nav-link" + (isActive ? " active" : "")} onClick={() => setSidebarOpen(false)}>
+            <FaClipboardList className="ico" /><span>Consultas</span>
+          </NavLink>
+          <NavLink to="/admin/recipes" className={({isActive}) => "nav-link" + (isActive ? " active" : "")} onClick={() => setSidebarOpen(false)}>
+            <FaUtensils className="ico" /><span>Receitas</span>
+          </NavLink>
+          <NavLink to="/admin/faq" className={({isActive}) => "nav-link" + (isActive ? " active" : "")} onClick={() => setSidebarOpen(false)}>
+            <FaQuestionCircle className="ico" /><span>FAQ</span>
+          </NavLink>
+          */}
         </nav>
       </aside>
 
-      <div className="admin-body">
-        <header className="admin-topbar">
-          <div className="topbar-left">
-            <h1>Área Administrativa</h1>
-          </div>
-          <div className="topbar-right">
-            <div className="me">
-              <i className="fas fa-user-shield" />
-              <span>{user?.nome || "Admin"}</span>
-            </div>
-            <Link to="/" className="btn-outline">
-              <i className="fas fa-globe" style={{ marginRight: 6 }} />
-              Ver site
-            </Link>
-            <button className="btn-logout" onClick={goLogout}>
-              <i className="fas fa-right-from-bracket" /> Sair
-            </button>
-          </div>
-        </header>
+      {/* Overlay para fechar clicando fora (só quando aberto) */}
+      {sidebarOpen && (
+        <div className="admin-overlay" onClick={() => setSidebarOpen(false)} />
+      )}
 
-        <main className="admin-main">
-          <Outlet />
-        </main>
-      </div>
+      {/* CONTEÚDO */}
+      <main className="admin-content">
+        <Outlet />
+      </main>
     </div>
   );
 }
