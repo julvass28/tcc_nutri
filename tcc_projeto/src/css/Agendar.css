@@ -1,53 +1,231 @@
+/* ====== FONTS ====== */
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lustria&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  overflow-x: hidden;
-}
+/* ====== CONTROLES ====== */
+:root{
+  --cell: 85px;        /* tamanho do quadrado do dia */
+  --ring: 2px;        /* “anel” = espaçamento visual entre os quadrados */
+  --card: #efe0e6;     /* fundo rosa do card */
+  --ok:   #9FA28D;     /* disponível (verde) */
+  --no:   #cfcfcf;     /* indisponível (cinza) */
+  --sel:  #d8b2ad;     /* selecionado (rosado) */
+  --ink:  #000;        /* texto preto */
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-.h2Agenda {
-  color: #b81f69;
-  font-family: 'Quicksand', sans-serif;
+  /* Toolbar (setas + título) */
+  --nav-color: #d8b2ad; /* cor das setas */
+  --nav-size: 30px;     /* tamanho das setas */
+  --nav-gap: 18px;      /* espaço lateral entre setas e título */
 }
 
-.catAgendar button{
-  color: #b81f69;
+/* ====== RESET ====== */
+html, body { margin: 0; padding: 0; }
+body { box-sizing: border-box; overflow-x: hidden; font-family: 'Poppins', sans-serif; color: var(--ink); }
+*, *::before, *::after { box-sizing: inherit; }
+/* mata outlines globais (vamos remover focus do DayPicker completamente) */
+:focus { outline: none !important; }
+
+/* ====== LAYOUT GERAL ====== */
+.bodyAgendamento{
+  min-height:100dvh; display:flex; flex-direction:column; align-items:center;
+  gap:24px; padding:clamp(16px,4vw,40px);
 }
-/* Tema rosinha do react-day-picker */
-.rdp {
-  --rdp-accent-color: #b81f69;     /* cor de destaque (rosinha) */
-  --rdp-accent-background: #fde4ef;/* fundo quando selecionado/hover */
-  --rdp-outline: 2px solid #b41964;
-  --rdp-outline-selected: 2px solid #f472b6;
-  --rdp-background-color: #fff;
-  --rdp-cell-size: 40px;
-  --rdp-font-family: inherit;
-  --rdp-month_caption-font-size: 16px;
+.h2Agenda, h3{ margin:0 0 16px; text-align:center; color:#8a8f75; font-family:'Quicksand',sans-serif; }
+
+/* ====== ESPECIALIDADES ====== */
+.especialidadesAgenda{ width:min(1100px,100%); display:flex; flex-direction:column; align-items:center; gap:16px; margin-inline:auto; }
+.contAgen{ width:100%; display:flex; flex-direction:column; align-items:center; gap:22px; }
+.catAgendar{ display:flex; flex-wrap:wrap; gap:15px; justify-content:center; }
+.chip{ padding:15px 19px; border-radius:10px; border:2px solid #DDB7AC; background:#fff;margin-bottom: 10px; color:#454545; font-weight:500; cursor:pointer; transition:.15s; font-family: "Poppins",sans-serif;font-size: 0.90rem;}
+.chip:hover{ transform:translateY(-1px); }
+.chip--ativo{ background:#F6EDEA; }
+.smallAgen{ font-size:1rem;margin-bottom: 60px; }
+
+/* ====== CALENDÁRIO (CARD) ====== */
+.CalendarioAgenda{ width:100%; display:flex; justify-content:center; }
+.cal-card{
+  position:relative; width:min(980px,95vw); background:var(--card);
+  border-radius:12px; padding:22px 22px 12px; box-shadow:0 2px 0 rgba(0,0,0,.12);
+  display:flex; flex-direction:column; align-items:center; 
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Dias com disponibilidade */
-.rdp-day_available {
-  background: #efecf0;       /* verdinho claro */
-  color: #dd19bc;
-  border-radius: 8px;
+/* Miolo com largura EXATA de 7 colunas (centraliza tudo) */
+.cal-shell{
+  width: calc(7 * var(--cell));
+  max-width: 100%;
+  display: flex; flex-direction: column; align-items: center;
 }
 
-/* Dias sem disponibilidade (desabilitados) */
-.rdp-day_unavailable,
-.rdp-day_disabled {
-  color: #3f0c3c;
-  background: #f3f4f6;
-  border-radius: 8px;
-  cursor: not-allowed;
-  opacity: .8;
+/* ====== TOOLBAR PRÓPRIA (setas ao redor do mês) ====== */
+.cal-toolbar{
+  width: calc(7 * var(--cell));
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* seta – título – seta */
+  align-items: center;
+  gap: var(--nav-gap);
+  margin: 0 auto 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,.18);
 }
+.cal-title{
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .10em;
+  font-family: "Lustria", serif;
+}
+.cal-arrow{
+  appearance: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: var(--nav-size);
+  line-height: 1;
+  color: var(--nav-color); /* COR das setas */
+  padding: 2px 6px;
+}
+.cal-arrow:focus,
+.cal-arrow:focus-visible{ outline: none !important; }
+
+/* ====== OCULTA CAPTION/NAV/WEEKDAYS NATIVOS (nada duplicado) ====== */
+.cal-card .rdp-caption,
+.cal-card .rdp-nav,
+.cal-card .rdp-weekdays,
+.cal-card .rdp-head,
+.cal-card .rdp-head_row,
+.cal-card .rdp-head_cell{
+  display: none !important;
+}
+
+/* ====== CENTRALIZAÇÃO DO CALENDÁRIO ====== */
+.cal-card .rdp-months{
+  display:flex !important; justify-content:center !important;
+}
+.cal-card .rdp-month{
+  width:max-content !important; margin:0 auto !important;
+}
+
+/* ====== TABELA DOS DIAS ====== */
+.cal-card .rdp-table{
+  table-layout: fixed !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+  margin: 0 auto; width: auto;
+}
+.cal-card .rdp-row{ display: table-row !important; }
+.cal-card .rdp-cell{
+  display: table-cell !important;
+  width: var(--cell) !important; min-width: var(--cell) !important;
+  padding: 0 !important; margin: 0 !important;
+}
+
+/* ====== QUADRADOS DOS DIAS (separação pelo “anel”) ====== */
+.cal-card .rdp-day, .cal-card .rdp-button{
+  width: var(--cell) !important; height: var(--cell) !important;
+  min-width: var(--cell) !important; min-height: var(--cell) !important;
+}
+.cal-card .rdp-day{
+  display:inline-flex !important; align-items:center; justify-content:center;
+  padding:0 !important; margin:0 !important; line-height:1 !important;
+  border-radius:12px; color: var(--ink) !important; background:#bdb8b8;
+  box-shadow: 0 0 0 var(--ring) var(--card) !important; /* separação visual */
+}
+
+/* fora do mês: oculto */
+.cal-card .rdp-day_outside{ display:none !important; }
+
+/* ====== ESTADOS (verde/cinza/selecionado) ====== */
+.cal-card .rdp-day_unavailable,
+.cal-card .rdp-day_disabled{
+  background: var(--no) !important; color: var(--ink) !important; opacity: 1 !important; cursor: not-allowed;
+  box-shadow: 0 0 0 var(--ring) var(--card) !important;
+}
+.cal-card .rdp-day_available:not(.rdp-day_disabled){
+  background: var(--ok) !important; color: var(--ink) !important;
+  box-shadow: 0 0 0 var(--ring) var(--card) !important;
+}
+.cal-card .rdp-day_selected:not(.rdp-day_disabled){
+  background: var(--sel) !important; color: var(--ink) !important;
+  box-shadow: 0 0 0 var(--ring) var(--card) !important;
+}
+
+/* ====== REMOVE FOCUS (sem halo azul) ====== */
+/* mata qualquer outline/sombra de foco dentro do DayPicker */
+.CalendarioAgenda .rdp *:focus,
+.CalendarioAgenda .rdp *:focus-visible,
+.CalendarioAgenda .rdp *:focus-within{
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* apaga vars internas de foco (fallback) */
+.CalendarioAgenda .rdp{
+  --rdp-outline: 0 solid transparent !important;
+  --rdp-accent-color: transparent !important;
+  --rdp-accent-background-color: transparent !important;
+}
+/* highlight azul no tap (mobile) */
+.CalendarioAgenda .rdp .rdp-button{ -webkit-tap-highlight-color: transparent; }
+/* Firefox tira borda interna do botão focado */
+.CalendarioAgenda button::-moz-focus-inner{ border: 0; }
+
+/* ====== LEGENDA / SLOTS / RESUMO / BOTÕES ====== */
+.cal-legend{ display:flex; gap:22px; justify-content:center; align-items:center; list-style:none; padding:14px 6px 6px; margin:18px 6px 0; }
+.cal-legend li{ display:inline-flex; align-items:center; gap:10px; font-weight:600; color:#222; }
+.dot{ width:16px; height:16px; border-radius:50%; display:inline-block; border:1px solid rgba(0,0,0,.25); }
+.dot--ok{ background:var(--ok); } .dot--no{ background:var(--no); } .dot--sel{ background:var(--sel); }
+
+.slots-grid{ display:flex; flex-wrap:wrap; gap:15px; align-items: center; justify-content:center; margin-top:50px ; }
+.slot{ padding:10px 12px; border-radius:10px; border:1px solid #ddd; background:#fff; min-width:72px; cursor:pointer; transition:.15s; text-align:center; font-weight:550;font-family:'Poppins',sans-serif; }
+.slot:hover{ transform:translateY(-1px); }
+.slot.livre{ border:#D1A0A0 solid 2px ;} .slot.ocupado{ border-color:#bdc3c7; opacity:.55; cursor:not-allowed; }
+.slot.selecionado{ outline:2px solid ; background-color: #EDE9E3; }
+
+.resumo-box{
+  margin-top: 70px; padding: 12px 14px; border: 1px dashed #D1A0A0;
+  border-radius: 12px; background: #fff7fb;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+}
+.resumo-col{ display:flex; flex-direction:column; gap:4px; min-width: 220px; }
+.resumo-col span{ color:#666; font-weight:600; font-size:.9rem; }
+.resumo-col b{ font-size:1rem; }
+
+/* ====== BOTÃO ====== */
+.btn-primary{ padding:10px 14px; border-radius:8px; background:#D1A0A0; color:#fff; border:none; cursor:pointer; font-weight:600; transition:.15s; }
+.btn-primary:hover{ filter:brightness(1.03); transform:translateY(-1px); }
+.btn-primary:disabled{ opacity:.6; cursor:not-allowed; transform:none; }
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 540px){
+  :root{ --cell: 64px; --ring: 10px; }
+  .cal-card{ padding:16px 14px 10px; }
+  .cal-toolbar{ gap: 12px; }
+  .resumo-col{ min-width: unset; }
+}
+/* ...existing code... */
+.cal-card .rdp-day:focus,
+.cal-card .rdp-day:focus-visible,
+.cal-card .rdp-day:active,
+.cal-card .rdp-button:focus,
+.cal-card .rdp-button:focus-visible,
+.cal-card .rdp-button:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+/* ...existing code... */
+/* ...existing code... */
+.cal-card .rdp-day,
+.cal-card .rdp-button {
+  border: none !important;
+}
+/* ...existing code... */
+
+/* ...existing code... */
+.cal-card .rdp-caption_label,
+.cal-card .rdp-caption_dropdowns {
+  display: none !important;
+}
+/* ...existing code... */
