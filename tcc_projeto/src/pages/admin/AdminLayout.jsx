@@ -2,6 +2,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { FaBook } from "react-icons/fa";
 import {
   FaGlobe,
   FaSignOutAlt,
@@ -98,7 +99,7 @@ export default function AdminLayout() {
   className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
   onClick={() => setSidebarOpen(false)}
 >
-  <span className="ico">🍲</span>
+  <span className="ico"><FaBook/></span>
   <span>Receitas</span>
 </NavLink>
           {/* Libera quando tiver as páginas:

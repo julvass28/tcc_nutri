@@ -259,9 +259,7 @@ export default function UsersPage() {
                 {selected.objetivo && <p><b>Objetivo:</b> {selected.objetivo}</p>}
               </div>
             </div>
-            <div className="modal-actions">
-              <button onClick={() => setModal(false)}>Fechar</button>
-            </div>
+           
           </div>
         </div>
       )}
