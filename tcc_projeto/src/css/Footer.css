@@ -1,592 +1,315 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-.geral-footer {
-  margin-top: 100px;
-}
+/* ===== Desktop (igual ao que você aprovou) ===== */
+.ftr-wrap { margin-top: 100px; margin-bottom: 30px; }
 
-.footer {
-  background-color: #f4efec;
-  font-family: "Poppins", sans-serif;
+.ftr {
+  background-color: #F2EFEA;
+  font-family: 'Poppins', sans-serif;
   position: relative;
   width: 100%;
+  height: 293px;
   display: flex;
   flex-direction: column;
-
+  justify-content: space-between;
   margin: 0%;
   padding: 5px 0 0 0;
 }
 
-.footer-container {
+.ftr-container {
   display: flex;
-  justify-content: space-around; /*  flex-direction: column;  */
+  justify-content: space-around;
   padding: 0%;
   margin-bottom: 20px;
 }
 
-.nav-footer-um {
-  display: flex; /*flex-direction: column;*/
-}
+.ftr-nav { display: flex; }
 
-.list-links-footer {
-  display: flex;
-  flex-direction: column;
-  margin-right: 80px;
-}
+.ftr-list { display: flex; flex-direction: column; margin-right: 80px; }
+.ftr-list h3 { font-size: 15px; margin-bottom: 10px; color: #454545; font-weight: 500; }
+.ftr-list li { transition: 100ms linear; transform-origin: right; list-style: none; }
+.ftr-list li:hover { transform: scaleX(0.98); }
 
-.list-text-links-x {
-  display: flex;
-  flex-direction: column;
-}
+.ftr-link { font-size: 14px; font-weight: 300; color: #454545; text-decoration: none; }
+.ftr-link:hover { color: #a2a2a2; }
 
-.list-links-footer-mobile {
-  display: none;
-}
-.list-links-footer-active {
-  display: flex;
-}
+.ftr-side { display: flex; flex-direction: column; align-items: center; }
+.ftr-side-inner { display: flex; flex-direction: column; align-items: center; }
+.ftr-cta { margin-bottom: 20px; font-size: 1.2rem; }
 
-.list-links-footer h3 {
-  font-size: 15px;
-  margin-bottom: 10px;
-  color: #454545;
-  font-weight: 500;
-}
+.ftr-logo { display: flex; flex-direction: column; align-items: center; }
+.ftr-logo p { font-size: 10px; margin-top: 0%; color: #8A8F75; font-weight: 420; }
 
-.list-links-footer li {
-  transition: 100ms linear;
-  transform-origin: right;
-}
+.ftr-icons { display: flex; justify-content: space-between; width: 100px; }
+.ftr-icon { width: 20px; height: 20px; color: #8A8F75; transition: 150ms linear; }
+.ftr-icon:hover { color: #b88f8f; cursor: pointer; transform: scale(1.1); }
 
-.list-links-footer li:hover {
-  transform: scaleX(0.98);
-}
+.ftr-wave, .onda-svg-footer { width: 100%; display: block; } /* alias p/ seu SVG */
 
-#li-design {
-  font-size: 14px;
-  font-weight: 300;
-  color: #454545;
-}
-
-#li-design:hover {
-  color: #a2a2a2;
-}
-
-.section-footer {
+.ftr-copy {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.section-footer-mobile {
-  display: none;
-}
-
-.button-footer-agendar {
-  margin-bottom: 20px;
-  font-size: 1.2rem;
-}
-
-.direitos {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f4efec;
+  background-color: #F4EFEC;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
+.ftr-copy-top { margin-top: 12px; font-size: 14px; font-weight: 400; color: #454545; align-items: center; }
+.ftr-copy-bottom { font-size: 12px; font-weight: 300; color: #808080; margin-bottom: 10px; }
 
-#text-direitos-um {
-  margin-top: 12px;
-  font-size: 14px;
-  font-weight: 400;
-  color: #454545;
+
+/* ===== Responsividade ===== */
+@media (max-width: 1200px){
+  .ftr-list { margin-right: 56px; }            /* desktop levemente mais junto */
+  .ftr-link { line-height: 1.28; }
 }
 
-#text-direitos-dois {
-  font-size: 12px;
-  font-weight: 300;
-  color: #808080;
-  margin-bottom: 10px;
+/* Tablet */
+@media (max-width: 768px){
+  .ftr { height: auto; padding-bottom: 12px; }
+  .ftr-container{
+    gap: 24px;
+    padding: 0 16px;
+  }
+  .ftr-list { margin-right: 32px; }
 }
 
-.section-footer {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.section-pai {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.logo-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.logo-footer p {
-  font-size: 10px;
-  margin-top: 0%;
-  color: #8a8f75;
-  font-weight: 420;
-}
-
-.icons-footer {
-  display: flex;
-  justify-content: space-between;
-  width: 100px;
-}
-
-.icon-footer {
-  width: 20px;
-  height: 20px;
-  color: #8a8f75;
-  transition: 150ms linear;
-}
-
-.icon-footer:hover {
-  color: #b88f8f;
-  cursor: pointer;
-  transform: scale(1.1);
-}
-
-.onda-svg-footer {
-  width: 100%;
-  display: block;
-}
-
-@media (max-width: 361px) {
-  .list-links-footer-active {
-    display: none;
+/* Ultra-estreitos (ex.: iPhone SE em zoom, 320–340px):
+   empilha pra NUNCA cortar o botão/ícones */
+@media (max-width: 340px){
+  .ftr-container{
+    grid-template-columns: 1fr;      /* 1 coluna */
+    grid-template-rows: auto auto auto;
+    row-gap: 16px;
   }
-  .list-links-footer-mobile {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 1rem;
-  }
-  .footer-container {
-    flex-direction: column;
-    margin-top: 30px;
-    height: 300px;
-  }
-
-  .nav-footer-um {
-    flex-direction: column;
-    height: 26rem;
-  }
-
-  .list-links-footer {
-    height: 38vh;
-    margin-right: 0%;
-    margin-left: 1rem;
-  }
-
-  .list-links-footer h3 {
-    font-size: 12px;
-    margin: 0%;
-  }
-
-  #li-design {
-    font-size: 8px;
-    margin: 0%;
-  }
-
-  .section-footer {
-    display: none;
-  }
-
-  .list-links-footer-x {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-  .list-links-footer li {
-    height: 22px;
-  }
-  .list-text-links-x {
-    margin-right: 0%;
-  }
-  .section-footer-mobile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-  }
-  .icon-footer {
-    width: 18px;
-    height: 18px;
-  }
-  .icons-footer {
-    margin-top: 2px;
-    width: 100px;
-  }
-  .logo-footer img {
-    width: 135px;
-    height: 50px;
-  }
-
-  .button-footer-agendar {
-    font-size: 0.6rem;
-    width: 30vw;
-    height: 8vw;
-    margin-bottom: 5px;
-  }
- .direitos {
-    height: 3rem;
-  }
-
-  #text-direitos-um {
-    font-size: 0.5rem;
-  }
-
-  #text-direitos-dois {
-    font-size: 0.5rem;
+  .ftr-side{
+    grid-column: 1;
+    grid-row: 2;            /* fica no meio, centralizado */
+    justify-self: center;
+    max-width: 90%;
   }
 }
-@media (min-width: 361px) and (max-width: 375px) {
-  .list-links-footer-active {
-    display: none;
-  }
-  .list-links-footer-mobile {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 1rem;
-  }
-  .footer-container {
-    flex-direction: column;
-    margin-top: 30px;
-    height: 300px;
-    
-  }
-
-  .nav-footer-um {
-    flex-direction: column;
-    height: 370px;
-    padding: 0 0.5rem 0 0.5rem;
-  }
-
-  .list-links-footer {
-    height: 38vh;
-    margin-right: 0%;
-    margin-left: 1rem;
-  }
-
-  .list-links-footer h3 {
-    font-size: 13px;
-    margin: 0%;
-  }
-
-  #li-design {
-    font-size: 9px;
-    margin: 0%;
-  }
-
-  .section-footer {
-    display: none;
-  }
-
-  .list-links-footer-x {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-  .list-links-footer li {
-    height: 22px;
-  }
-  .list-text-links-x {
-    margin-right: 0%;
-  }
-  .section-footer-mobile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-  }
-  .icon-footer {
-    width: 18px;
-    height: 18px;
-  }
-  .icons-footer {
-    margin-top: 2px;
-    width: 100px;
-  }
-  .logo-footer img {
-    width: 135px;
-    height: 50px;
-  }
-
-  .button-footer-agendar {
-    font-size: 0.6rem;
-    width: 30vw;
-    height: 8vw;
-    margin-bottom: 5px;
-  }
- .direitos {
-    height: 3rem;
-  }
+@media (min-width: 1026px){
+  .ftr-list{ margin-right: 56px; }
+  .ftr-link{ line-height: 1.28; }
+}
+/* === FOOTER — MOBILE FIX FINAL === */
 
 
-  #text-direitos-um {
-    font-size: 0.5rem;
+/* ultra-estreitos (≤340px): empilha pra NUNCA cortar */
+@media (max-width: 340px){
+  .ftr-container{ grid-template-columns:1fr; grid-template-rows:auto auto auto; }
+  .ftr-side{ grid-column:1; grid-row:2; justify-self:center; max-width:92%; min-width:0; }
+}
+/* ==== FOOTER MOBILE (≤480px) — sem afetar desktop ==== */
+@media (max-width: 480px){
+
+  /* libera a altura só no mobile */
+  .ftr{ height:auto; padding-bottom:10px; }
+
+  /* topo do footer: esquerda(nav) | direita(CTA+ícones+logo) */
+  .ftr .ftr-container{
+    display:grid;
+    grid-template-columns: minmax(0,1fr) minmax(160px,40vw);
+    grid-template-rows: auto auto;
+    column-gap:16px;
+    row-gap:18px;
+    padding:0 12px;
+    margin-top:22px;
   }
 
-  #text-direitos-dois {
-    font-size: 0.5rem;
+  /* nav em 2 linhas: Links / (Serviços + Calculadoras) */
+  .ftr .ftr-nav{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "links links"
+      "servicos calculadoras";
+    column-gap:26px;
+    row-gap:10px;
+    padding:0;
+  }
+  .ftr .ftr-nav .ftr-list:nth-of-type(1){ grid-area:links; }
+  .ftr .ftr-nav .ftr-list:nth-of-type(2){ grid-area:servicos;   margin-top:12px; } /* ↓ desce um pouco */
+  .ftr .ftr-nav .ftr-list:nth-of-type(3){ grid-area:calculadoras; margin-top:12px; } /* ↓ desce um pouco */
+
+  /* títulos e links mais compactos */
+  .ftr .ftr-list h3{ font-size:13px; margin:0 0 3px; }
+  .ftr .ftr-list li{ list-style:none; margin:0; }
+  .ftr .ftr-list a.ftr-link{ display:inline; padding:0; margin:0; font-size:12px; line-height:1.14; }
+  .ftr .ftr-nav .ftr-list:nth-of-type(1) a.ftr-link{ line-height:1.10; }
+  .ftr .ftr-nav .ftr-list:nth-of-type(1) li + li{ margin-top:1px; }
+
+  /* bloco do botão/ícones/logo — nunca corta */
+  .ftr .ftr-side{
+    grid-column:2; grid-row:1;
+    justify-self:end; align-self:start;
+    display:flex; flex-direction:column; align-items:center;
+    gap:8px;                         /* dá respiro interno */
+    max-width:40vw; min-width:160px; /* trava largura */
+    padding-top:6px;                 /* ↓ empurra um pouco pra baixo */
+  }
+
+  .ftr .ftr-cta{
+    display:inline-flex; align-items:center; justify-content:center;
+    font-size:clamp(.76rem,2.6vw,.86rem);
+    height:34px; padding:0 clamp(10px,2.6vw,14px);
+    white-space:nowrap;
+  }
+
+  /* ícones um pouco mais baixos e juntinhos */
+  .ftr .ftr-icons{
+    display:flex; gap:6px; margin-top:6px;  /* ↓ desce e aproxima */
+    width:auto;
+  }
+  .ftr .ftr-icon{ width:18px; height:18px; }
+
+  .ftr .ftr-logo img{ width:clamp(120px,34vw,140px); height:auto; }
+  .ftr #crn{ margin-top:2px; }
+}
+/* ===== Ajuste fino MOBILE (≤480px) — apenas itens e copy ===== */
+@media (max-width: 480px){
+
+  /* Itens de TODAS as listas mais próximos */
+  .ftr .ftr-list li{ margin: 0 !important; list-style: none; }
+  .ftr .ftr-list a.ftr-link{
+    display: inline !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.08 !important;   /* base mais juntinha */
+  }
+
+  /* Serviços e Calculadoras ainda MAIS juntinhos */
+  .ftr .ftr-nav .ftr-list:nth-of-type(2) a.ftr-link,
+  .ftr .ftr-nav .ftr-list:nth-of-type(3) a.ftr-link{
+    line-height: 1.06 !important;   /* aperta um tico a mais */
+  }
+  .ftr .ftr-nav .ftr-list li + li{
+    margin-top: 1px !important;     /* quase sem espaço entre linhas */
+  }
+
+  /* Respiro nas mensagens do rodapé (não grudar na borda) */
+  .ftr .ftr-copy{
+    padding: 8px 12px !important;   /* padding lateral */
+  }
+  .ftr .ftr-copy-top{
+    margin-top: 6px !important;     /* descola um pouco de cima */
   }
 }
-@media (min-width: 375px) and (max-width: 414px) {
-  .list-links-footer-active {
-    display: none;
+/* ==== MOBILE ≤480px — aperta itens e arruma a copy ==== */
+@media (max-width: 480px){
+
+  /* Itens das 3 listas MUITO próximos (só os <li>, não as seções) */
+  .ftr .ftr-nav .ftr-list li{
+    margin-block: 0 !important;
+    padding-block: 0 !important;
+    list-style: none;
   }
-  .list-links-footer-mobile {
-    display: flex;
-    justify-content: space-between;
-    
+  .ftr .ftr-nav .ftr-list li + li{
+    margin-top: 0 !important;       /* sem espaço extra entre linhas */
   }
-  .footer-container {
-    flex-direction: column;
-    margin-top: 30px;
-    height: 300px;
-    
+  .ftr .ftr-nav .ftr-list li > .ftr-link{
+    display: block !important;      /* garante altura exata da linha */
+    line-height: 2 !important;   /* >>> bem colado */
+    padding-block: 0 !important;
+    margin-block: 0 !important;
+    font-size: 13px !important;
+  }
+  /* se quiser Links Úteis um tiquinho menos colado que os outros: */
+  .ftr .ftr-nav .ftr-list:nth-of-type(1) li > .ftr-link{
+    line-height: 1.5 !important;
   }
 
-  .nav-footer-um {
-    flex-direction: column;
-    height: 400px;
-    
-    padding: 0 1rem 0 1rem;
+  /* Copy no rodapé com respiro e centralizada */
+  .ftr .ftr-copy{
+    padding: 10px 18px 14px !important;  /* respiro lateral e embaixo */
   }
-
-  .list-links-footer {
-    height: 500px;
-    margin-right: 0%;
-  
+  .ftr .ftr-copy-top{
+    margin-top: 10px !important;         /* descola do topo da faixa */
+    text-align: center !important;
   }
-
-  .list-links-footer h3 {
-    font-size: 14px;
-    margin: 0%;
-  }
-
-  #li-design {
-    font-size: 10px;
-    margin: 0%;
-  }
-
-  .section-footer {
-    display: none;
-  }
-
-  .list-links-footer-x {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    
-  }
-  .list-links-footer li {
-    height: 22px;
-  }
-  .list-text-links-x {
-    margin-right: 0%;
-    
-    width: 260px;
-    height: 150px;
-  }
-  .section-footer-mobile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-  }
-  .icon-footer {
-    width: 18px;
-    height: 18px;
-  }
-  .icons-footer {
-    margin-top: 2px;
-    width: 100px;
-  }
-  .logo-footer img {
-    width: 135px;
-    height: 50px;
-  }
-
-  .button-footer-agendar {
-    font-size: 0.7rem;
-    width: 30vw;
-    height: 8vw;
-    margin-bottom: 5px;
-  }
-
- .direitos {
-    height: 3rem;
-  }
-
-  #text-direitos-um {
-    font-size: 0.5rem;
-  }
-
-  #text-direitos-dois {
-    font-size: 0.5rem;
+  .ftr .ftr-copy-bottom{
+    text-align: center !important;
   }
 }
-@media (min-width: 414px) and (max-width: 480px) {
-  .list-links-footer-active {
-    display: none;
-  }
-  .list-links-footer-mobile {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 1rem;
-  }
-  .footer-container {
-    flex-direction: column;
-    margin-top: 30px;
-    height: 300px;
-    
+/* MOBILE: soltando só Serviços e Calculadoras */
+@media (max-width: 480px){
+  /* escolha um “mood” e ajusta o line-height */
+  /* snug = 1.10 | comfy = 1.14 | airy = 1.18 */
+
+  .ftr .ftr-nav .ftr-list:nth-of-type(2) li > .ftr-link, /* Serviços */
+  .ftr .ftr-nav .ftr-list:nth-of-type(3) li > .ftr-link  /* Calculadoras */
+  {
+    line-height: 1.14 !important;   /* << troque aqui se quiser mais/menos */
   }
 
-  .nav-footer-um {
-    flex-direction: column;
-    height: 40rem;
-    
-    padding: 0 1.2rem 0 1.2rem;
-  }
-
-  .list-links-footer {
-    height: 500px;
-    margin-right: 0%;
-    margin-left: 1rem;
-  }
-
-  .list-links-footer h3 {
-    font-size: 14px;
-    margin: 0%;
-  }
-
-  #li-design {
-    font-size: 10px;
-    margin: 0%;
-  }
-
-  .section-footer {
-    display: none;
-  }
-
-  .list-links-footer-x {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-  .list-links-footer li {
-    height: 22px;
-  }
-  .list-text-links-x {
-    margin-right: 0%;
-  }
-  .section-footer-mobile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-  }
-  .icon-footer {
-    width: 18px;
-    height: 18px;
-  }
-  .icons-footer {
-    margin-top: 2px;
-    width: 100px;
-  }
-  .logo-footer img {
-    width: 135px;
-    height: 50px;
-  }
-
-  .button-footer-agendar {
-    font-size: 0.7rem;
-    width: 30vw;
-    height: 8vw;
-    margin-bottom: 5px;
-  }
-
-  .direitos {
-    height: 3rem;
-  }
-
-  #text-direitos-um {
-    font-size: 0.5rem;
-  }
-
-  #text-direitos-dois {
-    font-size: 0.5rem;
+  /* dá um respiro mínimo entre itens */
+  .ftr .ftr-nav .ftr-list:nth-of-type(2) li + li,
+  .ftr .ftr-nav .ftr-list:nth-of-type(3) li + li{
+    margin-top: 9px !important;
   }
 }
+/* ===== MOBILE ≤480px — listas empilhadas e sem quebra nos itens ===== */
+@media (max-width: 480px){
 
-@media (min-width: 480px) and (max-width: 1025px){
-  #li-design {
-  font-size: 1.2vw;
-}
-.list-links-footer h3 {
-  font-size: 1.5vw;
-  margin-bottom: 10px;
-}
-.list-links-footer{
-  height: 200px;
-  width: 175px;
-  margin: 0;
-  
-}
-.list-links-footer li {
-  font-size: 0.01vw;
-  margin: 0;
-}
-.button-footer-agendar {
-  margin-bottom: 5px;
-  font-size: 2vw;
-  width: 20vw;
-  height: 5vw;
+  /* mantém 2 colunas: esquerda = nav empilhado | direita = CTA/ícones/logo */
+  .ftr .ftr-container{
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(150px, 38vw);
+    column-gap: 16px;
+    row-gap: 18px;
+    padding: 0 12px;
+    margin-top: 22px;
+  }
+
+  /* NAV vira 1 coluna empilhada: links -> serviços -> calculadoras */
+  .ftr .ftr-nav{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "links"
+      "servicos"
+      "calculadoras";
+    row-gap: 12px; /* espaço ENTRE seções (não entre itens) */
+    column-gap: 0;
+    padding: 0;
+  }
+  .ftr .ftr-nav .ftr-list:nth-of-type(1){ grid-area: links; }
+  .ftr .ftr-nav .ftr-list:nth-of-type(2){ grid-area: servicos; }
+  .ftr .ftr-nav .ftr-list:nth-of-type(3){ grid-area: calculadoras; }
+
+  /* ——— Itens sem quebra nas duas seções de baixo ——— */
+  .ftr .ftr-nav .ftr-list:nth-of-type(2) .ftr-link,   /* Serviços */
+  .ftr .ftr-nav .ftr-list:nth-of-type(3) .ftr-link {  /* Calculadoras */
+    white-space: nowrap;        /* não quebra linha */
+    overflow: hidden;           /* evita estourar o layout */
+    text-overflow: ellipsis;    /* se faltar espaço, coloca "…" */
+    line-height: 1.12;          /* itens mais próximos verticalmente */
+  }
+
+  /* itens em geral bem juntinhos (todas as listas) */
+  .ftr .ftr-nav .ftr-list li + li{ margin-top: 2px; }
+  .ftr .ftr-list h3{ font-size: 14px; margin: 0 0 4px; }
+
+  /* copy com respiro lateral e superior */
+  .ftr .ftr-copy{ padding: 8px 12px 12px; }
+  .ftr .ftr-copy-top{ margin-top: 8px; }
 }
 
-.footer-container{
-  height: 23vw;
-  padding: 0 1rem 0 1rem;
-  
-}
-
-.section-footer{
-  height: 25vw;
-}
-}
-                           
-/* quando o CTA some, centraliza verticalmente a coluna da direita */
-.section-footer.no-cta {
-  justify-content: center;      /* centraliza verticalmente */
-  gap: 0.5rem;                  /* leve respiro entre logo e ícones */
-  transform: translateY(-25px);   /* sobe ~8px */
-}
-
-/* no mobile, sobe um pouquinho menos pra não colar demais */
-@media (max-width: 480px) {
-  .section-footer.no-cta {
-    transform: translateY(-4px);
+/* (opcional) se quiser TUDO empilhado (nav e CTA) em 1 coluna, ative isso: */
+/*
+@media (max-width: 380px){
+  .ftr .ftr-container{
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+  .ftr .ftr-side{
+    grid-column: 1;
+    justify-self: center;
   }
 }
-
-/* ícones que “desceram” pra perto da logo: dá um espacinho do CRN */
-.section-footer.no-cta .logo-footer .icons-footer,
-.section-footer-mobile .logo-footer .icons-footer {
-  margin-top: 8px;
-}
-
-/* (opcional) Remover espaço extra quando o CTA existe, mantendo layout atual */
-.section-footer .section-pai { margin-bottom: 8px; }
+*/

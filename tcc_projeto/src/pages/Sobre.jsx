@@ -43,7 +43,6 @@ export default function Sobre() {
 
             <div className="sobre-cta">
               <Link to="/agendar-consulta" className="btn-agendar">Agendar consulta</Link>
-              {/* Removido o botão "Ver especialidades" */}
             </div>
           </div>
         </div>
@@ -62,8 +61,9 @@ export default function Sobre() {
             eficazes e personalizadas.
           </p>
 
-          <h3 className="section-title">Formação e Especializações</h3>
-          <ul className="sobre-list">
+          {/* Formação e Especializações — Lustria */}
+          <h3 className="section-title lustria-title">Formação e Especializações</h3>
+          <ul className="sobre-list lustria-text">
             <li>Graduação em Nutrição pelo Centro Universitário São Camilo.</li>
             <li>Pós-graduação em Nutrição Clínica Pediátrica pelo Instituto da Criança do HCFMUSP.</li>
             <li>Pós-graduação em Nutrição Clínica Pediátrica pelo Instituto da Criança do HCFMUSP.</li>
@@ -74,7 +74,6 @@ export default function Sobre() {
             {/* Mobile: Carrossel */}
             <div className="sobre-areas-carousel">
               <CarroselMobile
-              
                 tipo="servicos"
                 dados={[
                   { id: 1, icone: <Iconclinica />, nome: "Nutrição Clínica",  link: "/especialidade/clinica" },
@@ -119,15 +118,16 @@ export default function Sobre() {
             </div>
           </div>
 
-          <h3 className="section-title">Qual é o meu Diferencial?</h3>
-          <p className="sobre-paragraph">
+          {/* Diferencial — Lustria */}
+          <h3 className="section-title lustria-title">Qual é o meu Diferencial?</h3>
+          <p className="sobre-paragraph lustria-text">
             Mais do que nutricionista, quero ser <span className="sobre-highlight-alt">sua amiga e parceira</span>. Com um atendimento
             humanizado e acolhedor, te guio para uma alimentação equilibrada e leve, respeitando sua individualidade.
           </p>
         </article>
       </section>
+
       <Contato/>
     </main>
-    
   );
 }
