@@ -1,93 +1,122 @@
-/* Tema admin alinhado à paleta do site (oliva/rosé/pastel) */
+/* ============================
+   ADMIN THEME — CLEAN & STABLE
+   ============================ */
 .admin-shell{
-  --bg: #ECE7E6;           /* fundo pastel do site */
-  --surface: #FFFFFF;
-  --text: #2E2E2E;
-  --muted: #6B6B6B;
-  --border: #E8E4E2;
+  /* Paleta */
+  --bg:#ECE7E6;
+  --surface:#FFFFFF;
+  --text:#2E2E2E;
+  --muted:#6B6B6B;
+  --border:#E8E4E2;
+  --primary:#8A8F75;   /* oliva */
+  --accent:#D1A0A0;    /* rosé */
 
-  --brand-olive: #8A8F75;  /* oliva */
-  --brand-rose:  #D1A0A0;  /* rosé */
-  --accent: var(--brand-rose);
-  --primary: var(--brand-olive);
+  /* FX */
+  --radius:14px;
+  --shadow-sm:0 2px 6px rgba(0,0,0,.06);
+  --shadow-md:0 10px 24px rgba(0,0,0,.12);
 
-  --radius: 14px;
-  --shadow-sm: 0 2px 6px rgba(0,0,0,.06);
-  --shadow-md: 0 10px 24px rgba(0,0,0,.10);
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
 }
 
-/* layout base */
-.admin-shell{display:flex;min-height:100vh;background:var(--bg);color:var(--text);}
-
-.admin-aside{
-  width:240px;background:var(--surface);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;
+/* ============================
+   TOPBAR FIXA
+   ============================ */
+.admin-topbar.fixed{
+  position:fixed; top:0; left:0; right:0; height:64px; z-index:1000;
+  background:var(--surface); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 16px;
 }
-.brand{
-  font-weight:700;font-size:16px;padding:16px 18px;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:8px;color:var(--primary);
-}
-.brand .dot{width:8px;height:8px;border-radius:999px;background:var(--primary);display:inline-block}
 
-.menu{padding:10px}
-.menu-item{
-  display:flex;align-items:center;gap:10px;color:#3f3f3f;text-decoration:none;
-  padding:10px 12px;border-radius:12px;margin:4px 0;border:1px solid transparent;
+.admin-topbar__left{display:flex;align-items:center;gap:10px}
+.admin-topbar__left .dot{
+  width:8px;height:8px;border-radius:999px;background:var(--primary);display:inline-block
 }
-.menu-item:hover{background:rgba(138,143,117,.08);border-color:rgba(138,143,117,.18)}
-.menu-item.active{background:rgba(138,143,117,.14);border-color:rgba(138,143,117,.3);color:#1c1c1c}
+.admin-topbar__left strong{font-size:16px;color:#3a3a3a}
 
-.admin-body{flex:1;display:flex;flex-direction:column;min-width:0}
-.admin-topbar{
-  position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;padding:10px 16px;
-}
-.admin-topbar h1{font-size:16px;margin:0;color:#3a3a3a}
-
+.admin-topbar__right{display:flex;align-items:center;gap:10px}
 .me{
-  display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--border);
-  border-radius:999px;background:var(--surface)
+  display:flex;align-items:center;gap:6px;padding:6px 10px;
+  border:1px solid var(--border);border-radius:999px;background:#fff
 }
-.btn-logout{
-  padding:8px 12px;border-radius:12px;border:1px solid var(--accent);background:#fff;color:var(--accent);cursor:pointer
-}
-.btn-logout:hover{background:rgba(209,160,160,.10)}
 
-.admin-main{padding:16px}
-
-/* dashboard cartões */
-.admin-dash h2{margin:0 0 8px}
-.cards{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px
+/* botões da topbar */
+.btn-top{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--primary); color:var(--primary); background:#fff;
+  padding:8px 12px; border-radius:12px; cursor:pointer; text-decoration:none;
+  transition:.15s ease;
 }
-.card{
-  display:flex;gap:12px;align-items:center;padding:14px;border-radius:16px;border:1px solid var(--border);
-  background:var(--surface);text-decoration:none;color:inherit;box-shadow:var(--shadow-sm)
-}
-.card:hover{background:#fafafa;border-color:rgba(138,143,117,.25)}
-.card span{display:block;color:#6b7280;font-size:13px}
+.btn-top:hover{background:var(--primary);color:#fff}
+.btn-top.danger{border-color:var(--accent); color:var(--accent)}
+.btn-top.danger:hover{background:var(--accent); color:#fff}
 
-/* toolbar/busca */
-.toolbar{display:flex;gap:12px;align-items:center;margin:0 0 12px;flex-wrap:wrap}
-.searchbox{
-  display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:12px;padding:8px 10px;
-  background:var(--surface);min-width:260px;box-shadow:var(--shadow-sm)
+/* ============================
+   SIDEBAR FIXA (vertical)
+   ============================ */
+.admin-sidebar.fixed{
+  position:fixed; top:64px; left:0; bottom:0; z-index:900;
+  width:240px; background:var(--surface);
+  border-right:1px solid var(--border);
+  padding:12px;
+  overflow-y:auto;
 }
-.searchbox input{border:none;outline:none;min-width:180px;background:transparent}
 
-/* tabela */
-.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:16px;background:var(--surface);box-shadow:var(--shadow-sm)}
-table{width:100%;border-collapse:collapse}
+.admin-sidebar__brand{
+  font-weight:700; color:#333; background:#fff;
+  border:1px solid var(--border); border-radius:12px;
+  padding:10px 12px; margin-bottom:10px;
+}
+
+/* Navegação (um embaixo do outro) */
+.side-nav{display:flex;flex-direction:column;gap:6px}
+.nav-link{
+  display:flex;align-items:center;gap:10px;
+  color:#3f3f3f;text-decoration:none;
+  padding:10px 12px;border-radius:12px;border:1px solid transparent;
+  transition:.15s ease;
+}
+.nav-link .ico{opacity:.9}
+.nav-link:hover{
+  background:rgba(138,143,117,.08);border-color:rgba(138,143,117,.18)
+}
+.nav-link.active{
+  background:rgba(138,143,117,.14);border-color:rgba(138,143,117,.30);
+  color:#1c1c1c;font-weight:600;
+}
+
+/* ============================
+   ÁREA DE CONTEÚDO
+   ============================ */
+.admin-content{
+  min-height:100vh;
+  padding:24px;
+  padding-top:calc(64px + 24px);  /* compensa a topbar */
+  margin-left:240px;              /* compensa a sidebar */
+}
+
+/* ============================
+   UTILITÁRIOS (UsersPage & afins)
+   ============================ */
+.table-wrap{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:760px}
 th,td{padding:12px;border-bottom:1px solid #f1eeec;text-align:left}
-th{
-  background:#faf9f9;font-weight:600;user-select:none;color:#494949;
-}
+th{background:#faf9f9;font-weight:600;user-select:none;color:#494949}
 th[role="button"]{cursor:pointer}
 
-.actions{display:flex;gap:8px}
-button{
-  padding:8px 12px;border-radius:12px;border:1px solid var(--border);background:#fff;cursor:pointer
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px}
+.searchbox{
+  flex:1; min-width:240px; display:flex; align-items:center; gap:8px;
+  background:#fff;border:1px solid var(--border);border-radius:999px;padding:8px 12px;
 }
+.searchbox input{
+  border:none;outline:none;flex:1;background:transparent;font:inherit;color:inherit;
+}
+
+.actions{display:flex;gap:8px}
 
 .btn-danger{background:var(--accent);color:#fff;border:1px solid var(--accent)}
 .btn-danger:hover{filter:brightness(.96)}
@@ -100,46 +129,60 @@ button{
 
 .pager{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin-top:12px}
 
-/* modal (perfil) + diálogo (confirm) */
-.modal-backdrop,.cd-backdrop{
-  position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px;z-index:60
+/* ============================
+   ConfirmDialog (prefixado)
+   ============================ */
+.cd-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center;padding:16px;z-index:60
 }
-.modal-card,.cd-card{
-  background:var(--surface);width:min(720px,100%);border-radius:16px;padding:20px;
+.cd-card{
+  background:#fff;width:min(520px,100%);border-radius:16px;padding:20px;
   box-shadow:var(--shadow-md);border:1px solid var(--border)
 }
-.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.modal-head .x{border:none;background:transparent;font-size:18px;cursor:pointer}
-
-.profile-row{display:flex;gap:16px;align-items:flex-start}
-.avatar-placeholder{
-  width:80px;height:80px;border-radius:12px;display:grid;place-items:center;background:#f0efee;font-weight:700;color:#888
-}
-
-/* ConfirmDialog botões */
-.cd-title{margin:0 0 6px;font-size:18px}
-.cd-message{margin:0 0 16px;color:#444}
-.cd-actions{display:flex;gap:8px;justify-content:flex-end}
+.cd-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.cd-title{margin:0 0 6px}
+.cd-message{margin:0;color:#555}
 .cd-btn{padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:#fff;cursor:pointer}
-.cd-btn.outlined{border-color:var(--border)}
-.cd-btn.danger{background:var(--accent);color:#fff;border-color:var(--accent)}
-.cd-btn.danger:hover{filter:brightness(.96)}
+.cd-btn.outlined{border-color:var(--primary);color:var(--primary)}
+.cd-btn.danger{background:var(--accent);border-color:var(--accent);color:#fff}
 
-
-/* Botão outline padrão do tema (usado na topbar) */
-.btn-outline{
-  padding: 4px 6px;
-  margin-right: 10px;
-  border-radius: 12px;
-  border: 1px solid var(--primary);
-  background: #fff;
-  color: var(--primary);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
+/* ============================
+   Responsivo
+   ============================ */
+@media (max-width: 900px){
+  .admin-sidebar.fixed{width:200px}
+  .admin-content{margin-left:200px}
 }
-.btn-outline:hover{
-  background: rgb(138, 143, 117); /* oliva suave */
+@media (max-width: 680px){
+  .admin-sidebar.fixed{width:84px; padding:10px}
+  .nav-link span{display:none} /* deixa só ícones */
+  .admin-content{margin-left:84px}
+}
+
+
+
+/* ===== Off-canvas (menu suspenso) ===== */
+.hamburger{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:38px; height:38px; border-radius:10px;
+  border:1px solid var(--border); background:#fff; cursor:pointer;
+  transition:.15s ease;
+}
+.hamburger:hover{background:#f6f6f6}
+.hamburger svg{width:18px;height:18px}
+
+.admin-sidebar.fixed{ transition: transform .25s ease; }
+.admin-shell.nav-collapsed .admin-sidebar.fixed{ transform: translateX(-100%); }
+.admin-shell.nav-collapsed .admin-content{ margin-left:0; }
+
+/* overlay escurecido (abaixo da topbar) */
+.admin-overlay{
+  position:fixed; top:64px; left:0; right:0; bottom:0;
+  background:rgba(0,0,0,.35); z-index:850;
+}
+
+/* Em telas largas, você pode optar por deixar sempre sem overlay (opcional) */
+@media (min-width: 1024px){
+  .admin-overlay{ display:none; }
 }

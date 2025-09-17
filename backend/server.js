@@ -4,11 +4,15 @@ const helmet = require("helmet");
 const compression = require("compression");
 const path = require("path");
 require("dotenv").config();
-
-const sequelize = require("./config/db");
-require("./models/Usuario");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const receitaRoutes = require("./routes/receitaRoutes");
+const adminRecipeRoutes = require("./routes/adminRecipeRoutes");
+const sequelize = require("./config/db");
+require("./models/Usuario");
+
+require("./models/Receita");
+
 
 const app = express();
 app.set("trust proxy", 1);
@@ -50,8 +54,11 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
 
 // rotas
-app.use(authRoutes);
-app.use("/admin", adminRoutes);
+app.use(authRoutes);                           // /login, /register, /me ...
+app.use(receitaRoutes);                        // público: /receitas, /receitas/:slug
+app.use("/admin", adminRoutes);                // /admin/users ...
+app.use("/admin/receitas", adminRecipeRoutes); // CRUD receitas admin (pt-BR)
+
 
 const port = process.env.PORT || 3001;
 

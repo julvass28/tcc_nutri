@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate, useParams } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./App.css";
 
@@ -22,31 +22,13 @@ import FastFood from "./pages/DicaNutri-FastFood";
 import Shopping from "./pages/DicaNutri-Shopping";
 import Bar from "./pages/DicaNutri-Bar";
 import Viagem from "./pages/DicaNutri-Viagem";
-import ReceitasClinicas from "./pages/receitas/ReceitasClinicas";
-import ReceitasPediatricas from "./pages/receitas/ReceitasPediatricas";
-import ReceitasEsportivas from "./pages/receitas/ReceitasEsportivas";
-import ReceitasEmagrecimento from "./pages/receitas/ReceitasEmagrecimento";
-import ReceitasIntolerancias from "./pages/receitas/ReceitasIntolerancias";
-import PudimDeChia from "./pages/receitas/PudimDeChia";
-import ChaiLatte from "./pages/receitas/ChaiLatte";
-import Crepioca from "./pages/receitas/Crepioca";
-import ChipsDeBatata from "./pages/receitas/ChipsDeBatata";
-import PanquecaDeBananaEAveia from "./pages/receitas/PanquecaDeBananaEAveia";
-import BoloDeCenoura from "./pages/receitas/BoloDeCenoura";
-import Nuggets from "./pages/receitas/Nuggets";
-import SmoothieDeMorango from "./pages/receitas/SmoothieDeMorango";
-import SmoothieEnergetico from "./pages/receitas/SmoothieEnergetico";
-import BarrinhaDeCereal from "./pages/receitas/BarrinhaDeCereal";
-import Hamburguer from "./pages/receitas/Hamburguer";
-import PaoDeBanana from "./pages/receitas/PaoDeBanana";
-import Suco from "./pages/receitas/Suco";
-import SaladaDeQuinoa from "./pages/receitas/SaladaDeQuinoa";
-import PaoLowCarb from "./pages/receitas/PaoLowCarb";
-import Omelete from "./pages/receitas/Omelete";
-import LeiteDeAmendoas from "./pages/receitas/LeiteDeAmendoas";
-import PaoDeQueijo from "./pages/receitas/PaoDeQueijo";
-import BoloDeCacau from "./pages/receitas/BoloDeCacau";
-import PanquecaDeBanana from "./pages/receitas/PanquecaDeBanana";
+
+// Receitas (novas)
+import RecipesAdmin from "./pages/admin/RecipesAdmin";
+import RecipeForm from "./pages/admin/RecipeForm";
+import RecipesCategory from "./pages/receitas/RecipesCategory";
+import RecipeDetail from "./pages/receitas/RecipeDetail";
+
 import PerfilEditar from "./pages/PerfilEditar";
 import Perfil from "./pages/perfil";
 import AgendarConsulta from "./pages/agendar_consulta";
@@ -56,6 +38,17 @@ import ProtectedRouteAdmin from "./routes/ProtectedRouteAdmin";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UsersPage from "./pages/admin/UsersPage";
+
+// ====== Redirect de compatibilidade para rotas antigas ======
+function LegacyReceitasRedirect() {
+  const { categoria } = useParams();
+  const navigate = useNavigate();
+  // envia para a nova rota de categoria
+  React.useEffect(() => {
+    navigate(`/receitas/categoria/${categoria}`, { replace: true });
+  }, [categoria, navigate]);
+  return null;
+}
 
 export default function App() {
   return (
@@ -68,11 +61,6 @@ export default function App() {
           "/DicaNutri-Shopping",
           "/DicaNutri-Bar",
           "/DicaNutri-Viagem",
-          "/receitas/clinica",
-          "/receitas/pediatrica",
-          "/receitas/esportiva",
-          "/receitas/emagrecimento",
-          "/receitas/intolerancias",
         ]}
       />
 
@@ -98,31 +86,18 @@ export default function App() {
           <Route path="/DicaNutri-Shopping" element={<Shopping />} />
           <Route path="/DicaNutri-Bar" element={<Bar />} />
           <Route path="/DicaNutri-Viagem" element={<Viagem />} />
-          <Route path="/receitas/clinica" element={<ReceitasClinicas />} />
-          <Route path="/receitas/pediatrica" element={<ReceitasPediatricas />} />
-          <Route path="/receitas/esportiva" element={<ReceitasEsportivas />} />
-          <Route path="/receitas/emagrecimento" element={<ReceitasEmagrecimento />} />
-          <Route path="/receitas/intolerancias" element={<ReceitasIntolerancias />} />
-          <Route path="/receitas/info/PudimDeChia" element={<PudimDeChia />} />
-          <Route path="/receitas/info/ChaiLatte" element={<ChaiLatte />} />
-          <Route path="/receitas/info/Crepioca" element={<Crepioca />} />
-          <Route path="/receitas/info/ChipsDeBatata" element={<ChipsDeBatata />} />
-          <Route path="/receitas/info/PanquecaDeBananaEAveia" element={<PanquecaDeBananaEAveia />} />
-          <Route path="/receitas/info/BoloDeCenoura" element={<BoloDeCenoura />} />
-          <Route path="/receitas/info/Nuggets" element={<Nuggets />} />
-          <Route path="/receitas/info/SmoothieDeMorango" element={<SmoothieDeMorango />} />
-          <Route path="/receitas/info/SmoothieEnergetico" element={<SmoothieEnergetico />} />
-          <Route path="/receitas/info/BarrinhaDeCereal" element={<BarrinhaDeCereal />} />
-          <Route path="/receitas/info/Hamburguer" element={<Hamburguer />} />
-          <Route path="/receitas/info/PaoDeBanana" element={<PaoDeBanana />} />
-          <Route path="/receitas/info/Suco" element={<Suco />} />
-          <Route path="/receitas/info/SaladaDeQuinoa" element={<SaladaDeQuinoa />} />
-          <Route path="/receitas/info/PaoLowCarb" element={<PaoLowCarb />} />
-          <Route path="/receitas/info/Omelete" element={<Omelete />} />
-          <Route path="/receitas/info/LeiteDeAmendoas" element={<LeiteDeAmendoas />} />
-          <Route path="/receitas/info/PaoDeQueijo" element={<PaoDeQueijo />} />
-          <Route path="/receitas/info/BoloDeCacau" element={<BoloDeCacau />} />
-          <Route path="/receitas/info/PanquecaDeBanana" element={<PanquecaDeBanana />} />
+
+          {/* ===== Primeiro: redireciono as rotas antigas de categoria ===== */}
+          <Route
+            path="/receitas/:categoria(clinica|pediatrica|esportiva|emagrecimento|intolerancias)"
+            element={<LegacyReceitasRedirect />}
+          />
+
+          {/* Categoria dinâmica (nova) */}
+          <Route path="/receitas/categoria/:categoria" element={<RecipesCategory />} />
+
+          {/* Detalhe por slug */}
+          <Route path="/receitas/:slug" element={<RecipeDetail />} />
         </Route>
 
         {/* Layout ADMIN sem Header/Footer */}
@@ -136,6 +111,10 @@ export default function App() {
         >
           <Route index element={<AdminDashboard />} />
           <Route path="users" element={<UsersPage />} />
+
+          <Route path="receitas" element={<RecipesAdmin />} />
+          <Route path="receitas/new" element={<RecipeForm />} />
+          <Route path="receitas/:id/edit" element={<RecipeForm />} />
         </Route>
       </Routes>
     </Router>
