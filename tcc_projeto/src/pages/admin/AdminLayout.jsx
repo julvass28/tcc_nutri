@@ -9,6 +9,7 @@ import {
   FaHouseUser,
   FaUsers,
   FaBars,
+  FaQuestionCircle,
 } from "react-icons/fa";
 import "../../css/admin-theme.css";
 
@@ -94,14 +95,30 @@ export default function AdminLayout() {
             <span>Usuários</span>
           </NavLink>
 
-         <NavLink
-  to="/admin/receitas"
-  className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
-  onClick={() => setSidebarOpen(false)}
->
-  <span className="ico"><FaBook/></span>
-  <span>Receitas</span>
-</NavLink>
+          <NavLink
+            to="/admin/receitas"
+            className={({ isActive }) =>
+              "nav-link" + (isActive ? " active" : "")
+            }
+            onClick={() => setSidebarOpen(false)}
+          >
+            <span className="ico">
+              <FaBook />
+            </span>
+            <span>Receitas</span>
+          </NavLink>
+           <NavLink
+            to="/admin/faq"
+            className={({ isActive }) =>
+              "nav-link" + (isActive ? " active" : "")
+            }
+            onClick={() => setSidebarOpen(false)}
+          >
+            <span className="ico">
+              <FaQuestionCircle />
+            </span>
+            <span>FAQ</span>
+          </NavLink>
           {/* Libera quando tiver as páginas:
           <NavLink to="/admin/agenda" className={({isActive}) => "nav-link" + (isActive ? " active" : "")} onClick={() => setSidebarOpen(false)}>
             <FaCalendarAlt className="ico" /><span>Agenda</span>

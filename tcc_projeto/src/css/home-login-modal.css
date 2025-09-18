@@ -35,7 +35,7 @@
 .home-login-close {
   position: absolute;
   top: -18px;       /* sobe pra fora */
-  right: -18px;     /* vai pra fora na direita */
+  right: 8px;     /* vai pra fora na direita */
   width: 44px;
   height: 44px;
   border-radius: 999px;
@@ -80,7 +80,7 @@
   }
   .home-login-close {
     top: -14px;
-    right: -14px;
+    right: 8px;
     width: 40px;
     height: 40px;
   }

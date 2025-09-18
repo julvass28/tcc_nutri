@@ -45,8 +45,8 @@ body {
 /* Header - largura total ajustada */
 .perfil-header {
   position: relative;
-  width: 100vw; /* ocupa toda a largura da viewport */
-  margin-left: calc(-50vw + 50%); /* compensa o padding/margem do container */
+  width: 100%; /* ocupa toda a largura da viewport */
+  margin-left: 0; /* normalized to avoid X-scroll */
   background-color: #F4EFEC;
   padding: 100px 0 25px;
   display: flex;

@@ -33,11 +33,13 @@
 }
 
 .next-arrow {
-    right: -50px;
+    right: 0;
+    transform: translate(50%, -50%);
 }
 
 .prev-arrow {
-    left: -50px;
+    left: 0;
+    transform: translate(-50%, -50%);
 }
 
 .icone-seta {
@@ -140,3 +142,8 @@
 
 
 }
+/* --- Lis fix v3 --- */
+
+/* Garantia: a faixa do slick não estoura o container */
+.slick-list{ overflow: hidden; }
+

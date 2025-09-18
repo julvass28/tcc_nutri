@@ -16,3 +16,12 @@ body.forgot-password-page {
   background-color: #e7e0dd;
   min-height: 100vh;
 }
+
+/* X-scroll hard guard */
+html, body, #root { width: 100%; overflow-x: clip; }
+
+/* --- Lis fix v3 --- */
+
+/* Hard guard global */
+html, body, #root { width: 100%; overflow-x: clip; }
+

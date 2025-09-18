@@ -280,7 +280,7 @@ body {
 }
 
 .funcionamento-home {
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: center;
 
@@ -1228,4 +1228,16 @@ body {
     font-size: 1rem;
     color: #454545;
   }
+}
+
+/* --- Lis fix v3 --- */
+
+/* Dicas: evita vazamento lateral se existir deslocamento via left/margin */
+/* se você usava left negativo nessas duas, zera */
+.conteudo-dicas, .imagem-container-dicas { left: 0; }
+
+/* o wrapper da seção de Dicas */
+.dicas, .dicas-wrapper, .secao-dicas {
+  overflow-x: hidden;
+  position: relative;
 }
