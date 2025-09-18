@@ -1,15 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Lustria:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap');
 
-/* ===== Base ===== */
+
 html, body { font-family: 'Lustria', serif; margin: 0; padding: 0; overflow-x: hidden; }
 .sobre-main { width: 100%; background: #E6E9E2; color: #3f3f3f; }
+
+.sobre-main :where(h1,h2,h3,h4,h5,h6,p,span,li,a,button,small,strong,em,blockquote,figcaption){
+  font-family: inherit;
+}
+
 .bg-branco { background: #fff !important; }
 
 /* ===== HERO ===== */
 .sobre-hero {
   padding: clamp(24px, 6vw, 64px) 0;
-  background: linear-gradient(180deg, #D7DCCF 0%, rgba(215,220,207,0) 100%);
+  /* trocado: degradê -> cor única cinza */
+  background: #E6E6E6;
   border-bottom: 1px solid rgba(0,0,0,.04);
 }
 .sobre-hero-inner {
@@ -27,7 +33,9 @@ html, body { font-family: 'Lustria', serif; margin: 0; padding: 0; overflow-x: h
   position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%;
   background: #D9B5AD; color: #000; border-radius: 8px;
   display: flex; align-items: center; justify-content: center; text-align: center;
-  font-family: 'Playfair Display', serif; font-size: 28px; line-height: 1.2;
+  /* usa Playfair, agora com peso existente (600) pra não cair em fallback */
+  font-family: 'Playfair Display', serif; font-weight: 600;
+  font-size: 28px; line-height: 1.2;
   box-shadow: 0 12px 30px rgba(0,0,0,.10);
 }
 .photo-card .photo-img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block; }
@@ -35,7 +43,10 @@ html, body { font-family: 'Lustria', serif; margin: 0; padding: 0; overflow-x: h
 /* Texto do Hero */
 .sobre-text { text-align: center; }
 @media (min-width: 900px) { .sobre-text { text-align: left; } }
-.sobre-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: clamp(24px, 3vw, 34px); margin: 0 0 12px; }
+.sobre-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(24px, 3vw, 34px); margin: 0 0 12px;
+}
 .divider-dot { color: #8A8F75; margin: 0 .35ch; }
 .sobre-intro { max-width: 560px; font-size: clamp(15px, 1.5vw, 18px); line-height: 1.7; margin: 0 auto; }
 @media (min-width: 900px) { .sobre-intro { margin: 0; } }
@@ -45,9 +56,12 @@ html, body { font-family: 'Lustria', serif; margin: 0; padding: 0; overflow-x: h
 @media (min-width: 900px) { .sobre-cta { justify-content: flex-start; } }
 .sobre-cta .btn-agendar {
   background: #ddb3aa; color: #3f3f3f; font-family: 'Lustria', serif; font-weight: 400;
-  border: 0; border-radius: 999px; padding: 10px 22px; line-height: 1; text-decoration: none;
+  border: 0; border-radius: 999px;
+  /* aumentei um pouco */
+  padding: 12px 26px; line-height: 1; text-decoration: none;
   box-shadow: 0 6px 14px rgba(0,0,0,.12);
   transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  font-size: clamp(16px, 1.9vw, 18px);
 }
 .sobre-cta .btn-agendar:hover { transform: translateY(-1px); filter: brightness(0.98); box-shadow: 0 10px 22px rgba(0,0,0,.14); }
 .sobre-cta .btn-agendar:active { transform: translateY(0); filter: brightness(0.96); box-shadow: 0 4px 10px rgba(0,0,0,.12); }
@@ -62,13 +76,14 @@ html, body { font-family: 'Lustria', serif; margin: 0; padding: 0; overflow-x: h
   position: relative;
   font-weight: 800;
   font-size: clamp(20px, 2.4vw, 28px);
-  margin: clamp(64px, 7.2vw, 96px) 0 20px; /* mais espaço ANTES do título */
+  margin: clamp(64px, 7.2vw, 96px) 0 20px;
   padding-left: 28px;
 }
 .section-title::before{
   content: ""; position: absolute; left: 0; top: 10px;
   width: 16px; height: 16px; border-radius: 4px;
-  background: linear-gradient(135deg, #8A8F75 0%, #AEB5A1 100%);
+  /* trocado: sem degradê, cor única */
+  background: #8A8F75;
   box-shadow: 0 2px 6px rgba(0,0,0,.12);
 }
 .sobre-article .section-title:first-of-type { margin-top: 20px; }
@@ -80,14 +95,14 @@ html, body { font-family: 'Lustria', serif; margin: 0; padding: 0; overflow-x: h
 .sobre-list li { margin: 8px 0; }
 
 /* ===== Áreas de Atuação ===== */
-.sobre-areas { margin: 22px 0 72px; } /* + espaço depois do bloco */
+.sobre-areas { margin: 22px 0 72px; }
 
 /* Mobile: carrossel */
 .sobre-areas-carousel { display: none; }
 .sobre-areas-carousel .slick-slider,
 .sobre-areas-carousel .slick-list { width: 100% !important; }
 .sobre-areas-carousel .slick-list { overflow: visible !important; }
-.sobre-areas-carousel .slick-track { display: flex !important; gap: 8px !important; } /* menos gap entre slides */
+.sobre-areas-carousel .slick-track { display: flex !important; gap: 8px !important; }
 .sobre-areas-carousel .slick-slide { height: auto !important; }
 .sobre-areas-carousel .slick-slide > div { height: 100% !important; box-sizing: border-box; }
 .sobre-areas-carousel [aria-hidden="true"] a,
@@ -97,16 +112,16 @@ html, body { font-family: 'Lustria', serif; margin: 0; padding: 0; overflow-x: h
 .sobre-areas-grid { max-width: 980px; margin: 0 auto; }
 .sobre-areas-grid .home-linha{
   display: flex;
-  gap: 14px;              /* cards mais próximos */
+  gap: 14px;
   justify-content: center;
   align-items: stretch;
-  margin-bottom: 6px;     /* MENOS espaço vertical entre as duas fileiras */
+  margin-bottom: 6px;
   flex-wrap: nowrap;
 }
 .sobre-areas-grid .home-categoria{
-  flex: 0 1 280px; max-width: 300px; min-height: 112px; /* mais baixinho */
+  flex: 0 1 280px; max-width: 300px; min-height: 112px;
   display: flex; flex-direction: column; gap: 6px; justify-content: center; align-items: center;
-  text-align: center; padding: 10px 12px;               /* mais sequinho */
+  text-align: center; padding: 10px 12px;
   border-radius: 14px; border: 1.5px solid #e7c8c1; background: #fff;
   box-shadow: 0 2px 0 rgba(0,0,0,.02), 0 6px 14px rgba(0,0,0,.04);
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
@@ -128,3 +143,48 @@ html, body { font-family: 'Lustria', serif; margin: 0; padding: 0; overflow-x: h
 
 /* Acentos */
 .sobre-highlight-alt { font-style: italic; color: #8A8F75; }
+/* ——— Utilitário: força Lustria só nas seções marcadas ——— */
+
+
+/* Lustria só nas seções marcadas */
+.sobre-main .font-lustria,
+.sobre-main .font-lustria :where(p,ul,ol,li,a,span,small,strong,em,button){
+  font-family: 'Lustria', serif !important;
+  font-weight: 400; /* corpo */
+}
+
+.sobre-main .font-lustria .section-title{
+  font-family: 'Lustria', serif !important;
+  font-weight: 700 !important; /* título com peso real da Lustria */
+}
+
+/* conteúdo logo abaixo também em Lustria */
+.sobre-main .font-lustria .sobre-list,
+.sobre-main .font-lustria .sobre-list *,
+.sobre-main .font-lustria .sobre-paragraph,
+.sobre-main .font-lustria .sobre-paragraph *{
+  font-family: 'Lustria', serif !important;
+  font-weight: 400;
+}
+/* força Lustria só nas áreas desejadas, ganhando de qualquer global */
+.lustria-title{
+  font-family: 'Lustria', serif !important;
+  font-weight: 700 !important;  /* Lustria não tem 800 */
+}
+
+.lustria-text,
+.lustria-text *{
+  font-family: 'Lustria', serif !important;
+  font-weight: 400 !important;
+}
+/* ==== Utilitários para forçar Lustria só onde marcado ==== */
+.lustria-title{
+  font-family: 'Lustria', serif !important;
+  font-weight: 700 !important;  /* Lustria tem 400/700 */
+}
+
+.lustria-text,
+.lustria-text *{
+  font-family: 'Lustria', serif !important;
+  font-weight: 400 !important;
+}

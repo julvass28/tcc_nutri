@@ -228,11 +228,6 @@ function Header() {
                   <span className="nav-text mobile">Contato</span>
                 </Link>
               </li>
-              <li>
-                <Link to="#">
-                  <span className="nav-text mobile">Agendar Consulta</span>
-                </Link>
-              </li>
             </ul>
 
             <div className="infos-mobile">
@@ -240,7 +235,7 @@ function Header() {
               <p className="email">dranatalia@simanovski.com</p>
             </div>
 
-            <Botao className="botao-header">Agendar Consulta</Botao>
+            <Botao to="/agendar-consulta" className="botao-header">Agendar Consulta</Botao>
 
             <div className="mobile-icons">
               <HiOutlineEnvelope className="icon-mobile" />
