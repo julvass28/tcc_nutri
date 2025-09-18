@@ -13,7 +13,6 @@ require("./models/Usuario");
 
 require("./models/Receita");
 
-
 const app = express();
 app.set("trust proxy", 1);
 
@@ -26,24 +25,31 @@ const allowedOrigins = [
   "http://127.0.0.1:5173",
 ];
 
+
 app.use(
   cors({
-    origin: (origin, cb) => {
-      if (!origin) return cb(null, true);
-      return cb(null, allowedOrigins.includes(origin));
+    origin(origin, cb) {
+      if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+      return cb(new Error("Not allowed by CORS"));
     },
-    credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
+// ⚠️ Estes middlewares tinham sumido
 app.use(express.json());
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
   })
 );
+
+
+// Rotas
+const agendaRoutes = require('./routes/agendaRoutes');
+app.use('/agenda', agendaRoutes);
 
 app.use(compression());
 
@@ -54,11 +60,10 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
 
 // rotas
-app.use(authRoutes);                           // /login, /register, /me ...
-app.use(receitaRoutes);                        // público: /receitas, /receitas/:slug
-app.use("/admin", adminRoutes);                // /admin/users ...
+app.use(authRoutes); // /login, /register, /me ...
+app.use(receitaRoutes); // público: /receitas, /receitas/:slug
+app.use("/admin", adminRoutes); // /admin/users ...
 app.use("/admin/receitas", adminRecipeRoutes); // CRUD receitas admin (pt-BR)
-
 
 const port = process.env.PORT || 3001;
 

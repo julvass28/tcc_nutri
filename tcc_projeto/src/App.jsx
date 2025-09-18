@@ -32,7 +32,7 @@ import RecipeDetail from "./pages/receitas/RecipeDetail";
 import PerfilEditar from "./pages/PerfilEditar";
 import Perfil from "./pages/perfil";
 import AgendarConsulta from "./pages/agendar_consulta";
-
+import Agendar from "./pages/Agenda";
 // Admin
 import ProtectedRouteAdmin from "./routes/ProtectedRouteAdmin";
 import AdminLayout from "./pages/admin/AdminLayout";
@@ -86,7 +86,7 @@ export default function App() {
           <Route path="/DicaNutri-Shopping" element={<Shopping />} />
           <Route path="/DicaNutri-Bar" element={<Bar />} />
           <Route path="/DicaNutri-Viagem" element={<Viagem />} />
-
+<Route path="/agendar" element={<Agendar />} />
           {/* ===== Primeiro: redireciono as rotas antigas de categoria ===== */}
           <Route
             path="/receitas/:categoria(clinica|pediatrica|esportiva|emagrecimento|intolerancias)"

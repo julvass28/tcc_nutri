@@ -169,7 +169,31 @@ function Home() {
             { id: 5, icone: <Iconintolerancia />, nome: "Intolerâncias Alimentares",link: "/especialidade/intolerancia" },
           ]}
         />
-      </div>
+      
+            </div>
+
+             <Link to="/agendar">
+        <button style={{ padding: '8px 14px' }}>
+          Agendar consulta
+        </button>
+      </Link>
+    
+            <div className="carrosel-mobile espacamento ">
+
+
+                <CarroselMobile
+                    titulo="Qual o seu objetivo?"
+                    tipo="servicos"
+                    dados={[
+                        { id: 1, icone: <Iconclinica />, nome: "Nutrição Clínica",  link: "/especialidade/clinica" },
+                        { id: 2, icone: <Iconpediatria />, nome: "Nutrição Pediátrica", link: "/especialidade/pediatrica" },
+                        { id: 3, icone: <Iconesportiva />, nome: "Nutrição Esportiva", link: "/especialidade/esportiva" },
+                        { id: 4, icone: <Iconemagrecer />, nome: "Emagrecimento e Obesidade", link: "/especialidade/emagrecimento" },
+                        { id: 5, icone: <Iconintolerancia />, nome: "Intolerâncias Alimentares",link: "/especialidade/intolerancia" },
+                    ]}
+                />
+
+            </div>
 
             <div className="secao-home espacamento">
                 <Titulo texto="Qual o seu objetivo?" />
