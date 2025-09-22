@@ -19,7 +19,7 @@ function Footer() {
               <h3>Links Úteis</h3>
               <li><Link to="/receitas/clinica" className='ftr-link'>Receitas Saudáveis</Link></li>
               <li><Link to="/DicaNutri-Praia" className='ftr-link'>Dicas Alimentares</Link></li>
-              <li><Link to="/sobre" className='ftr-link'>Sobre a Dra. Natália Simanoviski</Link></li>
+              <li><Link to="/sobre" className='ftr-link ftr-link--short'>Sobre a Dra. Natália Simanoviski</Link></li>
               <li><Link to="/contato" className='ftr-link'>Fale Comigo</Link></li>
             </ul>
 
