@@ -109,11 +109,11 @@ export default function FaqAdmin(){
   };
 
   return (
-    <div className="faq-admin">
+    <div className="adm-faq">
       <h2>Perguntas Frequentes ({filtered.length})</h2>
 
-      <div className="faq-toolbar">
-        <div className="faq-search">
+      <div className="adm-faq-toolbar">
+        <div className="adm-faq-search">
           <i className="fas fa-search" />
           <input
             placeholder="Buscar por pergunta ou resposta…"
@@ -123,33 +123,33 @@ export default function FaqAdmin(){
         </div>
 
         <div style={{display:"flex", gap:10}}>
-          <button className="btn-primary" onClick={openSort}>
+          <button className="adm-faq-btn-primary" onClick={openSort}>
             <i className="fas fa-arrows-alt" /> Reordenar
           </button>
-          <button className="btn-primary" onClick={openCreate}>
+          <button className="adm-faq-btn-primary" onClick={openCreate}>
             <i className="fas fa-plus" /> Nova pergunta
           </button>
         </div>
       </div>
 
       {loading ? (
-        <div className="faq-empty">
+        <div className="adm-faq-empty">
           <i className="fas fa-spinner fa-spin" style={{marginRight:8}} />
           Carregando…
         </div>
       ) : filtered.length === 0 ? (
-        <div className="faq-empty">Nenhum item encontrado.</div>
+        <div className="adm-faq-empty">Nenhum item encontrado.</div>
       ) : (
-        <div className="faq-grid">
+        <div className="adm-faq-grid">
           {filtered.map((it) => (
-            <div key={it.id} className="faq-card">
-              <div className="q">{it.pergunta}</div>
-              <div className="a">{it.resposta}</div>
-              <div className="faq-meta">
-                <span className="faq-chip">ordem: {it.ordem ?? "-"}</span>
-                <div className="faq-actions">
+            <div key={it.id} className="adm-faq-card">
+              <div className="adm-faq-q">{it.pergunta}</div>
+              <div className="adm-faq-a">{it.resposta}</div>
+              <div className="adm-faq-meta">
+                <span className="adm-faq-chip">ordem: {it.ordem ?? "-"}</span>
+                <div className="adm-faq-actions">
                   <button onClick={() => openEdit(it)}>Editar</button>
-                  <button className="danger" onClick={() => askRemove(it)}>Excluir</button>
+                  <button className="adm-faq-danger" onClick={() => askRemove(it)}>Excluir</button>
                 </div>
               </div>
             </div>
@@ -159,11 +159,11 @@ export default function FaqAdmin(){
 
       {/* === Modal CRUD (mantido) === */}
       {modalOpen && (
-        <div className="faq-modal-back" onClick={()=>setModalOpen(false)}>
-          <div className="faq-modal" onClick={(e)=>e.stopPropagation()}>
+        <div className="adm-faq-modal-back" onClick={()=>setModalOpen(false)}>
+          <div className="adm-faq-modal" onClick={(e)=>e.stopPropagation()}>
             <h3>{editing ? "Editar Pergunta" : "Nova Pergunta"}</h3>
-            <form className="faq-form" onSubmit={save}>
-              <div className="faq-field">
+            <form className="adm-faq-form" onSubmit={save}>
+              <div className="adm-faq-field">
                 <label>Pergunta *</label>
                 <input
                   value={form.pergunta}
@@ -171,7 +171,7 @@ export default function FaqAdmin(){
                   required
                 />
               </div>
-              <div className="faq-field">
+              <div className="adm-faq-field">
                 <label>Resposta *</label>
                 <textarea
                   value={form.resposta}
@@ -179,9 +179,9 @@ export default function FaqAdmin(){
                   required
                 />
               </div>
-              <div className="faq-modal-actions">
-                <button type="button" className="faq-btn" onClick={()=>setModalOpen(false)}>Cancelar</button>
-                <button type="submit" className="faq-btn primary">{editing ? "Salvar" : "Criar"}</button>
+              <div className="adm-faq-modal-actions">
+                <button type="button" className="adm-faq-btn" onClick={()=>setModalOpen(false)}>Cancelar</button>
+                <button type="submit" className="adm-faq-btn adm-is-primary">{editing ? "Salvar" : "Criar"}</button>
               </div>
             </form>
           </div>
@@ -190,24 +190,24 @@ export default function FaqAdmin(){
 
       {/* === Modal Reordenar === */}
       {sortOpen && (
-        <div className="sort-backdrop" onClick={()=>setSortOpen(false)}>
-          <div className="sort-modal" onClick={(e)=>e.stopPropagation()}>
-            <div className="sort-head">
+        <div className="adm-faq-sort-backdrop" onClick={()=>setSortOpen(false)}>
+          <div className="adm-faq-sort-modal" onClick={(e)=>e.stopPropagation()}>
+            <div className="adm-faq-sort-head">
               <h3>Reordenar Perguntas</h3>
               <span style={{color:"#666", fontSize:13}}>Arraste o “pegador” e solte na posição desejada</span>
             </div>
 
-            <div className="sort-list">
+            <div className="adm-faq-sort-list">
               {sortList.map((it, idx) => (
                 <div
                   key={it.id}
-                  className="sort-item"
+                  className="adm-faq-sort-item"
                   draggable
                   onDragStart={onDragStart(idx)}
                   onDragOver={onDragOver}
                   onDrop={onDrop(idx)}
                 >
-                  <div className="sort-handle">
+                  <div className="adm-faq-sort-handle">
                     <i className="fas fa-grip-vertical" />
                   </div>
                   <div style={{flex:1}}>
@@ -216,13 +216,13 @@ export default function FaqAdmin(){
                 </div>
               ))}
               {sortList.length === 0 && (
-                <div className="faq-empty">Nada para reordenar.</div>
+                <div className="adm-faq-empty">Nada para reordenar.</div>
               )}
             </div>
 
-            <div className="sort-actions">
-              <button className="faq-btn" onClick={()=>setSortOpen(false)}>Fechar</button>
-              <button className="faq-btn primary" onClick={saveOrder}>Salvar ordem</button>
+            <div className="adm-faq-sort-actions">
+              <button className="adm-faq-btn" onClick={()=>setSortOpen(false)}>Fechar</button>
+              <button className="adm-faq-btn adm-is-primary" onClick={saveOrder}>Salvar ordem</button>
             </div>
           </div>
         </div>

@@ -6,13 +6,14 @@
 .login-body,
 .criar-conta-body,
 .forgot-password-body {
+ 
   font-family: "Poppins", sans-serif;
-  background-color: #e7e0dd;
-  min-height: 100vh;
+  background-color: #e7e0dd; 
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
+
 }
 
 .login-container,

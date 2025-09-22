@@ -1,7 +1,7 @@
 /* ReceitaDetalhada.css */
 
 /* Container geral */
-.receitas-container {
+.rec-detail {
   width: 100%;
   font-family: 'Quicksand', sans-serif;
   color: #333;
@@ -9,21 +9,21 @@
 }
 
 /* Banner */
-.receitas-banner {
+.rec-detail-banner {
   position: relative;
   width: 100%;
   height: 380px;
   overflow: hidden;
 }
 
-.receitas-imagem-banner {
+.rec-detail-banner-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
 
-.receitas-titulo-sobreposto {
+.rec-detail-banner-title {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -36,22 +36,21 @@
 }
 
 /* Conteúdo alinhado à esquerda */
-.receitas-conteudo {
+.rec-detail-content {
   max-width: 700px;
   margin-left: 80px;
   padding: 40px 20px 40px 0;
   text-align: left;
 }
 
-/* Link Voltar */
 /* Títulos */
-.receitas-subtitulo-rosa {
+.rec-detail-subtitle-rose {
   font-size: 2.3rem;
   color: #d99191;
   margin-bottom: 20px;
 }
 
-.receitas-subtitulo-verde {
+.rec-detail-subtitle-olive {
   font-size: 2rem;
   color: #748567;
   margin-top: 40px;
@@ -59,7 +58,8 @@
 }
 
 /* Ingredientes e Dicas */
-ul.receitas-ingredientes, ul.dicas {
+ul.rec-detail-ingredients,
+ul.rec-detail-tips {
   list-style: disc;
   padding-left: 20px;
   margin-bottom: 24px;
@@ -67,20 +67,20 @@ ul.receitas-ingredientes, ul.dicas {
   line-height: 1.8;
 }
 
-ul.receitas-ingredientes li,
-ul.dicas li {
+ul.rec-detail-ingredients li,
+ul.rec-detail-tips li {
   margin-bottom: 12px;
 }
 
 /* Modo de preparo numerado */
-ol.receitas-passos {
+ol.rec-detail-steps {
   list-style: none;
   counter-reset: step;
   padding-left: 0;
   margin-bottom: 24px;
 }
 
-ol.receitas-passos li {
+ol.rec-detail-steps li {
   counter-increment: step;
   margin-bottom: 20px;
   display: flex;
@@ -89,7 +89,7 @@ ol.receitas-passos li {
   line-height: 1.8;
 }
 
-ol.receitas-passos li::before {
+ol.rec-detail-steps li::before {
   content: counter(step);
   margin-right: 12px;
   background-color: #748567;
@@ -107,7 +107,7 @@ ol.receitas-passos li::before {
 }
 
 /* Voltar */
-.receitas-voltar {
+.rec-detail-back {
   display: inline-block;
   margin-bottom: 20px;
   color: #888;
@@ -116,7 +116,7 @@ ol.receitas-passos li::before {
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.receitas-voltar:hover {
+.rec-detail-back:hover {
   color: #d99191;
   transform: translateX(-5px);
 }

@@ -215,21 +215,21 @@ function IMCCalculator() {
       </div>
 
       <div className="section-calculators">
-        <Link to="/calculadoras/consumo-agua">
+        <Link to="/calculadoras/consumo-agua"  className="link-calc-section-all">
         <div className="sectioncal calculadora-calorias-nutrientes">
           <h1 id="hum-cal-agua">Calculadora de Consumo diário de Água</h1>
           <p>Calcule a quantidade ideal de água que você deve consumir diariamente.</p>
           <div className="icon-section"><LuGlassWater id="img-calculator-icon" /></div>
         </div>
         </Link>
-        <Link to="/calculadoras/calorias-nutrientes">
+        <Link to="/calculadoras/calorias-nutrientes"  className="link-calc-section-all">
         <div className="sectioncal calculadora-calorias-nutrientes">
           <h1 id="hum-cal-nutri">Calculadora de Calorias e Nutrientes</h1>
           <p>Calcule as calorias e nutrientes dos alimentos consumidos no seu dia a dia.</p>
           <div className="icon-section"><PiForkKnifeFill id="img-calculator-icon" /></div>
         </div>
         </Link>
-        <Link to="/calculadoras/gasto-calorico">
+        <Link to="/calculadoras/gasto-calorico"  className="link-calc-section-all">
         <div className="sectioncal calculadora-calorias-nutrientes">
           <h1 id="hum-cal-gasto">Calculadora de Gastos Calorico</h1>
           <p>Descubra quantas calorias seu corpo gasta por dia</p>

@@ -22,17 +22,17 @@ export default function Agendamento() {
   ];
 
   return (
-    <div className="agendamento-page">
+    <div className="agc">
       {/* Hero */}
-      <section className="hero">
-        <div className="hero-content">
+      <section className="agc-hero">
+        <div className="agc-hero-content">
           <img
             src={phoneImg}
             alt="Ilustração de mulher interagindo com celular"
-            className="hero-img"
+            className="agc-hero-img"
             loading="lazy"
           />
-          <div className="hero-text">
+          <div className="agc-hero-text">
             <h2>
               Como funcionam nossos <span>agendamentos?</span>
             </h2>
@@ -42,7 +42,7 @@ export default function Agendamento() {
               pagamento via cartão de crédito e Pix.
             </p>
 
-            <div className="hero-actions">
+            <div className="agc-hero-actions">
               <Botao onClick={scrollToConteudo}>Ver detalhes</Botao>
               {/* <Botao to="/selecionar-data">Agendar consulta</Botao> */}
             </div>
@@ -51,7 +51,7 @@ export default function Agendamento() {
       </section>
 
       {/* Conteúdo */}
-      <section className="conteudo" id="conteudo">
+      <section className="agc-content" id="conteudo">
         <h3>
           <span>•</span> Pagamento
         </h3>
@@ -61,24 +61,26 @@ export default function Agendamento() {
           consulta.
         </p>
 
-        {/* Card de consulta (classes escopadas) */}
-        <article className="ag-card">
-          <h4 className="ag-card__heading">Consulta de Nutrição</h4>
+        {/* Card de consulta (escopado) */}
+        <article className="agc-card">
+          <h4 className="agc-card__heading">Consulta de Nutrição</h4>
 
-          <div className="ag-card__layout">
+          <div className="agc-card__layout">
             <img
               src={avocadoImg}
               alt="Torrada com abacate e ovo frito"
-              className="ag-card__img"
+              className="agc-card__img"
               loading="lazy"
             />
 
-            <div className="ag-card__info">
-              <p className="destaque">Avaliação completa e plano personalizado</p>
+            <div className="agc-card__info">
+              <p className="agc-highlight">
+                Avaliação completa e plano personalizado
+              </p>
               <ul>
                 {beneficios.map(({ icon, texto }) => (
                   <li key={texto}>
-                    <i className={`${icon} icon`} aria-hidden="true" />
+                    <i className={`${icon} agc-icon`} aria-hidden="true" />
                     {texto}
                   </li>
                 ))}
@@ -86,7 +88,7 @@ export default function Agendamento() {
             </div>
           </div>
 
-          <p className="ag-card__price">
+          <p className="agc-card__price">
             preço fixo de: <span>R$ 80,00</span>
           </p>
         </article>
@@ -102,9 +104,9 @@ export default function Agendamento() {
           poupando seu tempo durante a mesma e preparando a profissional.
         </p>
 
-        <div className="cta">
+        <div className="agc-cta">
           <p>Agende sua consulta e tenha dicas exclusivas</p>
-          <Botao to="/consulta">Continuar</Botao>
+          <Botao to="/agendar">Continuar</Botao>
         </div>
       </section>
     </div>

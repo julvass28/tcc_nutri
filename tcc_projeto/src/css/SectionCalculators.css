@@ -28,7 +28,10 @@
   font-family: "Poppins";
   justify-content: space-around;
 }
-
+.a-link-calculadoras{
+  text-decoration: none;
+  color: inherit;
+}
 #titulo-principal-cal {
   font-size: 30px;
   text-align: center;

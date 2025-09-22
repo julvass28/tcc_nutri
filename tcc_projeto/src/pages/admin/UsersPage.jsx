@@ -1,7 +1,7 @@
+// src/pages/admin/UsersPage.jsx
 import { useEffect, useMemo, useState } from "react";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import "../../css/admin-theme.css";
-
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -9,11 +9,7 @@ function fetchAuth(url, options = {}) {
   const token = localStorage.getItem("token");
   return fetch(url, {
     ...options,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-      ...(options.headers || {}),
-    },
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}`, ...(options.headers || {}) },
   });
 }
 
@@ -44,10 +40,8 @@ export default function UsersPage() {
     setList(Array.isArray(data) ? data : []);
     setLoading(false);
   };
-
   useEffect(() => { load(); }, []);
 
-  // derivar lista filtrada/ordenada
   const filtered = useMemo(() => {
     let data = [...list];
     const q = search.trim().toLowerCase();
@@ -58,12 +52,9 @@ export default function UsersPage() {
         (u.email || "").toLowerCase().includes(q)
       );
     }
-    if (onlyAdmins) {
-      data = data.filter(u => !!u.isAdmin);
-    }
+    if (onlyAdmins) data = data.filter(u => !!u.isAdmin);
     data.sort((a, b) => {
-      let va = a[sortKey];
-      let vb = b[sortKey];
+      let va = a[sortKey], vb = b[sortKey];
       if (sortKey === "nome") {
         va = `${a.nome || ""} ${a.sobrenome || ""}`.trim().toLowerCase();
         vb = `${b.nome || ""} ${b.sobrenome || ""}`.trim().toLowerCase();
@@ -79,7 +70,6 @@ export default function UsersPage() {
     return data;
   }, [list, search, onlyAdmins, sortKey, sortDir]);
 
-  // paginação
   const total = filtered.length;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
   const pageSafe = Math.min(page, totalPages);
@@ -89,12 +79,8 @@ export default function UsersPage() {
   }, [filtered, pageSafe]);
 
   const toggleSort = (key) => {
-    if (sortKey === key) {
-      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
-    } else {
-      setSortKey(key);
-      setSortDir(key === "nome" ? "asc" : "desc");
-    }
+    if (sortKey === key) setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    else { setSortKey(key); setSortDir(key === "nome" ? "asc" : "desc"); }
   };
 
   const openDetail = async (id) => {
@@ -104,10 +90,7 @@ export default function UsersPage() {
     setModal(true);
   };
 
-  const askRemove = (u) => {
-    setToDelete(u);
-    setConfirmOpen(true);
-  };
+  const askRemove = (u) => { setToDelete(u); setConfirmOpen(true); };
 
   const doRemove = async () => {
     if (!toDelete) return;
@@ -115,8 +98,7 @@ export default function UsersPage() {
     if (r.ok) {
       setList(prev => prev.filter(u => u.id !== toDelete.id));
       if (selected?.id === toDelete.id) setModal(false);
-      setConfirmOpen(false);
-      setToDelete(null);
+      setConfirmOpen(false); setToDelete(null);
     } else {
       const e = await r.json().catch(() => ({}));
       alert(e?.erro || "Falha ao remover");
@@ -133,11 +115,11 @@ export default function UsersPage() {
   if (loading) return <p>Carregando...</p>;
 
   return (
-    <div className="admin-users">
+    <div className="adm-users">
       <h2>Usuários ({total})</h2>
 
-      <div className="toolbar">
-        <div className="searchbox">
+      <div className="adm-toolbar">
+        <div className="adm-searchbox">
           <i className="fas fa-search" aria-hidden="true" />
           <input
             placeholder="Buscar por nome ou e-mail…"
@@ -145,7 +127,7 @@ export default function UsersPage() {
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
           />
         </div>
-        <label className="chk">
+        <label className="adm-users-chk">
           <input
             type="checkbox"
             checked={onlyAdmins}
@@ -155,7 +137,7 @@ export default function UsersPage() {
         </label>
       </div>
 
-      <div className="table-wrap">
+      <div className="adm-table-wrap">
         <table>
           <thead>
             <tr>
@@ -187,22 +169,21 @@ export default function UsersPage() {
                       alt={u.nome || u.email}
                       style={{ width: 36, height: 36, borderRadius: 8, objectFit: "cover" }}
                     />
-                  ) : (
-                    "—"
-                  )}
+                  ) : ("—")}
                 </td>
                 <td>{u.nome || "—"} {u.sobrenome || ""}</td>
                 <td>{u.email}</td>
                 <td>
-                  <span className={`badge ${u.isAdmin ? "ok" : ""}`}>{u.isAdmin ? "Sim" : "Não"}</span>
+                  <span className={`adm-badge ${u.isAdmin ? "adm-is-ok" : ""}`}>
+                    {u.isAdmin ? "Sim" : "Não"}
+                  </span>
                 </td>
-                {/* placeholders por enquanto */}
-                <td><span className="pill muted">—</span></td>
-                <td><span className="pill muted">—</span></td>
+                <td><span className="adm-pill adm-is-muted">—</span></td>
+                <td><span className="adm-pill adm-is-muted">—</span></td>
                 <td>{u.createdAt ? new Date(u.createdAt).toLocaleDateString() : "—"}</td>
-                <td className="actions">
-                  <button onClick={() => openDetail(u.id)}>Ver</button>
-                  <button onClick={() => askRemove(u)} className="btn-danger">Remover</button>
+                <td className="adm-actions">
+                  <button onClick={() => openDetail(u.id)} className="adm-btn">Ver</button>
+                  <button onClick={() => askRemove(u)} className="adm-btn adm-btn--danger">Remover</button>
                 </td>
               </tr>
             ))}
@@ -218,35 +199,32 @@ export default function UsersPage() {
         </table>
       </div>
 
-      {/* paginação */}
-      <div className="pager">
-        <button disabled={pageSafe <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>
+      <div className="adm-pager">
+        <button disabled={pageSafe <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))} className="adm-btn">
           Anterior
         </button>
         <span>Página {pageSafe} de {totalPages}</span>
-        <button disabled={pageSafe >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))}>
+        <button disabled={pageSafe >= totalPages} onClick={() => setPage((p) => Math.min(totalPages, p + 1))} className="adm-btn">
           Próxima
         </button>
       </div>
 
       {/* modal de perfil */}
       {modal && selected && (
-        <div className="modal-backdrop" onClick={() => setModal(false)}>
-          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-head">
+        <div className="adm-users-modal-backdrop" onClick={() => setModal(false)}>
+          <div className="adm-users-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="adm-users-modal-head">
               <h3>Perfil</h3>
-              <button className="x" onClick={() => setModal(false)} aria-label="Fechar">✕</button>
+              <button className="adm-users-x" onClick={() => setModal(false)} aria-label="Fechar">✕</button>
             </div>
-            <div className="profile-row">
+            <div className="adm-users-profile-row">
               {selected.fotoUrl ? (
                 <img
                   src={selected.fotoUrl}
                   alt={selected.nome || selected.email}
                   style={{ width: 80, height: 80, borderRadius: 12, objectFit: "cover" }}
                 />
-              ) : (
-                <div className="avatar-placeholder">?</div>
-              )}
+              ) : (<div className="adm-users-avatar-placeholder">?</div>)}
               <div>
                 <p><b>Nome:</b> {selected.nome || "—"} {selected.sobrenome || ""}</p>
                 <p><b>Email:</b> {selected.email}</p>
@@ -259,12 +237,11 @@ export default function UsersPage() {
                 {selected.objetivo && <p><b>Objetivo:</b> {selected.objetivo}</p>}
               </div>
             </div>
-           
           </div>
         </div>
       )}
 
-      {/* diálogo de confirmação */}
+      {/* diálogo de confirmação (cd-* mantido) */}
       <ConfirmDialog
         open={confirmOpen}
         title="Remover login"
@@ -275,50 +252,37 @@ export default function UsersPage() {
         onClose={() => setConfirmOpen(false)}
       />
 
-     <style>{`
-  .toolbar{
-    display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:12px
-  }
-  .searchbox{
-    flex:1; min-width:240px; display:flex; align-items:center; gap:8px;
-    background:#fff;border:1px solid var(--border);border-radius:999px;padding:8px 12px;
-  }
-  .searchbox input{
-    border:none;outline:none;flex:1;background:transparent;font:inherit;color:inherit;
-  }
+      {/* escopo local para evitar vazamento */}
+      <style>{`
+        .adm-users h2{margin:0 0 12px}
+        .adm-users .adm-toolbar{margin-bottom:12px}
 
-  .table-wrap{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:auto}
-  table{width:100%;border-collapse:collapse;min-width:760px}
-  th,td{padding:12px;border-bottom:1px solid #f1eeec;text-align:left}
-  th{background:#faf9f9;font-weight:600;user-select:none;color:#494949}
-  th[role="button"]{cursor:pointer}
+        .adm-users .adm-table-wrap{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:auto}
+        .adm-users .adm-table-wrap table{width:100%;border-collapse:collapse;min-width:760px}
+        .adm-users .adm-table-wrap th, .adm-users .adm-table-wrap td{padding:12px;border-bottom:1px solid #f1eeec;text-align:left}
+        .adm-users .adm-table-wrap th{background:#faf9f9;font-weight:600;user-select:none;color:#494949}
+        .adm-users .adm-table-wrap th[role="button"]{cursor:pointer}
 
-  .actions{display:flex;gap:8px}
-  button{padding:8px 12px;border-radius:12px;border:1px solid var(--border);background:#fff;cursor:pointer}
-  .btn-danger{background:var(--accent);color:#fff;border:1px solid var(--accent)}
-  .btn-danger:hover{filter:brightness(.96)}
+        /* base para botões desta página sem vazar global */
+        .adm-users button{padding:8px 12px;border-radius:12px;border:1px solid var(--border);background:#fff;cursor:pointer}
 
-  .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;border:1px solid var(--border)}
-  .pill.muted{color:#666;background:#f7f6f5}
+        .adm-users .adm-pager{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin-top:12px}
 
-  .pager{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin-top:12px}
-
-  .modal-backdrop{
-    position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px;z-index:60
-  }
-  .modal-card{
-    background:#fff;width:min(720px,100%);border-radius:16px;padding:20px;
-    box-shadow:var(--shadow-md);border:1px solid var(--border)
-  }
-  .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-  .modal-head .x{border:none;background:transparent;font-size:18px;cursor:pointer}
-  .profile-row{display:flex;gap:16px;align-items:flex-start}
-  .avatar-placeholder{
-    width:80px;height:80px;border-radius:12px;display:inline-grid;place-items:center;background:#f0f0f0;font-weight:700;color:#888
-  }
-  h2{margin:0 0 12px}
-`}</style>
-
+        /* modal */
+        .adm-users-modal-backdrop{
+          position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px;z-index:60
+        }
+        .adm-users-modal-card{
+          background:#fff;width:min(720px,100%);border-radius:16px;padding:20px;
+          box-shadow:var(--shadow-md);border:1px solid var(--border)
+        }
+        .adm-users-modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+        .adm-users-x{border:none;background:transparent;font-size:18px;cursor:pointer}
+        .adm-users-profile-row{display:flex;gap:16px;align-items:flex-start}
+        .adm-users-avatar-placeholder{
+          width:80px;height:80px;border-radius:12px;display:inline-grid;place-items:center;background:#f0f0f0;font-weight:700;color:#888
+        }
+      `}</style>
     </div>
   );
 }

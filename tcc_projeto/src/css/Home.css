@@ -141,6 +141,7 @@ body {
 }
 
 .home-categoria {
+  all: unset;
   display: flex;
   gap: 2vw;
   width: 25vw;
@@ -497,7 +498,7 @@ body {
   display: none;
 }
 
-@media (max-width: 766px) {
+@media (max-width: 767px) {
   .home-descricao,
   .descricao-home,
   .sobre-nutri-home,

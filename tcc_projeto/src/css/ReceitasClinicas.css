@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Lustria&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Lustria&family=Poppins:wght@300;400;500;600;700&display=swap");
 
-.receitas-comida-img {
+/* hero */
+.rec-cat-hero {
   margin-top: 5px;
   position: relative;
   width: 100%;
 }
-
-.receitas-texto {
+.rec-cat-hero-text {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -17,56 +17,49 @@
   max-width: 700px;
   width: 90%;
   text-align: center;
-  border-top: 8px solid #e7c3bd;
-  /* LINHA ROSA */
+  border-top: 8px solid #e7c3bd; /* LINHA ROSA */
 }
-
-
-.receitas-titulo {
+.rec-cat-hero-title {
   color: #d9a6a6;
   font-size: 20px;
-font-family: 'Lustria', serif;
+  font-family: "Lustria", serif;
   margin-bottom: 12px;
 }
-
-.receitas-subtitulo {
+.rec-cat-hero-subtitle {
   font-size: 20px;
-  color: #7A7777;
-  font-family: 'Quicksand', sans-serif;
+  color: #7a7777;
+  font-family: "Quicksand", sans-serif;
   line-height: 1.6;
 }
 
-.receitas-titulo-frase {
+/* tagline + separador */
+.rec-cat-tagline {
   margin-top: 2vw;
   text-align: center;
   font-size: 1.2rem;
-  font-family: 'Lustria', serif;
+  font-family: "Lustria", serif;
   font-weight: 300;
-  /* Mais fina */
   color: #454545;
-
 }
-
-.receitas-linha {
+.rec-cat-sep {
   width: 700px;
-  /* largura da linha */
   height: 1.5px;
-  /* espessura da linha */
-  background-color: #8A8F75;
+  background-color: #8a8f75;
   margin: 5vw auto 0;
-  /* centraliza horizontalmente e dá um espacinho em cima */
-
 }
-.receitas-sus{
+
+/* título solto (opcional, mantido) */
+.rec-cat-sus {
   margin-top: 45px;
   text-align: center;
   font-size: 2rem;
-  font-family: 'Lustria', serif;
+  font-family: "Lustria", serif;
   font-weight: 400;
-  color: #8A8F75;
+  color: #8a8f75;
 }
 
-.pudim-container {
+/* cards de receita */
+.rec-cat-card {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -76,75 +69,70 @@ font-family: 'Lustria', serif;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   padding: 40px;
   max-width: 1000px;
-  height: 380px; /* altura aumentada */
+  height: 380px;
   margin: 60px auto;
   border-radius: 20px;
   gap: 40px;
   transition: transform 0.3s ease;
 }
-
-.pudim-container:hover {
+.rec-cat-card:hover {
   transform: translateY(-5px);
 }
 
-.pudim-img {
-  width: 300px; /* aumentei um pouco para combinar */
-  height: 260px; /* altura da imagem aumentada para acompanhar o card */
+.rec-cat-card-img {
+  width: 300px;
+  height: 260px;
   object-fit: cover;
   border-radius: 15px;
 }
 
-.pudim-conteudo {
+.rec-cat-card-body {
   flex: 1;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   color: #5b5b5b;
   overflow: hidden;
 }
-
-.pudim-conteudo h2 {
-  font-family: 'Lustria', serif;
+.rec-cat-card-body h2 {
+  font-family: "Lustria", serif;
   font-size: 1.5rem;
-  color: #8A8F75;
+  color: #8a8f75;
   margin-bottom: 16px;
 }
-
-.pudim-conteudo p {
+.rec-cat-card-body p {
   font-size: 18px;
   line-height: 1.6;
   margin-bottom: 20px;
   font-weight: 500;
 }
 
-.receitas-leia-mais {
+.rec-cat-readmore {
   font-weight: 600;
   font-size: 16px;
-  color: #8A8F75;
+  color: #8a8f75;
   text-decoration: underline;
   transition: color 0.3s ease;
 }
-
-.receitas-leia-mais:hover {
+.rec-cat-readmore:hover {
   color: #bcaea9;
 }
 
-
-.receitas-barra-categorias {
+/* barra de categorias (opcional, se usar noutro markup) */
+.rec-cat-bar {
   margin: 4vw 0 0 0;
   padding: 6px 12px;
   width: 100%;
-  background-color: #E6E6D9;
+  background-color: #e6e6d9;
   border-radius: 6px;
   display: flex;
   justify-content: center;
   font-size: 14px;
   font-weight: 400;
-  color: #6B6B6B;
+  color: #6b6b6b;
   user-select: none;
   gap: 5rem;
 }
-
-.receitas-categoria {
-background: none;
+.rec-cat-cat {
+  background: none;
   border: none;
   cursor: pointer;
   padding: 6px 12px;
@@ -152,29 +140,25 @@ background: none;
   align-items: center;
   gap: 0.9rem;
   border-radius: 6px;
-  color: #6B6B6B;
-  font-family: 'Lustria', serif;
+  color: #6b6b6b;
+  font-family: "Lustria", serif;
   text-decoration: none;
 }
-
-.receitas-categoria:hover {
+.rec-cat-cat:hover {
   background-color: #f0f0f0;
   border: 1px solid #b8b8b8;
   transition: background-color 0.5s ease;
 }
-
-.receitas-categoria.selecionada {
-   background-color: #F4EFEC;
-  border: 1px solid #EBD6CD;
+.rec-cat-cat.rec-is-selected {
+  background-color: #f4efec;
+  border: 1px solid #ebd6cd;
+}
+.rec-cat-cat svg {
+  font-size: 30px;
 }
 
-.receitas-categoria svg {
-    font-size: 30px;
-    
-}
-
-a {
+/* (antes era global) — agora escopado pra não vazar */
+.rec-cat a {
   text-decoration: none;
   color: inherit;
 }
-

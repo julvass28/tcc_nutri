@@ -1,18 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lustria&display=swap");
 
-/* ⚠️ o overflow: hidden no body estava “quebrando” o layout e a rolagem */
+/* body */
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* somente eixo X */
+  overflow-x: hidden;
   width: 100%;
   box-sizing: border-box;
 }
 
 /* HEADER */
 .menu {
-  position: sticky; /* garante contexto e z-index acima do conteúdo */
+  position: sticky;
   top: 0;
   z-index: 50;
   display: flex;
@@ -24,7 +24,7 @@ body {
   background-color: #f2efea;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   padding: 30px;
-  overflow: visible; /* dropdowns não ficam cortados */
+  overflow: visible;
 }
 
 .icons {
@@ -40,11 +40,7 @@ body {
   cursor: pointer;
   transition: 150ms linear;
 }
-
-.icon:hover {
-  color: #d1a0a0;
-  transform: scale(1.1);
-}
+.icon:hover { color: #d1a0a0; transform: scale(1.1); }
 
 .seta {
   margin-left: 4px;
@@ -57,12 +53,14 @@ body {
 
 .perfil { display: flex; justify-content: center; }
 
+/* Ícone padrão “verde” (oliva da paleta) */
 .user {
   color: #8a8f75;
   width: 25px;
   height: 25px;
   cursor: pointer;
 }
+.user--green { color: #8a8f75; }
 
 .right ul li { padding: 7px 14px; }
 
@@ -75,7 +73,6 @@ nav ul li {
   font-family: "Poppins", sans-serif;
   cursor: pointer;
 }
-
 nav ul li a {
   color: #454545;
   text-decoration: none;
@@ -102,7 +99,7 @@ nav ul li a {
 }
 .nav-text:hover::after, .nav-text.ativo::after { width: 100%; }
 
-/* dropdown dos itens de navegação (desktop) */
+/* dropdown (desktop) */
 .dropdown-menu {
   position: absolute;
   display: none;
@@ -117,7 +114,19 @@ nav ul li a {
 .dropdown-menu li a { color: #454545; font-size: 14px; }
 .dropdown-menu li a:hover { color: #d1a0a0; font-weight: 600; transform: scale(1.02); }
 
+/* Logo + quick login (mobile) */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 .logo img { height: 100px; width: 250px; }
+
+/* ícone de login ao lado da logo — só no mobile */
+.logo .quick-login { display: none; }
+@media (max-width: 1023px) {
+  .logo .quick-login { display: inline-flex; }
+}
 
 .btn-mobile {
   display: none;
@@ -266,7 +275,7 @@ nav ul li a {
 .perfil-dropdown { position: relative; display: inline-block; }
 
 .perfil-trigger {
-  position: relative; /* garante o contexto */
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -290,19 +299,17 @@ nav ul li a {
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid #d1a0a0;
-  display: block;          /* garante que não herde inline estranhos */
-  overflow: hidden;        /* corta excesso se vier imagem maior */
-  max-width: 32px;         /* reforço contra estouro */
+  display: block;
+  overflow: hidden;
+  max-width: 32px;
   max-height: 32px;
 }
 
-/* Menu com caret + animação e POSICIONAMENTO CORRETO */
 .perfil-dropdown-menu {
   position: absolute;
   top: calc(100% + 12px);
   right: 0;
   background: #fff;
-  
   box-shadow: 0 12px 28px rgba(0,0,0,0.12);
   list-style: none;
   padding: 8px 0;
@@ -355,11 +362,11 @@ nav ul li a {
 
 /* ===== MOBILE: esconder bloco desktop e mostrar perfil no final do menu lateral ===== */
 @media (max-width: 1023px) {
-  .perfil-desktop { display: none; }          /* não aparece no topo */
+  .perfil-desktop { display: none; }
   .menu .nav-itens.left { display: flex; flex-direction: column; }
 
   .perfil-mobile-bloco {
-    margin-top: auto;                         /* empurra para baixo do painel */
+    margin-top: auto;
     padding: 24px 12px 12px;
     border-top: 1px solid #dedede;
   }
@@ -381,14 +388,10 @@ nav ul li a {
   .perfil-mobile-menu li button:hover { color: #d1a0a0; }
 }
 
-/* ===== FIX: menu lateral e bloco de perfil mobile não existem no desktop ===== */
+/* FIX: bloco mobile não existe no desktop */
+.perfil-mobile-bloco { display: none; }
 
-
-.perfil-mobile-bloco {
-  display: none;               /* bloco de perfil mobile também some no desktop */
-}
-
-/* evita que qualquer imagem dentro do nav “salte” de tamanho */
+/* evita imagens “saltarem” de tamanho dentro do nav */
 .menu .nav-itens img,
 .nav-itens.left img {
   max-width: 100%;
@@ -397,21 +400,18 @@ nav ul li a {
   object-fit: cover;
 }
 
-/* ===== MOBILE: reexibe o menu lateral e o bloco de perfil no final do painel ===== */
+/* reexibe no mobile */
 @media (max-width: 1023px) {
   .menu .nav-itens.left {
-    display: flex;             /* agora o painel aparece no mobile */
+    display: flex;
     flex-direction: column;
   }
-
   .perfil-mobile-bloco {
-    display: block;            /* aparece só aqui */
-    margin-top: auto;          /* fica no rodapé do painel */
+    display: block;
+    margin-top: auto;
     padding: 24px 12px 12px;
     border-top: 1px solid #dedede;
   }
-
-  /* reforço de tamanho para a foto no mobile */
   .perfil-mobile-foto {
     width: 60px;
     height: 60px;
@@ -421,4 +421,104 @@ nav ul li a {
     object-fit: cover;
     border: 2px solid #d1a0a0;
   }
+}
+
+/* =========================================================
+   NOVOS AJUSTES DE RESPONSIVIDADE (APENAS MOBILE/TABLET)
+   - Centraliza a logo no mobile, mesmo com o bonequinho de login.
+   - Melhora iPhone / iPad mini / iPad Air.
+   - Pequeno refinamento opcional para iPad Pro.
+   ========================================================= */
+
+/* MOBILE & TABLET até 1023px — vira grid e centraliza a logo */
+@media (max-width: 1023px) {
+  /* estrutura do topo em grid: [hamburger] [logo] [espaço/quick-login] */
+  .menu {
+    display: grid;
+    grid-template-columns: 44px 1fr 44px;
+    align-items: center;
+    height: 90px;
+    padding: 14px 16px;
+  }
+
+  .btn-mobile { grid-column: 1; justify-self: start; }
+
+  /* a logo fica sempre no centro, independente do quick-login */
+  .logo {
+    grid-column: 2;
+    justify-self: center;
+    position: relative;        /* referencia pro quick-login absoluto */
+    display: flex;
+    align-items: center;
+  }
+  .logo img {
+    height: 82px;              /* tamanho bom pra celulares grandes e iPads pequenos */
+    width: auto;
+    max-width: 240px;
+  }
+
+  /* esconde o menu direito no mobile */
+  .nav-itens.right { display: none; }
+
+  /* ícones do topo já estavam ocultos em mobile */
+  .icons { display: none; }
+
+  /* quick-login encostado na direita da logo sem empurrar o centro */
+  .logo .quick-login {
+    position: absolute;
+    right: -30px;              /* fica fora do box da imagem */
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+/* Telefones estreitos (ex.: iPhone 14/15 Pro Max em 430px e menores) */
+@media (max-width: 480px) {
+  .menu {
+    grid-template-columns: 36px 1fr 36px;
+    height: 90px;
+    padding: 10px 12px;
+  }
+  .logo img {
+    height: 72px;
+    
+    max-width: 200px;
+  }
+  .logo .quick-login { right: -26px; }
+  .btn-mobile { font-size: 18px; }
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  .menu {
+    grid-template-columns: 36px 1fr 36px;
+    height: 100px;
+    padding: 10px 12px;
+  }
+  .logo img {
+    height: 72px;
+    max-width: 200px;
+  }
+  .logo .quick-login { right: -26px; }
+  .btn-mobile { font-size: 18px; }
+
+}
+/* iPad mini/Air (768–1023px) — mantém centralização e dá um respiro */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .menu {
+    grid-template-columns: 48px 1fr 48px;
+    height: 110px;
+  }
+  .logo img {
+    height: 90px;
+    max-width: 260px;
+  }
+  .logo .quick-login { right: -34px; }
+}
+
+/* iPad Pro (opcional) 1024–1366px — só compacta um pouco o header
+   para evitar quebra dos links. Desktop “normal” maior que isso não muda. */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .menu { padding: 18px 20px; }
+  .right ul li { padding: 6px 10px; }
+  nav ul li { padding: 8px; }
+  .logo img { height: 90px; width: auto; }
 }

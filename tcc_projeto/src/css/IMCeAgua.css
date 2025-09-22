@@ -26,7 +26,10 @@
   justify-content: center;
   margin-bottom: 1vw;
 }
-
+.link-calc-section-all{
+  text-decoration: none;
+  color: inherit;
+}
 #container-calculator-icon {
   background-color: #F4EFEC;
   box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;

@@ -5,6 +5,7 @@ import '../css/perfil.css';
 import { AuthContext } from '../context/AuthContext';
 import { objetivoLabel } from '../utils/objetivos';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
 
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
@@ -41,6 +42,7 @@ export default function Perfil() {
   });
 
   const [fotoPreview, setFotoPreview] = useState('');
+  const [fotoOk, setFotoOk] = useState(false);
   const [error, setError] = useState(null);
 
   // overlays/toast
@@ -72,6 +74,7 @@ export default function Perfil() {
           foto: u.fotoUrl || ''
         });
         setFotoPreview(u.fotoUrl || '');
+        setFotoOk(!!u.fotoUrl);
       } catch {
         setError('Erro ao carregar dados.');
       }
@@ -88,6 +91,7 @@ export default function Perfil() {
 
     const localURL = URL.createObjectURL(file);
     setFotoPreview(localURL);
+    setFotoOk(true);
 
     try {
       const form = new FormData();
@@ -103,16 +107,15 @@ export default function Perfil() {
 
       setDados(prev => ({ ...prev, foto: data.fotoUrl }));
       setFotoPreview(data.fotoUrl);
+      setFotoOk(true);
       setUser?.(prev => (prev ? { ...prev, fotoUrl: data.fotoUrl } : prev));
 
-      // mantém o overlay amigável por ~700ms e mostra toast
       await sleep(700);
       setShowOverlay(false);
       setShowToast(true);
       setTimeout(() => setShowToast(false), 2200);
     } catch {
       setShowOverlay(false);
-      // fallback discreto
       setShowToast(false);
       alert("Erro ao enviar foto. Use JPG/PNG/WebP até 2MB.");
     }
@@ -140,10 +143,18 @@ export default function Perfil() {
         <div className="foto-wrapper">
           <div className="foto-container">
             <div className="foto-box">
-              <img
-                src={fotoPreview || 'https://via.placeholder.com/160x160.png?text=Foto'}
-                alt={dados.nome || 'Foto do usuário'}
-              />
+              {fotoPreview && fotoOk ? (
+                <img
+                  src={fotoPreview}
+                  alt={dados.nome || 'Foto do usuário'}
+                  onError={() => setFotoOk(false)}
+                />
+              ) : (
+                <div className="foto-placeholder" aria-label="Sem foto de perfil">
+                  <FaUser className="foto-placeholder-icon" aria-hidden="true" />
+                </div>
+              )}
+
               <label className="btn-editar-foto" title="Trocar foto">
                 <i className="fas fa-pen"></i>
                 <span className="editar-texto">Editar</span>
@@ -162,7 +173,7 @@ export default function Perfil() {
         </div>
       </section>
 
-      {/* BLOCO INFORMATIVO (somente leitura) - visual renovado */}
+      {/* BLOCO INFORMATIVO (somente leitura) */}
       <section className="secao">
         <div className="perfil-view-grid pretty">
           <div className="perfil-view-item">
@@ -212,7 +223,7 @@ export default function Perfil() {
       <section className="secao">
         <h2>Consultas</h2>
         {temConsultas ? (
-          <div> {/* futuramente lista real */}</div>
+          <div>{/* futuramente lista real */}</div>
         ) : (
           <div className="consultas-cta">
             <div className="consultas-cta-badge">Você ainda não possui consultas</div>

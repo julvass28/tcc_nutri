@@ -72,7 +72,6 @@ export default function PerfilEditar() {
   const salvar = async () => {
     setErro('');
     setSalvando(true);
-    
     try {
       const payload = {
         nome: form.nome,
@@ -115,9 +114,10 @@ export default function PerfilEditar() {
 
       {/* Barra de voltar fixa/simples */}
       <div className="editar-topbar">
-        <Link to="/perfil"><button className="editar-back">
-          <i className="fas fa-arrow-left" /> Voltar
-        </button>
+        <Link to="/perfil">
+          <button className="editar-back">
+            <i className="fas fa-arrow-left" /> Voltar
+          </button>
         </Link>
         <h2>Editar perfil</h2>
       </div>
@@ -154,7 +154,6 @@ export default function PerfilEditar() {
               className="select-input-editar"
               value={String(form.objetivo || '')}
               onChange={onChange}
-              
             >
               <option value="">Selecione...</option>
               {Object.entries(OBJETIVOS).map(([k, v]) => (

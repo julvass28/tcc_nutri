@@ -51,7 +51,7 @@ export default function Sobre() {
       {/* CONTEÚDO */}
       <section className="sobre-content">
         <article className="sobre-article">
-          <h2 className="section-title">
+          <h2 className="sobre-section-title">
             Dra. Natália Simanoviski <span className="crn">CRN 37892</span>
           </h2>
 
@@ -62,16 +62,16 @@ export default function Sobre() {
           </p>
 
           {/* Formação e Especializações — Lustria */}
-          <h3 className="section-title lustria-title">Formação e Especializações</h3>
-          <ul className="sobre-list lustria-text">
+          <h3 className="sobre-section-title sobre-lustria-title">Formação e Especializações</h3>
+          <ul className="sobre-list sobre-lustria-text">
             <li>Graduação em Nutrição pelo Centro Universitário São Camilo.</li>
             <li>Pós-graduação em Nutrição Clínica Pediátrica pelo Instituto da Criança do HCFMUSP.</li>
             <li>Pós-graduação em Nutrição Clínica Pediátrica pelo Instituto da Criança do HCFMUSP.</li>
           </ul>
 
-          <h3 className="section-title">Minhas Áreas de Atuação</h3>
+          <h3 className="sobre-section-title sobre-lustria-title">Minhas Áreas de Atuação</h3>
           <div className="sobre-areas">
-            {/* Mobile: Carrossel */}
+            
             <div className="sobre-areas-carousel">
               <CarroselMobile
                 tipo="servicos"
@@ -119,8 +119,8 @@ export default function Sobre() {
           </div>
 
           {/* Diferencial — Lustria */}
-          <h3 className="section-title lustria-title">Qual é o meu Diferencial?</h3>
-          <p className="sobre-paragraph lustria-text">
+          <h3 className="sobre-section-title sobre-lustria-title">Qual é o meu Diferencial?</h3>
+          <p className="sobre-paragraph sobre-lustria-text">
             Mais do que nutricionista, quero ser <span className="sobre-highlight-alt">sua amiga e parceira</span>. Com um atendimento
             humanizado e acolhedor, te guio para uma alimentação equilibrada e leve, respeitando sua individualidade.
           </p>

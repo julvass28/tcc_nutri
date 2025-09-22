@@ -13,7 +13,6 @@ export default function RecipeDetail(){
   const [loading, setLoading] = useState(true);
 
   useEffect(()=>{
-    // se veio um link legado tipo /receitas/clinica, manda para a listagem
     if (CATS.has(slug)) {
       navigate(`/receitas/categoria/${slug}`, { replace: true });
       return;
@@ -31,21 +30,21 @@ export default function RecipeDetail(){
   if (!data) return <p>Receita não encontrada.</p>;
 
   return (
-    <div className="receitas-container">
-      <div className="receitas-banner">
-        <img className="receitas-imagem-banner" src={data.bannerUrl || "/noimg.jpg"} alt={data.titulo} />
-        <h1 className="receitas-titulo-sobreposto">{data.titulo}</h1>
+    <div className="rec-detail">
+      <div className="rec-detail-banner">
+        <img className="rec-detail-banner-img" src={data.bannerUrl || "/noimg.jpg"} alt={data.titulo} />
+        <h1 className="rec-detail-banner-title">{data.titulo}</h1>
       </div>
 
-      <div className="receitas-conteudo">
-        <Link to={`/receitas/categoria/${data.categoria}`} className="receitas-voltar">← Voltar</Link>
+      <div className="rec-detail-content">
+        <Link to={`/receitas/categoria/${data.categoria}`} className="rec-detail-back">← Voltar</Link>
 
-        {data.resumo && <h2 className="receitas-subtitulo-rosa">{data.resumo}</h2>}
+        {data.resumo && <h2 className="rec-detail-subtitle-rose">{data.resumo}</h2>}
 
         {Array.isArray(data.ingredientes) && data.ingredientes.length > 0 && (
           <>
-            <h3 className="receitas-subtitulo-verde">Ingredientes</h3>
-            <ul className="receitas-ingredientes">
+            <h3 className="rec-detail-subtitle-olive">Ingredientes</h3>
+            <ul className="rec-detail-ingredients">
               {data.ingredientes.map((x,i)=><li key={i}>{x}</li>)}
             </ul>
           </>
@@ -53,8 +52,8 @@ export default function RecipeDetail(){
 
         {Array.isArray(data.passos) && data.passos.length > 0 && (
           <>
-            <h3 className="receitas-subtitulo-verde">Modo de preparo</h3>
-            <ol className="receitas-passos">
+            <h3 className="rec-detail-subtitle-olive">Modo de preparo</h3>
+            <ol className="rec-detail-steps">
               {data.passos.map((x,i)=><li key={i}>{x}</li>)}
             </ol>
           </>
@@ -62,8 +61,8 @@ export default function RecipeDetail(){
 
         {Array.isArray(data.dicas) && data.dicas.length > 0 && (
           <>
-            <h3 className="receitas-subtitulo-verde">Dicas</h3>
-            <ul className="dicas">
+            <h3 className="rec-detail-subtitle-olive">Dicas</h3>
+            <ul className="rec-detail-tips">
               {data.dicas.map((x,i)=><li key={i}>{x}</li>)}
             </ul>
           </>

@@ -13,13 +13,13 @@ const TITULOS = {
   intolerancias: "Receitas para Intolerâncias",
 };
 
-export default function RecipesCategory(){
+export default function RecipesCategory() {
   const { categoria } = useParams();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-    (async()=>{
+  useEffect(() => {
+    (async () => {
       setLoading(true);
       const r = await fetch(`${API}/receitas?categoria=${categoria}`);
       const data = await r.json();
@@ -29,57 +29,94 @@ export default function RecipesCategory(){
   }, [categoria]);
 
   return (
-    <div>
-      {/* BANNER/TEXTO conforme seu CSS */}
-      <div className="receitas-comida-img">
-        <img src={comidaImg} alt="" style={{width:"100%",height:"420px",objectFit:"cover"}} />
-        <div className="receitas-texto">
-          <h2 className="receitas-titulo">{TITULOS[categoria] || "Receitas"}</h2>
-          <p className="receitas-subtitulo">Selecione uma receita para ver o passo-a-passo.</p>
+    <div className="rec-cat">
+      {/* BANNER/TEXTO */}
+      <div className="rec-cat-hero">
+        <img
+          src={comidaImg}
+          alt=""
+          style={{ width: "100%", height: "420px", objectFit: "cover" }}
+        />
+        <div className="rec-cat-hero-text">
+          <h2 className="rec-cat-hero-title">
+            {TITULOS[categoria] || "Receitas"}
+          </h2>
+          <p className="rec-cat-hero-subtitle">
+            Selecione uma receita para ver o passo-a-passo.
+          </p>
         </div>
       </div>
-<div style={{display:"flex", gap:10, justifyContent:"center", flexWrap:"wrap", margin:"20px 0"}}>
-  <Link to="/receitas/categoria/clinica" className="btn-cat">Clínica</Link>
-  <Link to="/receitas/categoria/pediatrica" className="btn-cat">Pediátrica</Link>
-  <Link to="/receitas/categoria/esportiva" className="btn-cat">Esportiva</Link>
-  <Link to="/receitas/categoria/emagrecimento" className="btn-cat">Emagrecimento</Link>
-  <Link to="/receitas/categoria/intolerancias" className="btn-cat">Intolerâncias</Link>
-</div>
-<style>{`
-  .btn-cat {
-    background:#fff;
-    border:1px solid var(--border);
-    padding:8px 14px;
-    border-radius:8px;
-    text-decoration:none;
-    color:#444;
-    font-weight:600;
-    transition:.2s;
-  }
-  .btn-cat:hover {
-    background:#D1A0A0;
-    color:#fff;
-    border-color:#D1A0A0;
-  }
-`}</style>
-      <p className="receitas-titulo-frase">Sugestões selecionadas pela nutricionista</p>
-      <div className="receitas-linha" />
 
-      <div style={{maxWidth:1000, margin:"40px auto"}}>
+      <div
+        style={{
+          display: "flex",
+          gap: 10,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          margin: "20px 0",
+        }}
+      >
+        <Link to="/receitas/categoria/clinica" className="rec-cat-btn">
+          Clínica
+        </Link>
+        <Link to="/receitas/categoria/pediatrica" className="rec-cat-btn">
+          Pediátrica
+        </Link>
+        <Link to="/receitas/categoria/esportiva" className="rec-cat-btn">
+          Esportiva
+        </Link>
+        <Link to="/receitas/categoria/emagrecimento" className="rec-cat-btn">
+          Emagrecimento
+        </Link>
+        <Link to="/receitas/categoria/intolerancias" className="rec-cat-btn">
+          Intolerâncias
+        </Link>
+      </div>
+
+      <style>{`
+        .rec-cat-btn {
+          background:#fff;
+          border:1px solid var(--border);
+          padding:8px 14px;
+          border-radius:8px;
+          text-decoration:none;
+          color:#444;
+          font-weight:600;
+          transition:.2s;
+        }
+        .rec-cat-btn:hover {
+          background:#D1A0A0;
+          color:#fff;
+          border-color:#D1A0A0;
+        }
+      `}</style>
+
+      <p className="rec-cat-tagline">
+        Sugestões selecionadas pela nutricionista
+      </p>
+      <div className="rec-cat-sep" />
+
+      <div style={{ maxWidth: 1000, margin: "40px auto" }}>
         {loading ? (
           <p>Carregando…</p>
         ) : items.length === 0 ? (
-          <p style={{textAlign:"center", color:"#666"}}>Nenhuma receita nesta categoria.</p>
+          <p style={{ textAlign: "center", color: "#666" }}>
+            Nenhuma receita nesta categoria.
+          </p>
         ) : (
-          items.map(r => (
-            <div className="pudim-container" key={r.id}>
-            
-<img className="pudim-img" src={r.thumbUrl || r.bannerUrl || "/noimg.jpg"} alt={r.titulo} />
-
-              <div className="pudim-conteudo">
+          items.map((r) => (
+            <div className="rec-cat-card" key={r.id}>
+              <img
+                className="rec-cat-card-img"
+                src={r.thumbUrl || r.bannerUrl || "/noimg.jpg"}
+                alt={r.titulo}
+              />
+              <div className="rec-cat-card-body">
                 <h2>{r.titulo}</h2>
                 <p>{r.resumo || "—"}</p>
-                <Link className="receitas-leia-mais" to={`/receitas/${r.slug}`}>Ler mais</Link>
+                <Link className="rec-cat-readmore" to={`/receitas/${r.slug}`}>
+                  Ler mais
+                </Link>
               </div>
             </div>
           ))
