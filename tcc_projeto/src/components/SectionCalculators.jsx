@@ -12,7 +12,7 @@ function SectionCalculators() {
             <h1 id="titulo-principal-cal">Explore nossas Calculadoras Nutricionais!</h1>
             <section className="sessao-calculadoras-container">
                 <div className="sessao-calculadoras-um">
-                    <Link to="/calculadoras/consumo-agua">
+                    <Link to="/calculadoras/consumo-agua" className="a-link-calculadoras">
                         <div className="sessao-calculadoras calculadora-agua">
                             <h1 id="titulo-agua">Calculadora de Consumo diário de Água</h1>
                             <p>Saiba quantos litros de agua precisa beber diariamente</p>
@@ -21,7 +21,7 @@ function SectionCalculators() {
                             </div>
                         </div>
                     </Link>
-                    <Link to="/calculadoras/calorias-nutrientes">
+                    <Link to="/calculadoras/calorias-nutrientes" className="a-link-calculadoras">
                         <div className="sessao-calculadoras calculadora-nutrientes">
                             <h1 id="titulo-nutrientes">Calculadora de Calorias e Nutrientes</h1>
                             <p>Calcule as calorias e nutrientes dos alimentos consumidos no seu dia a dia.</p>
@@ -33,7 +33,7 @@ function SectionCalculators() {
 
                 </div>
                 <div className="sessao-calculadoras-dois">
-                    <Link to="/calculadoras/gasto-calorico">
+                    <Link to="/calculadoras/gasto-calorico" className="a-link-calculadoras">
                         <div className="sessao-calculadoras calculadora-gasto">
                             <h1 id="titulo-gasto">Calculadora de Gastos Calorico</h1>
                             <p>Descubra quantas calorias seu corpo gasta por dia</p>
@@ -43,7 +43,7 @@ function SectionCalculators() {
                             
                         </div>
                     </Link>
-                    <Link to="/calculadoras/imc">
+                    <Link to="/calculadoras/imc" className="a-link-calculadoras">
                         <div className="sessao-calculadoras calculadora-imc">
                             <h1 id="titulo-imc">Calculadora de IMC & Peso Ideal</h1>
                             <p>Verifique se esta no peso adequado para sua altura</p>
