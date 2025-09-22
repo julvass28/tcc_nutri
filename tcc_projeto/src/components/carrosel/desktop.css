@@ -1,149 +1,102 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
 
-
-.carrosel-container {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
+/* Root do componente */
+.c-carousel-desktop {
+  width: 100%;
 }
 
-.carrosel-wrapper {
-
-    width: 100%;
+/* Container + slick */
+.c-carousel-desktop__container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.c-carousel-desktop__slick {
+  width: 100%;
 }
 
-.carrosel-wrapper .slick-slider {
-    width: 100%;
+/* Limita o slick apenas neste componente */
+.c-carousel-desktop .slick-list { overflow: hidden; }
+.c-carousel-desktop .slick-slide { padding: 0 15px; box-sizing: border-box; }
+.c-carousel-desktop .slick-track,
+.c-carousel-desktop .slick-slide,
+.c-carousel-desktop .slick-list { overflow: hidden; }
 
+/* Arrows */
+.c-carousel-desktop__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  line-height: 0;
+}
+.c-carousel-desktop__arrow--next {
+  right: 0;
+  transform: translate(70%, -50%);
+}
+.c-carousel-desktop__arrow--prev {
+  left: 0;
+  transform: translate(-75%, -50%);
+}
+.c-carousel-desktop__arrow-icon {
+  font-size: 45px;
+  color: #8A8F75;
 }
 
-.carrosel-wrapper .slick-list {
-    overflow: hidden;
+/* Card */
+.c-carousel-desktop__card {
+  position: relative;
+  width: 350px;
+  overflow: hidden;
+}
+.c-carousel-desktop__img {
+  opacity: 0.9;
+  width: 100%;
+  border-radius: 15px;
+  border: 4px solid #8A8F75;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-
-.custom-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    cursor: pointer;
+/* Overlay */
+.c-carousel-desktop__overlay {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 10px);
+  height: 13vh;
+  background-color: rgba(255,255,255,.8);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  opacity: .9;
+}
+.c-carousel-desktop__title {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.4rem;
+  color: #333;
+  text-align: center;
+  max-width: 20vw;
+  overflow: hidden;
 }
 
-.next-arrow {
-    right: 0;
-    transform: translate(50%, -50%);
-}
-
-.prev-arrow {
-    left: 0;
-    transform: translate(-50%, -50%);
-}
-
-.icone-seta {
-    font-size: 45px;
-    color: #8A8F75;
-}
-
-
-.slick-slide {
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-
-.card-receita {
-    position: relative;
-    width: 350px;
-    overflow: hidden;
-}
-
-.img-receita {
-    opacity: 0.9;
-    width: 100%;
-    border-radius: 15px;
-    border: 5px solid #8A8F75;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-}
-
-.sobre-receita {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    opacity: 0.9;
-}
-
-.sobre-receita.desktop {
-    width: calc(100% - 10px);
-    height: 13vh;
-}
-
-.sobre-receita.mobile {
-    width: 100%;
-    height: 7vh;
-}
-
-.sobre-receita h3 {
-    margin: 0;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 1.4rem;
-    color: #333;
-    text-align: center;
-    max-width: 20vw;
-    overflow: hidden;
-}
-
-.slick-list,
-.slick-track,
-.slick-slide,
-.slide-container {
-    overflow: hidden;
-}
-
-/* No mobile libera */
-@media (max-width: 912px) {
-
-    .slick-list,
-    .slick-track,
-    .slick-slide,
-    .slide-container {
-        overflow: visible !important;
-    }
-
-    .custom-arrow{
-        display: none;
-    }
-}
-
+/* Responsivo */
 @media (max-width: 1025px) {
-
-    .carrosel-container {
-        max-width: 900px;
-
-    }
-
-    .sobre-receita.desktop {
-        width: calc(100% - 10px);
-        height: 7vh;
-    }
-
-    .sobre-receita h3 {
-        font-size: 1.2rem;
-    }
-
-
+  .c-carousel-desktop__container { max-width: 900px; }
+  .c-carousel-desktop__overlay { height: 7vh; }
+  .c-carousel-desktop__title { font-size: 1.2rem; }
 }
-/* --- Lis fix v3 --- */
-
-/* Garantia: a faixa do slick não estoura o container */
-.slick-list{ overflow: hidden; }
-
+@media (max-width: 912px) {
+  .c-carousel-desktop .slick-list,
+  .c-carousel-desktop .slick-track,
+  .c-carousel-desktop .slick-slide { overflow: visible !important; }
+  .c-carousel-desktop__arrow { display: none; }
+}
