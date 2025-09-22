@@ -1,147 +1,107 @@
 @import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
-html, body {
-  overflow-x: hidden;
-}
 
-.carrosel-wrapper {
+/* Root */
+.c-carousel-mobile {
   padding: 20px 16px;
-  background-color: white;
+  background-color: #fff;
   width: 100%;
 }
 
-.slide-container {
+/* isola slick ao componente */
+.c-carousel-mobile .slick-list { overflow: visible; }
+.c-carousel-mobile .slick-track { display: flex !important; flex-wrap: nowrap !important; }
+
+/* Slide wrapper (seu “container” interno) */
+.c-carousel-mobile__slide {
   margin: 0 -8px;
   box-sizing: border-box;
   overflow: hidden;
 }
 
-.sobre-receita.servicos{
-  display: block;
-}
-
-.nome-titulo-receita.receitas{
-  font-size: 1.1rem;
-  max-width: 40vw;
- 
-}
-
-.card-mobile {
+/* Card */
+.c-carousel-mobile__card {
   width: 100%;
   position: relative;
   overflow: hidden;
   height: 24vh;
   border-radius: 15px;
-  box-shadow: rgba(221, 183, 172, 1) 0px 2px 12px -2px,
-              rgba(221, 183, 172, 1) 0px 3px 7px -3px;
-  border: #DDB7AC 1px solid;
-  background-color: white;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  box-shadow:
+    rgba(221, 183, 172, 1) 0 2px 12px -2px,
+    rgba(221, 183, 172, 1) 0 3px 7px -3px;
+  border: 1px solid #DDB7AC;
+  background-color: #fff;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
 }
-
-.sobre-receita.servicos{
-  display: none;
+.c-carousel-mobile__card--receitas {
+  box-shadow:
+    rgba(138, 143, 177, 1) 0 2px 12px -2px,
+    rgba(138, 143, 177, 1) 0 3px 7px -3px;
+  border: 1.3px solid #8A8F75;
 }
-
-.card-mobile.receitas{
-    box-shadow: rgba(138, 143, 177, 100) 0px 2px 12px -2px,
-              rgba(138, 143, 177, 100) 0px 3px 7px -3px;
-  border: #8A8F75 1.3px solid;
-}
-
-.card-mobile.clicado {
+.c-carousel-mobile__card.is-active {
   background-color: #FDFAF9;
   transform: translateY(-8px) scale(1.02);
 }
 
-.icone-mob {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* Ícone (quando não tem imagem) */
+.c-carousel-mobile__icon { display:flex; align-items:center; justify-content:center; }
+.c-carousel-mobile__icon svg { width: 15vw; height: auto; margin-bottom: 10px; }
 
-.icone-mob svg {
-  width: 15vw;
-  height: auto;
-  margin-bottom: 10px;
-}
-
-.nome-titulo {
+/* Títulos “fora” (usado para serviços) */
+.c-carousel-mobile__title {
   font-size: 1rem;
-  margin-top: 8px;
-  margin-bottom: 5px;
+  margin: 8px 0 5px;
   color: #454545;
   font-family: "Lustria", sans-serif;
   text-align: center;
   max-width: 30vw;
   overflow: hidden;
 }
+.c-carousel-mobile__title--receitas { display: none; } /* receitas usam overlay */
 
-.nome-titulo.receitas{
- display: none;
-}
-
-
-.imagem-receita {
+/* Imagem */
+.c-carousel-mobile__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 15px;
 }
 
-.slick-list {
-  overflow: visible;
+/* Overlay (usado nas receitas) */
+.c-carousel-mobile__overlay { display: none; }
+.c-carousel-mobile__overlay--receitas {
+  display: block;
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 7vh;
+  background-color: rgba(255,255,255,.8);
+  display: flex; align-items: center; justify-content: center;
+  opacity: .9;
+}
+.c-carousel-mobile__overlay-title {
+  font-size: 1.1rem;
+  text-align: center;
+  max-width: 40vw;
+  margin: 0;
 }
 
-.slick-dots {
-  bottom: -25px;
-}
-
-
-.slick-track {
-  display: flex !important;
-  flex-wrap: nowrap !important;
-}
-
-.slick-slide.receitas {
-  width: 50vw !important; 
+/* Ajustes de largura por tipo (somente neste carrossel) */
+.c-carousel-mobile--receitas .slick-slide {
+  width: 50vw !important; /* mantém o look do antigo “variableWidth” */
   padding: 0 8px;
   box-sizing: border-box;
 }
+.c-carousel-mobile--receitas .c-carousel-mobile__card { width: 100%; }
 
-.card-mobile.receitas {
-  width: 100%; 
-}
+/* Alturas e tipografia por breakpoint */
 @media (max-width: 410px) {
-.nome-titulo-receita.receitas{
-    font-size: 0.80rem;
-}}
-
-
+  .c-carousel-mobile__overlay-title { font-size: .8rem; }
+}
 @media (min-width: 414px) {
-  .card-mobile {
-    height: 22vh;
-  }
-
-  .nome-titulo-receita.receitas{
-    font-size: 1rem;
-  }
+  .c-carousel-mobile__card { height: 22vh; }
+  .c-carousel-mobile__overlay-title { font-size: 1rem; }
 }
-
-
-
 @media (min-width: 768px) {
-  .carrosel-wrapper.receitas {
-    max-width: 100%;
-    padding: 0 24px;
-  }
-
-    .nome-titulo-receita.receitas{
-    font-size: 1.5rem;
-  }
+  .c-carousel-mobile.c-carousel-mobile--receitas { max-width: 100%; padding: 0 24px; }
+  .c-carousel-mobile__overlay-title { font-size: 1.5rem; }
 }
-
-
