@@ -38,6 +38,6 @@ const AgendaConfig = require('../models/AgendaConfig');
     console.error('🛑 Seed falhou:', e);
     process.exit(1);
   } finally {
-    try { await sequelize.close(); } catch {}
+   try { await sequelize.close(); } catch {}
   }
 })();
