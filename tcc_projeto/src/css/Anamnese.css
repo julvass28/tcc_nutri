@@ -1,0 +1,579 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+/*Estilização do Formulario*/
+.bodyAnamnese {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.formAnamnese {
+    background-color: #F6F1EE;
+    width: 70vw;
+    border-radius: 10px;
+    border: 2px solid #DDB7AC;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.conteudoAnamnese {
+    padding: 0px 90px;
+}
+
+
+/*Estilização Ondas*/
+.ondaAnamnesebaixo img,
+.ondaAnamnese img {
+    width: 100%;
+    height: 24vh;
+
+}
+
+.ondaAnamnesebaixo img {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+
+
+
+
+
+/*Estilização nome da especialidade*/
+.tituloform {
+    padding-right: 20px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 80px;
+    margin-top: -40px;
+    padding-top: 0;
+
+}
+
+.tituloAnamnese {
+    margin-top: 0;
+    padding-top: 0;
+    color: #8A8F75;
+    font-family: "Quicksand", sans-serif;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #8A8F75;
+
+}
+
+/*Estilização titulo sessão*/
+.sessaoAnamnese {
+    color: #454545;
+    font-family: "Quicksand", sans-serif;
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+    padding: 30px 0px;
+}
+
+/*Estilização Opção*/
+.grupoOpcao:last-child {
+    margin-bottom: 26px;
+}
+
+.opcaoAnamnese {
+    display: inline-block;
+}
+
+.textoOpcao {
+    color: #7A7777;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+}
+
+.grupoOpcao {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.linhaOpcao {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.frequenciaAnamnese {
+    gap: 15px;
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+
+
+/*Estilizaçaõ input e label*/
+.campoAnamnese {
+    display: flex;
+    padding: 8px 0px;
+    gap: 10px;
+
+}
+
+.labelAnamnese,
+.unidade {
+    color: #7A7777;
+    font-family: "Lustria", sans-serif;
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.unidade {
+    font-weight: bold;
+
+}
+
+.alimentoAnamnese {
+    color: #7A7777;
+    font-family: "Lustria", sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+
+}
+
+label.alimentoAnamnese::before,
+label.labelAnamnese::before {
+    content: "•";
+    color: #7A7777;
+    font-size: 20px;
+    margin-right: 9px;
+}
+
+.inputAnamnese {
+    border: 3px solid #DDB7AC;
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    margin-right: 10px;
+    background-color: transparent;
+    font-size: 1.2rem;
+    font-family: "Lustria", sans-serif;
+    font-weight: 500;
+   
+
+}
+
+.inputGrande {
+    width: 22vw;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    appearance: none;
+    width: 1.3vw;
+    height: 3vh;
+    border: 2.3px solid #DDB7AC;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="radio"]:checked,
+input[type="checkbox"]:checked {
+    background-color: #DDB7AC;
+    border-color: #D1A0A0;
+}
+
+input[type="radio"]:checked::after,
+input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2.3px 2.3px 0;
+    transform: rotate(45deg);
+}
+
+.condicaoAnamnese {
+    outline: none;
+    border: #DDB7AC;
+    border: 3px solid #DDB7AC;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
+    width: 15vw;
+    font-size: 1rem;
+    font-family: "Lustria", sans-serif;
+    font-weight: 500;
+
+}
+
+.submitAnamnese {
+    width: 15vw;
+    height: 7vh;
+    border-bottom: 3px solid #EDE9E3;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    background-color: #DDB7AC;
+    color: #454545;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-align: center;
+    cursor: pointer;
+    margin: 35px 0px 15px 0px;
+    transition: all 0.3s ease;
+}
+
+.submitAnamnese:hover {
+    transform: scale(1.05);
+}
+
+button:disabled {
+  background-color: #c7c7c7;
+  cursor: not-allowed;
+}
+
+.condicionalerro{
+    display: flex;
+    gap: 8px;
+}
+
+.erroMensagem {
+    color: red;
+  font-size: 0.80rem;
+  margin-top: 5px;
+  font-family: "Poppins", sans-serif;
+}
+
+.sucesso {
+  color: green;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+
+
+
+@media (max-width: 766px) {
+    .formAnamnese {
+        width: 80vw;
+
+    }
+
+    .conteudoAnamnese {
+        padding: 0px 30px;
+
+    }
+
+    .ondaAnamnesebaixo img,
+    .ondaAnamnese img {
+        height: 10vh;
+
+    }
+
+
+    /*Estilização nome da especialidade*/
+
+    .tituloform {
+        padding-right: 2px;
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        margin-bottom: 40px;
+        margin-top: -20px;
+    }
+
+    .tituloAnamnese {
+        font-size: 1.2rem;
+        width: 60%;
+        text-align: right;
+        word-break: break-word;
+        line-height: 1.3;
+        border-bottom: 2px solid #8A8F75;
+
+    }
+
+
+    /*Estilização titulo sessão*/
+    .sessaoAnamnese {
+        font-size: 1rem;
+        padding: 30px 0px;
+    }
+
+    .textoOpcao {
+        font-size: 0.86rem;
+    }
+
+    .grupoOpcao {
+        gap: 5px;
+    }
+
+    .linhaOpcao {
+        gap: 10px;
+    }
+
+    .frequenciaAnamnese {
+        gap: 15px;
+    }
+
+
+
+    /*Estilizaçaõ input e label*/
+    .campoAnamnese {
+        display: flex;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .linhaFrequencia {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        width: 100%;
+    }
+    .frequenciaAnamnese:last-child {
+        margin-bottom: 15px;
+    }
+
+    .labelAnamnese,
+    .unidade {
+        font-size: 0.90rem;
+    }
+
+    .alimentoAnamnese {
+        font-size: 0.90rem;
+    }
+
+    label.alimentoAnamnese::before,
+    label.labelAnamnese::before {
+        content: "•";
+        font-size: 14px;
+        margin-right: 5px;
+    }
+
+    .inputAnamnese {
+        outline: none;
+        border: 2px solid #DDB7AC;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        font-size: 0.90rem;
+
+
+
+    }
+
+    .inputGrande {
+        width: 50vw;
+    }
+
+    .inputPequeno {
+        width: 25vw;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+        appearance: none;
+        width: 4vw;
+        height: 2vh;
+    }
+
+
+    input[type="radio"]:checked::after,
+    input[type="checkbox"]:checked::after {
+        content: "";
+        left: 4.5px;
+    }
+
+    .condicaoAnamnese {
+        outline: none;
+        border: 2px solid #DDB7AC;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        width: 25vw;
+        font-size: 0.80rem;
+
+    }
+
+    .submitAnamnese {
+        width: 30vw;
+        height: 4vh;
+        border-bottom: 3px solid #EDE9E3;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        font-size: 0.90rem;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+      .formAnamnese {
+        width: 80vw;
+
+    }
+
+    .conteudoAnamnese {
+        padding: 0px 40px;
+
+    }
+
+    .ondaAnamnesebaixo img,
+    .ondaAnamnese img {
+        height: 10vh;
+
+    }
+
+
+    /*Estilização nome da especialidade*/
+
+    .tituloform {
+        padding-right: 2px;
+        margin-bottom: 40px;
+        margin-top: -20px;
+    }
+
+    .tituloAnamnese {
+        font-size: 1.5rem;
+        width: 60%;
+        text-align: right;
+        word-break: break-word;
+        line-height: 1.4;
+        border-bottom: 2px solid #8A8F75;
+
+    }
+
+
+    /*Estilização titulo sessão*/
+    .sessaoAnamnese {
+        font-size: 1.2rem;
+    }
+
+    .textoOpcao {
+        font-size: 1rem;
+    }
+
+    .grupoOpcao {
+        gap: 10px;
+    }
+
+    /*Estilizaçaõ input e label*/
+    .campoAnamnese {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .linhaFrequencia {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        width: 100%;
+    }
+    .frequenciaAnamnese:last-child {
+        margin-bottom: 15px;
+    }
+
+    .labelAnamnese,
+    .unidade {
+        font-size: 1.1rem;
+    }
+
+    .alimentoAnamnese {
+        font-size: 1rem;
+    }
+
+    label.alimentoAnamnese::before,
+    label.labelAnamnese::before {
+        content: "•";
+        font-size: 1rem;
+        margin-right: 8px;
+    }
+
+    .inputAnamnese {
+        outline: none;
+        border: 3px solid #DDB7AC;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        font-size: 1.1rem;
+    }
+
+    .inputGrande {
+        width: 50vw;
+    }
+
+    .inputPequeno {
+        width: 25vw;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+        appearance: none;
+        width: 3vw;
+        height: 2vh;
+    }
+
+
+    input[type="radio"]:checked::after,
+    input[type="checkbox"]:checked::after {
+        content: "";
+        left: 7px;
+    }
+
+    .condicaoAnamnese {
+        outline: none;
+        border: 2px solid #DDB7AC;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        width: 25vw;
+        font-size: 1rem;
+
+    }
+
+    .submitAnamnese {
+        width: 25vw;
+        height: 4vh;
+        border-bottom: 3px solid #EDE9E3;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        font-size: 1.1rem;
+    }
+
+
+
+}

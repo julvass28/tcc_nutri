@@ -32,7 +32,7 @@ import FastFood from "./pages/DicaNutri-FastFood";
 import Shopping from "./pages/DicaNutri-Shopping";
 import Bar from "./pages/DicaNutri-Bar";
 import Viagem from "./pages/DicaNutri-Viagem";
-
+import Anamnese from "./pages/FormularioAnamnese";
 // Receitas (novas)
 import RecipesAdmin from "./pages/admin/RecipesAdmin";
 import RecipeForm from "./pages/admin/RecipeForm";
@@ -104,6 +104,7 @@ export default function App() {
           <Route path="/DicaNutri-Bar" element={<Bar />} />
           <Route path="/DicaNutri-Viagem" element={<Viagem />} />
           <Route path="/agendar" element={<Agendar />} />
+          <Route path="/anamnese" element={<Anamnese />} />
           {/* ===== Primeiro: redireciono as rotas antigas de categoria ===== */}
           <Route
             path="/receitas/:categoria(clinica|pediatrica|esportiva|emagrecimento|intolerancias)"
