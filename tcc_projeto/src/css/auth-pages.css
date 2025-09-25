@@ -1,19 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lustria&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 /* === ESTRUTURA BASE === */
 
 .login-body,
 .criar-conta-body,
 .forgot-password-body {
- 
   font-family: "Poppins", sans-serif;
-  background-color: #e7e0dd; 
+  background-color: #e7e0dd;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem;
-
 }
 
 .login-container,
@@ -121,7 +119,6 @@
   user-select: none;
 }
 
-
 /* === FORMULÁRIOS === */
 
 .login-form,
@@ -160,7 +157,6 @@
 .criar-conta-password-wrapper {
   position: relative;
   width: 100%;
-  
 }
 
 .criar-conta-eye-icon {
@@ -374,7 +370,6 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   margin-top: 0.25rem;
 }
 
-
 /* === TOAST SUCESSO (flutuante) === */
 .toast {
   position: fixed;
@@ -386,9 +381,9 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   align-items: center;
   gap: 0.5rem;
 
-  background: #ecfdf5;              /* verde bem suave */
-  color: #065f46;                   /* texto verde escuro */
-  border-left: 4px solid #10b981;   /* verde sucesso */
+  background: #ecfdf5; /* verde bem suave */
+  color: #065f46; /* texto verde escuro */
+  border-left: 4px solid #10b981; /* verde sucesso */
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
@@ -398,7 +393,6 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 .toast-icone {
   font-size: 1.125rem;
 }
-
 
 /* ====== AUTH COMPACT (tema & espaçamento) ====== */
 .auth-compact .login-input,
@@ -416,9 +410,9 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 
 /* Texto de erro no tom do tema + menos respiro */
 .auth-compact .erro-texto {
-  color: #e96969;                 /* antes era vermelho forte */
+  color: #e96969; /* antes era vermelho forte */
   font-size: 0.75rem;
-  margin: 0px 0 10px;             /* coladinho no input, sem “buracos” */
+  margin: 0px 0 10px; /* coladinho no input, sem “buracos” */
   line-height: 1.2;
 }
 
@@ -449,7 +443,7 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   display: grid;
   place-items: center;
   z-index: 2000;
-  animation: fadeInOverlay .15s ease;
+  animation: fadeInOverlay 0.15s ease;
 }
 
 .auth-loading-card {
@@ -459,9 +453,9 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   min-width: 240px;
   display: flex;
   align-items: center;
-  gap: .75rem;
-  box-shadow: 0 12px 30px rgba(0,0,0,.12);
-  border-left: 4px solid #c89b9b;  /* tom do tema */
+  gap: 0.75rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  border-left: 4px solid #c89b9b; /* tom do tema */
   color: #4a4a4a;
   font-family: "Poppins", sans-serif;
 }
@@ -472,8 +466,12 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 }
 
 @keyframes fadeInOverlay {
-  from { opacity: 0 }
-  to   { opacity: 1 }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* botão com cara de link */
@@ -485,7 +483,6 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   font: inherit;
   text-decoration: underline;
 }
-
 
 /* ===== Medidor de força de senha ===== */
 .pwd-meter {
@@ -507,22 +504,45 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   position: absolute;
   inset: 0;
   width: 0%;
-  transition: width .25s ease, background-color .25s ease;
+  transition: width 0.25s ease, background-color 0.25s ease;
 }
-.pwd-bar.s0::after { width: 10%; background: #ea7575; } /* muito fraca */
-.pwd-bar.s1::after { width: 30%; background: #e8a3a3; } /* fraca */
-.pwd-bar.s2::after { width: 60%; background: #c89b9b; } /* ok (rosa do tema) */
-.pwd-bar.s3::after { width: 85%; background: #b0c3a1; } /* forte (transição) */
-.pwd-bar.s4::after { width: 100%; background: #9a9f85; } /* muito forte (verde do tema) */
+.pwd-bar.s0::after {
+  width: 10%;
+  background: #ea7575;
+} /* muito fraca */
+.pwd-bar.s1::after {
+  width: 30%;
+  background: #e8a3a3;
+} /* fraca */
+.pwd-bar.s2::after {
+  width: 60%;
+  background: #c89b9b;
+} /* ok (rosa do tema) */
+.pwd-bar.s3::after {
+  width: 85%;
+  background: #b0c3a1;
+} /* forte (transição) */
+.pwd-bar.s4::after {
+  width: 100%;
+  background: #9a9f85;
+} /* muito forte (verde do tema) */
 
 .pwd-label {
-  font-size: .85rem;
+  font-size: 0.85rem;
   user-select: none;
   color: #6b7280;
 }
-.pwd-label.s0,.pwd-label.s1 { color: #e35c5c; }
-.pwd-label.s2 { color: #e27777; }
-.pwd-label.s3,.pwd-label.s4 { color: #768a62; }
+.pwd-label.s0,
+.pwd-label.s1 {
+  color: #e35c5c;
+}
+.pwd-label.s2 {
+  color: #e27777;
+}
+.pwd-label.s3,
+.pwd-label.s4 {
+  color: #768a62;
+}
 
 /* checklist de requisitos */
 .pwd-reqs {
@@ -548,7 +568,9 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   font-weight: bold;
   color: #e27777;
 }
-.pwd-reqs li.ok { color: #566b49; }
+.pwd-reqs li.ok {
+  color: #566b49;
+}
 .pwd-reqs li.ok::before {
   content: "✓";
   color: #9a9f85;
@@ -557,7 +579,7 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 /* Compactação já usada no Login */
 .auth-compact .erro-borda {
   border-color: #e27777 !important;
-  box-shadow: 0 0 0 2px rgba(200,155,155,.25) !important;
+  box-shadow: 0 0 0 2px rgba(200, 155, 155, 0.25) !important;
 }
 .auth-compact .erro-texto {
   color: #e27777;
@@ -566,20 +588,19 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   line-height: 1.2;
 }
 
-
 /* ===== Banner curto após logout ===== */
 .logout-banner {
   display: flex;
   align-items: center;
-  gap: .6rem;
-  margin: -6px 0 14px;          /* aproxima do título */
-  padding: .6rem .8rem;
-  border-radius: .5rem;
-  background: #fff7f7;          /* tom suave do tema */
+  gap: 0.6rem;
+  margin: -6px 0 14px; /* aproxima do título */
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.5rem;
+  background: #fff7f7; /* tom suave do tema */
   color: #6b4b4b;
   border-left: 4px solid #c89b9b;
-  box-shadow: 0 6px 16px rgba(0,0,0,.06);
-  font-size: .95rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  font-size: 0.95rem;
 }
 
 .logout-banner i {
@@ -587,10 +608,33 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   font-size: 1rem;
 }
 
-
-
-
 @keyframes toast-enter {
-  from { opacity: 0; transform: translate(-50%, -8px); }
-  to   { opacity: 1; transform: translate(-50%, 0); }
+  from {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ======== LOGIN: fundo rosê no viewport inteiro + correção do footer ======== */
+:root {
+  --auth-bg: #e7e0dd; /* mesmo tom rosê já usado nas telas de auth */
+}
+
+/* o container da tela de login não precisa mais “pintar” o fundo — evitamos dupla cor */
+.login-body, .criar-conta-body, .forgot-password-body {
+  background: transparent !important;
+}
+
+/* fallback: “tapete” por trás de tudo cobrindo o viewport */
+body.login-page::before, body.register-page::before, body.forgot-password-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--auth-bg);
+  z-index: -1;
+  pointer-events: none;
 }
