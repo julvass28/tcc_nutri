@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react"; // [NOVO] adicionei useEffect
 import {
   perguntasComum,
   perguntasEspecificas,
@@ -9,15 +9,13 @@ import ondabaixo from "../assets/img_png/ondabaixo.png";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { fetchAuth, API } from "../services/api";
 
 function FormularioAnamnese({ modalidadeSelecionada }) {
-  // helpers para normalizar a especialidade que vem do agendamento
+  // helpers para normalizar a especialidade
   const semAcento = (s = "") =>
-    s
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .trim();
+    s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 
   const mapEspecialidadeParaModalidade = (esp = "") => {
     const s = semAcento(esp);
@@ -25,14 +23,9 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
     if (s.includes("esport")) return "esportiva";
     if (s.includes("intoler")) return "intolerancias";
     if (s.includes("emagrec")) return "emagrecimento";
-    // padrão
     return "clinica";
   };
 
-  // 1) origem da info:
-  //   - prop (se vier via outro fluxo)
-  //   - sessionStorage (setado na Agenda.jsx)
-  //   - fallback "clinica"
   const rawEsp =
     modalidadeSelecionada ??
     sessionStorage.getItem("booking.especialidade") ??
@@ -40,7 +33,6 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
 
   const modalidade = mapEspecialidadeParaModalidade(rawEsp);
 
-  // título bonitinho
   const titulo =
     "Anamnese " +
     (rawEsp?.charAt
@@ -49,9 +41,12 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
 
   const [enviar, setEnviar] = useState(false);
   const [mensagem, setMensagem] = useState("");
+  const [mensagemInfo, setMensagemInfo] = useState(""); // [NOVO]
+  const navigate = useNavigate();
+  const [sending, setSending] = useState(false);
+  const [goingToPay, setGoingToPay] = useState(false);
 
   let perguntas = [];
-
   if (modalidade === "pediatrica") {
     perguntas = perguntasEspecificas.pediatrica;
   } else if (perguntasEspecificas[modalidade]) {
@@ -59,45 +54,24 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
   } else {
     perguntas = perguntasComum;
   }
-  /**
-   * RESUMO DOS HOOKS:
-   * - register: conecta o input com o React Hook Form
-   * - watch: observa o valor atual de um campo
-   * - setValue: altera programaticamente o valor de um campo
-   * - handleSubmit: lida com o envio do formulário
-   * - errors: contém os erros de validação
-   */
 
-  //Validação
-  //useMemo = memorização, nao atualiza caso perguntas nao mude
   const validacao = useMemo(() => {
-    const campos = {}; //começa vazio, e depois fica com as regras de validação que defini
+    const campos = {};
     perguntas.forEach((secao) => {
       secao.perguntas?.forEach((perguntaObj) => {
         const chave = perguntaObj.pergunta;
         if (!chave) return;
-
         switch (perguntaObj.tipo) {
           case "checkbox":
           case "radio_condicional_checkbox":
             campos[chave] = z
-              .array(z.string(), {
-                required_error: "*Selecione pelo menos uma opção",
-              })
+              .array(z.string(), { required_error: "*Selecione pelo menos uma opção" })
               .min(1, "*Selecione pelo menos uma opção");
             break;
-
           case "radio_condicional_texto":
-            //cria um objeto ja que condicional depende da validaçao de radio
-            //defini resposta e condicional no ...register de cada input
-            //refine= validaçoes perzonalizadas do zod
-            //trim remove espaços em branco
-
             campos[chave] = z
               .object({
-                resposta: z
-                  .string({ required_error: "*Selecione uma opção" })
-                  .min(1, "*Selecione uma opção"),
+                resposta: z.string({ required_error: "*Selecione uma opção" }).min(1, "*Selecione uma opção"),
                 condicional: z.string().optional(),
               })
               .refine(
@@ -107,59 +81,11 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                   }
                   return true;
                 },
-                {
-                  message: "*Campo obrigatório quando selecionado",
-                  path: ["condicional"], // isso indica que o erro é do campo condicional
-                }
+                { message: "*Campo obrigatório quando selecionado", path: ["condicional"] }
               );
-
-            break;
-
-          case "frequencia_consumo":
-            const frequenciaShape = {};
-            perguntaObj.itens?.forEach((item) => {
-              frequenciaShape[item.alimento] = z
-                .string({
-                  required_error: `Selecione uma opção `,
-                })
-                .nonempty(`Selecione uma opção`);
-            });
-            campos[chave] = z.object(frequenciaShape);
-            break;
-
-          case "texto":
-            campos[chave] = z.string().min(3, "*Mínimo 3 caracteres");
-            break;
-
-          case "email":
-            campos[chave] = z.string().email("*Email inválido");
-            break;
-
-          case "telefone":
-            campos[chave] = z.string().min(10, "*Telefone inválido");
-            break;
-
-          case "number":
-            campos[chave] = z
-              .string()
-              .min(1, "*Campo obrigatória")
-              .max(3)
-              .refine((val) => !isNaN(Number(val)), {
-                message: "*Insira um número válido",
-              });
-            break;
-
-          case "date":
-            campos[chave] = z.string().min(1, "*Data obrigatória");
-            break;
-
-          case "radio":
-            campos[chave] = z
-              .string({ required_error: "*Selecione uma opção" })
-              .min(1, "*Selecione uma opção");
             break;
           default:
-            campos[chave] = z.string().min(1, "*Campo obrigatório");
+            campos[chave] = z.string().optional();
             break;
         }
       });
@@ -171,41 +97,19 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
     register,
     handleSubmit,
     reset,
-    setValue, // Ele é usado quando você quer alterar o valor de um campo sem a interação direta do usuário.
-    //  Neste código, usado com checkbox e radio condicional.
-    watch, // observa em tempo real o valor de um campo do formulário. Muito útil para campos condicionais,
-    // como radio ou checkbox com subcampos.
+    setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(validacao),
-    // mode: define quando a validação vai acontecer no formulário.
-    // Ex: "onSubmit" valida apenas ao enviar. Outros modos: "onChange", "onBlur", etc.
     mode: "onSubmit",
-
-    // defaultValues: define os valores iniciais esperados para cada campo do formulário.
-    // Isso é importante para evitar erros de "undefined", especialmente com checkboxes ou radios.
-    // Ex: checkbox espera array ([]), texto espera string (""), etc.
-    // Usamos reduce para montar esse objeto de forma dinâmica.
-    // acc = acumulador que vai guardando os valores padrão de cada pergunta
     defaultValues: perguntas.reduce((acc, secao) => {
       secao.perguntas?.forEach((p) => {
         if (!p.pergunta) return;
-
         if (p.tipo === "checkbox" || p.tipo === "radio_condicional_checkbox") {
           acc[p.pergunta] = [];
-          if (p.tipo === "radio_condicional_checkbox") {
-            acc[`${p.pergunta}_sub`] = [];
-          }
         } else if (p.tipo === "radio_condicional_texto") {
-          acc[p.pergunta] = {
-            resposta: "",
-            condicional: "",
-          };
-        } else if (p.tipo === "frequencia_consumo") {
-          acc[p.pergunta] = {};
-          p.itens?.forEach((item) => {
-            acc[p.pergunta][item.alimento] = "";
-          });
+          acc[p.pergunta] = { resposta: "", condicional: "" };
         } else {
           acc[p.pergunta] = "";
         }
@@ -214,14 +118,88 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
     }, {}),
   });
 
+  // [NOVO] Restaurar dados salvos no sessionStorage
+  useEffect(() => {
+    const saved = sessionStorage.getItem("anamnese.temp");
+    if (saved) {
+      reset(JSON.parse(saved));
+      setMensagemInfo("Seus dados anteriores foram restaurados.");
+    }
+  }, [reset]);
+
+  // dados do agendamento
+  const holdId = sessionStorage.getItem("booking.hold_id");
+  const paymentRef = sessionStorage.getItem("booking.payment_ref");
+  const bookingDate = sessionStorage.getItem("booking.date");
+  const bookingTime = sessionStorage.getItem("booking.time");
+
+  if (!holdId || !paymentRef) {
+    navigate("/agendar", { replace: true });
+  }
+
   const onSubmit = async (data) => {
-    console.log("Respostas finais:", data);
-    setMensagem("Formulário Enviado com Sucesso!");
-    reset();
+    try {
+      setMensagem("");
+      setSending(true);
+
+      const payload = {
+        booking_hold_id: Number(holdId),
+        payment_ref: String(paymentRef),
+        data: String(bookingDate || ""),
+        hora: String(bookingTime || ""),
+        modalidade: String(modalidade),
+        respostas: data,
+      };
+
+      const r = await fetchAuth(`${API}/pacientes/anamnese`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!r.ok) throw new Error("Falha ao salvar anamnese.");
+
+      setMensagem("Formulário enviado com sucesso!");
+      setSending(false);
+      setGoingToPay(true);
+
+      setTimeout(() => {
+        navigate("/pagamento");
+      }, 1200);
+    } catch (err) {
+      setSending(false);
+      setGoingToPay(false);
+      setMensagem(err?.message || "Erro ao enviar anamnese.");
+    }
   };
+
+  // [NOVO] Função Voltar
+  function handleBack() {
+    const currentData = watch();
+    sessionStorage.setItem("anamnese.temp", JSON.stringify(currentData));
+    setMensagemInfo("Você voltou para a etapa anterior, seus dados foram mantidos.");
+    navigate(-1); // volta pra agenda
+  }
 
   return (
     <div className="bodyAnamnese">
+      <div className="anamnese-topbar">
+        <button
+          type="button"
+          className="anamnese-btn-voltar"
+          onClick={handleBack}
+        >
+          ← Voltar
+        </button>
+        <div className="anamnese-resumo">
+          <span>
+            Consulta em <b>{bookingDate || "—"}</b> às <b>{bookingTime || "—"}</b>
+            {rawEsp ? <> • <b>{rawEsp}</b></> : null}
+          </span>
+        </div>
+      </div>
+
+      {mensagemInfo && <p className="mensagemInfo">{mensagemInfo}</p>} {/* [NOVO] */}
       <form
         noValidate
         className="formAnamnese"
@@ -534,6 +512,25 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
         <div className="ondaAnamnesebaixo">
           <img src={ondabaixo} alt="Onda decorativa" />
         </div>
+        {/* Overlay de envio */}
+        {sending && (
+          <div className="anamnese-overlay">
+            <div className="anamnese-overlay__box">
+              <div className="anamnese-spinner" />
+              <p>Enviando anamnese…</p>
+            </div>
+          </div>
+        )}
+
+        {/* Overlay indo para pagamento */}
+        {goingToPay && (
+          <div className="anamnese-overlay">
+            <div className="anamnese-overlay__box">
+              <div className="anamnese-spinner" />
+              <p>Prosseguindo para pagamento…</p>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );

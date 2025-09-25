@@ -18,6 +18,7 @@ body {
 /*Estilização do Formulario*/
 .bodyAnamnese {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 100px;
@@ -576,4 +577,114 @@ button:disabled {
 
 
 
+}
+
+
+
+
+
+/* ====== Topbar Anamnese ====== */
+.anamnese-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.anamnese-btn-voltar {
+  background: #E6D6D0;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  color: #444;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.08) 0 2px 6px;
+  transition: all 0.2s ease;
+}
+
+.anamnese-btn-voltar:hover {
+  filter: brightness(0.96);
+}
+
+.anamnese-resumo {
+  color: #6b6b6b;
+  font-family: "Quicksand", sans-serif;
+  font-size: 0.95rem;
+}
+
+/* ====== Overlays Anamnese ====== */
+.anamnese-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.anamnese-overlay__box {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  padding: 22px 26px;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  color: #444;
+  font-family: "Quicksand", sans-serif;
+}
+
+.anamnese-spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 4px solid #e9d5cf;
+  border-top-color: #D1A0A0;
+  margin: 0 auto 10px;
+  animation: anamnese-spin 0.9s linear infinite;
+}
+
+@keyframes anamnese-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.anamnese-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.anamnese-btn-voltar {
+  background: #f6f1ee;
+  border: 2px solid #ddb7ac;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.anamnese-btn-voltar:hover {
+  background: #ddb7ac;
+  color: #fff;
+}
+
+.anamnese-resumo {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  color: #454545;
+}
+
+.mensagemInfo {
+  color: #8a8f75;
+  font-size: 0.85rem;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 10px;
 }
