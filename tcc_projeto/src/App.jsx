@@ -50,6 +50,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import UsersPage from "./pages/admin/UsersPage";
 import FaqAdmin from "./pages/admin/FaqAdmin";
 import FaqForm from "./pages/admin/FaqForm";
+import AdminAccountSettingsPage from "./pages/admin/adm_configuracoes";
 // ====== Redirect de compatibilidade para rotas antigas ======
 function LegacyReceitasRedirect() {
   const { categoria } = useParams();
@@ -132,6 +133,7 @@ export default function App() {
         >
           <Route index element={<AdminDashboard />} />
           <Route path="users" element={<UsersPage />} />
+          <Route path="configuracoes" element={<AdminAccountSettingsPage />} />
           <Route path="receitas" element={<RecipesAdmin />} />
           <Route path="receitas/new" element={<RecipeForm />} />
           <Route path="receitas/:id/edit" element={<RecipeForm />} />
