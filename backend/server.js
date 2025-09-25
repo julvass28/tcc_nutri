@@ -13,6 +13,10 @@ const adminFaqRoutes = require("./routes/adminFaqRoutes"); // ← NOVO (admin)
 const sequelize = require("./config/db");
 require("./models/Usuario");
 require("./models/Faq"); // ← NOVO
+require("./models/AgendaConfig");
+require("./models/Agendamentos");
+require("./models/ReservaTem");
+require("./models/Bloqueio");
 
 const app = express();
 app.set("trust proxy", 1);

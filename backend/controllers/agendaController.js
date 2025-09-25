@@ -36,71 +36,68 @@ function* horarios(start, end, pausa) {
 
 //LISTAR HORARIOS
 //vou conseguir exportar para outros arquivos 
-async function listarhora(req, res) { // assicrona = faz algo no banco com req= requisiçaõ e res= resposta; await
-    try {
-        const { date } = req.query;// {date} const date= req.query.date
-        //query pega o que vier depois do ? na URL da requisição (como a data)
-        if (!date) {
-            return res.status(400).json({ error: 'Parâmetro "date" é obrigatório  (YYYY-MM-DD).' });
-
-        }
-
-        const diasSemana = getDow(date);
-
-        //puxa os atributos da AgendaConfig apenas SE o where funcionar, ou seja se encontar o dia sa semana
-
-        const config = await AgendaConfig.findOne({ where: { dia_semana: diasSemana } });
-        if (!config) return res.json({ date, slots: [] });
-
-
-
-        const { InicioDia, FimDia, passo } = getExpediente(date, config);
-        const { start: diaStart, end: diaEnd } = getDiaRange(date);
-
-        const bloqueios = await fetchBloqueiosDoDia(diaStart, diaEnd);
-
-        const ags = await Agendamentos.findAll({
-            where: {
-                //pega todos os horarios do dia selecionado que estao pendentes ou confirmados
-                //(>= 00:00 e < 00:00 do dia seguinte)
-                inicio: { [Op.gte]: diaStart.toDate(), [Op.lt]: diaEnd.toDate() },
-                status: { [Op.in]: ['pendente', 'confirmada'] }
-            },
-            attributes: ['inicio']
-        });
-        // const que vai guardar um new Set → new = cria objeto; Set = conjunto sem duplicatas; has() verifica presença
-        // map em ags: 'a' é cada agendamento; dayjs(a.inicio) cria um Dayjs; format('HH:mm') -> string "HH:mm"
-        const ocupados = new Set(ags.map(a => dayjs(a.inicio).format('HH:mm')));
-
-        const slots = [];//mostra horarios
-
-        //cur guarda o horario de inicio e final de expediente indo de 30 em 30
-        for (const cur of horarios(InicioDia, FimDia, passo)) {
-            const label = cur.format('HH:mm');
-            const slotEnd = cur.add(passo, 'minute');   // ex.: 09:00 → 09:30
-
-            // Bloqueia se o intervalo do slot [cur, slotEnd) sobrepõe o bloqueio [bi, bf)
-            const bloqueado = bloqueios.some(b => {
-                const bi = dayjs(b.inicio);
-                const bf = dayjs(b.fim);
-                return cur.isBefore(bf) && slotEnd.isAfter(bi);
-            });
-
-            const ocupado = ocupados.has(label);
-            slots.push({ time: label, available: !bloqueado && !ocupado });
-        }
-        console.log(
-            'Bloqueios:',
-            bloqueios.map(b => [dayjs(b.inicio).format('HH:mm'), dayjs(b.fim).format('HH:mm')])
-        );
-        console.log('Ocupados:', Array.from(ocupados));
-
-
-        return res.json({ date, slots });
-    } catch (e) {
-        console.error('listarhora erro:', e);
-        return res.status(500).json({ erro: 'Falha ao gerar slots.' });
+// LISTAR HORÁRIOS
+async function listarhora(req, res) {
+  try {
+    const { date } = req.query;
+    if (!date) {
+      return res.status(400).json({ error: 'Parâmetro "date" é obrigatório  (YYYY-MM-DD).' });
     }
+
+    // limpa holds expirados (higiene)
+    await ReservaTemp.destroy({ where: { expires_at: { [Op.lte]: new Date() } } });
+
+    const diasSemana = getDow(date);
+    const config = await AgendaConfig.findOne({ where: { dia_semana: diasSemana } });
+    if (!config) return res.json({ date, slots: [] });
+
+    const { InicioDia, FimDia, passo } = getExpediente(date, config);
+    const { start: diaStart, end: diaEnd } = getDiaRange(date);
+
+    const bloqueios = await fetchBloqueiosDoDia(diaStart, diaEnd);
+
+    // agendamentos já confirmados/pendentes no dia
+    const ags = await Agendamentos.findAll({
+      where: {
+        inicio: { [Op.gte]: diaStart.toDate(), [Op.lt]: diaEnd.toDate() },
+        status: { [Op.in]: ['pendente', 'confirmada'] }
+      },
+      attributes: ['inicio']
+    });
+    const ocupados = new Set(ags.map(a => dayjs(a.inicio).format('HH:mm')));
+
+    // holds ATIVOS no dia (não-expirados)
+    const holds = await ReservaTemp.findAll({
+      where: {
+        inicio: { [Op.gte]: diaStart.toDate(), [Op.lt]: diaEnd.toDate() },
+        expires_at: { [Op.gt]: new Date() }
+      },
+      attributes: ['inicio']
+    });
+    const holdSet = new Set(holds.map(h => dayjs(h.inicio).format('HH:mm')));
+
+    const slots = [];
+
+    for (const cur of horarios(InicioDia, FimDia, passo)) {
+      const label = cur.format('HH:mm');
+      const slotEnd = cur.add(passo, 'minute');
+
+      const bloqueado = bloqueios.some(b => {
+        const bi = dayjs(b.inicio);
+        const bf = dayjs(b.fim);
+        return cur.isBefore(bf) && slotEnd.isAfter(bi);
+      });
+
+      const ocupado = ocupados.has(label) || holdSet.has(label);
+
+      slots.push({ time: label, available: !bloqueado && !ocupado });
+    }
+
+    return res.json({ date, slots });
+  } catch (e) {
+    console.error('listarhora erro:', e);
+    return res.status(500).json({ erro: 'Falha ao gerar slots.' });
+  }
 }
 
 
@@ -188,9 +185,14 @@ async function criarHold(req, res) {
             expires_at: dayjs(hold.expires_at).toISOString()
         });
     } catch (e) {
-        console.error('criarHold erro:', e);
-        return res.status(500).json({ erro: 'Falha ao criar reserva temporária.' });
+    if (e.name === 'SequelizeUniqueConstraintError') {
+        return res.status(409).json({ erro: 'Horário temporariamente reservado.' });
     }
+    console.error('criarHold erro:', e);
+    return res.status(500).json({ erro: 'Falha ao criar reserva temporária.' });
+}
+
+
 }
 
 

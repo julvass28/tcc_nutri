@@ -1,4 +1,4 @@
-// src/pages/Agendar.jsx
+// src/pages/Agenda.jsx
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Titulo from "../components/titulo/titulo";
@@ -10,6 +10,7 @@ import { addMonths, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 import "../css/Agendar.css";
+import { fetchAuth } from "../services/api";
 
 const API = import.meta.env.VITE_API_URL || "http://127.0.0.1:3001";
 
@@ -19,11 +20,9 @@ function toISODate(d) {
 function daysInMonth(year, monthIndex0) {
   return new Date(year, monthIndex0 + 1, 0).getDate();
 }
-// data longa PT-BR (segunda, 8 de setembro de 2025)
 function formatDateLongPT(d) {
   return format(d, "EEEE, d 'de' MMMM 'de' yyyy", { locale: ptBR });
 }
-// data curta DD/MM/YYYY
 function formatDateShortPT(d) {
   return format(d, "dd/MM/yyyy", { locale: ptBR });
 }
@@ -39,49 +38,44 @@ const ESPECIALIDADES = [
 export default function Agendar() {
   const navigate = useNavigate();
 
-  // especialidade
   const [especialidade, setEspecialidade] = useState(
     localStorage.getItem("especialidade") || ESPECIALIDADES[0]
   );
 
-  // calendário
   const [month, setMonth] = useState(() => {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), 1);
   });
-  const [selected, setSelected] = useState(null);  // Date | null
-  const [date, setDate] = useState("");            // "YYYY-MM-DD"
+  const [selected, setSelected] = useState(null);
+  const [date, setDate] = useState("");
 
-  // disponibilidade por dia do mês: {"YYYY-MM-DD": true/false}
   const [mapDisponibilidade, setMapDisponibilidade] = useState({});
   const [loadingMes, setLoadingMes] = useState(false);
 
-  // slots do dia
   const [slots, setSlots] = useState([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
 
-  // horário escolhido
   const [selectedTime, setSelectedTime] = useState(null);
 
-  // estados/cores (texto sempre preto)
+  const [confirming, setConfirming] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
   const modifiers = useMemo(() => ({
     available: (day) => mapDisponibilidade[toISODate(day)] === true,
     unavailable: (day) => mapDisponibilidade[toISODate(day)] === false,
   }), [mapDisponibilidade]);
 
   const modifiersStyles = useMemo(() => ({
-    available:   { backgroundColor: "#9FA28D", color: "#000" }, // verde
-    unavailable: { backgroundColor: "#cfcfcf", color: "#000" }, // cinza
+    available:   { backgroundColor: "#9FA28D", color: "#000" },
+    unavailable: { backgroundColor: "#cfcfcf", color: "#000" },
     disabled:    { backgroundColor: "#cfcfcf", color: "#000", opacity: 1, cursor: "not-allowed" },
-    selected:    { backgroundColor: "#d8b2ad", color: "#000" }, // rosado
+    selected:    { backgroundColor: "#d8b2ad", color: "#000" },
   }), []);
 
-  // guarda especialidade
   useEffect(() => {
     localStorage.setItem("especialidade", especialidade);
   }, [especialidade]);
 
-  // quando escolher dia no calendário
   useEffect(() => {
     if (!selected) {
       setDate("");
@@ -90,10 +84,10 @@ export default function Agendar() {
       return;
     }
     setDate(toISODate(selected));
-    setSelectedTime(null); // reset ao trocar de dia
+    setSelectedTime(null);
   }, [selected]);
 
-  // pinta disponibilidade do mês (demo)
+  // pinta disponibilidade do mês (fazendo 1 req por dia — suficiente pro demo)
   useEffect(() => {
     const y = month.getFullYear();
     const m = month.getMonth();
@@ -122,7 +116,7 @@ export default function Agendar() {
     })();
   }, [month]);
 
-  // busca slots do dia selecionado
+  // busca slots do dia
   useEffect(() => {
     if (!date) return;
     setLoadingSlots(true);
@@ -139,15 +133,41 @@ export default function Agendar() {
     })();
   }, [date]);
 
-  // confirmar → vai para /confirmar com dados na URL
-  function handleConfirmar() {
-    if (!date || !selectedTime) return;
-    const params = new URLSearchParams({
-      date,
-      time: selectedTime,
-      esp: especialidade,
-    });
-    navigate(`/confirmar?${params.toString()}`);
+  // CONFIRMAR: cria hold no backend e vai pro próximo passo
+  async function handleConfirmar() {
+    if (!date || !selectedTime || confirming) return;
+    setErrorMsg("");
+    setConfirming(true);
+    try {
+      const r = await fetchAuth(`${API}/agenda/hold`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ date, time: selectedTime }),
+      });
+      const data = await r.json();
+
+      if (!r.ok) {
+        if (r.status === 400) throw new Error(data?.erro || "Dados inválidos.");
+        if (r.status === 404) throw new Error(data?.erro || "Horário não encontrado.");
+        if (r.status === 409) throw new Error(data?.erro || "Horário indisponível no momento.");
+        throw new Error(data?.erro || "Falha ao reservar horário.");
+      }
+
+      const { hold_id, payment_ref, expires_at } = data;
+      sessionStorage.setItem("booking.hold_id", String(hold_id));
+      sessionStorage.setItem("booking.payment_ref", String(payment_ref));
+      sessionStorage.setItem("booking.expires_at", String(expires_at));
+      sessionStorage.setItem("booking.date", String(date));
+      sessionStorage.setItem("booking.time", String(selectedTime));
+      sessionStorage.setItem("booking.especialidade", String(especialidade));
+
+      // próximo passo — troque para "/resumo" se preferir
+      navigate(`/anamnese`);
+    } catch (err) {
+      setErrorMsg(err?.message || "Não foi possível reservar este horário.");
+    } finally {
+      setConfirming(false);
+    }
   }
 
   const tituloMes = useMemo(
@@ -188,7 +208,6 @@ export default function Agendar() {
       {/* Calendário */}
       <div className="CalendarioAgenda">
         <div className="cal-card">
-          {/* Toolbar própria: setas ao redor do nome do mês */}
           <div className="cal-toolbar">
             <button
               className="cal-arrow cal-arrow--prev"
@@ -223,8 +242,7 @@ export default function Agendar() {
               disabled={modifiers.unavailable}
               locale={ptBR}
               weekStartsOn={1}
-              showOutsideDays={false}   // só dias do mês
-              // mata caption/nav/semana nativos (pra não duplicar nada)
+              showOutsideDays={false}
               components={{
                 Caption: () => null,
                 Nav: () => null,
@@ -235,7 +253,6 @@ export default function Agendar() {
 
           {loadingMes && <p className="cal-loading">Carregando disponibilidade…</p>}
 
-          {/* legenda (opcional) */}
           <ul className="cal-legend">
             <li><span className="dot dot--ok" /> Disponíveis</li>
             <li><span className="dot dot--no" /> Não Disponíveis</li>
@@ -273,7 +290,6 @@ export default function Agendar() {
             </div>
           )}
 
-          {/* Resumo fixo “lá embaixo” */}
           <div className="resumo-box">
             <div className="resumo-col">
               <span>Dia:</span>
@@ -286,13 +302,25 @@ export default function Agendar() {
             <button
               className="btn-primary"
               onClick={handleConfirmar}
-              disabled={!selected || !selectedTime}
-              title={!selected || !selectedTime ? "Selecione dia e horário" : "Confirmar agendamento"}
+              disabled={!selected || !selectedTime || confirming}
+              title={
+                !selected || !selectedTime
+                  ? "Selecione dia e horário"
+                  : confirming
+                  ? "Reservando..."
+                  : "Confirmar agendamento"
+              }
               type="button"
             >
-              Confirmar
+              {confirming ? "Reservando..." : "Confirmar"}
             </button>
           </div>
+
+          {errorMsg && (
+            <p style={{ marginTop: 8, color: "#a55", textAlign: "right" }}>
+              {errorMsg}
+            </p>
+          )}
         </div>
       )}
     </div>
