@@ -22,6 +22,11 @@ const Usuario = sequelize.define("Usuario", {
     allowNull: false,
     defaultValue: false,
   },
+  isOwner: {
+    type: require("sequelize").BOOLEAN,
+    allowNull: false,
+    defaultValue: false, // 🔐 apenas 1 pessoa terá true (ver passo 4)
+  },
   // NOVO:
   fotoUrl: {
     type: DataTypes.STRING,
