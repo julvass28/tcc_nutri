@@ -56,6 +56,7 @@ import ProtectedRouteAdmin from "./routes/ProtectedRouteAdmin";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UsersPage from "./pages/admin/UsersPage";
+import AdminAccountSettingsPage from "./pages/admin/adm_configuracoes";
 
 export default function App() {
   return (
@@ -136,7 +137,11 @@ export default function App() {
         >
           <Route index element={<AdminDashboard />} />
           <Route path="users" element={<UsersPage />} />
-        </Route>
+
+          {/* >>> NOVO: Configurações do Admin <<< */}
+          <Route path="configuracoes" element={<AdminAccountSettingsPage />} />
+          </Route>
+
       </Routes>
     </Router>
   );

@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+:root {
+  --ascp-card-bg: #F5EAE7;
+  --ascp-green:   #7f8a6f;
+  --ascp-text:    #454545;
+  --ascp-text-light: #7A7777;
+  --ascp-accent:  #D1A0A0;
+  --ascp-accent-hover: #C28C8C;
+  --ascp-border:  #e1d4d1;
+  --ascp-white:   #ffffff;
+
+  --ascp-radius-lg: 12px;
+  --ascp-radius-md: 10px;
+  --ascp-radius-sm: 8px;
+
+  --ascp-shadow-sm: 0 2px 6px rgba(0,0,0,.08);
+
+  --ascp-card-max: 720px;
+  --ascp-card-pad: 1.25rem;
+
+  --ascp-title-size: 1.05rem;
+}
+
+.adm-settings-config-page {
+  min-height: 100vh;
+  background: var(--ascp-white);
+  color: var(--ascp-text);
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  overflow-x: visible;
+}
+
+/* tipografia base: semibold (600) */
+.adm-settings-config-page h1,
+.adm-settings-config-page h2,
+.adm-settings-config-page h3,
+.adm-settings-config-page h4,
+.adm-settings-config-page h5,
+.adm-settings-config-page h6,
+.adm-settings-config-page p,
+.adm-settings-config-page label,
+.adm-settings-config-page input,
+.adm-settings-config-page button,
+.adm-settings-config-page a,
+.adm-settings-config-page span {
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 600;
+}
+
+/* Container principal */
+.ascp-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem var(--ascp-card-pad) 3rem;
+}
+
+/* Card */
+.ascp-card {
+  background: var(--ascp-card-bg);
+  border: 1px solid var(--ascp-border);
+  border-radius: var(--ascp-radius-lg);
+  padding: var(--ascp-card-pad);
+  margin: 0 auto 1.5rem;
+  box-shadow: var(--ascp-shadow-sm);
+  max-width: var(--ascp-card-max);
+  width: 100%;
+}
+
+.ascp-card__title {
+  margin: 0 0 .75rem;
+  color: var(--ascp-text);
+  font-size: var(--ascp-title-size);
+}
+
+.ascp-card__subtitle {
+  margin: 0 0 1rem;
+  color: var(--ascp-text-light) !important;
+  font-size: .95rem;
+}
+
+/* Campos */
+.ascp-field { margin-bottom: 1rem; }
+
+.ascp-label {
+  display: block;
+  color: var(--ascp-text);
+  margin-bottom: .4rem;
+  font-size: .95rem;
+}
+
+.ascp-input-wrap { position: relative; }
+
+.ascp-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 2.5rem 0 1rem;
+  border-radius: var(--ascp-radius-md);
+  border: 1px solid var(--ascp-border);
+  background: var(--ascp-white);
+  color: var(--ascp-text);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color .18s ease;
+}
+.ascp-input::placeholder { color: var(--ascp-text-light); }
+.ascp-input:focus { border-color: #8A8F75; box-shadow: none; }
+
+/* lápis */
+.ascp-input-edit {
+  position: absolute;
+  top: 50%;
+  right: .6rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 0;
+  color: #8A8F75 !important;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 6px;
+}
+.ascp-input-edit:hover { background: transparent; }
+.adm-settings-config-page .ascp-input-edit i { color: #8A8F75 !important; font-size: 1rem; line-height: 1; }
+
+/* Ações dentro do card (link) */
+.ascp-actions {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ascp-link {
+  color: var(--ascp-text-light) !important;
+  font-size: .95rem;
+  text-decoration: underline;
+}
+.ascp-link:hover { opacity: .85; }
+
+/* Footer: wrapper p/ botão principal, sem padding; alinhado à direita */
+.ascp-footer-actions {
+  box-sizing: border-box;
+  max-width: var(--ascp-card-max);
+  width: 100%;
+  margin: .5rem auto 1.5rem;
+  border: 1px solid transparent; /* compensa a borda dos cards p/ alinhamento */
+  border-radius: var(--ascp-radius-lg);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Botão principal */
+.ascp-save-btn {
+  appearance: none;
+  border: 0;
+  padding: .8rem 1.2rem;
+  border-radius: var(--ascp-radius-sm);
+  background: var(--ascp-accent);
+  color: var(--ascp-white);
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 600;
+  font-size: var(--ascp-title-size); /* igual ao título */
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--ascp-shadow-sm);
+  transition: transform .04s ease, background-color .18s ease, box-shadow .18s ease, opacity .18s ease;
+}
+.ascp-save-btn:hover { background: var(--ascp-accent-hover); }
+.ascp-save-btn:active { transform: translateY(1px); }
+.ascp-save-btn[disabled] { opacity: .6; cursor: not-allowed; }
+
+/* Loading texto */
+.ascp-loading {
+  color: var(--ascp-text-light);
+  font-size: .95rem;
+}
+
+/* Toast */
+.ascp-toast {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: #333;
+  border-left: 4px solid;
+  padding: .6rem .9rem;
+  border-radius: .5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+.ascp-toast--success { border-color: #10b981; }
+.ascp-toast--error { border-color: #ef4444; }
+
+/* Responsivo */
+@media (max-width: 720px) {
+  .ascp-container { padding: 1.5rem 1rem 2.5rem; }
+  .ascp-card { padding: 1rem; max-width: 100%; }
+  .ascp-footer-actions { max-width: 100%; }
+  .ascp-input { height: 44px; }
+}
