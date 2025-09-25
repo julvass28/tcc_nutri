@@ -30,7 +30,18 @@ router.get("/me", authMiddleware, async (req, res) => {
     });
     if (!usuario)
       return res.status(404).json({ erro: "Usuário não encontrado" });
-    res.json(usuario);
+
+    // anexa isOwner
+    const OWNER_EMAIL = (process.env.OWNER_EMAIL || "").trim().toLowerCase();
+    const OWNER_ID = process.env.OWNER_ID ? Number(process.env.OWNER_ID) : null;
+    const isOwner =
+      (OWNER_ID && Number(usuario.id) === OWNER_ID) ||
+      (OWNER_EMAIL && String(usuario.email || "").toLowerCase() === OWNER_EMAIL);
+
+    const json = usuario.toJSON();
+    json.isOwner = !!isOwner;
+
+    res.json(json);
   } catch (err) {
     res.status(500).json({ erro: "Erro ao buscar usuário" });
   }
