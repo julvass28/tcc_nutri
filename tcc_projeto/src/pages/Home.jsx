@@ -73,9 +73,6 @@ function Home() {
                     </div>
                 </div>
 
-<Link to="/anamnese">
-  <button>Preencher Anamnese</button>
-</Link>
 
 
                 <div className="home-descricao espacamento">
