@@ -39,7 +39,7 @@ export default function RecipeDetail(){
       <div className="rec-detail-content">
         <Link to={`/receitas/categoria/${data.categoria}`} className="rec-detail-back">← Voltar</Link>
 
-        {data.resumo && <h2 className="rec-detail-subtitle-rose">{data.resumo}</h2>}
+        {data.titulo && <h2 className="rec-detail-subtitle-rose">{data.titulo}</h2>}
 
         {Array.isArray(data.ingredientes) && data.ingredientes.length > 0 && (
           <>
