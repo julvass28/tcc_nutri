@@ -172,7 +172,7 @@ export default function AdminDashboard() {
           style={{ backgroundImage: `url(${waveBg})` }}
         />
         <div className="topline">
-          <Link className="edit" to="/perfil">
+          <Link className="edit" to="configuracoes">
             <FaEdit /> Editar Perfil
           </Link>
         </div>

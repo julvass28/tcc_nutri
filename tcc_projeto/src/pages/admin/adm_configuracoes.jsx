@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import "../css/adm_configuracoes.css";
+import "../../css/adm_configuracoes.css";
 
 /**
  * Helpers de API (placeholder) — prontos para receber backend
