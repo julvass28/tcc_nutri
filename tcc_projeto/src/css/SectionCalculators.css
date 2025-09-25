@@ -20,14 +20,24 @@
   justify-content: space-around;
 }
 
-.sessao-calculadoras-container {
-  display: flex;
-  width: 60%;
-  height: 500px;
-  margin-left: 20%;
-  font-family: "Poppins";
-  justify-content: space-around;
+.sessao-calculadoras-container{
+  display:flex;
+  justify-content:center;      /* centraliza as duas colunas */
+  align-items:flex-start;
+  gap:24px;                    /* aproxima as colunas */
+  width:min(100%, 1050px);     /* limita a largura total */
+  margin:0 auto;               /* centraliza */
+  height:auto;                 /* sem altura travada */
+  font-family:"Poppins";
 }
+
+.sessao-calculadoras-um,
+.sessao-calculadoras-dois{
+  display:flex;
+  flex-direction:column;
+  gap:14px;                    /* aproxima os cards na vertical */
+}
+
 .a-link-calculadoras{
   text-decoration: none;
   color: inherit;
@@ -286,4 +296,165 @@
     width: 3vw;
     height: 3vw;
   }
+}
+
+
+/* ===== Responsivo da vitrine de calculadoras (fix ícone/“bloquinho”) ===== */
+
+/* Mantém o visual, mas limita o crescimento em telas enormes */
+.sessao-calculadoras{
+  position: relative;                       /* pra ancorar o ícone no canto */
+  width: min(27vw, 370px);                  /* como antes, mas com teto */
+  height: min(14vw, 210px);                 /* como antes, mas com teto */
+}
+
+/* o wrapper do ícone não precisa “empurrar” nada */
+.cont-bloco-icone-section{
+  margin-top: 0;
+  display: contents;                        /* não atrapalha layout interno */
+}
+
+/* Ícone sempre no canto inferior-direito e com tamanho “saudável” */
+.bloco-icone{
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: clamp(28px, 2.7vw, 44px);
+  height: clamp(28px, 2.7vw, 44px);
+  padding: clamp(2px, .2vw, 6px);
+  border-radius: 6px;
+}
+
+#img-calculadoras{
+  width: 100%;
+  height: 100%;
+  padding: 0;                               /* o padding já vem do .bloco-icone */
+}
+
+/* Aproxima um pouco os cards e centraliza o conjunto em telas grandes */
+.sessao-calculadoras-container{
+  gap: 20px;                                /* já está centralizado, só ajusta a distância */
+  width: min(100%, 1050px);
+  margin: 0 auto;
+}
+
+/* Tablet: dois cards por linha com tamanhos estáveis */
+@media (max-width: 1024px){
+  .sessao-calculadoras{ width: min(40vw, 420px); height: min(20vw, 220px); }
+}
+
+/* Mobile: um card por linha e ícone continua preso no canto */
+@media (max-width: 640px){
+  .sessao-calculadoras{ width: 100%; height: auto; padding: 16px; }
+  .bloco-icone{ right: 10px; bottom: 10px; }
+}
+
+
+
+/* ===== Ajustes de layout + responsivo da vitrine ===== */
+
+/* margem superior leve pra seção toda */
+.container-total-calculadoras{
+  margin-top: 140px !important; /* +20px em relação ao seu 120px */
+}
+
+/* aproxima os dois “blocos” (colunas) e centraliza o conjunto */
+.sessao-calculadoras-container{
+  width: min(100%, 1050px) !important;
+  margin: 32px auto 0 !important;
+  justify-content: center !important;  /* para de “espalhar” pelos lados */
+  gap: 24px !important;                /* distância agradável entre colunas */
+}
+
+/* dentro de cada coluna, aproxima os cards */
+.sessao-calculadoras-um,
+.sessao-calculadoras-dois{
+  gap: 14px !important;
+  justify-content: flex-start !important;
+}
+
+/* card vira “ancora” do ícone */
+.sessao-calculadoras{
+  position: relative !important;
+}
+
+/* ícone fixado no canto do card (não “desconfigura” quando a tela cresce) */
+.cont-bloco-icone-section{
+  position: absolute !important;
+  right: 12px !important;
+  bottom: 12px !important;
+  display: block !important;
+  margin: 0 !important;
+}
+.bloco-icone{
+  width: clamp(28px, 2.7vw, 44px) !important;
+  height: clamp(28px, 2.7vw, 44px) !important;
+  padding: clamp(2px, .2vw, 6px) !important;
+  border-radius: 6px !important;
+}
+#img-calculadoras{
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+}
+
+/* ===== Breakpoints (sem mudar estética do desktop) ===== */
+
+/* Tablet: cards mais juntinhos e centralizados */
+@media (max-width: 1024px){
+  .sessao-calculadoras-container{
+    width: 92% !important;
+    gap: 18px !important;
+  }
+  .sessao-calculadoras{
+    width: 100% !important;
+    height: auto !important;
+    padding: 16px !important;
+  }
+  .cont-bloco-icone-section{ right: 10px !important; bottom: 10px !important; }
+}
+
+/* Mobile: um card por linha, tudo bem centralizado */
+@media (max-width: 640px){
+  .sessao-calculadoras-container{
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 14px !important;
+    margin-top: 20px !important;
+  }
+  .sessao-calculadoras{
+    width: 100% !important;
+    padding: 16px !important;
+  }
+}
+
+/* === Vitrine (duas colunas) — centralizada e mais próxima === */
+.sessao-calculadoras-container{
+  /* centralizado e com uma margem superior leve */
+  margin: 28px auto 0 !important;
+  width: 62% !important;              /* permanece “miolo” da página */
+  height: auto !important;
+
+  display: flex !important;
+  justify-content: center !important; /* em vez de space-around */
+  align-items: flex-start !important;
+  column-gap: 18px !important;        /* aproxima as duas colunas */
+  row-gap: 16px !important;
+}
+
+/* espaçamento vertical entre os cards dentro de cada coluna */
+.sessao-calculadoras-um,
+.sessao-calculadoras-dois{
+  gap: 16px !important;
+}
+
+/* mantém o “bloquinho” do ícone estável em telas grandes */
+.bloco-icone{
+  width: clamp(28px, 2.4vw, 40px) !important;
+  height: clamp(28px, 2.4vw, 40px) !important;
+  padding: clamp(2px, .2vw, 6px) !important;
+}
+#img-calculadoras{
+  width: 100% !important;
+  height: 100% !important;
 }

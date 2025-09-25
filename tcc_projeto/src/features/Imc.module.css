@@ -1,0 +1,206 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lustria&family=Montserrat:ital,wght@0,700;1,700&display=swap");
+
+/* ====== BASE (SEU VISUAL ANTIGO) ====== */
+.imc-container {
+  max-width: 90%;
+  margin: 5vw auto;
+  border-radius: 10px;
+  font-family: 'Poppins';
+  display: flex;
+  flex-direction: column;
+  color: #454545;
+}
+
+#titulo-calculadora {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1vw;
+  color: #454545;
+  font-weight: 570;
+}
+
+.titulo-mais-icone {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1vw;
+}
+
+.link-calc-section-all { text-decoration: none; color: inherit; }
+
+#container-calculator-icon {
+  background-color: #F4EFEC;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+  border-radius: 8px;
+  width: 3.3vw; height: 3.3vw;
+  display: flex; justify-content: center; align-items: center;
+  margin-right: 1vw;
+}
+
+#img-calculator-icon {
+  width: 2.7vw; height: 2.7vw; padding: 0.1vw; color: #8A8F75;
+}
+
+.resultado-informacoes {
+  display: flex; justify-content: space-around; margin-bottom: 1vw;
+}
+
+.text-resultado {
+  border-bottom: 1px solid rgb(216, 216, 216);
+  display: flex; justify-content: flex-start; margin-bottom: 2vw;
+}
+.text-resultado h1 { font-size: 1.4rem; margin-bottom: 1vw; font-weight: 500; }
+
+#text-titulo-calculadora {
+  font-weight: 400; font-size: 1.1rem; text-align: center;
+  margin-bottom: 100px; color: #454545;
+  margin-left: 80px; margin-right: 80px;
+}
+
+/* grupos */
+.input-group { margin-bottom: 1.5vw; display: flex; flex-direction: column; align-items: center; }
+.input-group label { display: block; margin-bottom: 0.3vw; }
+.input-group input { width: 100%; padding: 1vw; border-radius: 10px; }
+
+/* linhas principais (IMC / ÁGUA) */
+.info-imc-container.info-pag-imc {
+  display: flex; justify-content: space-around; align-items: center; margin-bottom: 1vw;
+}
+.info-imc-container.info-pag-agua {
+  display: flex; justify-content: space-around; align-items: center; margin-bottom: 1vw;
+  width: 50%; margin-left: 25%;
+}
+
+/* GASTO (se ainda existir) */
+.info-imc-container.info-pag-gasto {
+  display: flex; flex-direction: column; align-items:center; justify-content: space-around;
+  margin-bottom: 1vw; margin-left: 5%; width: 90%; height:55vh;
+}
+.divisoria-pag-gasto{ display: flex; align-items: center; justify-content: space-around; width: 90%; }
+
+/* sexo (IMC) */
+#sexo-buttons {
+  display: flex; justify-content: center; align-items: center; gap: 10px;
+  box-shadow: rgba(0,0,0,0.04) 0 3px 5px; width: 17vw; height: 7vw; padding: 2vw; border-radius: 10px;
+}
+#sexo-buttons button {
+  width: 7vw; height: 2.8vw; border-radius: 15px; border: 1px solid #ccc;
+  background-color: #F4EFEC; cursor: pointer; font-weight: 500;
+  transition: background-color 0.3s;
+}
+#label-sexo-button {
+  font-size: 1rem; font-weight: 500; text-align: center; border: 1px solid #ccc;
+  box-shadow: rgba(0,0,0,0.04) 0 3px 5px; width: 7vw; padding: .3vw; border-radius: 5px;
+}
+#sexo-buttons button:hover { background-color: #8a8f75; color: #F4EFEC; }
+#sexo-buttons button:active { background-color: #727272; color: #F4EFEC; }
+#sexo-buttons button.active { background-color: #D1A0A0; color: #F4EFEC; }
+
+/* inputs comuns */
+#div-geral { display: flex; flex-direction: column; }
+.input-container {
+  display: flex; justify-content: center; align-items: center;
+  background-color: #F4EFEC; border: 1px solid #ccc; box-shadow: rgba(0,0,0,0.04) 0 3px 5px;
+  width: 17vw; height: 7vw; padding: 2vw; border-radius: 10px;
+}
+.input-container.preenchido { border: #e5bcbc solid 1.5px; }
+
+#input-idade, #input-altura, #input-peso {
+  all: unset; width: 22%; background-color: #F4EFEC; font-size: 1.3rem; border-bottom: 2px solid #454545;
+}
+.label {
+  font-size: 1rem; font-weight: 500; background-color: #F4EFEC; text-align: center; border: 1px solid #ccc;
+  box-shadow: rgba(0,0,0,0.04) 0 3px 5px; width: 7vw; padding: .3vw; border-radius: 5px; transition: .3s;
+}
+.label.ativa { background-color: #D1A0A0; color: #454545; }
+#label-kg, #label-cm, #label-anos { margin-top: 1vw; margin-left: .5vw; }
+
+/* remover setas number */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+.botao-calcular-container { display: flex; justify-content: center; width: 100%; margin-top: 2vw; margin-bottom: 3vw; }
+
+.resultado { padding: 1vw; margin-top: 1vw; }
+.tabela-imc { margin-top: 3%; border-collapse: collapse; margin-bottom: 0%; width: 100%; }
+.tabela-imc th, .tabela-imc td { border: 1px solid #eee; padding: 1vw; text-align: center; font-size: .9rem; }
+.tabela-imc th { background-color: #fff; border: none; }
+.tabela-imc tr.destaque { font-weight: 500; background-color: #8A8F75; color: #fff; border: 2px solid #000; }
+.abaixo{ background:#fff;} .normal{background:#eaeaea;} .sobrepeso{background:#fff;}
+.obesidade1{background:#eaeaea;} .obesidade2{background:#fff;} .obesidade3{background:#eaeaea;}
+
+.texto-explicativo.pagina-imc{
+  margin-top: 2%; background-color: #fff9f9; padding: 1%;
+  border-left: 5px solid #D1A0A0; border-radius: 7px; color: #444; font-size: 1rem;
+}
+.texto-explicativo.pagina-agua{
+  margin-top: 2%; background-color: #f7ffd6; padding: 15px;
+  border-left: 5px solid #8A8F75; border-radius: 7px; color: #444; font-size: 1rem;
+}
+
+.info-paragrafos { font-size: .7rem; color:#454545; display:flex; flex-direction:column; align-items:flex-start; text-align:justify; margin-bottom:1vw; }
+#legenda-tabela { margin-bottom: 15px; font-style: italic; color: #929292; display:flex; align-items:center; margin-top: 1vw; }
+#info { color:#8A8F75; margin-right: .5vw; }
+
+.input-group.erro input { box-shadow: #ff5f5f 0px 0.5px 1.5px; }
+.input-group.erro .sexo-buttons button { box-shadow: #ff5f5f 0px 0.5px 1.5px; }
+.mensagem-erro { color:#ff5f5f; font-size:.6em; margin-top:1px; display:block; }
+
+/* cards “outras calculadoras” */
+.section-calculators { display: flex; width: 100%; justify-content: space-between; }
+.sectioncal {
+  background-color: #F4EFEC; border-radius: 15px; box-shadow: rgba(0,0,0,.04) 0 3px 5px;
+  width: 27vw; height: 14vw; padding: 1.3vw; transition: all .4s cubic-bezier(.22,.61,.36,1);
+}
+.sectioncal:hover { border:1px solid #8A8F75; transform: translateY(-2px); cursor:pointer; }
+.sectioncal h1{ font-size:1.5rem; font-weight:600; margin-bottom:10px; }
+.icon-section{
+  background:#F4EFEC; box-shadow: rgba(0,0,0,.04) 0 3px 5px; border: .5px solid #dfdfdf; border-radius: 4px;
+  width: 2.7vw; height: 2.7vw; padding: .2vw;
+  display:flex; justify-content:center; align-items:center;
+  margin-left: 91%; margin-top: 2%;
+}
+.icon-section.correr{ padding: .4vw; }
+.sectioncal:hover .icon-section { border:1px solid #8A8F75; }
+#hum-cal-gasto{ color:#8A8F75; } #hum-cal-agua{ color:#D1A0A0; } #hum-cal-nutri{ color:#454545; }
+
+#resultadoLitros{ font-weight: 500; }
+#cor-resultadoLitros{ color:#e09a9a; background:#F4EFEC; padding:.5vw; border-radius:10px; }
+
+/* ====== PATCH RESPONSIVO (NÃO ALTERA DESKTOP) ====== */
+/* Tablet e baixo: vira grid bonitinho e larga as larguras em vw dos inputs */
+@media (max-width: 1099px){
+  .info-imc-container,
+  .info-pag-imc,
+  .info-pag-agua{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+    align-items: start;
+    justify-items: center;
+  }
+
+  /* escondo as setinhas » */
+  .info-imc-container > svg,
+  .info-pag-imc > svg,
+  .info-pag-agua > svg { display: none; }
+
+  /* caixinhas viram “largura de tela” confortável */
+  .input-container,
+  #sexo-buttons{
+    width: 88vw; max-width: 520px; height: auto; padding: 18px;
+  }
+  .label { width: auto; padding: 6px 10px; }
+
+  /* ícone do título menor */
+  #container-calculator-icon { width: 52px; height: 52px; margin-right: 10px; }
+  #img-calculator-icon { width: 38px; height: 38px; }
+
+  /* cards em grid */
+  .section-calculators{
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .sectioncal{ width: 100%; height: auto; padding: 16px; }
+  .icon-section{ width: 44px; height: 44px; margin-left: auto; }
+}
+

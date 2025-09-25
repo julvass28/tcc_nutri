@@ -1,0 +1,121 @@
+:global{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lustria&display=swap');
+
+/* ——— Base igual ao “antes” ——— */
+.imc-container { max-width: 90%; margin: 5vw auto; border-radius: 10px; font-family: 'Poppins'; display:flex; flex-direction:column; color:#454545; }
+.titulo-mais-icone{ display:flex; justify-content:center; margin-bottom:1vw; }
+#titulo-calculadora{ font-size:2rem; text-align:center; margin-bottom:1vw; color:#454545; font-weight:570; }
+#text-titulo-calculadora{ font-weight:400; font-size:1.1rem; text-align:center; margin-bottom:100px; color:#454545; margin-left:80px; margin-right:80px; }
+
+#container-calculator-icon{
+  background:#F4EFEC; box-shadow: rgba(0,0,0,.04) 0 3px 5px; border-radius:8px;
+  width:3.3vw; height:3.3vw; display:flex; justify-content:center; align-items:center; margin-right:1vw;
+}
+#img-calculator-icon{ width:2.7vw; height:2.7vw; padding:.1vw; color:#8A8F75; }
+
+/* ——— Layout do formulário GASTO (desktop igual ao seu) ——— */
+.info-imc-container.info-pag-gasto{
+  display:flex; flex-direction:column; align-items:center; justify-content:space-around;
+  margin-bottom:1vw; margin-left:5%; width:90%; height:55vh;
+}
+.divisoria-pag-gasto{ display:flex; align-items:center; justify-content:space-around; width:90%; }
+
+.input-group-gasto{ display:flex; flex-direction:column; align-items:center; margin-bottom:1.5vw; }
+.input-group-gasto label{ display:block; margin-bottom:.3vw; }
+
+.input-container-gasto{
+  display:flex; justify-content:center; align-items:center; background:#F4EFEC;
+  border:1px solid #ccc; box-shadow: rgba(0,0,0,.04) 0px 3px 5px;
+  width:22vw; height:7vw; padding:2vw; border-radius:10px;
+}
+.input-container-gasto.preenchido{ border:#e5bcbc solid 1.5px; }
+
+#sexo-buttons-gasto{
+  display:flex; justify-content:center; align-items:center; gap:10px;
+  box-shadow: rgba(0,0,0,.04) 0px 3px 5px; height:7vw; padding:2vw; border-radius:10px; width:22vw;
+}
+#sexo-buttons-gasto button{
+  width:9vw; height:2.8vw; border-radius:15px; border:1px solid #ccc; background:#F4EFEC;
+  cursor:pointer; font-weight:500; transition: background-color .3s;
+}
+#sexo-buttons-gasto button:hover{ background:#8a8f75; color:#F4EFEC; }
+#sexo-buttons-gasto button:active{ background:#727272; color:#F4EFEC; }
+#sexo-buttons-gasto button.active{ background:#D1A0A0; color:#F4EFEC; }
+
+#label-sexo-button-gasto{
+  font-size:1rem; font-weight:500; text-align:center; border:1px solid #ccc;
+  box-shadow: rgba(0,0,0,.04) 0px 3px 5px; padding:.3vw; border-radius:5px;
+}
+
+/* Inputs */
+#input-idade, #input-altura, #input-peso{
+  all:unset; width:22%; background:#F4EFEC; font-size:1.3rem; border-bottom:2px solid #454545;
+}
+#label-anos, #label-cm, #label-kg{ margin-top:1vw; margin-left:.5vw; }
+
+.gasto-calc-input{
+  width:100%; height:3vw; border-radius:12px; background:#F4EFEC; padding:.5vw; border:1px solid #ccc; transition:.3s;
+}
+.gasto-calc-input:focus{ outline:none; box-shadow:0 0 5px #D1A0A0; }
+
+/* Botões/erros */
+.mensagem-erro{ color:#ff5f5f; font-size:.6em; margin-top:1px; display:block; }
+.botao-calcular-container{ display:flex; justify-content:center; margin-bottom:3vw; }
+
+/* Resultado */
+.text-resultado{ border-bottom:1px solid #d8d8d8; display:flex; justify-content:flex-start; margin-bottom:2vw; }
+.text-resultado h1{ font-size:1.4rem; margin-bottom:1vw; font-weight:500; }
+.gasto-calc-container{ padding:1vw; margin-top:1vw; }
+
+#objetivo-gasto-calc{
+  background:#F4EFEC; padding:.8vw; border-radius:8px; color:#454545;
+}
+.resultado-informacoes-gasto{ display:flex; margin-bottom:2vw; }
+.resultadoGasto{ font-size:1.2rem; font-weight:500; margin-top:1vw; }
+.texto-explicativo-gasto{
+  margin-top:.3vw; width:50%; background:#fff9f9; padding:1%;
+  border-left:5px solid #D1A0A0; border-radius:7px; color:#444; font-size:.9rem;
+}
+#color-gasto-info{ background:#F4EFEC; padding:.5vw; border-radius:10px; color:#8A8F75; }
+
+.info-paragrafos.calc-gasto{
+  font-size:.7rem; color:#454545; display:flex; flex-direction:column; align-items:flex-start;
+  text-align:justify; margin-top:2vw;
+}
+
+/* Cards do fim */
+.section-calculators{ display:flex; width:100%; justify-content: space-between; }
+.sectioncal{
+  background:#F4EFEC; border-radius:15px; box-shadow: rgba(0,0,0,.04) 0px 3px 5px;
+  width:27vw; height:14vw; padding:1.3vw; transition: all .4s cubic-bezier(.22,.61,.36,1);
+}
+.sectioncal:hover{ border:1px solid #8A8F75; transform: translateY(-2px); cursor:pointer; }
+.sectioncal h1{ font-size:1.5rem; font-weight:600; margin-bottom:10px; }
+.icon-section{
+  background:#F4EFEC; box-shadow: rgba(0,0,0,.04) 0px 3px 5px; border:.5px solid #dfdfdf;
+  border-radius:4px; width:2.7vw; height:2.7vw; padding:.2vw; display:flex; justify-content:center; align-items:center;
+  margin-left:91%; margin-top:2%;
+}
+.icon-section.correr{ padding:.4vw; }
+#hum-cal-agua{ color:#D1A0A0; }
+#hum-cal-gasto{ color:#8A8F75; }
+
+/* ——— Responsividade: não altera seu desktop ——— */
+@media (max-width: 1099px){
+  .info-imc-container.info-pag-gasto{
+    display:grid; grid-template-columns: 1fr 1fr; gap:16px 20px; align-items:start; height:auto; margin-left:0; width:100%;
+  }
+  .divisoria-pag-gasto{ display:contents; }
+  .info-pag-gasto > svg{ display:none; }          /* esconde as setas no mobile/tablet */
+}
+
+@media (max-width: 680px){
+  .info-imc-container.info-pag-gasto{ grid-template-columns:1fr; gap:14px; }
+  .botao-calcular-container button{ width:100%; }
+  .gasto-calc-container{ overflow-x:auto; }
+  .section-calculators{
+    display:grid; grid-template-columns:1fr; gap:20px; margin-top:32px;
+  }
+}
+}

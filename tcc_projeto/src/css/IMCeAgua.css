@@ -407,11 +407,22 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-bottom: 3vw;
 }
 
-.section-calculators {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
+.section-calculators{
+  display:flex;
+  justify-content:center;      /* centraliza os cards */
+  align-items:stretch;
+  gap:24px;                    /* aproxima sem grudar */
+  flex-wrap:wrap;              /* quebra no mobile */
+  max-width:980px;             /* limita a largura total */
+  margin:32px auto 0;          /* centraliza o container */
 }
+
+@media (max-width:640px){
+  .section-calculators{ gap:16px; }
+  /* opcional: cada card pegar a linha toda no mobile */
+  /* .sectioncal{ width:100%; height:auto; } */
+}
+
 
 .sectioncal {
   background-color: #F4EFEC;
@@ -633,3 +644,540 @@ input[type="number"]::-webkit-outer-spin-button {
 .info-paragrafos.calc-gasto p{
   margin-bottom: 0.5vw;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* ====== IMC — RESPONSIVO (não altera o desktop) ====== */
+
+/* Tablet e menores */
+@media (max-width: 1099px){
+  /* vira grid 2 colunas, sem mudar tua estética */
+  .info-imc-container.info-pag-imc{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+    align-items: start;
+    width: 100%;
+    margin-left: 0;
+    height: auto;
+  }
+
+  /* esconde as setinhas » só no mobile/tablet */
+  .info-imc-container.info-pag-imc > svg{ display: none; }
+
+  /* caixinhas (sexo/idade/altura/peso) ocupam a largura toda do grid */
+  .info-pag-imc #sexo-buttons,
+  .info-pag-imc .input-container{
+    width: 100%;
+    height: auto;
+    min-height: 64px;
+    padding: 12px;
+    box-sizing: border-box;
+  }
+
+  /* label “badge” mais flexível no mobile/tablet */
+  .info-pag-imc #label-sexo-button,
+  .info-pag-imc .label{
+    width: auto;
+    padding: 6px 10px;
+    font-size: .95rem;
+  }
+
+  /* inputs deixam de ter largura 22% (ficam 100%) */
+  .info-pag-imc #input-idade,
+  .info-pag-imc #input-altura,
+  .info-pag-imc #input-peso{
+    width: 100%;
+    font-size: 1.1rem;
+  }
+}
+
+/* Mobile pequeno */
+@media (max-width: 680px){
+  /* header e título mais confortáveis */
+  .titulo-mais-icone{ margin-bottom: 16px; }
+  #container-calculator-icon{ width: 44px; height: 44px; margin-right: 12px; }
+  #img-calculator-icon{ width: 28px; height: 28px; }
+  #titulo-calculadora{ font-size: 1.3rem; }
+
+  /* subtítulo sem aquelas margens grandes */
+  #text-titulo-calculadora{
+    font-size: .95rem;
+    margin: 12px 16px 24px;
+  }
+
+  /* formulário vira 1 coluna */
+  .info-imc-container.info-pag-imc{
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* botão calcular ocupa a largura toda */
+  .botao-calcular-container button{ width: 100%; }
+
+  /* tabela: rolagem horizontal se precisar */
+  .resultado{ overflow-x: auto; }
+  .tabela-imc{ min-width: 520px; }
+
+  /* cards “outras calculadoras” em 1 coluna */
+  .section-calculators{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .sectioncal{
+    width: 100%;
+    height: auto;
+    padding: 16px;
+  }
+  .icon-section{
+    width: 44px;
+    height: 44px;
+    padding: 6px;
+    margin-left: auto;   /* joga pro cantinho direito */
+    margin-top: 8px;
+  }
+}
+/* ===== IMC — MOBILE/TABLET POLISH (não altera desktop) ===== */
+
+/* tablet: 2 colunas, respiro entre campos, some as setinhas »  */
+@media (max-width: 1099px){
+  .info-imc-container.info-pag-imc{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 18px;              /* espaço entre os cards */
+    align-items: start;
+  }
+  .info-imc-container.info-pag-imc > svg{ display:none; }
+
+  .input-group{ align-items: stretch; margin: 0; }
+  .label{
+    width: auto;                 /* badge do rótulo com tamanho natural */
+    padding: 6px 10px;
+    font-size: .92rem;
+  }
+
+  /* caixas onde ficam os inputs/botões */
+  .input-container{
+    width: 100%;
+    height: auto;
+    padding: 12px;               /* menor que antes pra não ficar gigante */
+  }
+
+  /* seletor Homem/Mulher: ocupa a largura e não “quebra” */
+  #sexo-buttons{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    gap: 10px;
+    background-color: #F4EFEC;
+    border: 1px solid #ccc;
+    box-shadow: rgba(0,0,0,.04) 0 3px 5px;
+    border-radius: 10px;
+  }
+  #sexo-buttons button{
+    flex: 1;                     /* os dois botões dividem o espaço */
+    min-width: 120px;
+    height: 36px;
+    border-radius: 12px;
+  }
+
+  /* inputs numéricos mais enxutos e alinhados */
+  #input-idade, #input-altura, #input-peso{
+    width: 100%;
+    font-size: 1rem;
+  }
+  #label-anos, #label-cm, #label-kg{ margin-top: 0; }
+
+  /* botão “Calcular” menor e com respiro */
+  .botao-calcular-container{ margin: 12px 0 18px; }
+  .botao-calcular-container button{
+    width: 100%;
+    max-width: 280px;
+    padding: 10px 16px;
+  }
+
+  /* bloco de resultado com folga do topo e tipografia menor */
+  .resultado{ padding: 12px 10px; margin-top: 20px; }
+  .text-resultado{ margin-bottom: 12px; }
+  .resultado-informacoes{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 10px;
+    justify-items: start;
+  }
+  .tabela-imc th, .tabela-imc td{
+    padding: 8px 6px;
+    font-size: .85rem;
+  }
+}
+
+/* mobile estreito: 1 coluna e resultado em uma coluna */
+@media (max-width: 680px){
+  .info-imc-container.info-pag-imc{ grid-template-columns: 1fr; gap: 14px; }
+  .resultado-informacoes{ grid-template-columns: 1fr; }
+}
+
+
+/* ===== IMC: só reduzir/centralizar o risquinho (inputs) ===== */
+@media (max-width: 1099px){
+  #input-idade,
+  #input-altura,
+  #input-peso{
+    width: 100px;          /* menor */
+    margin: 0 auto;        /* centraliza dentro da caixa */
+    text-align: center;    /* dígitos centralizados */
+    font-size: 1rem;       /* fica mais delicado */
+    /* mantém o traço */
+    border-bottom: 2px solid #454545;
+    background: transparent; /* não muda a caixa ao redor */
+  }
+
+  /* sufixos ao lado do risquinho */
+  #label-anos, #label-cm, #label-kg{
+    margin-left: 8px;
+    font-size: .9rem;
+  }
+}
+
+/* mobile estreito: ainda menorzinho */
+@media (max-width: 480px){
+  #input-idade,
+  #input-altura,
+  #input-peso{
+    width: 80px;
+    font-size: .95rem;
+  }
+}
+/* Risquinho menor e centralizado (sem mexer na caixa bege) */
+@media (max-width: 1099px){
+  .input-container #input-idade,
+  .input-container #input-altura,
+  .input-container #input-peso{
+    display: inline-block !important;   /* garante que width funcione */
+    width: 80px !important;             /* ajuste fino aqui (90/80/70) */
+    margin: 0 auto !important;          /* centraliza dentro da caixa */
+    text-align: center !important;      /* dígitos centralizados */
+    font-size: 1rem !important;
+    background: transparent !important; /* não altera a caixa */
+    border-bottom: 2px solid #454545 !important;
+  }
+
+  /* sufixos ao lado do risquinho */
+  #label-anos, #label-cm, #label-kg{
+    margin-left: 8px !important;
+    font-size: .9rem !important;
+  }
+}
+
+/* telas muito estreitas */
+@media (max-width: 380px){
+  .input-container #input-idade,
+  .input-container #input-altura,
+  .input-container #input-peso{ width: 68px !important; }
+}
+
+/* ate aqui tava tudo certo */
+
+/* ===== ÁGUA — RESPONSIVO (sem alterar o desktop) ===== */
+@media (max-width: 1099px){
+  /* container dos campos: centraliza, vira grid e ignora os 50%/25% do desktop */
+  .info-imc-container.info-pag-agua{
+    display: grid;
+    grid-template-columns: 1fr 1fr;   /* tablet: 2 colunas */
+    gap: 16px 18px;
+    align-items: start;
+    width: min(100% - 24px, 640px) !important;
+    margin: 0 auto 12px !important;
+  }
+  /* esconde as setinhas » no mobile/tablet */
+  .info-imc-container.info-pag-agua > svg{ display:none; }
+
+  /* “risquinho” menor e centralizado (sem mexer na caixa bege) */
+  .info-pag-agua .input-container #input-idade,
+  .info-pag-agua .input-container #input-peso{
+    display: inline-block !important;
+    width: 80px !important;         /* ajusta aqui se quiser 70/90px */
+    margin: 0 auto !important;
+    text-align: center !important;
+    font-size: 1rem !important;
+    background: transparent !important;
+    border-bottom: 2px solid #454545 !important;
+  }
+  .info-pag-agua #label-anos,
+  .info-pag-agua #label-kg{
+    margin-left: 8px !important;
+    font-size: .9rem !important;
+  }
+
+  /* botão “Calcular” com respiro e tamanho amigável */
+  .info-pag-agua + .botao-calcular-container{
+    margin: 14px 0 20px;
+  }
+  .info-pag-agua + .botao-calcular-container button{
+    width: 100%;
+    max-width: 240px;
+    padding: 10px 16px;
+  }
+
+  /* bloco de resultado: descola do topo, compacto e legível */
+  .resultado{ padding: 12px 10px; margin-top: 20px; }
+  .text-resultado{ margin-bottom: 10px; }
+  #resultadoLitros{ font-size: 1.05rem; }
+  .texto-explicativo.pagina-agua{
+    margin-top: 12px;
+    padding: 12px;
+    font-size: .95rem;
+  }
+  .resultado .botao-calcular-container button{
+    width: 100%;
+    max-width: 240px;
+    padding: 10px 16px;
+  }
+}
+
+/* mobile estreito: 1 coluna e inputs ainda mais curtinhos */
+@media (max-width: 680px){
+  .info-imc-container.info-pag-agua{
+    grid-template-columns: 1fr;     /* 1 coluna */
+    gap: 14px;
+  }
+  .info-pag-agua .input-container #input-idade,
+  .info-pag-agua .input-container #input-peso{
+    width: 72px !important;
+    font-size: .95rem !important;
+  }
+  .info-pag-agua + .botao-calcular-container button,
+  .resultado .botao-calcular-container button{
+    max-width: 220px;
+    padding: 9px 14px;
+  }
+}
+
+
+/* ===== GASTO CALÓRICO — RESPONSIVO (não altera o desktop) ===== */
+@media (max-width: 1099px){
+  /* container vira grid, centraliza e ignora medidas fixas do desktop */
+  .info-imc-container.info-pag-gasto{
+    display: grid;
+    grid-template-columns: 1fr 1fr;        /* tablet = 2 colunas */
+    gap: 16px 18px;
+    align-items: start;
+    width: min(100% - 24px, 820px) !important;
+    margin: 0 auto 12px !important;
+    height: auto !important;               /* sobrescreve 55vh do desktop */
+  }
+  /* as “linhas” viram só conteúdo do grid */
+  .divisoria-pag-gasto{ display: contents; }
+
+  /* esconde as setinhas » no mobile/tablet */
+  .info-pag-gasto > svg{ display: none; }
+
+  /* mantém o “cartão bege”, só ajusta tamanho/respiro */
+  .input-container-gasto{
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    padding: 10px 12px;
+    margin-inline: auto;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background-color: #F4EFEC;            /* igual ao desktop */
+    border: 1px solid #ccc;
+    box-shadow: rgba(0,0,0,.04) 0px 3px 5px;
+    border-radius: 10px;
+  }
+
+  /* risquinho (Idade/Altura/Peso) menor e centralizado */
+  .input-container-gasto #input-idade,
+  .input-container-gasto #input-altura,
+  .input-container-gasto #input-peso{
+    display: inline-block !important;
+    width: 86px !important;                /* ajusta p/ 80/72 se quiser menor */
+    margin: 0 auto !important;
+    text-align: center !important;
+    font-size: 1rem !important;
+    background: transparent !important;
+    border-bottom: 2px solid #454545 !important;
+  }
+  .info-pag-gasto #label-anos,
+  .info-pag-gasto #label-cm,
+  .info-pag-gasto #label-kg{
+    margin-left: 8px !important;
+    font-size: .95rem !important;
+  }
+
+  /* seletor (Exercício/Objetivo) compacto, sem mexer no cartão */
+  .input-container-gasto select.gasto-calc-input,
+  .gasto-calc-input{
+    width: 100% !important;
+    max-width: 360px !important;
+    height: 38px !important;
+    padding: 0 10px !important;
+    font-size: .95rem !important;
+    background: transparent !important;    /* cor vem do container */
+    border: 0 !important; outline: 0 !important;
+  }
+
+  /* botões de Sexo no mesmo limite de largura */
+  #sexo-buttons-gasto{
+    width: 100%;
+    max-width: 360px;
+    margin-inline: auto;
+    padding: 10px 12px;
+    height: auto;
+    display: flex; align-items: center; gap: 10px;
+    background-color: #F4EFEC;
+    border: 1px solid #ccc;
+    box-shadow: rgba(0,0,0,.04) 0px 3px 5px;
+    border-radius: 10px;
+  }
+  #sexo-buttons-gasto button{
+    flex: 1;
+    min-width: 120px;
+    height: 36px;
+    border-radius: 15px;
+  }
+
+  /* botão “Calcular” com respiro */
+  .info-pag-gasto + .botao-calcular-container{
+    margin: 16px 0 22px;
+  }
+  .info-pag-gasto + .botao-calcular-container button{
+    width: 100%;
+    max-width: 260px;
+    padding: 10px 16px;
+  }
+
+  /* resultado com espaçamento melhor */
+  .gasto-calc-container{
+    margin-top: 22px;
+    padding: 14px 12px;
+  }
+  .text-resultado{ margin-bottom: 10px; }
+  .resultado-informacoes-gasto{ margin-bottom: 10px; }
+  .resultadoGasto{ font-size: 1.05rem; margin-top: 8px; }
+  .texto-explicativo-gasto{
+    width: 100%;
+    font-size: .95rem;
+    padding: 12px;
+    margin-top: 10px;
+  }
+  .gasto-calc-container .botao-calcular-container button{
+    width: 100%;
+    max-width: 260px;
+    padding: 10px 16px;
+  }
+}
+
+/* mobile = 1 coluna e tudo mais enxuto */
+@media (max-width: 680px){
+  .info-imc-container.info-pag-gasto{
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  #sexo-buttons-gasto{ max-width: 300px; }
+  .input-container-gasto{ max-width: 300px; }
+  .input-container-gasto #input-idade,
+  .input-container-gasto #input-altura,
+  .input-container-gasto #input-peso{
+    width: 72px !important;
+    font-size: .95rem !important;
+  }
+  .gasto-calc-input{ height: 36px !important; }
+}
+
+/* telas bem estreitas */
+@media (max-width: 380px){
+  .input-container-gasto #input-idade,
+  .input-container-gasto #input-altura,
+  .input-container-gasto #input-peso{ width: 66px !important; }
+}
+/* =========================
+   GASTO — ajustes MOBILE ONLY
+   (não altera desktop)
+   ========================= */
+@media (max-width: 680px){
+
+  /* 1 coluna + respiro entre os blocos */
+  .info-imc-container.info-pag-gasto{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 22px;   /* + espaçamento entre itens */
+  }
+  .divisoria-pag-gasto{ display: contents; } /* deixa o grid assumir */
+
+  /* cada grupo com espacinho interno */
+  .input-group-gasto{
+    gap: 10px;
+  }
+
+  /* rótulo (título da pergunta) do MESMO tamanho do bloco bege */
+  #label-sexo-button-gasto,
+  #label-idade,
+  #label-altura,
+  #label-peso,
+  #label-exercicio,
+  #label-objetivo{
+    width: 100%;
+    max-width: 440px;         /* limite p/ não colar nas bordas */
+    margin: 0 auto 6px auto;  /* centralizado + espaço abaixo */
+    display: block;
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+
+  /* bloco bege ocupando a largura do rótulo */
+  .input-container-gasto,
+  #sexo-buttons-gasto{
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+    height: 56px;
+    padding: 12px;
+  }
+
+  /* botões Homem/Mulher sem “apertar” e com mesma largura */
+  #sexo-buttons-gasto{
+    height: auto;             /* deixa crescer conforme o conteúdo */
+    padding: 8px;
+    gap: 8px;
+  }
+  #sexo-buttons-gasto button{
+    width: 48%;
+    height: 38px;
+  }
+
+  /* “risquinho” (campo digitável) curto e centralizado */
+  #input-idade,
+  #input-altura,
+  #input-peso{
+    width: 80px;
+    background: transparent;
+    border-bottom: 2px solid #454545;
+  }
+  #label-anos, #label-cm, #label-kg{
+    margin-top: 0;
+    margin-left: 8px;
+  }
+
+  /* selects mais compactos */
+  .gasto-calc-input{
+    height: 44px;
+    padding: 8px 12px;
+  }
+
+  /* mais respiro perto do botão e do resultado */
+  .botao-calcular-container{ margin-top: 12px; margin-bottom: 24px; }
+  .gasto-calc-container{ margin-top: 16px; }
+}
+
+
+

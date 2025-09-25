@@ -1,0 +1,52 @@
+/* src/styles/tokens.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lustria&display=swap");
+
+:root{
+  /* cores base */
+  --bg-soft: #f4efec;
+  --ink-1: #454545;
+  --ink-2: #8a8f75;  /* acento default */
+  --border-1: #dfdfdf;
+  --shadow-1: 0 3px 5px rgba(0,0,0,.04);
+
+  /* tipografia */
+  --ff-sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --ff-serif: "Lustria", Georgia, serif;
+
+  /* tamanhos fluidos */
+  --fs-xs: clamp(.78rem, .7rem + .3vw, .9rem);
+  --fs-sm: clamp(.9rem, .85rem + .3vw, 1rem);
+  --fs-md: clamp(1rem, .9rem + .6vw, 1.125rem);
+  --fs-lg: clamp(1.125rem, 1rem + .8vw, 1.375rem);
+  --fs-xl: clamp(1.375rem, 1.1rem + 1.2vw, 1.75rem);
+  --fs-xxl: clamp(1.75rem, 1.4rem + 1.8vw, 2.25rem);
+
+  /* espaçamentos */
+  --space-1: .25rem;
+  --space-2: .5rem;
+  --space-3: .75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+
+  /* radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* largura container */
+  --content-max: 1100px;
+}
+
+/* helpers globais simples */
+.container { width: min(100% - 2rem, var(--content-max)); margin-inline: auto; }
+.card {
+  background: var(--bg-soft);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-1);
+  border: 1px solid transparent;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.card:hover { border-color: var(--ink-2); transform: translateY(-2px); }
+.a-link-calculadoras{ text-decoration:none; color:inherit; }

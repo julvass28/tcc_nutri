@@ -5,6 +5,7 @@ import { HiOutlineEnvelope } from "react-icons/hi2";
 import { FaWhatsapp, FaInstagram} from "react-icons/fa";
 import FooterOnda from '../assets/Footer_onda.jsx';
 import Botao from './botao/Botao.jsx';
+import Logo from '../assets/img_png/Logo.png'
 
 function Footer() {
   return (
@@ -79,7 +80,7 @@ function Footer() {
             </div>
 
             <div className='ftr-logo'>
-              <img src="src/assets/img_png/Logo.png" alt="Logo" width={200} />
+              <img src={Logo} alt="Logo" width={200} loading="lazy" decoding="async" />
               <p id='crn'>CRN : 37892</p>
             </div>
           </div>

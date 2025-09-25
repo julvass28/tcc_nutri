@@ -11,6 +11,10 @@ import "./App.css";
 import ScrollToTop from "./components/ScrollToTop";
 import PublicLayout from "./layouts/PublicLayout";
 
+
+
+import './css/tokens.css';
+
 // Páginas públicas
 import Home from "./pages/Home";
 import IMCCalculator from "./pages/IMCCalculator";
