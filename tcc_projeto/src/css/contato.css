@@ -7,8 +7,7 @@
   --text: #3A3A3A;
   --muted: #6B6B6B;
 
-  border-top: 3px solid var(--border);
-  border-bottom: 3px solid var(--border);
+
   background: #fff;
   color: var(--text);
 }

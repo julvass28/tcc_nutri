@@ -18,7 +18,7 @@
   flex-direction: column;
   gap: 35px;
   font-family: "Poppins", sans-serif;
-
+  margin-bottom: 100px;
 }
 
 .form-group {

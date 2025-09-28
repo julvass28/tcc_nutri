@@ -70,7 +70,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
   gap: 10vw;
 }
 
@@ -84,6 +83,8 @@ body {
 .home-foto {
   width: 30vw;
   /* Ajustando com base na largura da tela */
+  border: #ddb7ac 5px solid;
+  border-radius: 999px;
   height: auto;
   max-width: 380px;
 }
@@ -189,11 +190,14 @@ body {
 
 .sobre-nutri-home {
   overflow: hidden;
-  background-color: #f4efec;
+  background-color: #000000;
   height: 70vh;
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  background-image: url("../assets/nutri_banner.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 150px;
 }
 
 .infos-dois-home {
@@ -547,14 +551,23 @@ body {
 
   .sobre-nutri-mobile {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5) inset;
+    height: 800px;
+    padding-bottom: 80px;
+    background-image: url("../assets/banner_nutri_mobile.png");
+    background-size: cover;
+    background-position: center;
   }
 
   .foto-nutri-home img {
     width: 50vw;
+    height: 50vw;
+    margin-bottom: 1vh;
+    border: #ddb7ac 5px solid;
+    border-radius: 1000px;
   }
 
   .infos-dois-home {
@@ -724,7 +737,7 @@ body {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 767px) and (max-width: 1023px) {
   /* ----- Elementos escondidos ----- */
   .home-descricao,
   .descricao-home,
@@ -741,10 +754,15 @@ body {
 
   .sobre-nutri-mobile {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5) inset;
+    height: 800px;
+    padding-bottom: 80px;
+    background-image: url("../assets/banner_nutri_mobile.png");
+    background-size: cover;
+    background-position: center;
   }
 
   .espacamento {
@@ -947,298 +965,19 @@ body {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1440px) {
-  .carrosel-mobile,
-  .receitas-mobile,
-  .sobre-nutri-mobile {
-    display: none;
-  }
-
-  .Receitas,
-  .secao-home {
-    display: block;
-  }
-
-  .home-bloco-inicial {
-    height: 25vh;
-    mask-size: cover;
-  }
-
-  .botao-inicial {
-    display: block;
-  }
-
-  .home-bloco-texto {
-    right: 1vh;
-    max-width: 38vh;
-    text-align: center;
-    gap: 2vh;
-  }
-
-  .home-bloco-texto h1 {
-    font-size: 1.5rem;
-  }
-
-  .home-descricao {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 30px;
-    gap: 5vw;
-  }
-
-  .sobre-home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .home-foto {
-    width: 35vw;
-    height: auto;
-    max-width: 70vw;
-  }
-
-  .home-infos {
-    padding-bottom: 10vh;
-  }
-
-  .primeiro-text-home {
-    font-family: "Quicksand", sans-serif;
-    font-weight: 520;
-    font-size: 1.8rem;
-
-    letter-spacing: 2px;
-    color: #454545;
-    margin-bottom: 1.3vh;
-  }
-
-  .segundo-text-home {
-    font-family: "Quicksand", sans-serif;
-    font-size: 2.3rem;
-    font-weight: 600;
-    color: #8a8f75;
-    margin-top: 0;
-    letter-spacing: 2px;
-    margin-bottom: 1.3vh;
-  }
-
-  .terceiro-text-home {
-    font-family: "Quicksand", sans-serif;
-    font-size: 1.5rem;
-    font-weight: 520;
-    color: #454545;
-    letter-spacing: 2px;
-    margin-bottom: 3vh;
-    margin-top: 0;
-    text-align: center;
-  }
-
-  .num-home {
-    font-family: "Quicksand", sans-serif;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: #8a8f75;
-  }
-
-  .home-categorias {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 7vh;
-  }
-
-  .home-categoria {
-    padding: 15px;
-    width: 27vw;
-    height: 9vh;
-    overflow: hidden;
-  }
-
-  .home-icone {
-    width: 8vw;
-  }
-
-  .home-categoria p {
-    font-size: 1.3rem;
-  }
-
-  .sobre-nutri-home {
-    height: 50vh;
-    padding: 30px;
-  }
-
-  .text-small-home {
-    font-size: 1.4rem;
-    margin-bottom: 1vh;
-  }
-
-  .text-medium-home {
-    font-size: 2.4rem;
-    color: #454545;
-    margin: 0;
-    margin-bottom: 1vh;
-    font-weight: 500;
-  }
-
-  .text-large-home {
-    margin: 0;
-    margin-bottom: 4vh;
-    font-size: 2.5rem;
-  }
-
-  .small-home {
-    font-size: 1.3rem;
-    max-width: 40vw;
-  }
-
-  .color-text {
-    color: #8a8f75;
-  }
-
-  .foto-nutri-home img {
-    width: 35vw;
-  }
-
-  .planejamento-home {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .item-home {
-    overflow: hidden;
-    gap: 2vh;
-  }
-
-  .item-home p {
-    font-size: 1.3rem;
-  }
-
-  .img-wrapper-home {
-    width: 20vw;
-    height: 20vw;
-    padding: 22px;
-    border: 3.6px solid #8a8f75;
-  }
-
-  .img-wrapper-home img {
-    width: 10vw;
-  }
-
-  .topic-home {
-    width: 95vw;
-  }
-
-  .icone-dois-home {
-    width: 4vw;
-  }
-
-  .topicos-home p {
-    font-size: 1.2rem;
-  }
-
-  .dicas-home {
-    padding: 10px;
-    height: 30vh;
-  }
-
-  .linha-texto-dicas p {
-    font-family: "Lustria", sans-serif;
-    font-size: 1.2rem;
-    max-width: 45vw;
-    margin-top: 5px;
-  }
-
-  .conteudo-dicas h3 {
-    font-size: 1.1rem;
-    margin: 0;
-  }
-
-  .imagem-container-dicas {
-    width: 60vw;
-
-    margin-top: 3vh;
-    overflow: hidden;
-  }
-
-  .imagem-container-dicas img {
-    width: 100%;
-    height: auto;
-  }
-
-  .imagem-gradiente-home {
-    width: 100%;
-    height: 300px;
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0) 75%,
-        #f9f7f2 100%
-      ),
-      linear-gradient(to right, rgba(255, 255, 255, 0) 65%, #f9f7f2 100%),
-      url("../assets/img_png/food.avif") no-repeat center left;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: left center;
-    border-radius: 10px 0 0 0;
-  }
-
-  .text-p-home {
-    font-size: 0.95rem;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  .preco-text-home {
-    display: flex;
-    align-items: flex-start;
-    font-size: 1rem;
-    margin-bottom: 17px;
-  }
-
-  .textos-home h1 {
-    font-size: 2rem;
-  }
-
-  .textos-home {
-    gap: 20px;
-  }
-
-  .box-preco-home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .preco-linha-home {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-  }
-
-  .box-preco-home h2 {
-    font-family: "Lustria", sans-serif;
-    font-size: 2rem;
-    color: #8a8f75;
-    margin: 0;
-  }
-
-  .box-preco-home span {
-    font-family: "Poppins", sans-serif;
-    font-size: 1rem;
-    color: #454545;
-  }
-}
-
 /* --- Lis fix v3 --- */
 
 /* Dicas: evita vazamento lateral se existir deslocamento via left/margin */
 /* se você usava left negativo nessas duas, zera */
-.conteudo-dicas, .imagem-container-dicas { left: 0; }
+.conteudo-dicas,
+.imagem-container-dicas {
+  left: 0;
+}
 
 /* o wrapper da seção de Dicas */
-.dicas, .dicas-wrapper, .secao-dicas {
+.dicas,
+.dicas-wrapper,
+.secao-dicas {
   overflow-x: hidden;
   position: relative;
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lustria&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lustria&display=swap");
 
 /* Root */
 .c-carousel-mobile {
@@ -8,8 +8,13 @@
 }
 
 /* isola slick ao componente */
-.c-carousel-mobile .slick-list { overflow: visible; }
-.c-carousel-mobile .slick-track { display: flex !important; flex-wrap: nowrap !important; }
+.c-carousel-mobile .slick-list {
+  overflow: visible;
+}
+.c-carousel-mobile .slick-track {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+}
 
 /* Slide wrapper (seu “container” interno) */
 .c-carousel-mobile__slide {
@@ -25,28 +30,39 @@
   overflow: hidden;
   height: 24vh;
   border-radius: 15px;
-  box-shadow:
-    rgba(221, 183, 172, 1) 0 2px 12px -2px,
+  box-shadow: rgba(221, 183, 172, 1) 0 2px 12px -2px,
     rgba(221, 183, 172, 1) 0 3px 7px -3px;
-  border: 1px solid #DDB7AC;
+  border: 2px solid #ddb7ac;
   background-color: #fff;
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .c-carousel-mobile__card--receitas {
-  box-shadow:
-    rgba(138, 143, 177, 1) 0 2px 12px -2px,
+  box-shadow: rgba(138, 143, 177, 1) 0 2px 12px -2px,
     rgba(138, 143, 177, 1) 0 3px 7px -3px;
-  border: 1.3px solid #8A8F75;
+  border: 1.3px solid #8a8f75;
 }
 .c-carousel-mobile__card.is-active {
-  background-color: #FDFAF9;
+  background-color: #fdfaf9;
   transform: translateY(-8px) scale(1.02);
 }
 
 /* Ícone (quando não tem imagem) */
-.c-carousel-mobile__icon { display:flex; align-items:center; justify-content:center; }
-.c-carousel-mobile__icon svg { width: 15vw; height: auto; margin-bottom: 10px; }
-
+.c-carousel-mobile__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.c-carousel-mobile__icon svg {
+  width: 15vw;
+  height: auto;
+  margin-bottom: 10px;
+}
+.c-carousel-mobile__link-to {
+  all: unset;
+}
 /* Títulos “fora” (usado para serviços) */
 .c-carousel-mobile__title {
   font-size: 1rem;
@@ -57,7 +73,9 @@
   max-width: 30vw;
   overflow: hidden;
 }
-.c-carousel-mobile__title--receitas { display: none; } /* receitas usam overlay */
+.c-carousel-mobile__title--receitas {
+  display: none;
+} /* receitas usam overlay */
 
 /* Imagem */
 .c-carousel-mobile__img {
@@ -68,15 +86,19 @@
 }
 
 /* Overlay (usado nas receitas) */
-.c-carousel-mobile__overlay { display: none; }
+.c-carousel-mobile__overlay {
+  display: none;
+}
 .c-carousel-mobile__overlay--receitas {
   display: block;
   position: absolute;
   inset: auto 0 0 0;
   height: 7vh;
-  background-color: rgba(255,255,255,.8);
-  display: flex; align-items: center; justify-content: center;
-  opacity: .9;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
 }
 .c-carousel-mobile__overlay-title {
   font-size: 1.1rem;
@@ -91,17 +113,30 @@
   padding: 0 8px;
   box-sizing: border-box;
 }
-.c-carousel-mobile--receitas .c-carousel-mobile__card { width: 100%; }
+.c-carousel-mobile--receitas .c-carousel-mobile__card {
+  width: 100%;
+}
 
 /* Alturas e tipografia por breakpoint */
 @media (max-width: 410px) {
-  .c-carousel-mobile__overlay-title { font-size: .8rem; }
+  .c-carousel-mobile__overlay-title {
+    font-size: 0.8rem;
+  }
 }
 @media (min-width: 414px) {
-  .c-carousel-mobile__card { height: 22vh; }
-  .c-carousel-mobile__overlay-title { font-size: 1rem; }
+  .c-carousel-mobile__card {
+    height: 22vh;
+  }
+  .c-carousel-mobile__overlay-title {
+    font-size: 1rem;
+  }
 }
 @media (min-width: 768px) {
-  .c-carousel-mobile.c-carousel-mobile--receitas { max-width: 100%; padding: 0 24px; }
-  .c-carousel-mobile__overlay-title { font-size: 1.5rem; }
+  .c-carousel-mobile.c-carousel-mobile--receitas {
+    max-width: 100%;
+    padding: 0 24px;
+  }
+  .c-carousel-mobile__overlay-title {
+    font-size: 1.5rem;
+  }
 }

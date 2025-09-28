@@ -40,7 +40,10 @@ body {
   cursor: pointer;
   transition: 150ms linear;
 }
-.icon:hover { color: #d1a0a0; transform: scale(1.1); }
+.icon:hover {
+  color: #d1a0a0;
+  transform: scale(1.1);
+}
 
 .seta {
   margin-left: 4px;
@@ -49,9 +52,15 @@ body {
   color: #454545;
   transition: transform 0.5s ease;
 }
-.dropdown:hover .seta { transform: rotate(180deg); color: #8a8f75; }
+.dropdown:hover .seta {
+  transform: rotate(180deg);
+  color: #8a8f75;
+}
 
-.perfil { display: flex; justify-content: center; }
+.perfil {
+  display: flex;
+  justify-content: center;
+}
 
 /* Ícone padrão “verde” (oliva da paleta) */
 .user {
@@ -60,9 +69,13 @@ body {
   height: 25px;
   cursor: pointer;
 }
-.user--green { color: #8a8f75; }
+.user--green {
+  color: #8a8f75;
+}
 
-.right ul li { padding: 7px 14px; }
+.right ul li {
+  padding: 7px 14px;
+}
 
 nav ul li {
   list-style: none;
@@ -97,7 +110,10 @@ nav ul li a {
   background-color: #8a8f75;
   transition: width 0.3s ease;
 }
-.nav-text:hover::after, .nav-text.ativo::after { width: 100%; }
+.nav-text:hover::after,
+.nav-text.ativo::after {
+  width: 100%;
+}
 
 /* dropdown (desktop) */
 .dropdown-menu {
@@ -110,9 +126,19 @@ nav ul li a {
   min-width: 190px;
   z-index: 20;
 }
-.dropdown-menu li { display: block; padding: 13px 16px; }
-.dropdown-menu li a { color: #454545; font-size: 14px; }
-.dropdown-menu li a:hover { color: #d1a0a0; font-weight: 600; transform: scale(1.02); }
+.dropdown-menu li {
+  display: block;
+  padding: 13px 16px;
+}
+.dropdown-menu li a {
+  color: #454545;
+  font-size: 14px;
+}
+.dropdown-menu li a:hover {
+  color: #d1a0a0;
+  font-weight: 600;
+  transform: scale(1.02);
+}
 
 /* Logo + quick login (mobile) */
 .logo {
@@ -120,12 +146,19 @@ nav ul li a {
   align-items: center;
   gap: 10px;
 }
-.logo img { height: 100px; width: 250px; }
+.logo img {
+  height: 100px;
+  width: 250px;
+}
 
 /* ícone de login ao lado da logo — só no mobile */
-.logo .quick-login { display: none; }
+.logo .quick-login {
+  display: none;
+}
 @media (max-width: 1023px) {
-  .logo .quick-login { display: inline-flex; }
+  .logo .quick-login {
+    display: inline-flex;
+  }
 }
 
 .btn-mobile {
@@ -137,10 +170,16 @@ nav ul li a {
   cursor: pointer;
 }
 
-.mobile-icons, .mobile-only { display: none; }
+.mobile-icons,
+.mobile-only {
+  display: none;
+}
 
 @media (min-width: 821px) {
-  .dropdown:hover .dropdown-menu { display: block; text-decoration: none; }
+  .dropdown:hover .dropdown-menu {
+    display: block;
+    text-decoration: none;
+  }
 }
 
 /* === LATERAL (mobile) === */
@@ -152,7 +191,9 @@ nav ul li a {
     font-size: 18px;
   }
 
-  .menu .nav-itens:not(.open) { display: none; }
+  .menu .nav-itens:not(.open) {
+    display: none;
+  }
 
   .nav-itens {
     display: flex;
@@ -168,22 +209,40 @@ nav ul li a {
     z-index: 1000;
     overflow-y: auto;
   }
-  .nav-itens.open { left: 0; }
+  .nav-itens.open {
+    left: 0;
+  }
 
-  .icons { display: none; }
+  .icons {
+    display: none;
+  }
 
-  .xis { display: flex; align-self: start; }
+  .xis {
+    display: flex;
+    align-self: start;
+  }
 
   .mobile-icons {
     display: flex;
     justify-content: center;
     gap: 15px;
   }
-  .icon-mobile { width: 35px; height: auto; color: #d1a0a0; margin-top: 40px; }
+  .icon-mobile {
+    width: 35px;
+    height: auto;
+    color: #d1a0a0;
+    margin-top: 40px;
+  }
 
-  .logo img { max-width: 100%; height: auto; }
+  .logo img {
+    max-width: 100%;
+    height: auto;
+  }
 
-  .user { width: 18px; height: auto; }
+  .user {
+    width: 18px;
+    height: auto;
+  }
 
   .dropdown-menu {
     position: relative;
@@ -202,18 +261,50 @@ nav ul li a {
     text-align: center;
     border-top: 1px solid #d4d4d4;
   }
-  .dropdown-menu li:first-child { border-top: none; }
+  .dropdown-menu li:first-child {
+    border-top: none;
+  }
 
-  .nav-text.ativo::after { background-color: #d1a0a0; height: 1.7px; }
-  .nav-text.ativo .seta { color: #d1a0a0; }
-  .nav-text.ativo { color: #d1a0a0; font-weight: 600; }
+  .nav-text.ativo::after {
+    background-color: #d1a0a0;
+    height: 1.7px;
+  }
+  .nav-text.ativo .seta {
+    color: #d1a0a0;
+  }
+  .nav-text.ativo {
+    color: #d1a0a0;
+    font-weight: 600;
+  }
 
-  .mobile-only { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .mobile-only .nav-section li { text-align: center; width: 100%; }
-  .mobile-only .nav-section { display: flex; flex-direction: column; align-items: center; padding: 0; margin: 0; }
-  .mobile-only .nav-section li .nav-text { display: flex; justify-content: center; }
+  .mobile-only {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-only .nav-section li {
+    text-align: center;
+    width: 100%;
+  }
+  .mobile-only .nav-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+  }
+  .mobile-only .nav-section li .nav-text {
+    display: flex;
+    justify-content: center;
+  }
 
-  .nav-section { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+  .nav-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
   .nav-text {
     gap: 10px;
@@ -225,13 +316,23 @@ nav ul li a {
     color: #454545;
   }
 
-  .seta { transition: transform 0.3s ease; }
-  .seta.rotated { transform: rotate(180deg); }
+  .seta {
+    transition: transform 0.3s ease;
+  }
+  .seta.rotated {
+    transform: rotate(180deg);
+  }
 
-  .dropdown-menu.show { display: block; }
+  .dropdown-menu.show {
+    display: block;
+  }
 
-  .infos-mobile { margin-top: 60px; }
-  .infos-mobile p { font-family: "Lustria", sans-serif; }
+  .infos-mobile {
+    margin-top: 60px;
+  }
+  .infos-mobile p {
+    font-family: "Lustria", sans-serif;
+  }
 
   .tel {
     text-align: center;
@@ -240,30 +341,68 @@ nav ul li a {
     letter-spacing: 2px;
   }
 
-  .botao-header { margin-top: 50px; }
+  .botao-header {
+    margin-top: 50px;
+  }
 }
 
 /* Breakpoints adicionais */
 @media (min-width: 768px) and (max-width: 912px) {
-  .nav-text { font-size: 23px; }
-  .dropdown-menu li a { font-size: 20px; }
-  .infos-mobile p { font-size: 20px; }
-  .botao.botao-header { width: 300px; height: 60px; font-size: 23px; }
-  .icon-mobile { width: 45px; height: auto; }
-  .logo img { width: 250px; height: auto; }
-  .btn-mobile { font-size: 20px; }
-  .user { width: 20px; height: auto; }
+  .nav-text {
+    font-size: 23px;
+  }
+  .dropdown-menu li a {
+    font-size: 20px;
+  }
+  .infos-mobile p {
+    font-size: 20px;
+  }
+  .botao.botao-header {
+    width: 300px;
+    height: 60px;
+    font-size: 23px;
+  }
+  .icon-mobile {
+    width: 45px;
+    height: auto;
+  }
+  .logo img {
+    width: 250px;
+    height: auto;
+  }
+  .btn-mobile {
+    font-size: 20px;
+  }
+  .user {
+    width: 20px;
+    height: auto;
+  }
 }
 
 @media (min-width: 1024px) and (max-width: 1280px) {
-  .menu { padding: 10px; }
-  .btn-mobile { display: none; }
-  .nav-text { font-size: 14px; }
-  .user { width: 18px; height: auto; }
-  .icon { width: 18px; }
+  .menu {
+    padding: 10px;
+  }
+  .btn-mobile {
+    display: none;
+  }
+  .nav-text {
+    font-size: 14px;
+  }
+  .user {
+    width: 18px;
+    height: auto;
+  }
+  .icon {
+    width: 18px;
+  }
 }
 
-@media (max-width: 1440px) { .nav-text { font-size: 14px; } }
+@media (max-width: 1440px) {
+  .nav-text {
+    font-size: 14px;
+  }
+}
 
 /* ===== PERFIL DROPDOWN (desktop) ===== */
 .perfil-desktop {
@@ -272,7 +411,10 @@ nav ul li a {
   position: relative;
 }
 
-.perfil-dropdown { position: relative; display: inline-block; }
+.perfil-dropdown {
+  position: relative;
+  display: inline-block;
+}
 
 .perfil-trigger {
   position: relative;
@@ -284,15 +426,18 @@ nav ul li a {
   border: 1px solid transparent;
   background: transparent;
   cursor: pointer;
-  transition: background .30s ease, border-color .30s ease, box-shadow .30s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .perfil-trigger:hover {
   background: #ffffff;
   border-color: #c7c7c7;
-  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 }
 
-.perfil-nome { color: #454545; font-size: 15px; }
+.perfil-nome {
+  color: #454545;
+  font-size: 15px;
+}
 .perfil-foto {
   width: 32px;
   height: 32px;
@@ -310,28 +455,38 @@ nav ul li a {
   top: calc(100% + 12px);
   right: 0;
   background: #fff;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
   list-style: none;
   padding: 8px 0;
   min-width: 180px;
   z-index: 60;
   transform-origin: top right;
-  animation: perfilMenuIn .12s ease-out;
+  animation: perfilMenuIn 0.12s ease-out;
 }
 @keyframes perfilMenuIn {
-  from { opacity: 0; transform: translateY(-4px) scale(.98); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 .perfil-dropdown-menu::before {
   content: "";
   position: absolute;
-  top: -8px; right: 14px;
-  width: 14px; height: 14px;
+  top: -8px;
+  right: 14px;
+  width: 14px;
+  height: 14px;
   background: #fff;
   transform: rotate(45deg);
-  box-shadow: -1px -1px 1px rgba(0,0,0,0.03);
+  box-shadow: -1px -1px 1px rgba(0, 0, 0, 0.03);
 }
-.perfil-dropdown-menu li { padding: 2px 0; }
+.perfil-dropdown-menu li {
+  padding: 2px 0;
+}
 .perfil-dropdown-menu li a,
 .perfil-dropdown-menu li button {
   color: #454545;
@@ -344,8 +499,8 @@ nav ul li a {
   text-align: left;
   padding: 10px 14px;
 }
-.perfil-dropdown-menu li a:hover{
-  transform:  scale(1.02);
+.perfil-dropdown-menu li a:hover {
+  transform: scale(1.02);
   color: #d1a0a0;
   font-weight: 600;
 }
@@ -353,17 +508,27 @@ nav ul li a {
   background: #fcdddd;
   color: #4b1111;
   border-radius: 10px;
-  transition: background .30s ease, color .30s ease; 
+  transition: background 0.3s ease, color 0.3s ease;
   font-weight: 500;
 }
 
 /* botão sair */
-.logout-btn { background: none; border: none; color: #454545; cursor: pointer; }
+.logout-btn {
+  background: none;
+  border: none;
+  color: #454545;
+  cursor: pointer;
+}
 
 /* ===== MOBILE: esconder bloco desktop e mostrar perfil no final do menu lateral ===== */
 @media (max-width: 1023px) {
-  .perfil-desktop { display: none; }
-  .menu .nav-itens.left { display: flex; flex-direction: column; }
+  .perfil-desktop {
+    display: none;
+  }
+  .menu .nav-itens.left {
+    display: flex;
+    flex-direction: column;
+  }
 
   .perfil-mobile-bloco {
     margin-top: auto;
@@ -371,25 +536,49 @@ nav ul li a {
     border-top: 1px solid #dedede;
   }
   .perfil-mobile-header {
-    display: flex; flex-direction: column;
-    align-items: center; gap: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
   }
-  .perfil-mobile-foto { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #d1a0a0; }
-  .perfil-mobile-icon { color: #8a8f75; font-size: 40px; }
-  .perfil-mobile-menu { margin-top: 10px; list-style: none; padding: 0; }
-  .perfil-mobile-menu li { margin: 8px 0; }
+  .perfil-mobile-foto {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #d1a0a0;
+  }
+  .perfil-mobile-icon {
+    color: #8a8f75;
+    font-size: 40px;
+  }
+  .perfil-mobile-menu {
+    margin-top: 10px;
+    list-style: none;
+    padding: 0;
+  }
+  .perfil-mobile-menu li {
+    margin: 8px 0;
+  }
   .perfil-mobile-menu li a,
   .perfil-mobile-menu li button {
-    color: #454545; font-size: 16px;
-    background: none; border: none; cursor: pointer;
+    color: #454545;
+    font-size: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
     text-decoration: none;
   }
   .perfil-mobile-menu li a:hover,
-  .perfil-mobile-menu li button:hover { color: #d1a0a0; }
+  .perfil-mobile-menu li button:hover {
+    color: #d1a0a0;
+  }
 }
 
 /* FIX: bloco mobile não existe no desktop */
-.perfil-mobile-bloco { display: none; }
+.perfil-mobile-bloco {
+  display: none;
+}
 
 /* evita imagens “saltarem” de tamanho dentro do nav */
 .menu .nav-itens img,
@@ -441,32 +630,39 @@ nav ul li a {
     padding: 14px 16px;
   }
 
-  .btn-mobile { grid-column: 1; justify-self: start; }
+  .btn-mobile {
+    grid-column: 1;
+    justify-self: start;
+  }
 
   /* a logo fica sempre no centro, independente do quick-login */
   .logo {
     grid-column: 2;
     justify-self: center;
-    position: relative;        /* referencia pro quick-login absoluto */
+    position: relative; /* referencia pro quick-login absoluto */
     display: flex;
     align-items: center;
   }
   .logo img {
-    height: 82px;              /* tamanho bom pra celulares grandes e iPads pequenos */
+    height: 82px; /* tamanho bom pra celulares grandes e iPads pequenos */
     width: auto;
     max-width: 240px;
   }
 
   /* esconde o menu direito no mobile */
-  .nav-itens.right { display: none; }
+  .nav-itens.right {
+    display: none;
+  }
 
   /* ícones do topo já estavam ocultos em mobile */
-  .icons { display: none; }
+  .icons {
+    display: none;
+  }
 
   /* quick-login encostado na direita da logo sem empurrar o centro */
   .logo .quick-login {
     position: absolute;
-    right: -30px;              /* fica fora do box da imagem */
+    right: -30px; /* fica fora do box da imagem */
     top: 50%;
     transform: translateY(-50%);
   }
@@ -481,11 +677,15 @@ nav ul li a {
   }
   .logo img {
     height: 72px;
-    
+
     max-width: 200px;
   }
-  .logo .quick-login { right: -26px; }
-  .btn-mobile { font-size: 18px; }
+  .logo .quick-login {
+    right: -26px;
+  }
+  .btn-mobile {
+    font-size: 18px;
+  }
 }
 @media (min-width: 480px) and (max-width: 767px) {
   .menu {
@@ -497,9 +697,12 @@ nav ul li a {
     height: 72px;
     max-width: 200px;
   }
-  .logo .quick-login { right: -26px; }
-  .btn-mobile { font-size: 18px; }
-
+  .logo .quick-login {
+    right: -26px;
+  }
+  .btn-mobile {
+    font-size: 18px;
+  }
 }
 /* iPad mini/Air (768–1023px) — mantém centralização e dá um respiro */
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -511,14 +714,25 @@ nav ul li a {
     height: 90px;
     max-width: 260px;
   }
-  .logo .quick-login { right: -34px; }
+  .logo .quick-login {
+    right: -34px;
+  }
 }
 
 /* iPad Pro (opcional) 1024–1366px — só compacta um pouco o header
    para evitar quebra dos links. Desktop “normal” maior que isso não muda. */
 @media (min-width: 1024px) and (max-width: 1366px) {
-  .menu { padding: 18px 20px; }
-  .right ul li { padding: 6px 10px; }
-  nav ul li { padding: 8px; }
-  .logo img { height: 90px; width: auto; }
+  .menu {
+    padding: 18px 20px;
+  }
+  .right ul li {
+    padding: 6px 10px;
+  }
+  nav ul li {
+    padding: 8px;
+  }
+  .logo img {
+    height: 90px;
+    width: auto;
+  }
 }

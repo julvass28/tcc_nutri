@@ -56,7 +56,7 @@ function CarroselMobile({ titulo, subtitulo, tipo = "", dados = [] }) {
       <Slider {...settings}>
         {dados.map((item) => (
           <div className="c-carousel-mobile__slide" key={item.id}>
-            <Link to={item.link}>
+            <Link to={item.link} className="c-carousel-mobile__link-to">
               <div
                 onClick={() => handleClick(item.id)}
                 className={`c-carousel-mobile__card c-carousel-mobile__card--${tipo} ${
