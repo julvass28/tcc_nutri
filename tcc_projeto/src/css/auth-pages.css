@@ -627,6 +627,7 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 /* o container da tela de login não precisa mais “pintar” o fundo — evitamos dupla cor */
 .login-body, .criar-conta-body, .forgot-password-body {
   background: transparent !important;
+  margin: 50px 0 100px 0;
 }
 
 /* fallback: “tapete” por trás de tudo cobrindo o viewport */

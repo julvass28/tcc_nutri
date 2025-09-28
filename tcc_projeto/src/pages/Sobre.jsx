@@ -6,7 +6,7 @@ import '../css/Sobre.css';
 
 import { Link } from 'react-router-dom';
 import 'aos/dist/aos.css';
-
+import foto_NUTRI from '../assets/ft_nutri.jpg';
 // Componentes
 import CarroselMobile from '../components/carrosel/mobile';
 
@@ -26,10 +26,10 @@ export default function Sobre() {
           <div className="cards-container">
             <div className="white-card" aria-hidden="true" />
             <div className="photo-card" aria-label="Foto Nutri">
-              {/* Quando quiser trocar por imagem:
-                  <img className="photo-img" src="/caminho/da/imagem.jpg" alt="Foto da nutricionista" />
-               */}
-              Foto<br />Nutri
+              
+                  <img className="photo-img" src={foto_NUTRI} alt="Foto da nutricionista" />
+              
+              
             </div>
           </div>
 

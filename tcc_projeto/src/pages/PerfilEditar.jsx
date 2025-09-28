@@ -191,7 +191,7 @@ export default function PerfilEditar() {
             <input type="password" value="********" readOnly />
           </div>
 
-          <button className="btn-outline" onClick={irTrocarSenha} title="Alterar senha">
+          <button className="editar-back" onClick={irTrocarSenha} title="Alterar senha">
             <i className="fas fa-key" /> Alterar senha
           </button>
         </div>

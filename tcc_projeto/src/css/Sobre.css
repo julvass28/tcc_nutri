@@ -10,7 +10,7 @@ body {
 }
 .sobre-main {
   width: 100%;
-  background: #e6e9e2;
+  background: #f2efea;
   color: #3f3f3f;
 }
 
@@ -44,7 +44,7 @@ body {
 .sobre-hero {
   padding: clamp(24px, 6vw, 64px) 0;
   /* trocado: degradê -> cor única cinza */
-  background: #e6e6e6;
+  background: #f2efea;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 .sobre-hero-inner {
@@ -71,10 +71,10 @@ body {
 }
 .white-card {
   position: absolute;
-  inset: 16px auto auto 16px;
+  inset: 12px auto auto 12px;
   width: 100%;
   height: 100%;
-  background: #fff;
+  background: #8a8f75;
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
@@ -96,7 +96,7 @@ body {
   font-weight: 600;
   font-size: 28px;
   line-height: 1.2;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
 .photo-card .photo-img {
   width: 100%;
@@ -104,6 +104,7 @@ body {
   object-fit: cover;
   border-radius: inherit;
   display: block;
+  border: 3px solid #d9b5ad;
 }
 
 /* Texto do Hero */
