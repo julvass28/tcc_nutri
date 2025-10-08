@@ -28,4 +28,4 @@ dist-ssr
 backend/.env
 
 # Ignorar variáveis do front se tiver também
-tccprojeto/.env
+tcc_projeto/.env
