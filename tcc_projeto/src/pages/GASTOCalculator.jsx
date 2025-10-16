@@ -29,16 +29,17 @@ function GASTOCalculator() {
   const objetivosFrases = {
     'Perda de Peso leve (-250kcal/dia)': -250,
     'Perda de peso moderada (-500kcal/dia)': -500,
-    'Perda de peso rigorosa (-1000kcal/dia)': -1000,
+    'Perda de peso intensa (até -1000kcal/dia)': -1000,
     'Manutenção do peso atual': 0,
     'Ganho de peso (+500kcal/dia)': 500
   };
   const frasesObjetivo = {
-    'Perda de Peso leve (-250kcal/dia)': 'perder peso de forma leve e gradual.',
-    'Perda de peso moderada (-500kcal/dia)': 'perder peso de forma moderada.',
-    'Perda de peso rigorosa (-1000kcal/dia)': 'perder peso de forma rápida e intensa.',
-    'Manutenção do peso atual': 'manter o peso, fazendo regulagens equilibradas.',
-    'Ganho de peso (+500kcal/dia)': 'ganhar peso de maneira saudável.'
+  'Perda de Peso leve (-250kcal/dia)': 'promover uma redução leve e gradual de peso.',
+'Perda de peso moderada (-500kcal/dia)': 'reduzir o peso corporal de forma segura e equilibrada.',
+'Perda de peso intensa (até -1000kcal/dia)': 'realizar um déficit calórico mais intenso, indicado apenas com acompanhamento profissional.',
+'Manutenção do peso atual': 'manter o peso corporal estável, ajustando hábitos conforme necessário.',
+'Ganho de peso (+500kcal/dia)': 'aumentar o peso corporal de maneira saudável e controlada.'
+
   };
 
   const calcular = () => {
@@ -91,7 +92,7 @@ function GASTOCalculator() {
       </div>
 
       <h3 id="text-titulo-calculadora">
-        A calculadora de gasto calórico é importante para entender quantas calorias seu corpo gasta diariamente, ajudando em objetivos de perda de peso, manutenção ou ganho de massa.
+        Esta calculadora estima o seu gasto calórico diário com base em informações pessoais e nível de atividade física. Os resultados auxiliam no planejamento de metas de emagrecimento, manutenção ou ganho de massa de forma saudável.
       </h3>
 
       <div className="info-imc-container info-pag-gasto">
@@ -192,20 +193,23 @@ function GASTOCalculator() {
             Seu gasto calórico diário deve ser cerca de <span id='color-gasto-info'>{resultado.gasto} calorias (kcal)</span>.
           </h3>
           <p className="texto-explicativo-gasto">
-            Essa é a quantidade de calorias que seu corpo necessita para manter o peso, considerando os dados preenchidos.
+            Essa estimativa representa a quantidade média de calorias que seu corpo necessita por dia, considerando seu perfil e nível de atividade física.
           </p>
 
           <h3 className="resultadoGasto">
             Sua taxa metabólica basal é de <span id='color-gasto-info'>{resultado.tmb} calorias (kcal)</span>.
           </h3>
           <p className="texto-explicativo-gasto">
-            Este valor representa a quantidade de calorias que seu corpo precisa para realizar funções básicas em repouso, como respiração e circulação.
+            A taxa metabólica basal indica o gasto energético mínimo necessário para manter funções vitais do corpo em repouso, como respiração, batimentos cardíacos e equilíbrio térmico.
           </p>
 
           <div className="info-paragrafos calc-gasto">
             <p><IoMdInformationCircle id="info" /><strong> Observações:</strong></p>
-            <li>Utilizamos a fórmula revisada de Harris-Benedict para cálculo de gasto calórico.</li>
-            <li>Para uma alimentação equilibrada, recomenda-se o consumo mínimo de 1000 kcal/dia (mulheres) e 1200 kcal/dia (homens).</li>
+            <li>Os cálculos utilizam a fórmula revisada de Harris-Benedict, amplamente usada para estimar o gasto energético.</li>
+<li>Os valores obtidos são estimativas e podem variar conforme composição corporal, metabolismo e condições clínicas.</li>
+<li>Para segurança nutricional, recomenda-se o consumo mínimo de cerca de 1200 kcal/dia para mulheres e 1500 kcal/dia para homens, salvo orientação profissional.</li>
+<li>Os resultados têm caráter informativo e não substituem uma avaliação nutricional individualizada.</li>
+<li>É importante lembrar que cada organismo é único. Para definir metas alimentares e planos personalizados, procure acompanhamento com uma nutricionista.</li>
           </div>
 
           <div className="botao-calcular-container">

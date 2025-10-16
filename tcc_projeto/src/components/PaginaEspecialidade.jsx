@@ -165,7 +165,7 @@ export default function PaginaEspecialidade() {
             <h2>{cta.titulo}</h2>
             <p>{cta.subtitulo}</p>
             <hr />
-            <button onClick={() => navigate(cta.botaoLink)}>
+            <button onClick={() => navigate("/receitas/categoria/clinica")}>
               {cta.botaoTexto}
             </button>
           </div>

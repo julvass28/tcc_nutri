@@ -1,13 +1,11 @@
 import React from 'react';
 import Contato from "../components/Contato";
-// Ordem importa: Home.css antes, depois Sobre.css
 import '../css/Home.css';
 import '../css/Sobre.css';
-
 import { Link } from 'react-router-dom';
 import 'aos/dist/aos.css';
 import foto_NUTRI from '../assets/ft_nutri.jpg';
-// Componentes
+
 import CarroselMobile from '../components/carrosel/mobile';
 
 // Ícones (SVG como React)
@@ -38,7 +36,7 @@ export default function Sobre() {
               Sobre Mim <span className="divider-dot" aria-hidden>•</span> Sua Nutricionista Online
             </h1>
             <p className="sobre-intro">
-              <span className="sobre-highlight">Sou nutricionista por paixão</span>, ajudando você a encontrar equilíbrio e saúde em cada refeição.
+              <span className="sobre-highlight">Sou nutricionista por paixão</span>, e trabalho com cuidado individualizado, unindo ciência e acolhimento para construir hábitos sustentáveis, sem dietas extremas, com estratégias realistas para a sua rotina.
             </p>
 
             <div className="sobre-cta">
@@ -52,21 +50,20 @@ export default function Sobre() {
       <section className="sobre-content">
         <article className="sobre-article">
           <h2 className="sobre-section-title">
-            Dra. Natália Simanoviski <span className="crn">CRN 37892</span>
+            Nutricionista Natália Simanoviski <span className="crn">CRN 37892</span>
           </h2>
 
           <p className="lead">
             Nutricionista especializada em saúde e bem-estar, com um olhar atento às suas necessidades individuais. Meu compromisso
-            é te ajudar a alcançar equilíbrio e qualidade de vida através da alimentação – sem dietas restritivas, com estratégias
+            é te ajudar a alcançar equilíbrio e qualidade de vida através da alimentação sem dietas restritivas, com estratégias
             eficazes e personalizadas.
           </p>
 
-          {/* Formação e Especializações — Lustria */}
+         
           <h3 className="sobre-section-title sobre-lustria-title">Formação e Especializações</h3>
           <ul className="sobre-list sobre-lustria-text">
-            <li>Graduação em Nutrição pelo Centro Universitário São Camilo.</li>
-            <li>Pós-graduação em Nutrição Clínica Pediátrica pelo Instituto da Criança do HCFMUSP.</li>
-            <li>Pós-graduação em Nutrição Clínica Pediátrica pelo Instituto da Criança do HCFMUSP.</li>
+            <li>Graduação em Nutrição — Centro Universitário São Camilo.</li>
+            <li>Pós-graduação em Nutrição Clínica Pediátrica — Instituto da Criança (HCFMUSP).</li>
           </ul>
 
           <h3 className="sobre-section-title sobre-lustria-title">Minhas Áreas de Atuação</h3>
@@ -119,10 +116,9 @@ export default function Sobre() {
           </div>
 
           {/* Diferencial — Lustria */}
-          <h3 className="sobre-section-title sobre-lustria-title">Qual é o meu Diferencial?</h3>
+          <h3 className="sobre-section-title sobre-lustria-title">Meu diferencial</h3>
           <p className="sobre-paragraph sobre-lustria-text">
-            Mais do que nutricionista, quero ser <span className="sobre-highlight-alt">sua amiga e parceira</span>. Com um atendimento
-            humanizado e acolhedor, te guio para uma alimentação equilibrada e leve, respeitando sua individualidade.
+            Atendimento humanizado e baseado em evidências, com foco em educação nutricional, autonomia e resultados que cabem na sua rotina. Planos claros, acompanhamento próximo e ajustes inteligentes ao longo do caminho.
           </p>
         </article>
       </section>

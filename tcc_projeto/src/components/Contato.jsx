@@ -1,4 +1,3 @@
-// src/components/Contato/Contato.jsx
 import "../css/contato.css";
 import contatoTelefone from "../assets/contato_telefone.png";
 import contatoConversa from "../assets/contato_conversa.png";
@@ -9,12 +8,11 @@ export default function Contato() {
     <section className="contato-wrap" aria-labelledby="contato-title">
       <div className="contato-container">
         <h2 id="contato-title" className="contato-heading">
-          Agende sua Consulta
+          Entre em Contato ou Agende sua Consulta
         </h2>
         <span className="contato-divider" aria-hidden="true" />
 
         <div className="contato-grid">
-          {/* Telefone fixo */}
           <div className="contato-item">
             <img
               src={contatoChamada}
@@ -29,7 +27,6 @@ export default function Contato() {
             <span className="contato-mini-bar" aria-hidden="true" />
           </div>
 
-          {/* Mensagem / WhatsApp */}
           <div className="contato-item">
             <img
               src={contatoConversa}
@@ -67,7 +64,5 @@ export default function Contato() {
       </div>
       
     </section>
-
-   
   );
 }

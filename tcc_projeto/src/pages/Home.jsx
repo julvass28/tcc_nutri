@@ -4,7 +4,6 @@ import Carrosel from "../components/carrosel/desktop";
 import Titulo from "../components/titulo/titulo";
 import Formulario from "../components/formulario/formulario";
 import CarroselMobile from "../components/carrosel/mobile";
-import SectionCalculators from "../components/SectionCalculators";
 import foto_nutri from "../assets/ft_nutri.jpg";
 import Contato from "../components/Contato";
 
@@ -22,6 +21,9 @@ import Iconesportiva from "../assets/img_svg/esportiva.svg?react";
 import Iconemagrecer from "../assets/img_svg/emagrecimento.svg?react";
 import Iconintolerancia from "../assets/img_svg/intolerancia.svg?react";
 import Iconpediatria from "../assets/img_svg/pediatria.svg?react";
+import { FaRunning } from "react-icons/fa";
+import { LuGlassWater } from "react-icons/lu";
+import { MdBalance } from "react-icons/md";
 
 // Png
 import foto from "../assets/img_png/foto_nutri.png";
@@ -311,7 +313,8 @@ function Home() {
               Acompanhamento Contínuo
             </p>
           </div>
-          <Botao text="Saiba Mais">Saiba Mais</Botao>
+          <Botao to="/agendar-consulta" text="Saiba Mais">Saiba Mais</Botao>
+           
         </div>
       </div>
 
@@ -404,10 +407,33 @@ function Home() {
           </div>
         </div>
       </div>
+ {/* Mostrar as outras DUAS calculadoras */}
+<div className="section-calculators">
+  <Link to="/calculadoras/consumo-agua" className="link-calc-section-all">
+    <div className="sectioncal calculadora-calorias-nutrientes">
+      <h1 id="hum-cal-agua">Calculadora de Consumo diário de Água</h1>
+      <p>Calcule a quantidade ideal de água que você deve consumir diariamente.</p>
+      <div className="icon-section"><LuGlassWater id="img-calculator-icon" /></div>
+    </div>
+  </Link>
 
-      <div className="container-section-calculadoras-home">
-        <SectionCalculators />
-      </div>
+  <Link to="/calculadoras/gasto-calorico" className="link-calc-section-all">
+    <div className="sectioncal calculadora-calorias-nutrientes">
+      <h1 id="hum-cal-gasto">Calculadora de Gasto Calórico</h1>
+      <p>Descubra quantas calorias seu corpo gasta por dia</p>
+      <div className="icon-section correr"><FaRunning id="img-calculator-icon" /></div>
+    </div>
+  </Link>
+
+          <Link to="/calculadoras/imc" className="link-calc-section-all">
+            <div className="sectioncal calculadora-calorias-nutrientes">
+              <h1 id="hum-cal-gasto">Calculadora de IMC & Peso Ideal</h1>
+              <p>Verifique se está no peso adequado para sua altura</p>
+              <div className="icon-section correr"><MdBalance id="img-calculator-icon" /></div>
+            </div>
+          </Link>
+</div>
+    
       <Contato />
       <div className="form espacamento">
         <Formulario />

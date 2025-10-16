@@ -44,7 +44,7 @@ function AGUACalculator() {
       </div>
 
       <h3 id="text-titulo-calculadora">
-        Quer saber quantos litros de água precisa beber diariamente? Utilize nossa calculadora e descubra se está ingerindo a quantidade de água suficiente de acordo com sua idade e peso.
+        Esta calculadora estima a ingestão diária de água com base na sua idade e no seu peso. Use como referência inicial e ajuste conforme rotina, clima e nível de atividade física.
       </h3>
 
       <div className="info-imc-container info-pag-agua">
@@ -75,15 +75,22 @@ function AGUACalculator() {
         {aguaLitros && (
           <div className="resultado">
             <div className="text-resultado"><h1>Resultado</h1></div>
-            <h3 id="resultadoLitros">Você deve beber <span id="cor-resultadoLitros">{`${aguaLitros} Litros`}</span> de água por dia. 💦</h3>
+            <h3 id="resultadoLitros">Consuma cerca de <span id="cor-resultadoLitros">{`${aguaLitros} litros`}</span> de água por dia (valor estimado).</h3>
             <p className="texto-explicativo pagina-agua">
-              Essa quantidade é calculada com base na sua idade e peso, garantindo uma hidratação ideal para o bom funcionamento do corpo, como na digestão e na regulação da temperatura
+              Este valor é uma estimativa baseada na idade e no peso. A hidratação adequada varia conforme atividade física, temperatura/umidade do ambiente e condições individuais. Parte da ingestão hídrica também vem de alimentos e outras bebidas.
             </p>
+            <ul className="info-paragrafos pagina-agua" style={{ marginTop: "12px" }}>
+  <li>Regra de bolso usada: ml de água por kg de peso variam com a idade (crianças/adolescentes tendem a precisar mais por kg; idosos, um pouco menos).</li>
+  <li>Pratique exercícios? Considere acrescentar ~300–700 ml por hora de treino, conforme intensidade e sudorese.</li>
+  <li>Gestantes e lactantes, pessoas com doenças renais, cardíacas ou uso de diuréticos devem seguir orientação profissional individualizada.</li>
+  <li>Evite ingestões muito elevadas em curto período de tempo. Em caso de sede excessiva ou urina muito escura/pouca, procure avaliação.</li>
+</ul>
+
             <div className="botao-calcular-container"><Botao onClick={reCalcular}>Calcular Novamente</Botao></div>
           </div>
         )}
       </div>
-{/* Mostrar as outras DUAS calculadoras */}
+
 <div className="section-calculators">
   <Link to="/calculadoras/imc" className="link-calc-section-all">
     <div className="sectioncal calculadora-calorias-nutrientes">

@@ -1,4 +1,3 @@
-// src/pages/agendar_consulta.jsx
 import React from "react";
 import "../css/agendar_consulta.css";
 
@@ -34,34 +33,27 @@ export default function Agendamento() {
           />
           <div className="agc-hero-text">
             <h2>
-              Como funcionam nossos <span>agendamentos?</span>
+              Como funciona o <span>agendamento</span>
             </h2>
             <p>
-              Nossos agendamentos possuem preços fixos baseados em seu objetivo
-              nutricional. Trabalhamos com consultas online e aceitamos
-              pagamento via cartão de crédito e Pix.
+              Você pode agendar consultas online com pagamento por cartão de crédito ou Pix. Os valores e condições são transparentes e informados antes da confirmação.
             </p>
 
             <div className="agc-hero-actions">
               <Botao onClick={scrollToConteudo}>Ver detalhes</Botao>
-              {/* <Botao to="/selecionar-data">Agendar consulta</Botao> */}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Conteúdo */}
       <section className="agc-content" id="conteudo">
         <h3>
-          <span>•</span> Pagamento
+          <span>•</span> Valores e pagamento
         </h3>
         <p>
-          Nossos preços são fixos e baseados em seu objetivo nutricional.
-          Abaixo, segue a tabela de preços referente a cada modalidade de
-          consulta.
+          Os valores e formas de pagamento são apresentados de forma clara antes da confirmação. Abaixo, você encontra a modalidade disponível e o respectivo valor.
         </p>
 
-        {/* Card de consulta (escopado) */}
         <article className="agc-card">
           <h4 className="agc-card__heading">Consulta de Nutrição</h4>
 
@@ -75,7 +67,7 @@ export default function Agendamento() {
 
             <div className="agc-card__info">
               <p className="agc-highlight">
-                Avaliação completa e plano personalizado
+                Avaliação completa e plano alimentar personalizado
               </p>
               <ul>
                 {beneficios.map(({ icon, texto }) => (
@@ -89,7 +81,7 @@ export default function Agendamento() {
           </div>
 
           <p className="agc-card__price">
-            preço fixo de: <span>R$ 80,00</span>
+            Valor da consulta: <span>R$ 80,00</span>
           </p>
         </article>
 
@@ -97,15 +89,11 @@ export default function Agendamento() {
           <span>•</span> Anamnese
         </h3>
         <p>
-          Após o agendamento da sua consulta ser confirmado, você receberá um
-          questionário relacionado ao seu objetivo nutricional, nos referimos a
-          esse questionário como <strong>anamnese</strong>. A anamnese permitirá
-          que a nutricionista conheça suas necessidades antes mesmo da consulta,
-          poupando seu tempo durante a mesma e preparando a profissional.
+          Após a confirmação do agendamento, você receberá um questionário (anamnese) para conhecer seu histórico, objetivos e rotina. Essas informações qualificam a consulta e permitem um plano mais assertivo.
         </p>
 
         <div className="agc-cta">
-          <p>Agende sua consulta e tenha dicas exclusivas</p>
+          <p>Agende sua consulta e receba orientação personalizada</p>
           <Botao to="/agendar">Continuar</Botao>
         </div>
       </section>

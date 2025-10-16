@@ -29,13 +29,15 @@ function IMCCalculator() {
     const imc = (Number(peso) / (h * h)).toFixed(1);
     const pesoIdeal = (22 * h * h).toFixed(1);
 
-    let classificacao = "";
-    if (imc < 18.6) classificacao = "Abaixo do normal";
-    else if (imc < 25) classificacao = "Normal";
-    else if (imc < 30) classificacao = "Sobrepeso";
-    else if (imc < 35) classificacao = "Obesidade grau 1";
-    else if (imc < 40) classificacao = "Obesidade grau 2";
-    else classificacao = "Obesidade grau 3";
+   let classificacao = "";
+const imcNum = Number(imc);
+if (imcNum < 18.5) classificacao = "Abaixo do peso";
+else if (imcNum < 25) classificacao = "Peso adequado";
+else if (imcNum < 30) classificacao = "Sobrepeso";
+else if (imcNum < 35) classificacao = "Obesidade grau I";
+else if (imcNum < 40) classificacao = "Obesidade grau II";
+else classificacao = "Obesidade grau III";
+
 
     setResultado({ imc, classificacao, pesoIdeal });
   }
@@ -47,13 +49,21 @@ function IMCCalculator() {
 
   function textoClassificacao(classificacao) {
     switch (classificacao) {
-      case "Abaixo do normal": return "😕 Seu IMC indica que você está abaixo do peso ideal de acordo com a OMS.";
-      case "Normal": return "🎉 Seu IMC está dentro do intervalo considerado saudável pela OMS.";
-      case "Sobrepeso": return "😯 Seu IMC indica sobrepeso. Vale ajustar alimentação e atividade física.";
-      case "Obesidade grau 1": return "⚠️ Início da faixa de obesidade. Procure orientação profissional.";
-      case "Obesidade grau 2": return "⚠️‼️ Faixa de obesidade severa. Cuidados redobrados.";
-      case "Obesidade grau 3": return "🚫 Obesidade mórbida. Busque acompanhamento médico.";
-      default: return "";
+      case "Abaixo do peso":
+  return "Seu IMC está abaixo do recomendado. Avalie ingestão calórica e composição corporal com acompanhamento profissional.";
+case "Peso adequado":
+  return "Seu IMC está dentro da faixa considerada saudável. Mantenha hábitos equilibrados de alimentação, sono e atividade física.";
+case "Sobrepeso":
+  return "Seu IMC está acima do recomendado. Ajustes graduais em alimentação e movimento podem ajudar a melhorar marcadores de saúde.";
+case "Obesidade grau I":
+  return "Faixa de obesidade grau I. É recomendável avaliação individualizada para plano de cuidado e metas realistas.";
+case "Obesidade grau II":
+  return "Faixa de obesidade grau II. Procure orientação profissional para estratégias personalizadas e monitoramento clínico.";
+case "Obesidade grau III":
+  return "Faixa de obesidade grau III. Indica maior risco metabólico; busque avaliação médica e nutricional.";
+default:
+  return "";
+
     }
   }
 
@@ -61,11 +71,11 @@ function IMCCalculator() {
     <div className="imc-container">
       <div className="titulo-mais-icone">
         <div id="container-calculator-icon"><MdBalance id="img-calculator-icon" /></div>
-        <h1 id="titulo-calculadora">Calculadora de IMC & Peso Ideal</h1>
+        <h1 id="titulo-calculadora">Calculadora de IMC & Faixa de Peso Saudável</h1>
       </div>
 
       <h3 id="text-titulo-calculadora">
-        Nossa calculadora de IMC e peso ideal ajuda você a avaliar se está com o peso adequado em relação à sua altura, além de descobrir o intervalo de peso saudável para uma melhor qualidade de vida.
+        Esta calculadora estima seu IMC a partir do peso e da altura. O resultado ajuda a identificar faixas de referência. O IMC não é diagnóstico e pode variar conforme composição corporal, idade e contexto clínico.
       </h3>
 
       <div className="info-imc-container info-pag-imc">
@@ -126,21 +136,34 @@ function IMCCalculator() {
               <p><strong>Sexo:</strong> {sexo}</p>
               <p><strong>Seu IMC:</strong> {resultado.imc}</p>
               <p><strong>Classificação:</strong> {resultado.classificacao}</p>
-              <p><strong>Peso Ideal:</strong> {resultado.pesoIdeal} kg</p>
+              <p><strong>Peso estimado no ponto médio do IMC saudável:</strong> {resultado.pesoIdeal} kg</p>
             </div>
 
             <p className="texto-explicativo pagina-imc">{textoClassificacao(resultado.classificacao)}</p>
 
             <table className="tabela-imc">
               <thead><tr><th>Classificação:</th><th>IMC:</th></tr></thead>
-              <tbody>
-                <tr className={resultado.classificacao==="Abaixo do normal" ? "abaixo destaque" : "abaixo"}><td>Abaixo do normal</td><td>Menor que 18.6</td></tr>
-                <tr className={resultado.classificacao==="Normal" ? "normal destaque" : "normal"}><td>Normal</td><td>18.6 - 24.9</td></tr>
-                <tr className={resultado.classificacao==="Sobrepeso" ? "sobrepeso destaque" : "sobrepeso"}><td>Sobrepeso</td><td>25 - 29.9</td></tr>
-                <tr className={resultado.classificacao==="Obesidade grau 1" ? "obesidade1 destaque" : "obesidade1"}><td>Obesidade grau 1</td><td>30 - 34.9</td></tr>
-                <tr className={resultado.classificacao==="Obesidade grau 2" ? "obesidade2 destaque" : "obesidade2"}><td>Obesidade grau 2</td><td>35 - 39.9</td></tr>
-                <tr className={resultado.classificacao==="Obesidade grau 3" ? "obesidade3 destaque" : "obesidade3"}><td>Obesidade grau 3</td><td>Maior que 40</td></tr>
-              </tbody>
+             <tbody>
+  <tr className={resultado.classificacao==="Abaixo do peso" ? "abaixo destaque" : "abaixo"}>
+    <td>Abaixo do peso</td><td>&lt; 18,5</td>
+  </tr>
+  <tr className={resultado.classificacao==="Peso adequado" ? "normal destaque" : "normal"}>
+    <td>Peso adequado</td><td>18,5 – 24,9</td>
+  </tr>
+  <tr className={resultado.classificacao==="Sobrepeso" ? "sobrepeso destaque" : "sobrepeso"}>
+    <td>Sobrepeso</td><td>25,0 – 29,9</td>
+  </tr>
+  <tr className={resultado.classificacao==="Obesidade grau I" ? "obesidade1 destaque" : "obesidade1"}>
+    <td>Obesidade grau I</td><td>30,0 – 34,9</td>
+  </tr>
+  <tr className={resultado.classificacao==="Obesidade grau II" ? "obesidade2 destaque" : "obesidade2"}>
+    <td>Obesidade grau II</td><td>35,0 – 39,9</td>
+  </tr>
+  <tr className={resultado.classificacao==="Obesidade grau III" ? "obesidade3 destaque" : "obesidade3"}>
+    <td>Obesidade grau III</td><td>≥ 40,0</td>
+  </tr>
+</tbody>
+
             </table>
 
             <div className="botao-calcular-container"><Botao onClick={calcularNovamente}>Calcular Novamente</Botao></div>
