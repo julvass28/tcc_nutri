@@ -299,3 +299,38 @@
     padding: 18px clamp(28px, 5vw, 48px) 22px;
   }
 }
+.ftr-icons {
+  display: flex;
+  gap: 14px; /* ajusta o espaçamento se quiser mais/menos */
+  align-items: center;
+  justify-content: center;
+}
+
+.ftr-icon-link {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.ftr-icon-link:focus,
+.ftr-icon-link:active {
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+.ftr-icon {
+  font-size: 1.5rem; /* pode ajustar conforme o tamanho do footer */
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.ftr-icon:hover {
+  color: #8a8f75; /* cor da paleta da Neven */
+  transform: scale(1.1);
+}

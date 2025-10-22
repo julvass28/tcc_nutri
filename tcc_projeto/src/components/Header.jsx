@@ -82,12 +82,29 @@ function Header() {
         <FaBars />
       </button>
 
-      {/* Ícones à esquerda (desktop) */}
-      <div className="icons">
-        <HiOutlineEnvelope className="icon" />
-        <FaWhatsapp className="icon" />
-        <FaInstagram className="icon" />
-      </div>
+     {/* Ícones à esquerda (desktop) */}
+<div className="icons">
+  {/* Email */}
+  <Link to="/contato" className="icon-link uniform-icon">
+    <HiOutlineEnvelope className="icon" />
+  </Link>
+
+  {/* WhatsApp */}
+  <button type="button" className="icon-link uniform-icon no-bg">
+    <FaWhatsapp className="icon" />
+  </button>
+
+  {/* Instagram */}
+  <a
+    href="https://www.instagram.com/neven.dev/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="icon-link uniform-icon"
+  >
+    <FaInstagram className="icon" />
+  </a>
+</div>
+
 
       {/* MENU LATERAL (mobile) */}
       <nav className={`nav-itens left ${openMenu ? "open" : ""}`} aria-hidden={!openMenu}>

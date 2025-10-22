@@ -45,40 +45,39 @@ function Footer() {
             <div className='ftr-side-inner'>
               <Botao to="/agendar-consulta" className="ftr-cta">Agendar Consulta</Botao>
 
+<div className="ftr-icons">
+  {/* Instagram - externo */}
+  <a
+    href="https://instagram.com/neven.dev"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Abrir Instagram"
+    title="Instagram"
+    className="ftr-icon-link"
+  >
+    <FaInstagram className="ftr-icon" />
+  </a>
 
-              <div className='ftr-icons'>
-                <a
-                  href="https://instagram.com/seu_user_aqui"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Abrir Instagram"
-                  title="Instagram"
-                >
-                  <FaInstagram className="ftr-icon" />
-                </a>
+  {/* WhatsApp - apenas visual, sem função */}
+  <span
+    className="ftr-icon-link is-static"
+    aria-hidden="true"
+    title="WhatsApp"
+  >
+    <FaWhatsapp className="ftr-icon" />
+  </span>
 
-               
-                <a
-                  href="https://wa.me/5511976120337?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Enviar WhatsApp"
-                  title="WhatsApp"
-                >
-                  <FaWhatsapp className="ftr-icon" />
-                </a>
-
-                <a
-                  href="mailto:dranatalia@simanovski.com?subject=Agendamento%20de%20consulta&body=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta."
-                  target="_blank"
-                  aria-label="Enviar e-mail"
-                  title="E-mail"
-                >
-                  <HiOutlineEnvelope className="ftr-icon" />
-                </a>
-              </div>
-            </div>
-
+  {/* E-mail - vai para /contato (rota interna) */}
+  <Link
+    to="/contato"
+    aria-label="Ir para página de contato"
+    title="Contato"
+    className="ftr-icon-link"
+  >
+    <HiOutlineEnvelope className="ftr-icon" />
+  </Link>
+</div>
+</div>
             <div className='ftr-logo'>
               <img src={Logo} alt="Logo" width={200} loading="lazy" decoding="async" />
               <p id='crn'>CRN : 37892</p>

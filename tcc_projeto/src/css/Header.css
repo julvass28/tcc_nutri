@@ -736,3 +736,35 @@ nav ul li a {
     width: auto;
   }
 }
+.icon-link,
+.uniform-icon {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit;
+}
+
+.no-bg {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.no-bg:focus,
+.no-bg:active {
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+.icon {
+  font-size: 1.4rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.icon:hover {
+  color: #8a8f75;
+  transform: scale(1.1);
+}
