@@ -1,0 +1,217 @@
+/* src/css/admin-preco.css */
+:root {
+  --ink: #000;
+  --sec: #8a8f75;
+  --rose: #d1a0a0;
+  --page: #f4efec;
+  --card: #ffffff;
+  --border: #e5e2df;
+}
+
+.admin-preco__page {
+  min-height: 100vh;
+  background: var(--page);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  color: var(--ink);
+  position: relative;
+}
+
+.admin-preco__card {
+  width: min(760px, 95vw);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  padding: 22px 22px 18px;
+}
+
+.admin-preco__header h1 {
+  margin: 0 0 6px;
+  color: var(--sec);
+}
+.admin-preco__header p {
+  margin: 0 0 14px;
+  color: #666;
+}
+
+.admin-preco__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 18px;
+  margin: 10px 0 8px;
+}
+
+.admin-preco__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.admin-preco__label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--sec);
+}
+.admin-preco__value,
+.admin-preco__preview {
+  padding: 10px 12px;
+  border: 1px dashed var(--rose);
+  border-radius: 10px;
+  background: #fff7fb;
+  font-weight: 700;
+}
+.admin-preco__input {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  font-size: 1rem;
+  background: #fff;
+}
+.admin-preco__input:focus {
+  border-color: var(--rose);
+  box-shadow: 0 0 0 3px rgba(209, 160, 160, 0.2);
+}
+.admin-preco__hint {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.admin-preco__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.admin-preco__btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #0000;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.15s;
+  background: #eee;
+}
+.admin-preco__btn--primary {
+  background: var(--rose);
+  color: #fff;
+}
+.admin-preco__btn--primary:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.admin-preco__message {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-align: center;
+  background: #eaf7ea;
+  color: #285c2e;
+  font-weight: 700;
+}
+
+/* Overlay + Spinner flutuante */
+.admin-preco__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+.admin-preco__spinner {
+  width: 86px;
+  height: 86px;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  gap: 0;
+  position: relative;
+  padding: 14px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+}
+.admin-preco__dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--rose);
+  animation: preco-bounce 1s infinite ease-in-out;
+}
+.admin-preco__dot:nth-child(1) {
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 0s;
+}
+.admin-preco__dot:nth-child(2) {
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation-delay: 0.1s;
+}
+.admin-preco__dot:nth-child(3) {
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 0.2s;
+}
+.admin-preco__dot:nth-child(4) {
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation-delay: 0.3s;
+}
+
+@keyframes preco-bounce {
+  0%,
+  100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.7) translate(0, 0);
+    opacity: 0.65;
+  }
+}
+
+@media (max-width: 580px) {
+  .admin-preco__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Overlay/spinner igual ao da UsersPage */
+.adm-op-overlay{
+  position: fixed; inset: 0;
+  background: rgba(236, 231, 230, 0.55);
+  display: grid; place-items: center;
+  z-index: 120;
+  animation: fadeInOverlay .15s ease;
+}
+.adm-op-card{
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px 16px;
+  min-width: 220px;
+  display: inline-flex; align-items: center; gap: 10px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.14);
+  border-left: 5px solid #c89b9b;
+  color: #4a4a4a;
+  font-family: "Poppins", sans-serif;
+}
+.adm-op-card i{
+  font-size: 18px;
+  color: #c89b9b;
+}
+@keyframes fadeInOverlay{
+  from{ opacity: 0 } to{ opacity: 1 }
+}

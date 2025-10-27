@@ -3,8 +3,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { FaBook } from "react-icons/fa";
-import { FaGlobe, FaSignOutAlt, FaHouseUser, FaUsers, FaBars, FaQuestionCircle } from "react-icons/fa";
+import {
+  FaGlobe,
+  FaSignOutAlt,
+  FaHouseUser,
+  FaCalendarAlt,
+  FaUsers,
+  FaBars,
+  FaQuestionCircle,
+} from "react-icons/fa";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import "../../css/admin-theme.css";
+import { LuCalendarRange } from "react-icons/lu";
 
 export default function AdminLayout() {
   const { logout, user } = useContext(AuthContext);
@@ -12,7 +22,11 @@ export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogoutAndGoLogin = async () => {
-    try { await logout?.(); } finally { navigate("/login", { state: { fromLogout: true } }); }
+    try {
+      await logout?.();
+    } finally {
+      navigate("/login", { state: { fromLogout: true } });
+    }
   };
 
   useEffect(() => {
@@ -48,7 +62,10 @@ export default function AdminLayout() {
             <span>Ver site</span>
           </NavLink>
 
-          <button className="adm-btn adm-btn--danger" onClick={handleLogoutAndGoLogin}>
+          <button
+            className="adm-btn adm-btn--danger"
+            onClick={handleLogoutAndGoLogin}
+          >
             <FaSignOutAlt />
             <span>Sair</span>
           </button>
@@ -63,7 +80,9 @@ export default function AdminLayout() {
           <NavLink
             end
             to="/admin"
-            className={({ isActive }) => "adm-navlink" + (isActive ? " adm-is-active" : "")}
+            className={({ isActive }) =>
+              "adm-navlink" + (isActive ? " adm-is-active" : "")
+            }
             onClick={() => setSidebarOpen(false)}
           >
             <FaHouseUser className="ico" />
@@ -72,7 +91,9 @@ export default function AdminLayout() {
 
           <NavLink
             to="/admin/users"
-            className={({ isActive }) => "adm-navlink" + (isActive ? " adm-is-active" : "")}
+            className={({ isActive }) =>
+              "adm-navlink" + (isActive ? " adm-is-active" : "")
+            }
             onClick={() => setSidebarOpen(false)}
           >
             <FaUsers className="ico" />
@@ -81,26 +102,67 @@ export default function AdminLayout() {
 
           <NavLink
             to="/admin/receitas"
-            className={({ isActive }) => "adm-navlink" + (isActive ? " adm-is-active" : "")}
+            className={({ isActive }) =>
+              "adm-navlink" + (isActive ? " adm-is-active" : "")
+            }
             onClick={() => setSidebarOpen(false)}
           >
-            <span className="ico"><FaBook /></span>
+            <span className="ico">
+              <FaBook />
+            </span>
             <span>Receitas</span>
           </NavLink>
-
           <NavLink
-            to="/admin/faq"
-            className={({ isActive }) => "adm-navlink" + (isActive ? " adm-is-active" : "")}
+            to="/admin/preco"
+            className={({ isActive }) =>
+              "adm-navlink" + (isActive ? " adm-is-active" : "")
+            }
             onClick={() => setSidebarOpen(false)}
           >
-            <span className="ico"><FaQuestionCircle /></span>
+            <span className="ico">
+              <RiMoneyDollarCircleFill />
+            </span>
+            <span>Ajustar o Preço</span>
+          </NavLink>
+          <NavLink
+            to="/admin/faq"
+            className={({ isActive }) =>
+              "adm-navlink" + (isActive ? " adm-is-active" : "")
+            }
+            onClick={() => setSidebarOpen(false)}
+          >
+            <span className="ico">
+              <FaQuestionCircle />
+            </span>
             <span>FAQ</span>
+          </NavLink>
+          <NavLink
+            to="/admin/agenda-full"
+            className={({ isActive }) =>
+              "adm-navlink" + (isActive ? " adm-is-active" : "")
+            }
+            onClick={() => setSidebarOpen(false)}
+          >
+            <FaCalendarAlt className="ico" />
+            <span>Minha Agenda</span>
+          </NavLink>
+          <NavLink
+            to="/admin/agenda"
+            className={({ isActive }) =>
+              "adm-navlink" + (isActive ? " adm-is-active" : "")
+            }
+            onClick={() => setSidebarOpen(false)}
+          >
+            <LuCalendarRange className="ico" />
+            <span>Controle Listado</span>
           </NavLink>
         </nav>
       </aside>
 
       {/* Overlay para fechar clicando fora (só quando aberto) */}
-      {sidebarOpen && <div className="adm-overlay" onClick={() => setSidebarOpen(false)} />}
+      {sidebarOpen && (
+        <div className="adm-overlay" onClick={() => setSidebarOpen(false)} />
+      )}
 
       {/* CONTEÚDO */}
       <main className="adm-content">

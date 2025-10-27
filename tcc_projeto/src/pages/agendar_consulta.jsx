@@ -4,7 +4,8 @@ import "../css/agendar_consulta.css";
 import phoneImg from "../assets/phone_cuate.png";
 import avocadoImg from "../assets/avocado_toast.png";
 import Botao from "../components/botao/Botao";
-
+import usePrecoConsulta from "../hooks/usePrecoConsulta";
+import { formatBRLFromCents } from "../services/config";
 export default function Agendamento() {
   const scrollToConteudo = () => {
     document.getElementById("conteudo")?.scrollIntoView({
@@ -12,7 +13,7 @@ export default function Agendamento() {
       block: "start",
     });
   };
-
+const { cents } = usePrecoConsulta();
   const beneficios = [
     { icon: "fa-solid fa-user", texto: "Atendimento individualizado" },
     { icon: "fa-solid fa-apple-whole", texto: "Plano alimentar personalizado" },
@@ -81,7 +82,7 @@ export default function Agendamento() {
           </div>
 
           <p className="agc-card__price">
-            Valor da consulta: <span>R$ 80,00</span>
+            Valor da consulta: <span><strong>{Number.isFinite(cents) ? formatBRLFromCents(cents) : "—"}</strong></span>
           </p>
         </article>
 

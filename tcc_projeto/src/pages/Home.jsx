@@ -6,7 +6,8 @@ import Formulario from "../components/formulario/formulario";
 import CarroselMobile from "../components/carrosel/mobile";
 import foto_nutri from "../assets/ft_nutri.jpg";
 import Contato from "../components/Contato";
-
+import usePrecoConsulta from "../hooks/usePrecoConsulta";
+import { formatBRLFromCents } from "../services/config";
 // Bibliotecas
 import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
@@ -53,7 +54,7 @@ function Home() {
   const { user } = useContext(AuthContext);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [canClose, setCanClose] = useState(false);
-
+const { cents } = usePrecoConsulta();
   useEffect(() => {
     AOS.init({ duration: 2500, once: false, disable: false });
   }, []);
@@ -398,8 +399,8 @@ function Home() {
           </div>
           <div className="box-preco-home">
             <div className="preco-linha-home">
-              <h2>R$ 150</h2>
-              <span>consulta avulsa</span>
+              <h2>{Number.isFinite(cents) ? formatBRLFromCents(cents) : "—"}</h2>
+              <span>Preço fixo</span>
             </div>
             <Botao className="botao-verde" to="/agendar-consulta">
               Agendar Consulta

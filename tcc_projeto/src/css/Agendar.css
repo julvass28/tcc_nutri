@@ -229,3 +229,20 @@ body { box-sizing: border-box; overflow-x: hidden; font-family: 'Poppins', sans-
   display: none !important;
 }
 /* ...existing code... */
+
+
+.cal-weekdays-row{
+  display: grid;
+  grid-template-columns: repeat(7, var(--cell));
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #8a8f75;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.cal-weekday-cell{
+  border-bottom:1px solid rgba(0,0,0,.18);
+  padding-bottom:6px;
+  font-family:"Quicksand",sans-serif;
+}

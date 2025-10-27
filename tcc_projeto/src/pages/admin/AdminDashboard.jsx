@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "../../css/admin-theme.css";
 import waveBg from "../../assets/onda-duas-cores.svg";
-
+import { LuCalendarRange } from "react-icons/lu";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import {
   FaEdit,
   FaUsers,
@@ -39,10 +40,16 @@ export default function AdminDashboard() {
       label2: "Cadastrados",
     },
     {
-      to: "/admin/agenda",
+      to: "/admin/agenda-full",
       icon: <FaCalendarAlt />,
-      label1: "Minha",
-      label2: "Agenda",
+      label1: "Minha Agenda",
+      label2: "Calendário Completo",
+    },
+    {
+      to: "/admin/agenda",
+      icon: <LuCalendarRange />,
+      label1: "Controle Listado",
+      label2: "Agenda Listada",
     },
     {
       to: "/admin/consultas",
@@ -57,6 +64,12 @@ export default function AdminDashboard() {
       label2: "Receitas",
     },
     { to: "/admin/faq", icon: <FaQuestionCircle />, label1: "FAQ", label2: "" },
+    {
+      to: "/admin/preco",
+      icon: <RiMoneyDollarCircleFill />,
+      label1: "Ajustar Preço",
+      label2: "R$ da Consulta",
+    },
   ];
 
   return (

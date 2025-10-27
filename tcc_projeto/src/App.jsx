@@ -11,9 +11,7 @@ import "./App.css";
 import ScrollToTop from "./components/ScrollToTop";
 import PublicLayout from "./layouts/PublicLayout";
 
-
-
-import './css/tokens.css';
+import "./css/tokens.css";
 
 // Páginas públicas
 import Home from "./pages/Home";
@@ -33,6 +31,11 @@ import Shopping from "./pages/DicaNutri-Shopping";
 import Bar from "./pages/DicaNutri-Bar";
 import Viagem from "./pages/DicaNutri-Viagem";
 import Anamnese from "./pages/FormularioAnamnese";
+import Pagamento from "./pages/Pagamento";
+import PagamentoSucesso from "./pages/PagamentoSucesso";
+import PagamentoErro from "./pages/PagamentoErro";
+import PagamentoPendente from "./pages/PagamentoPendente";
+
 // Receitas (novas)
 import RecipesAdmin from "./pages/admin/RecipesAdmin";
 import RecipeForm from "./pages/admin/RecipeForm";
@@ -44,6 +47,7 @@ import Perfil from "./pages/perfil";
 import AgendarConsulta from "./pages/agendar_consulta";
 import Agendar from "./pages/Agenda";
 // Admin
+import AdminAgendaFull from "./pages/admin/AdminAgendaFull";
 import ProtectedRouteAdmin from "./routes/ProtectedRouteAdmin";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -51,6 +55,8 @@ import UsersPage from "./pages/admin/UsersPage";
 import FaqAdmin from "./pages/admin/FaqAdmin";
 import FaqForm from "./pages/admin/FaqForm";
 import AdminAccountSettingsPage from "./pages/admin/adm_configuracoes";
+import AdminPreco from "./pages/admin/AdminPreco";
+import AdminAgendaSlots from "./pages/admin/AdminAgendaSlots";
 // ====== Redirect de compatibilidade para rotas antigas ======
 function LegacyReceitasRedirect() {
   const { categoria } = useParams();
@@ -79,6 +85,10 @@ export default function App() {
       <Routes>
         {/* Layout PÚBLICO com Header/Footer */}
         <Route element={<PublicLayout />}>
+          <Route path="/pagamento" element={<Pagamento />} />
+          <Route path="/pagamento/sucesso" element={<PagamentoSucesso />} />
+          <Route path="/pagamento/erro" element={<PagamentoErro />} />
+          <Route path="/pagamento/pendente" element={<PagamentoPendente />} />
           <Route path="/" element={<Home />} />
           <Route
             path="/calculadoras/consumo-agua"
@@ -137,6 +147,9 @@ export default function App() {
           <Route path="receitas" element={<RecipesAdmin />} />
           <Route path="receitas/new" element={<RecipeForm />} />
           <Route path="receitas/:id/edit" element={<RecipeForm />} />
+          <Route path="preco" element={<AdminPreco />} />
+          <Route path="agenda" element={<AdminAgendaSlots />} />
+          <Route path="agenda-full" element={<AdminAgendaFull />} />
           <Route path="faq" element={<FaqAdmin />} />
           <Route path="faq/new" element={<FaqForm />} />
           <Route path="faq/:id/edit" element={<FaqForm />} />

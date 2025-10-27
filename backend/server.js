@@ -9,15 +9,17 @@ const adminRoutes = require("./routes/adminRoutes");
 const receitaRoutes = require("./routes/receitaRoutes");
 const adminRecipeRoutes = require("./routes/adminRecipeRoutes");
 const faqRoutes = require("./routes/faqRoutes");           // ← NOVO (público)
+const adminConfigRoutes = require("./routes/adminConfigRoutes");
+const adminAgendaRoutes = require("./routes/adminAgendaRoutes");
 const adminFaqRoutes = require("./routes/adminFaqRoutes"); // ← NOVO (admin)
 const sequelize = require("./config/db");
 require("./models/Usuario");
 require("./models/Faq"); // ← NOVO
 require("./models/AgendaConfig");
 require("./models/Agendamentos");
-require("./models/ReservaTem");
+require("./models/ReservaTemp");
 require("./models/Bloqueio");
-
+require("./models/ConfigSistema");
 const app = express();
 app.set("trust proxy", 1);
 
@@ -57,7 +59,14 @@ const agendaRoutes = require('./routes/agendaRoutes');
 app.use('/agenda', agendaRoutes);
 
 app.use(compression());
+app.use("/admin/config", adminConfigRoutes);
+app.use("/admin/agenda", adminAgendaRoutes);
+const paymentsRoutes = require('./routes/paymentsRoutes');
+app.use(paymentsRoutes);
 
+
+const configRoutes = require("./routes/configRoutes");
+app.use("/", configRoutes);
 // servir uploads estáticos
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
