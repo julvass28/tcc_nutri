@@ -2,23 +2,30 @@
 
 /* Root */
 .c-carousel-mobile {
-  padding: 20px 16px;
+  padding: 20px 56px;
   background-color: #fff;
   width: 100%;
 }
 
-/* isola slick ao componente */
+/* slick ajustes gerais */
 .c-carousel-mobile .slick-list {
   overflow: visible;
 }
 .c-carousel-mobile .slick-track {
   display: flex !important;
   flex-wrap: nowrap !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.c-carousel-mobile .slick-slide {
+  display: flex !important;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
-/* Slide wrapper (seu “container” interno) */
+/* Slide wrapper (espaçamento entre cards) */
 .c-carousel-mobile__slide {
-  margin: 0 -8px;
+  padding: 0 4px; /* espaçamento horizontal base */
   box-sizing: border-box;
   overflow: hidden;
 }
@@ -39,11 +46,13 @@
   justify-content: center;
   align-items: center;
 }
+
 .c-carousel-mobile__card--receitas {
   box-shadow: rgba(138, 143, 177, 1) 0 2px 12px -2px,
     rgba(138, 143, 177, 1) 0 3px 7px -3px;
   border: 1.3px solid #8a8f75;
 }
+
 .c-carousel-mobile__card.is-active {
   background-color: #fdfaf9;
   transform: translateY(-8px) scale(1.02);
@@ -63,6 +72,7 @@
 .c-carousel-mobile__link-to {
   all: unset;
 }
+
 /* Títulos “fora” (usado para serviços) */
 .c-carousel-mobile__title {
   font-size: 1rem;
@@ -75,7 +85,7 @@
 }
 .c-carousel-mobile__title--receitas {
   display: none;
-} /* receitas usam overlay */
+}
 
 /* Imagem */
 .c-carousel-mobile__img {
@@ -107,36 +117,68 @@
   margin: 0;
 }
 
-/* Ajustes de largura por tipo (somente neste carrossel) */
-.c-carousel-mobile--receitas .slick-slide {
-  width: 50vw !important; /* mantém o look do antigo “variableWidth” */
-  padding: 0 8px;
-  box-sizing: border-box;
-}
+
 .c-carousel-mobile--receitas .c-carousel-mobile__card {
   width: 100%;
 }
 
-/* Alturas e tipografia por breakpoint */
-@media (max-width: 410px) {
+/* -------------------------------------- */
+/* 💡 MEDIA QUERIES PARA ESPAÇAMENTOS     */
+/* -------------------------------------- */
+
+/* Telas pequenas (até 410px) */
+@media (max-width: 413px) {
+  .c-carousel-mobile__slide {
+    padding: 0 4px; /* menos espaçamento */
+  }
+    .c-carousel-mobile--receitas .slick-slide {
+    width: 80vw !important; /* cards maiores em telas menores */
+  }
+ 
   .c-carousel-mobile__overlay-title {
     font-size: 0.8rem;
   }
-}
-@media (min-width: 414px) {
+
   .c-carousel-mobile__card {
     height: 22vh;
+    width: 40VW;
+  }
+  
+}
+
+/* Smartphones médios (414px+) */
+@media (min-width: 414px) {
+  .c-carousel-mobile__slide {
+    padding: 0 8px;
+  }
+  .c-carousel-mobile__card {
+    height: 22vh;
+    width: 40VW;
   }
   .c-carousel-mobile__overlay-title {
     font-size: 1rem;
   }
 }
+
+/* Tablets (768px+) */
 @media (min-width: 768px) {
+  .c-carousel-mobile {
+    padding: 20px 24px;
+  }
+  .c-carousel-mobile__slide {
+    padding: 0 9px; /* aumenta espaçamento lateral */
+  }
   .c-carousel-mobile.c-carousel-mobile--receitas {
     max-width: 100%;
-    padding: 0 24px;
   }
   .c-carousel-mobile__overlay-title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+  }
+}
+
+/* Telas grandes (912px+) */
+@media (min-width: 912px) {
+  .c-carousel-mobile__slide {
+    padding: 0 14px; /* ainda mais espaçamento entre cards */
   }
 }

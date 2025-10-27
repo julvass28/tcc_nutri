@@ -199,11 +199,75 @@ body { box-sizing: border-box; overflow-x: hidden; font-family: 'Poppins', sans-
 
 /* ====== RESPONSIVO ====== */
 @media (max-width: 540px){
-  :root{ --cell: 64px; --ring: 10px; }
+  :root{ --cell: 58px; --ring: 3px; }
   .cal-card{ padding:16px 14px 10px; }
   .cal-toolbar{ gap: 12px; }
   .resumo-col{ min-width: unset; }
 }
+
+/* 414px e abaixo (iPhone 11/12/13 Pro etc.) */
+@media (max-width: 414px){
+  :root{
+    --cell: 52px; /* cabe 7 colunas no limite */
+    --ring: 2px;  /* anel reduzido */
+  }
+
+  
+  .cal-legend{
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: .85rem;
+  }
+  .dot{ width:14px; height:14px; }
+
+}
+
+/* 390px e abaixo (iPhone 12/13/14 / Pixel etc.) */
+@media (max-width: 390px){
+  :root{
+    --cell: 50px;
+    --ring: 2px;
+  }
+
+   .cal-legend{
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: .8rem;
+  }
+  .dot{ width:12px; height:12px; }
+}
+
+/* 375px e abaixo (iPhone SE / Mini antigo / Galaxy Small) */
+@media (max-width: 375px){
+  :root{
+    --cell: 47px;
+    --ring: 2px;
+  }
+
+    .cal-legend{
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: .78rem;
+  }
+  .dot{ width:11px; height:11px; }
+}
+
+/* 360px e abaixo (Androids mais compactos) */
+@media (max-width: 360px){
+  :root{
+    --cell: 45px;
+    --ring: 1px;
+  }
+
+   .cal-legend{
+    gap: 6px;
+    flex-wrap: wrap;
+    font-size: .75rem;
+  }
+  .dot{ width:10px; height:10px; }
+}
+
 /* ...existing code... */
 .cal-card .rdp-day:focus,
 .cal-card .rdp-day:focus-visible,
