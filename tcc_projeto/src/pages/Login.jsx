@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../css/auth-pages.css";
 import { AuthContext } from "../context/AuthContext";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -152,6 +154,22 @@ export default function Login(props) {
     }
   };
 
+  // ---- LOGIN COM GOOGLE ----
+  const handleGoogleSuccess = (credentialResponse) => {
+    try {
+      const data = jwtDecode(credentialResponse.credential);
+      console.log("Usuário logado com Google:", data);
+      alert(`Bem-vindo(a), ${data.name}!`);
+      // Aqui você pode enviar 'data' pro seu backend para autenticar
+    } catch (error) {
+      console.error("Erro ao decodificar token do Google:", error);
+    }
+  };
+
+  const handleGoogleError = () => {
+    console.error("Erro no login com o Google");
+  };
+
   return (
     <div className="login-body">
       {askRegister && (
@@ -230,11 +248,17 @@ export default function Login(props) {
           entre com sua conta
         </p>
 
-        <button type="button" className="login-btn login-btn-google">
-          <i className="fab fa-google login-icon"></i>
-          Continuar com o Google
-        </button>
+        {/* --- LOGIN COM GOOGLE --- */}
+        <GoogleOAuthProvider clientId="904708690977-f9l629t3jtimi3jhd47dn1vairsl7co8.apps.googleusercontent.com">
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleError}
+            />
+          </div>
+        </GoogleOAuthProvider>
 
+        {/* --- LOGIN COM FACEBOOK (botão visual apenas) --- */}
         <button type="button" className="login-btn login-btn-facebook">
           <i className="fab fa-facebook-f login-icon"></i>
           Continuar com o Facebook
