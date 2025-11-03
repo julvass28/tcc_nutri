@@ -1,0 +1,70 @@
+/* src/css/perfil-consultas.css */
+.perfil-consulta-card {
+  background: #fff;
+  border: 1px solid rgba(138, 143, 117, 0.1);
+  border-radius: 14px;
+  padding: 18px 16px 16px;
+  margin-top: 12px;
+  box-shadow: 0 16px 25px rgba(0, 0, 0, 0.03);
+}
+
+.perfil-consulta-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.badge-ok {
+  background: rgba(138, 143, 117, 0.12);
+  color: #5f644e;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.perfil-consulta-date {
+  font-weight: 600;
+  color: #505050;
+  font-size: 0.85rem;
+}
+
+.perfil-consulta-body p {
+  margin: 2px 0;
+  color: #505050;
+  font-size: 0.9rem;
+}
+
+.perfil-consulta-alert {
+  background: rgba(209, 160, 160, 0.15);
+  border: 1px solid rgba(209, 160, 160, 0.4);
+  border-radius: 12px;
+  padding: 10px 12px 12px;
+  margin-top: 12px;
+}
+
+.perfil-consulta-alert p {
+  margin-bottom: 8px;
+  color: #6e4d4d;
+  font-size: 0.85rem;
+}
+
+.perfil-consulta-btn {
+  display: inline-block;
+  background: #d1a0a0;
+  color: #fff;
+  padding: 6px 12px 7px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 540px) {
+  .perfil-consulta-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

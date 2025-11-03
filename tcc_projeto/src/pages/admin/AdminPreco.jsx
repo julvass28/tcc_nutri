@@ -1,9 +1,12 @@
 // src/pages/admin/AdminPreco.jsx
 import { useEffect, useMemo, useState } from "react";
 import "../../css/admin-preco.css";
-import { getPrecoCents, setPrecoCentsAdmin, formatBRLFromCents } from "../../services/config";
+import {
+  getPrecoCents,
+  setPrecoCentsAdmin,
+  formatBRLFromCents,
+} from "../../services/config";
 
-// === spinner com tempo mínimo (ajuste aqui) ===
 const MIN_SPINNER_MS = 800;
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -14,7 +17,6 @@ export default function AdminPreco() {
   const [loading, setLoading] = useState(true);
   const [msg, setMsg] = useState("");
 
-  // carregamento com tempo mínimo de overlay
   useEffect(() => {
     (async () => {
       const t0 = performance.now();
@@ -38,17 +40,20 @@ export default function AdminPreco() {
     return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   }, [input]);
 
-  // salvar com tempo mínimo de overlay
   async function salvar() {
     setMsg("");
     setSaving(true);
     const t0 = performance.now();
     try {
       const n = Number(String(input).replace(/\./g, "").replace(",", "."));
-      if (!Number.isFinite(n) || n < 0) throw new Error("Informe um valor válido.");
-      const novo = Math.round(n * 100);
-      const saved = await setPrecoCentsAdmin(novo);
+      if (!Number.isFinite(n) || n < 0)
+        throw new Error("Informe um valor válido.");
+
+      const novoEmCents = Math.round(n * 100);
+
+      const saved = await setPrecoCentsAdmin(novoEmCents);
       setCents(saved);
+      setInput((saved / 100).toFixed(2).replace(".", ","));
       setMsg("Preço atualizado com sucesso!");
     } catch (e) {
       setMsg(e.message || "Erro ao salvar.");
@@ -61,7 +66,6 @@ export default function AdminPreco() {
 
   return (
     <div className="admin-preco__page">
-      {/* Overlay idêntico ao da UsersPage.jsx (adm-op-*) */}
       {(loading || saving) && (
         <div className="adm-op-overlay" role="status" aria-live="polite">
           <div className="adm-op-card">
@@ -74,7 +78,10 @@ export default function AdminPreco() {
       <div className="admin-preco__card">
         <div className="admin-preco__header">
           <h1>Preço da Consulta</h1>
-          <p>Altere aqui o valor cobrado em todo o site (agenda, home e checkout).</p>
+          <p>
+            Altere aqui o valor cobrado em todo o site (agenda, home e
+            checkout).
+          </p>
         </div>
 
         <div className="admin-preco__grid">

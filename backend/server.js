@@ -12,6 +12,7 @@ const faqRoutes = require("./routes/faqRoutes");           // ← NOVO (público
 const adminConfigRoutes = require("./routes/adminConfigRoutes");
 const adminAgendaRoutes = require("./routes/adminAgendaRoutes");
 const adminFaqRoutes = require("./routes/adminFaqRoutes"); // ← NOVO (admin)
+const anamneseRoutes = require("./routes/anamneseRoutes");
 const sequelize = require("./config/db");
 require("./models/Usuario");
 require("./models/Faq"); // ← NOVO
@@ -64,7 +65,7 @@ app.use("/admin/agenda", adminAgendaRoutes);
 const paymentsRoutes = require('./routes/paymentsRoutes');
 app.use(paymentsRoutes);
 
-
+app.use("/pacientes", anamneseRoutes);
 const configRoutes = require("./routes/configRoutes");
 app.use("/", configRoutes);
 // servir uploads estáticos

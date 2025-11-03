@@ -3,16 +3,12 @@ const { Op } = require("sequelize");
 const ReservaTemp = require("../models/ReservaTemp");
 const Agendamentos = require("../models/Agendamentos");
 const sequelize = require("../config/db");
+const { getPrecoCents } = require("../services/preco"); // 👈 pra pegar o preço atual
 
 const API_MP = "https://api.mercadopago.com";
 const ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN;
-const FRONT_URL = (process.env.FRONTEND_URL || "http://localhost:5173").replace(
-  /\/$/,
-  ""
-);
-const PUBLIC_BASE_URL = (
-  process.env.PUBLIC_BASE_URL || "http://localhost:3001"
-).replace(/\/$/, "");
+const FRONT_URL = (process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, "");
+const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || "http://localhost:3001").replace(/\/$/, "");
 
 // ================= PIX =================
 async function gerarPix(req, res) {
@@ -78,14 +74,20 @@ async function gerarPix(req, res) {
 // ================= CARTÃO (mock por enquanto) =================
 async function pagarCartao(req, res) {
   try {
-    const { payment_ref, card } = req.body;
+    const {
+      payment_ref,
+      token, // token gerado no front
+      installments = 1,
+      payer = {},
+    } = req.body;
 
-    if (!payment_ref || !card) {
+    if (!payment_ref || !token) {
       return res
         .status(400)
-        .json({ erro: "payment_ref e dados do cartão são obrigatórios" });
+        .json({ erro: "payment_ref e token do cartão são obrigatórios" });
     }
 
+    // conferimos a reserva
     const hold = await ReservaTemp.findOne({
       where: {
         payment_ref,
@@ -99,23 +101,78 @@ async function pagarCartao(req, res) {
         .json({ erro: "Reserva temporária não encontrada ou expirada." });
     }
 
-    console.log("=== PSEUDO PAGAMENTO CARTÃO ===");
-    console.log("payment_ref:", payment_ref);
-    console.log("card:", card);
+    // valor da consulta em centavos
+    const cents = await getPrecoCents();
+    const amount = Number((cents / 100).toFixed(2));
+
+    // cria pagamento no MP
+    const mpResp = await axios.post(
+      `${API_MP}/v1/payments`,
+      {
+        transaction_amount: amount,
+        token, // 👈 token do cartão
+        description: "Consulta de Nutrição",
+        installments: Number(installments) || 1,
+        payment_method_id: null, // deixa o MP detectar
+        external_reference: payment_ref,
+        payer: {
+          email: payer.email || "cliente@exemplo.com",
+          first_name: payer.first_name || "Cliente",
+          identification: payer.identification || undefined,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = mpResp.data;
+    const status = data.status; // approved | in_process | rejected ...
+
+    // se aprovou, já confirma o agendamento aqui mesmo
+    if (status === "approved") {
+      // evita duplicar
+      const jaExiste = await Agendamentos.findOne({
+        where: { idempotency_key: payment_ref },
+      });
+
+      if (!jaExiste) {
+        await sequelize.transaction(async (t) => {
+          await Agendamentos.create(
+            {
+              usuario_id: hold.usuario_id,
+              inicio: hold.inicio,
+              fim: hold.fim,
+              status: "confirmada",
+              idempotency_key: payment_ref,
+            },
+            { transaction: t }
+          );
+
+          await ReservaTemp.destroy({
+            where: { id: hold.id },
+            transaction: t,
+          });
+        });
+      }
+    }
 
     return res.json({
       ok: true,
-      status: "approved",
-      msg: "Pagamento via cartão processado (mock).",
+      status,
+      id: data.id,
+      detail: data.status_detail,
     });
   } catch (e) {
-    console.error("pagarCartao ERRO:", e.message);
+    console.error("pagarCartao ERRO:", e.response?.data || e.message);
     return res
       .status(500)
       .json({ erro: "Falha ao processar pagamento via cartão" });
   }
 }
-
 // ================= WEBHOOK =================
 async function webhook(req, res) {
   try {

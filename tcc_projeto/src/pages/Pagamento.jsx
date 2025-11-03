@@ -2,19 +2,42 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { API } from "../services/api";
+import usePrecoConsulta from "../hooks/usePrecoConsulta";
 
 export default function Pagamento() {
   const { user } = useContext(AuthContext);
+  const { cents: precoCents } = usePrecoConsulta();
   const [paymentRef, setPaymentRef] = useState("");
   const [metodo, setMetodo] = useState("cartao");
   const [mensagem, setMensagem] = useState("");
   const [loading, setLoading] = useState(false);
-  const valor = 1;
+  const [mp, setMp] = useState(null);
 
+  // dados do booking
+  const [bookingInfo, setBookingInfo] = useState({
+    date: "",
+    time: "",
+    especialidade: "",
+  });
+
+  // pegar o booking da sessão
   useEffect(() => {
     const ref = sessionStorage.getItem("booking.payment_ref");
+    const date = sessionStorage.getItem("booking.date");
+    const time = sessionStorage.getItem("booking.time");
+    const especialidade = sessionStorage.getItem("booking.especialidade");
     if (ref) setPaymentRef(ref);
     else setMensagem("Reserva não encontrada. Volte e selecione o horário.");
+    setBookingInfo({ date, time, especialidade });
+  }, []);
+
+  // carregar MP do window
+  useEffect(() => {
+    if (window.MercadoPago) {
+      const pk = import.meta.env.VITE_MP_PUBLIC_KEY;
+      const inst = new window.MercadoPago(pk, { locale: "pt-BR" });
+      setMp(inst);
+    }
   }, []);
 
   // -------- ESTILOS ------------
@@ -112,30 +135,156 @@ export default function Pagamento() {
   const handleInput = (campo, valor) =>
     setDadosCartao((prev) => ({ ...prev, [campo]: valor }));
 
+  const isInsecure =
+    typeof window !== "undefined" &&
+    window.location.protocol === "http:" &&
+    window.location.hostname === "localhost";
+
+  // 👇 função pra ACUMULAR consultas
+  function addConsultaNaLista({
+    payment_ref,
+    date,
+    time,
+    especialidade,
+    anamneseRespondida = false,
+  }) {
+    try {
+      const raw = sessionStorage.getItem("booking.list");
+      const list = raw ? JSON.parse(raw) : [];
+      list.push({
+        payment_ref,
+        date,
+        time,
+        especialidade,
+        anamneseRespondida,
+      });
+      sessionStorage.setItem("booking.list", JSON.stringify(list));
+    } catch {
+      // ignora
+    }
+  }
+
+  // CARTÃO
   async function pagarCartao(e) {
     e.preventDefault();
     setMensagem("");
+
+    if (!paymentRef) {
+      setMensagem("Reserva não encontrada.");
+      return;
+    }
+
+    if (isInsecure) {
+      setMensagem(
+        "⚠️ Pagamento com cartão só funciona em HTTPS (site publicado ou túnel)."
+      );
+      return;
+    }
+
+    if (!mp) {
+      setMensagem("SDK do Mercado Pago não carregou ainda. Atualize a página.");
+      return;
+    }
+
     setLoading(true);
     try {
+      const tokenResp = await mp.createCardToken({
+        cardNumber: dadosCartao.numero.replace(/\s+/g, ""),
+        cardholderName: dadosCartao.nome,
+        securityCode: dadosCartao.cvv,
+        cardExpirationMonth: dadosCartao.validadeMes,
+        cardExpirationYear: dadosCartao.validadeAno,
+        identificationType: "CPF",
+        identificationNumber: dadosCartao.cpf.replace(/\D/g, ""),
+      });
+
+      const cardToken = tokenResp.id;
+
       const resp = await fetch(`${API}/payments/charge`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ payment_ref: paymentRef, card: dadosCartao }),
+        body: JSON.stringify({
+          payment_ref: paymentRef,
+          token: cardToken,
+          amount: (precoCents || 1) / 100,
+          installments: 1,
+          payer: {
+            email: user?.email,
+            first_name: user?.nome,
+            identification: {
+              type: "CPF",
+              number: dadosCartao.cpf.replace(/\D/g, ""),
+            },
+          },
+        }),
       });
+
       const data = await resp.json();
-      setMensagem(data?.msg || "Pagamento processado.");
-    } catch {
-      setMensagem("Erro ao processar pagamento via cartão.");
+
+      if (!resp.ok) {
+        setMensagem(
+          data?.erro ||
+            data?.message ||
+            "Erro ao processar pagamento via cartão."
+        );
+        return;
+      }
+
+      if (data.status === "approved") {
+        // salvar pro perfil e pra tela sucesso
+        const consultaObj = {
+          payment_ref: paymentRef,
+          date: bookingInfo.date,
+          time: bookingInfo.time,
+          especialidade: bookingInfo.especialidade,
+          anamneseRespondida: false,
+        };
+
+        // último
+        sessionStorage.setItem("booking.last", JSON.stringify(consultaObj));
+        // flag da anamnese
+        sessionStorage.setItem(
+          "anamnese.pendente",
+          JSON.stringify(consultaObj)
+        );
+        // 👇 agora ACUMULA
+        addConsultaNaLista(consultaObj);
+
+        // limpa os temporários
+        sessionStorage.removeItem("booking.hold_id");
+        sessionStorage.removeItem("booking.payment_ref");
+        sessionStorage.removeItem("booking.expires_at");
+
+        window.location.href = "/pagamento/sucesso";
+      } else {
+        setMensagem(
+          `Pagamento criado, status: ${data.status || "desconhecido"}`
+        );
+      }
+    } catch (err) {
+      console.log(err);
+      setMensagem(
+        "Erro ao tokenizar ou processar o cartão. Teste em HTTPS (hostinger/vercel + backend público)."
+      );
     } finally {
       setLoading(false);
     }
   }
 
+  // PIX
+  const [qrPix, setQrPix] = useState("");
+  const [pixCode, setPixCode] = useState("");
+
   async function pagarPix() {
     setMensagem("");
+    if (!paymentRef) {
+      setMensagem("Reserva não encontrada.");
+      return;
+    }
+
     setLoading(true);
     try {
       const resp = await fetch(`${API}/payments/pix`, {
@@ -144,8 +293,12 @@ export default function Pagamento() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ payment_ref: paymentRef, amount: valor }),
+        body: JSON.stringify({
+          payment_ref: paymentRef,
+          amount: (precoCents || 1) / 100,
+        }),
       });
+
       const data = await resp.json();
       if (data.qr_code_base64 || data.copia_cola) {
         setMensagem(
@@ -153,7 +306,7 @@ export default function Pagamento() {
         );
         setQrPix(data.qr_code_base64);
         setPixCode(data.copia_cola);
-        // inicia verificação automática
+
         const interval = setInterval(async () => {
           try {
             const check = await fetch(`${API}/payments/status/${paymentRef}`, {
@@ -165,14 +318,38 @@ export default function Pagamento() {
 
             if (st.status === "approved") {
               clearInterval(interval);
-              setMensagem(
-                "✅ Pagamento aprovado! Sua consulta foi confirmada."
+
+              const consultaObj = {
+                payment_ref: paymentRef,
+                date: bookingInfo.date,
+                time: bookingInfo.time,
+                especialidade: bookingInfo.especialidade,
+                anamneseRespondida: false,
+              };
+
+              // salva para mostrar no perfil e na página de sucesso
+              sessionStorage.setItem(
+                "booking.last",
+                JSON.stringify(consultaObj)
               );
+              sessionStorage.setItem(
+                "anamnese.pendente",
+                JSON.stringify(consultaObj)
+              );
+              // 👇 acumula também no PIX
+              addConsultaNaLista(consultaObj);
+
+              // limpa os temporários
+              sessionStorage.removeItem("booking.hold_id");
+              sessionStorage.removeItem("booking.payment_ref");
+              sessionStorage.removeItem("booking.expires_at");
+
+              window.location.href = "/pagamento/sucesso";
             }
           } catch (err) {
             console.log("Erro ao checar status:", err);
           }
-        }, 8000); // checa a cada 8 segundos
+        }, 8000);
       } else setMensagem("Erro ao gerar PIX.");
     } catch {
       setMensagem("Erro na solicitação do PIX.");
@@ -180,10 +357,6 @@ export default function Pagamento() {
       setLoading(false);
     }
   }
-
-  // PIX STATES
-  const [qrPix, setQrPix] = useState("");
-  const [pixCode, setPixCode] = useState("");
 
   return (
     <div style={container}>
@@ -210,6 +383,23 @@ export default function Pagamento() {
 
         {metodo === "cartao" ? (
           <form onSubmit={pagarCartao}>
+            {isInsecure && (
+              <p
+                style={{
+                  background: "#fff3cd",
+                  border: "1px solid #ffeeba",
+                  color: "#856404",
+                  padding: "10px 12px",
+                  borderRadius: 8,
+                  marginBottom: 16,
+                  fontSize: ".85rem",
+                }}
+              >
+                🛡️ Pagamento com cartão só funciona quando o site estiver em
+                HTTPS (publicado). Aqui no localhost ele bloqueia mesmo.
+              </p>
+            )}
+
             <label style={label}>Número do Cartão</label>
             <input
               style={input}

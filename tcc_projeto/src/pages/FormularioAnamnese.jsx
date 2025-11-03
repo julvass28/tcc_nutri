@@ -1,4 +1,5 @@
-import React, { useState, useMemo, useEffect } from "react"; // [NOVO] adicionei useEffect
+// tcc_projeto/src/pages/FormularioAnamnese.jsx
+import React, { useState, useMemo, useEffect } from "react";
 import {
   perguntasComum,
   perguntasEspecificas,
@@ -13,9 +14,13 @@ import { useNavigate } from "react-router-dom";
 import { fetchAuth, API } from "../services/api";
 
 function FormularioAnamnese({ modalidadeSelecionada }) {
-  // helpers para normalizar a especialidade
+  // 🔁 helpers p/ normalizar especialidade
   const semAcento = (s = "") =>
-    s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+    s
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
 
   const mapEspecialidadeParaModalidade = (esp = "") => {
     const s = semAcento(esp);
@@ -24,6 +29,23 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
     if (s.includes("intoler")) return "intolerancias";
     if (s.includes("emagrec")) return "emagrecimento";
     return "clinica";
+  };
+
+  // 🔁 helpers p/ normalizar opções
+  const getOptionValue = (op) => {
+    if (typeof op === "string") return op;
+    if (op && typeof op === "object") {
+      return op.value ?? op.label ?? "";
+    }
+    return "";
+  };
+
+  const getOptionLabel = (op) => {
+    if (typeof op === "string") return op;
+    if (op && typeof op === "object") {
+      return op.label ?? op.value ?? "";
+    }
+    return "";
   };
 
   const rawEsp =
@@ -41,11 +63,12 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
 
   const [enviar, setEnviar] = useState(false);
   const [mensagem, setMensagem] = useState("");
-  const [mensagemInfo, setMensagemInfo] = useState(""); // [NOVO]
+  const [mensagemInfo, setMensagemInfo] = useState("");
   const navigate = useNavigate();
   const [sending, setSending] = useState(false);
   const [goingToPay, setGoingToPay] = useState(false);
 
+  // montar perguntas
   let perguntas = [];
   if (modalidade === "pediatrica") {
     perguntas = perguntasEspecificas.pediatrica;
@@ -55,35 +78,112 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
     perguntas = perguntasComum;
   }
 
+  // ------------------ VALIDAÇÃO ------------------
   const validacao = useMemo(() => {
     const campos = {};
     perguntas.forEach((secao) => {
       secao.perguntas?.forEach((perguntaObj) => {
         const chave = perguntaObj.pergunta;
         if (!chave) return;
+
+        const ehOpcional =
+          perguntaObj.obrigatorio === false || perguntaObj.opcional === true;
+
         switch (perguntaObj.tipo) {
-          case "checkbox":
-          case "radio_condicional_checkbox":
-            campos[chave] = z
-              .array(z.string(), { required_error: "*Selecione pelo menos uma opção" })
-              .min(1, "*Selecione pelo menos uma opção");
+          // ✅ CHECKBOX
+          case "checkbox": {
+            if (ehOpcional) {
+              campos[chave] = z.array(z.string()).optional().default([]);
+            } else {
+              campos[chave] = z
+                .array(z.string(), {
+                  required_error: "*Selecione pelo menos uma opção",
+                })
+                .min(1, "*Selecione pelo menos uma opção");
+            }
             break;
-          case "radio_condicional_texto":
+          }
+
+          // ✅ RADIO COM SUB-CHECKBOX
+          case "radio_condicional_checkbox": {
             campos[chave] = z
+              .string({
+                required_error: "*Selecione uma opção",
+              })
+              .min(1, "*Selecione uma opção");
+
+            if (perguntaObj.subpergunta && perguntaObj.condicao) {
+              const subKey = `${chave}_sub`;
+              campos[subKey] = z
+                .array(z.string())
+                .optional()
+                .superRefine((val, ctx) => {
+                  const principal = ctx.parent[chave];
+                  if (principal === getOptionValue(perguntaObj.condicao)) {
+                    if (!val || val.length === 0) {
+                      ctx.addIssue({
+                        code: z.ZodIssueCode.custom,
+                        message: "*Selecione pelo menos uma opção",
+                      });
+                    }
+                  }
+                });
+            }
+            break;
+          }
+
+          // ✅ RADIO QUE ABRE TEXTO
+          case "radio_condicional_texto": {
+            const objSchema = z
               .object({
-                resposta: z.string({ required_error: "*Selecione uma opção" }).min(1, "*Selecione uma opção"),
+                resposta: z
+                  .string({ required_error: "*Selecione uma opção" })
+                  .min(1, "*Selecione uma opção"),
                 condicional: z.string().optional(),
               })
               .refine(
                 (val) => {
-                  if (val.resposta === perguntaObj.condicao) {
-                    return val.condicional && val.condicional.trim().length > 0;
+                  const cond = getOptionValue(perguntaObj.condicao);
+                  if (val.resposta === cond) {
+                    return (val.condicional || "").trim().length > 0;
                   }
                   return true;
                 },
-                { message: "*Campo obrigatório quando selecionado", path: ["condicional"] }
+                {
+                  message: "*Campo obrigatório quando selecionado",
+                  path: ["condicional"],
+                }
               );
+
+            // aceita também string (sessionStorage velho / RHF)
+            const union = z.union([objSchema, z.string()]);
+            campos[chave] = ehOpcional ? union.optional() : union;
             break;
+          }
+
+          // ✅ FREQUÊNCIA DE CONSUMO (o que tava dando erro)
+          case "frequencia_consumo": {
+            // monta um objeto com cada alimento
+            const innerShape = {};
+            (perguntaObj.itens || []).forEach((item) => {
+              if (!item.alimento) return;
+              innerShape[item.alimento] = z
+                .string({ required_error: "*Selecione uma opção" })
+                .min(1, "*Selecione uma opção");
+            });
+
+            let schema = z.object(innerShape);
+
+            // se for opcional a seção, deixamos os campos opcionais
+            if (ehOpcional) {
+              schema = schema.partial();
+            }
+
+            campos[chave] = schema;
+            break;
+          }
+
+          // ✅ DEFAULT (texto, number, date...)
           default:
             campos[chave] = z.string().optional();
             break;
@@ -93,6 +193,7 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
     return z.object(campos);
   }, [perguntas]);
 
+  // ------------------ FORM ------------------
   const {
     register,
     handleSubmit,
@@ -110,6 +211,9 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
           acc[p.pergunta] = [];
         } else if (p.tipo === "radio_condicional_texto") {
           acc[p.pergunta] = { resposta: "", condicional: "" };
+        } else if (p.tipo === "frequencia_consumo") {
+          // começa vazio, o usuário vai marcando
+          acc[p.pergunta] = {};
         } else {
           acc[p.pergunta] = "";
         }
@@ -118,7 +222,7 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
     }, {}),
   });
 
-  // [NOVO] Restaurar dados salvos no sessionStorage
+  // restaurar do sessionStorage
   useEffect(() => {
     const saved = sessionStorage.getItem("anamnese.temp");
     if (saved) {
@@ -127,28 +231,124 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
     }
   }, [reset]);
 
+  // pré-preencher com /me
+  useEffect(() => {
+    (async () => {
+      try {
+        const r = await fetchAuth(`${API}/me`);
+        if (!r.ok) return;
+        const u = await r.json();
+
+        const nomePossiveis = ["Nome", "Nome completo", "Seu nome", "Paciente"];
+        const emailPossiveis = ["E-mail", "Email", "Seu e-mail"];
+        const alturaPossiveis = ["Altura", "Altura (m)", "Altura em metros"];
+        const pesoPossiveis = ["Peso", "Peso (kg)", "Peso atual"];
+        const idadePossiveis = ["Idade", "Sua idade"];
+
+        const calcIdade = (data_nascimento) => {
+          if (!data_nascimento) return "";
+          const d = new Date(data_nascimento);
+          if (Number.isNaN(d.getTime())) return "";
+          const hoje = new Date();
+          let idade = hoje.getFullYear() - d.getFullYear();
+          const m = hoje.getMonth() - d.getMonth();
+          if (m < 0 || (m === 0 && hoje.getDate() < d.getDate())) {
+            idade--;
+          }
+          return String(idade);
+        };
+
+        perguntas.forEach((secao) => {
+          secao.perguntas?.forEach((p) => {
+            if (!p.pergunta) return;
+            const label = p.pergunta.trim();
+
+            if (nomePossiveis.includes(label) && u.nome) {
+              const nomeCompleto = u.sobrenome
+                ? `${u.nome} ${u.sobrenome}`
+                : u.nome;
+              setValue(label, nomeCompleto, { shouldValidate: true });
+            }
+
+            if (emailPossiveis.includes(label) && u.email) {
+              setValue(label, u.email, { shouldValidate: true });
+            }
+
+            if (alturaPossiveis.includes(label) && u.altura) {
+              setValue(label, String(u.altura), { shouldValidate: true });
+            }
+
+            if (pesoPossiveis.includes(label) && u.peso) {
+              setValue(label, String(u.peso), { shouldValidate: true });
+            }
+
+            if (idadePossiveis.includes(label)) {
+              const idade = calcIdade(u.data_nascimento);
+              if (idade) {
+                setValue(label, idade, { shouldValidate: true });
+              }
+            }
+          });
+        });
+      } catch {
+        // ignora
+      }
+    })();
+  }, [perguntas, setValue]);
+
   // dados do agendamento
   const holdId = sessionStorage.getItem("booking.hold_id");
   const paymentRef = sessionStorage.getItem("booking.payment_ref");
   const bookingDate = sessionStorage.getItem("booking.date");
   const bookingTime = sessionStorage.getItem("booking.time");
 
-  if (!holdId || !paymentRef) {
-    navigate("/agendar", { replace: true });
+  let bookingLast = null;
+  try {
+    bookingLast = JSON.parse(sessionStorage.getItem("booking.last"));
+  } catch {
+    bookingLast = null;
   }
 
+  const finalPaymentRef = paymentRef || bookingLast?.payment_ref || "";
+  const finalDate = bookingDate || bookingLast?.date || "";
+  const finalTime = bookingTime || bookingLast?.time || "";
+
+  if (!holdId && !finalPaymentRef) {
+    navigate("/perfil", { replace: true });
+  }
+
+  // ------------------ SUBMIT ------------------
   const onSubmit = async (data) => {
     try {
       setMensagem("");
       setSending(true);
 
+      // 🔁 NORMALIZAR radio_condicional_texto -> string
+      const respostasNormalizadas = {};
+      for (const [campo, valor] of Object.entries(data)) {
+        if (
+          valor &&
+          typeof valor === "object" &&
+          Object.prototype.hasOwnProperty.call(valor, "resposta")
+        ) {
+          const base = valor.resposta || "";
+          const extra =
+            valor.condicional && valor.condicional.trim().length > 0
+              ? `: ${valor.condicional.trim()}`
+              : "";
+          respostasNormalizadas[campo] = base + extra;
+        } else {
+          respostasNormalizadas[campo] = valor;
+        }
+      }
+
       const payload = {
-        booking_hold_id: Number(holdId),
-        payment_ref: String(paymentRef),
-        data: String(bookingDate || ""),
-        hora: String(bookingTime || ""),
+        booking_hold_id: holdId ? Number(holdId) : null,
+        payment_ref: String(finalPaymentRef || ""),
+        data: String(finalDate || ""),
+        hora: String(finalTime || ""),
         modalidade: String(modalidade),
-        respostas: data,
+        respostas: respostasNormalizadas,
       };
 
       const r = await fetchAuth(`${API}/pacientes/anamnese`, {
@@ -161,11 +361,37 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
 
       setMensagem("Formulário enviado com sucesso!");
       setSending(false);
-      setGoingToPay(true);
+      setGoingToPay(false);
+
+      // marcar localmente
+      try {
+        const lastRaw = sessionStorage.getItem("booking.last");
+        if (lastRaw) {
+          const lastObj = JSON.parse(lastRaw);
+          lastObj.anamneseRespondida = true;
+          sessionStorage.setItem("booking.last", JSON.stringify(lastObj));
+        }
+
+        const listRaw = sessionStorage.getItem("booking.list");
+        if (listRaw) {
+          const list = JSON.parse(listRaw);
+          const updated = list.map((item) => {
+            if (item.payment_ref === (finalPaymentRef || paymentRef)) {
+              return { ...item, anamneseRespondida: true };
+            }
+            return item;
+          });
+          sessionStorage.setItem("booking.list", JSON.stringify(updated));
+        }
+
+        sessionStorage.removeItem("anamnese.pendente");
+      } catch {
+        // ignora
+      }
 
       setTimeout(() => {
-        navigate("/pagamento");
-      }, 1200);
+        navigate("/perfil");
+      }, 900);
     } catch (err) {
       setSending(false);
       setGoingToPay(false);
@@ -173,12 +399,14 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
     }
   };
 
-  // [NOVO] Função Voltar
+  // voltar
   function handleBack() {
     const currentData = watch();
     sessionStorage.setItem("anamnese.temp", JSON.stringify(currentData));
-    setMensagemInfo("Você voltou para a etapa anterior, seus dados foram mantidos.");
-    navigate(-1); // volta pra agenda
+    setMensagemInfo(
+      "Você voltou para a etapa anterior, seus dados foram mantidos."
+    );
+    navigate(-1);
   }
 
   return (
@@ -193,13 +421,18 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
         </button>
         <div className="anamnese-resumo">
           <span>
-            Consulta em <b>{bookingDate || "—"}</b> às <b>{bookingTime || "—"}</b>
-            {rawEsp ? <> • <b>{rawEsp}</b></> : null}
+            Consulta em <b>{finalDate || "—"}</b> às <b>{finalTime || "—"}</b>
+            {rawEsp ? (
+              <>
+                {" "}
+                • <b>{rawEsp}</b>
+              </>
+            ) : null}
           </span>
         </div>
       </div>
 
-      {mensagemInfo && <p className="mensagemInfo">{mensagemInfo}</p>} {/* [NOVO] */}
+      {mensagemInfo && <p className="mensagemInfo">{mensagemInfo}</p>}
       <form
         noValidate
         className="formAnamnese"
@@ -243,13 +476,9 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                               </label>
                             )}
 
-                          {[
-                            "texto",
-                            "email",
-                            "telefone",
-                            "number",
-                            "date",
-                          ].includes(perguntaObj.tipo) && (
+                          {["texto", "email", "telefone", "number", "date"].includes(
+                            perguntaObj.tipo
+                          ) && (
                             <div className="inputComUnidade">
                               <input
                                 className={
@@ -281,46 +510,50 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                         {/* RADIO */}
                         {perguntaObj.tipo === "radio" && (
                           <div className="grupoOpcao">
-                            {perguntaObj.opcoes.map((opcao, i) => (
-                              <div className="linhaOpcao" key={i}>
-                                <input
-                                  type="radio"
-                                  {...register(perguntaObj.pergunta)}
-                                  value={opcao}
-                                />
-                                <label className="textoOpcao">{opcao}</label>
-                              </div>
-                            ))}
+                            {perguntaObj.opcoes.map((opcao, i) => {
+                              const val = getOptionValue(opcao);
+                              const label = getOptionLabel(opcao);
+                              return (
+                                <div className="linhaOpcao" key={i}>
+                                  <input
+                                    type="radio"
+                                    {...register(perguntaObj.pergunta)}
+                                    value={val}
+                                  />
+                                  <label className="textoOpcao">{label}</label>
+                                </div>
+                              );
+                            })}
                           </div>
                         )}
 
                         {/* CHECKBOX */}
                         {perguntaObj.tipo === "checkbox" && (
                           <div className="grupoOpcao">
-                            {perguntaObj.opcoes.map((opcao, i) => (
-                              <div className="linhaOpcao" key={i}>
-                                <input
-                                  type="checkbox"
-                                  onChange={() => {
-                                    //verfica o que o usuario ja marcou, se nao marcou nada []
-                                    const current =
-                                      watch(perguntaObj.pergunta) || [];
-                                    //pega o que o usario marcou e verifica se a opçao ja esta marcad, se sim= remove, se nao= adiciona
-                                    const updated = current.includes(opcao)
-                                      ? //v significa cada opçao do array de opçoes
-                                        current.filter((v) => v !== opcao)
-                                      : [...current, opcao];
+                            {perguntaObj.opcoes.map((opcao, i) => {
+                              const val = getOptionValue(opcao);
+                              const label = getOptionLabel(opcao);
+                              return (
+                                <div className="linhaOpcao" key={i}>
+                                  <input
+                                    type="checkbox"
+                                    onChange={() => {
+                                      const current =
+                                        watch(perguntaObj.pergunta) || [];
+                                      const updated = current.includes(val)
+                                        ? current.filter((v) => v !== val)
+                                        : [...current, val];
 
-                                    setValue(perguntaObj.pergunta, updated, {
-                                      shouldValidate: true,
-                                    }); //shoul= reforça validação
-                                  }}
-                                  value={opcao}
-                                />
-
-                                <label className="textoOpcao">{opcao}</label>
-                              </div>
-                            ))}
+                                      setValue(perguntaObj.pergunta, updated, {
+                                        shouldValidate: true,
+                                      });
+                                    }}
+                                    value={val}
+                                  />
+                                  <label className="textoOpcao">{label}</label>
+                                </div>
+                              );
+                            })}
                           </div>
                         )}
 
@@ -337,21 +570,28 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                               </p>
                             )}
 
-                            {perguntaObj.opcoes.map((opcao, i) => (
-                              <div className="linhaOpcao" key={i}>
-                                <input
-                                  type="radio"
-                                  {...register(
-                                    `${perguntaObj.pergunta}.resposta`
-                                  )}
-                                  value={opcao}
-                                />
+                            {perguntaObj.opcoes.map((opcao, i) => {
+                              const val = getOptionValue(opcao);
+                              const label = getOptionLabel(opcao);
+                              const selected = watch(
+                                `${perguntaObj.pergunta}.resposta`
+                              );
+                              const isCond =
+                                val ===
+                                getOptionValue(perguntaObj.condicao);
+                              return (
+                                <div className="linhaOpcao" key={i}>
+                                  <input
+                                    type="radio"
+                                    {...register(
+                                      `${perguntaObj.pergunta}.resposta`
+                                    )}
+                                    value={val}
+                                  />
 
-                                <label className="textoOpcao">{opcao}</label>
+                                  <label className="textoOpcao">{label}</label>
 
-                                {opcao === perguntaObj.condicao &&
-                                  watch(`${perguntaObj.pergunta}.resposta`) ===
-                                    opcao && (
+                                  {isCond && selected === val && (
                                     <div className="condicionalerro">
                                       <input
                                         className="condicaoAnamnese"
@@ -363,96 +603,107 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                       />
                                     </div>
                                   )}
-                              </div>
-                            ))}
+                                </div>
+                              );
+                            })}
                           </div>
                         )}
 
                         {/* RADIO COM SUB-CHECKBOX */}
                         {perguntaObj.tipo === "radio_condicional_checkbox" && (
                           <div className="grupoOpcao">
-                            {perguntaObj.opcoes.map((opcao, i) => (
-                              <div className="linhaOpcao" key={i}>
-                                <input
-                                  type="radio"
-                                  value={opcao}
-                                  checked={
-                                    watch(perguntaObj.pergunta) === opcao
-                                  }
-                                  onChange={() => {
-                                    setValue(perguntaObj.pergunta, opcao, {
-                                      shouldValidate: true,
-                                    });
-                                  }}
-                                />
-                                <label className="textoOpcao">{opcao}</label>
+                            {perguntaObj.opcoes.map((opcao, i) => {
+                              const val = getOptionValue(opcao);
+                              const label = getOptionLabel(opcao);
+                              const condVal = getOptionValue(
+                                perguntaObj.condicao
+                              );
+                              return (
+                                <div className="linhaOpcao" key={i}>
+                                  <input
+                                    type="radio"
+                                    value={val}
+                                    checked={watch(perguntaObj.pergunta) === val}
+                                    onChange={() => {
+                                      setValue(perguntaObj.pergunta, val, {
+                                        shouldValidate: true,
+                                      });
+                                    }}
+                                  />
+                                  <label className="textoOpcao">{label}</label>
 
-                                {opcao === perguntaObj.condicao &&
-                                  watch(perguntaObj.pergunta) === opcao &&
-                                  perguntaObj.subpergunta &&
-                                  perguntaObj.subpergunta.opcoes.map(
-                                    (subOpcao, s) => (
-                                      <div
-                                        className="frequenciaAnamnese"
-                                        key={s}
-                                      >
-                                        <input
-                                          type="checkbox"
-                                          {...register(
-                                            `${perguntaObj.pergunta}_sub`
-                                          )}
-                                          checked={(
-                                            watch(
-                                              `${perguntaObj.pergunta}_sub`
-                                            ) || []
-                                          ).includes(subOpcao)}
-                                          onChange={() => {
-                                            const current =
-                                              watch(
-                                                `${perguntaObj.pergunta}_sub`
-                                              ) || [];
-                                            const updated = current.includes(
-                                              subOpcao
-                                            )
-                                              ? current.filter(
-                                                  (v) => v !== subOpcao
-                                                )
-                                              : [...current, subOpcao];
-
-                                            setValue(
-                                              `${perguntaObj.pergunta}_sub`,
-                                              updated,
-                                              {
-                                                shouldValidate: true,
-                                              }
-                                            );
-                                          }}
-                                          value={subOpcao}
-                                        />
-                                        <label className="textoOpcao">
-                                          {subOpcao}
-                                        </label>
-
-                                        {perguntaObj.subpergunta.tipo ===
-                                          "checkbox_outros" &&
-                                          subOpcao === "Outros" &&
+                                  {val === condVal &&
+                                    watch(perguntaObj.pergunta) === val &&
+                                    perguntaObj.subpergunta &&
+                                    perguntaObj.subpergunta.opcoes.map(
+                                      (subOpcao, s) => {
+                                        const subVal =
+                                          getOptionValue(subOpcao);
+                                        const subLabel =
+                                          getOptionLabel(subOpcao);
+                                        const currentSubs =
                                           watch(
                                             `${perguntaObj.pergunta}_sub`
-                                          )?.includes("Outros") && (
+                                          ) || [];
+                                        const checked = currentSubs.includes(
+                                          subVal
+                                        );
+
+                                        return (
+                                          <div
+                                            className="frequenciaAnamnese"
+                                            key={s}
+                                          >
                                             <input
-                                              className="condicaoAnamnese"
-                                              type="text"
-                                              placeholder="Especifique Outros..."
+                                              type="checkbox"
                                               {...register(
-                                                `${perguntaObj.pergunta}_sub_outros`
+                                                `${perguntaObj.pergunta}_sub`
                                               )}
+                                              checked={checked}
+                                              onChange={() => {
+                                                const updated = checked
+                                                  ? currentSubs.filter(
+                                                      (v) => v !== subVal
+                                                    )
+                                                  : [...currentSubs, subVal];
+
+                                                setValue(
+                                                  `${perguntaObj.pergunta}_sub`,
+                                                  updated,
+                                                  {
+                                                    shouldValidate: true,
+                                                  }
+                                                );
+                                              }}
+                                              value={subVal}
                                             />
-                                          )}
-                                      </div>
-                                    )
-                                  )}
-                              </div>
-                            ))}
+                                            <label className="textoOpcao">
+                                              {subLabel}
+                                            </label>
+
+                                            {perguntaObj.subpergunta.tipo ===
+                                              "checkbox_outros" &&
+                                              subVal === "Outros" &&
+                                              (watch(
+                                                `${perguntaObj.pergunta}_sub`
+                                              ) || []
+                                              ).includes("Outros") && (
+                                                <input
+                                                  className="condicaoAnamnese"
+                                                  type="text"
+                                                  placeholder="Especifique Outros..."
+                                                  {...register(
+                                                    `${perguntaObj.pergunta}_sub_outros`
+                                                  )}
+                                                />
+                                              )}
+                                          </div>
+                                        );
+                                      }
+                                    )}
+                                </div>
+                              );
+                            })}
                           </div>
                         )}
 
@@ -467,20 +718,27 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                 <label className="alimentoAnamnese">
                                   {item.alimento}
                                 </label>
-                                {item.opcoes.map((opcao, j) => (
-                                  <div className="frequenciaAnamnese" key={j}>
-                                    <input
-                                      type="radio"
-                                      value={opcao}
-                                      {...register(
-                                        `${perguntaObj.pergunta}.${item.alimento}`
-                                      )}
-                                    />
-                                    <label className="textoOpcao">
-                                      {opcao}
-                                    </label>
-                                  </div>
-                                ))}
+                                {item.opcoes.map((opcao, j) => {
+                                  const val = getOptionValue(opcao);
+                                  const label = getOptionLabel(opcao);
+                                  return (
+                                    <div
+                                      className="frequenciaAnamnese"
+                                      key={j}
+                                    >
+                                      <input
+                                        type="radio"
+                                        value={val}
+                                        {...register(
+                                          `${perguntaObj.pergunta}.${item.alimento}`
+                                        )}
+                                      />
+                                      <label className="textoOpcao">
+                                        {label}
+                                      </label>
+                                    </div>
+                                  );
+                                })}
 
                                 {errors[perguntaObj.pergunta]?.[item.alimento]
                                   ?.message && (
@@ -512,7 +770,7 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
         <div className="ondaAnamnesebaixo">
           <img src={ondabaixo} alt="Onda decorativa" />
         </div>
-        {/* Overlay de envio */}
+
         {sending && (
           <div className="anamnese-overlay">
             <div className="anamnese-overlay__box">
@@ -522,7 +780,6 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
           </div>
         )}
 
-        {/* Overlay indo para pagamento */}
         {goingToPay && (
           <div className="anamnese-overlay">
             <div className="anamnese-overlay__box">
