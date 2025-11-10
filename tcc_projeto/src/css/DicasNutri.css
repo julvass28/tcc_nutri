@@ -309,3 +309,9 @@
     padding: 6px 18px;
   }
 }
+
+@media (max-width: 689px) {
+  .dica-nutri-main .formulario-contato {
+    width: 100%;
+  }
+}

@@ -13,6 +13,9 @@ import PublicLayout from "./layouts/PublicLayout";
 
 import "./css/tokens.css";
 
+// termos
+import TermosDeServico from "./pages/TermosDeServico";
+
 // Páginas públicas
 import Home from "./pages/Home";
 import IMCCalculator from "./pages/IMCCalculator";
@@ -45,7 +48,7 @@ import RecipeDetail from "./pages/receitas/RecipeDetail";
 import PerfilEditar from "./pages/PerfilEditar";
 import Perfil from "./pages/perfil";
 import AgendarConsulta from "./pages/agendar_consulta";
-import Agendar from "./pages/Agenda";
+// import Agendar from "./pages/Agenda";
 // Admin
 import AdminAgendaFull from "./pages/admin/AdminAgendaFull";
 import ProtectedRouteAdmin from "./routes/ProtectedRouteAdmin";
@@ -106,6 +109,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<CriarConta />} />
           <Route path="/esqueci-senha" element={<ForgotPassword />} />
+
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/perfil/editar" element={<PerfilEditar />} />
           <Route path="/DicaNutri-Praia" element={<Praia />} />
@@ -114,7 +118,8 @@ export default function App() {
           <Route path="/DicaNutri-Shopping" element={<Shopping />} />
           <Route path="/DicaNutri-Bar" element={<Bar />} />
           <Route path="/DicaNutri-Viagem" element={<Viagem />} />
-          <Route path="/agendar" element={<Agendar />} />
+          <Route path="/termos-de-servico" element={<TermosDeServico />} />
+          {/* <Route path="/agendar" element={<Agendar />} /> */}
           <Route path="/anamnese" element={<Anamnese />} />
           {/* ===== Primeiro: redireciono as rotas antigas de categoria ===== */}
           <Route
@@ -131,6 +136,11 @@ export default function App() {
           {/* Detalhe por slug */}
           <Route path="/receitas/:slug" element={<RecipeDetail />} />
         </Route>
+
+        {/* Layout Público sem Header/Footer */}
+
+    
+
 
         {/* Layout ADMIN sem Header/Footer */}
         <Route
