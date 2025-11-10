@@ -10,6 +10,7 @@ import foto_nutri from "../assets/ft_nutri.jpg";
 import Contato from "../components/Contato";
 import usePrecoConsulta from "../hooks/usePrecoConsulta";
 import { formatBRLFromCents } from "../services/config";
+
 // Bibliotecas
 import { FaUser, FaClipboardList, FaCommentDots, FaBook } from "react-icons/fa";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
@@ -55,6 +56,9 @@ import Login from "./Login";
 function Home() {
   const { user } = useContext(AuthContext);
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // PREÇO (corrige erro "cents is not defined")
+  const { cents } = usePrecoConsulta();
 
   // === Config: exibir só 1x a cada 24h para usuários deslogados ===
   const MODAL_KEY = "homeLoginModalLastShown";
