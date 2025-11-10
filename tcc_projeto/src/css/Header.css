@@ -151,15 +151,24 @@ nav ul li a {
   width: 250px;
 }
 
-/* ícone de login ao lado da logo — só no mobile */
-.logo .quick-login {
+/* quick-login escondido por padrão (desktop) */
+.quick-login {
   display: none;
 }
+
+/* exibe no mobile/tablet e posiciona no grid */
 @media (max-width: 1023px) {
-  .logo .quick-login {
-    display: inline-flex;
+  .quick-login {
+    display: inline-grid;
+    place-items: center;
+    grid-column: 3;      /* fica na 3ª coluna do header grid */
+    justify-self: end;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
   }
 }
+
 
 .btn-mobile {
   display: none;
@@ -621,7 +630,6 @@ nav ul li a {
 
 /* MOBILE & TABLET até 1023px — vira grid e centraliza a logo */
 @media (max-width: 1023px) {
-  /* estrutura do topo em grid: [hamburger] [logo] [espaço/quick-login] */
   .menu {
     display: grid;
     grid-template-columns: 44px 1fr 44px;
@@ -635,38 +643,36 @@ nav ul li a {
     justify-self: start;
   }
 
-  /* a logo fica sempre no centro, independente do quick-login */
   .logo {
     grid-column: 2;
     justify-self: center;
-    position: relative; /* referencia pro quick-login absoluto */
     display: flex;
     align-items: center;
   }
+
   .logo img {
-    height: 82px; /* tamanho bom pra celulares grandes e iPads pequenos */
+    height: 82px;
     width: auto;
     max-width: 240px;
   }
 
-  /* esconde o menu direito no mobile */
-  .nav-itens.right {
-    display: none;
+  /* quick-login vira irmão da .logo e ocupa a coluna 3 */
+  .quick-login {
+    grid-column: 3;
+    justify-self: end;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
   }
 
-  /* ícones do topo já estavam ocultos em mobile */
-  .icons {
-    display: none;
-  }
-
-  /* quick-login encostado na direita da logo sem empurrar o centro */
-  .logo .quick-login {
-    position: absolute;
-    right: -30px; /* fica fora do box da imagem */
-    top: 50%;
-    transform: translateY(-50%);
+  .user {
+    width: 20px;
+    height: 20px;
   }
 }
+
 
 /* Telefones estreitos (ex.: iPhone 14/15 Pro Max em 430px e menores) */
 @media (max-width: 480px) {
@@ -680,9 +686,7 @@ nav ul li a {
 
     max-width: 200px;
   }
-  .logo .quick-login {
-    right: -26px;
-  }
+
   .btn-mobile {
     font-size: 18px;
   }
@@ -697,9 +701,7 @@ nav ul li a {
     height: 72px;
     max-width: 200px;
   }
-  .logo .quick-login {
-    right: -26px;
-  }
+
   .btn-mobile {
     font-size: 18px;
   }
@@ -714,10 +716,9 @@ nav ul li a {
     height: 90px;
     max-width: 260px;
   }
-  .logo .quick-login {
-    right: -34px;
-  }
+  /* quick-login agora é irmão da .logo — não usar mais .logo .quick-login aqui */
 }
+
 
 /* iPad Pro (opcional) 1024–1366px — só compacta um pouco o header
    para evitar quebra dos links. Desktop “normal” maior que isso não muda. */

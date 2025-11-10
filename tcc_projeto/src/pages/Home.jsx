@@ -1,4 +1,6 @@
-//Componentes
+// src/pages/Home.jsx
+
+// Componentes
 import Botao from "../components/botao/Botao";
 import Carrosel from "../components/carrosel/desktop";
 import Titulo from "../components/titulo/titulo";
@@ -14,6 +16,9 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+
+// Font Awesome (ícone do X)
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // Icons
 import Iconclinica from "../assets/img_svg/clinic.svg?react";
@@ -35,9 +40,9 @@ import escolhas from "../assets/img_png/escolha.png";
 
 // CSS
 import "../css/Home.css";
-import "../css/home-login-modal.css"; // << novo CSS do modal
+import "../css/home-login-modal.css"; // CSS do modal (classes auth-*)
 
-// Arquivo Mocks
+// Mock
 import { receitasMock } from "../mocks/receitas";
 
 // Auth
@@ -46,40 +51,40 @@ import { AuthContext } from "../context/AuthContext";
 // Página de Login reutilizada no modal
 import Login from "./Login";
 
-const STORAGE_KEY = "homeLoginLastShownAt";
-const MODAL_COOLDOWN_MS = 24 * 60 * 60 * 1000; // 24h (ajuste se quiser: ex. 7 * 24 * 60 * 60 * 1000)
-
 function Home() {
   const { user } = useContext(AuthContext);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [canClose, setCanClose] = useState(false);
+
+  // === Config: exibir só 1x a cada 24h para usuários deslogados ===
+  const MODAL_KEY = "homeLoginModalLastShown";
+  const SHOW_EVERY_MS = 24 * 60 * 60 * 1000; // 24h
 
   useEffect(() => {
     AOS.init({ duration: 2500, once: false, disable: false });
   }, []);
 
-  // Exibe o modal apenas se:
-  // - usuário NÃO estiver logado
-  // - e nunca mostramos antes, ou já passou o cooldown
+  // Decide se deve mostrar o modal: só quando NÃO logado e respeitando janela de 24h
   useEffect(() => {
-    if (user) {
-      setShowLoginModal(false);
-      return;
-    }
+    if (!user) {
+      try {
+        const lastStr = localStorage.getItem(MODAL_KEY);
+        const last = lastStr ? parseInt(lastStr, 10) : 0;
+        const now = Date.now();
 
-    const lastStr = localStorage.getItem(STORAGE_KEY);
-    const last = lastStr ? parseInt(lastStr, 10) : 0;
-    const now = Date.now();
-
-    if (!last || now - last > MODAL_COOLDOWN_MS) {
-      setShowLoginModal(true);
-      setCanClose(false);
-      localStorage.setItem(STORAGE_KEY, String(now)); // marca quando mostramos
-      const t = setTimeout(() => setCanClose(true), 5000); // 5s pro X
-      return () => clearTimeout(t);
+        if (!last || now - last >= SHOW_EVERY_MS) {
+          setShowLoginModal(true);
+        } else {
+          setShowLoginModal(false);
+        }
+      } catch {
+        // Se der qualquer erro com localStorage, fallback: mostra uma vez
+        setShowLoginModal(true);
+      }
     } else {
+      // Se estiver logado, nunca mostra
       setShowLoginModal(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   // Bloqueia scroll do body quando o modal estiver aberto
@@ -90,28 +95,32 @@ function Home() {
     };
   }, [showLoginModal]);
 
-  // Fechar modal manualmente (mantém o cooldown já salvo quando abriu)
+  // Ao fechar manualmente, grava timestamp pra "pausar" por 24h
   const handleCloseModal = () => {
+    try {
+      localStorage.setItem(MODAL_KEY, String(Date.now()));
+    } catch {}
     setShowLoginModal(false);
   };
 
   return (
     <>
       {showLoginModal && !user && (
-        <div className="home-login-overlay" role="dialog" aria-modal="true">
-          <div className="home-login-backdrop" />
-          <div className="home-login-dialog">
-            {canClose && (
-              <button
-                className="home-login-close"
-                onClick={handleCloseModal}
-                title="Fechar"
-                aria-label="Fechar"
-              >
-                <span>✕</span>
-              </button>
-            )}
-            <div className="home-login-content">
+        <div className="auth-overlay" role="dialog" aria-modal="true">
+          <div className="auth-backdrop" />
+          <div className="auth-dialog">
+            {/* X sempre visível, sem círculo */}
+            <button
+              className="auth-close"
+              onClick={handleCloseModal}
+              title="Fechar"
+              aria-label="Fechar"
+            >
+              <i className="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+
+            {/* Conteúdo do login com base no mesmo container da página de login */}
+            <div className="auth-content">
               <Login _inlineFromHome />
             </div>
           </div>
@@ -144,7 +153,6 @@ function Home() {
           <p className="terceiro-text-home small-home">
             Sou nutricionista{" "}
             <span className="color-text">
-              {" "}
               apaixonada por transformar a alimentação em algo leve e
               equilibrado.
             </span>{" "}
@@ -197,19 +205,16 @@ function Home() {
 
       <div className="secao-home espacamento">
         <Titulo texto="Qual o seu objetivo?" />
-
         <div className="home-categorias">
           <div className="home-linha">
             <Link to="/especialidade/clinica" className="home-categoria">
               <Iconclinica className="home-icone" />
               <p>Nutrição Clínica</p>
             </Link>
-
             <Link to="/especialidade/pediatrica" className="home-categoria">
               <Iconpediatria className="home-icone" />
               <p>Nutrição Pediátrica</p>
             </Link>
-
             <Link to="/especialidade/esportiva" className="home-categoria">
               <Iconesportiva className="home-icone" />
               <p>Nutrição Esportiva</p>
@@ -220,7 +225,8 @@ function Home() {
             <Link to="/especialidade/emagrecimento" className="home-categoria">
               <Iconemagrecer className="home-icone" />
               <p>
-                Emagrecimento <br />e Obesidade
+                Emagrecimento <br />
+                e Obesidade
               </p>
             </Link>
             <Link to="/especialidade/intolerancia" className="home-categoria">
@@ -243,7 +249,6 @@ function Home() {
           <p className="terceiro-text-home small-home">
             Sou nutricionista
             <span className="color-text">
-              {" "}
               apaixonada por transformar sua alimentação em algo leve e
               equilibrado.
             </span>{" "}
@@ -287,34 +292,32 @@ function Home() {
 
       <div className="funcionamento-home espacamento">
         <div className="topic-home">
-          <Titulo
-            texto="Como Funciona Meu Atendimento Online?"
-            mostrarLinha={false}
-          />
+          <Titulo texto="Como Funciona Meu Atendimento Online?" mostrarLinha={false} />
           <div className="topicos-home">
             <p>
-              <IoIosCheckmarkCircleOutline className="icone-dois-home" />
-              Anamnese Nutricional
+              <IoIosCheckmarkCircleOutline className="icone-dois-home" /> Anamnese
+              Nutricional
             </p>
             <p>
-              <IoIosCheckmarkCircleOutline className="icone-dois-home" />
-              Avaliação Física e Nutricional
+              <IoIosCheckmarkCircleOutline className="icone-dois-home" /> Avaliação
+              Física e Nutricional
             </p>
             <p>
-              <IoIosCheckmarkCircleOutline className="icone-dois-home" />
-              Consulta Online
+              <IoIosCheckmarkCircleOutline className="icone-dois-home" /> Consulta
+              Online
             </p>
             <p>
-              <IoIosCheckmarkCircleOutline className="icone-dois-home" />
-              Estratégia Alimentar Individualizada
+              <IoIosCheckmarkCircleOutline className="icone-dois-home" /> Estratégia
+              Alimentar Individualizada
             </p>
             <p>
-              <IoIosCheckmarkCircleOutline className="icone-dois-home" />
-              Acompanhamento Contínuo
+              <IoIosCheckmarkCircleOutline className="icone-dois-home" /> Acompanhamento
+              Contínuo
             </p>
           </div>
-          <Botao to="/agendar-consulta" text="Saiba Mais">Saiba Mais</Botao>
-           
+          <Botao to="/agendar-consulta" text="Saiba Mais">
+            Saiba Mais
+          </Botao>
         </div>
       </div>
 
@@ -376,24 +379,20 @@ function Home() {
           </div>
           <div className="textos-home">
             <h1>Consulta de Nutrição</h1>
-            <p className="text-p-home">
-              Avaliação completa e plano personalizado
-            </p>
+            <p className="text-p-home">Avaliação completa e plano personalizado</p>
             <p className="preco-text-home">
-              <FaUser className="preco-icons-home" /> Atendimento
-              individualizado
+              <FaUser className="preco-icons-home" /> Atendimento individualizado
             </p>
             <p className="preco-text-home">
               <FaClipboardList className="preco-icons-home" /> Plano alimentar
               personalizado
             </p>
             <p className="preco-text-home suporte-home">
-              <FaCommentDots className="preco-icons-home" /> Suporte por 30 dias
-              via WhatsApp
+              <FaCommentDots className="preco-icons-home" /> Suporte por 30 dias via
+              WhatsApp
             </p>
             <p className="preco-text-home">
-              <FaBook className="preco-icons-home" /> Receitas e materiais de
-              apoio
+              <FaBook className="preco-icons-home" /> Receitas e materiais de apoio
             </p>
           </div>
           <div className="box-preco-home">
@@ -407,33 +406,40 @@ function Home() {
           </div>
         </div>
       </div>
- {/* Mostrar as outras DUAS calculadoras */}
-<div className="section-calculators">
-  <Link to="/calculadoras/consumo-agua" className="link-calc-section-all">
-    <div className="sectioncal calculadora-calorias-nutrientes">
-      <h1 id="hum-cal-agua">Calculadora de Consumo diário de Água</h1>
-      <p>Calcule a quantidade ideal de água que você deve consumir diariamente.</p>
-      <div className="icon-section"><LuGlassWater id="img-calculator-icon" /></div>
-    </div>
-  </Link>
 
-  <Link to="/calculadoras/gasto-calorico" className="link-calc-section-all">
-    <div className="sectioncal calculadora-calorias-nutrientes">
-      <h1 id="hum-cal-gasto">Calculadora de Gasto Calórico</h1>
-      <p>Descubra quantas calorias seu corpo gasta por dia</p>
-      <div className="icon-section correr"><FaRunning id="img-calculator-icon" /></div>
-    </div>
-  </Link>
-
-          <Link to="/calculadoras/imc" className="link-calc-section-all">
-            <div className="sectioncal calculadora-calorias-nutrientes">
-              <h1 id="hum-cal-gasto">Calculadora de IMC & Peso Ideal</h1>
-              <p>Verifique se está no peso adequado para sua altura</p>
-              <div className="icon-section correr"><MdBalance id="img-calculator-icon" /></div>
+      {/* Mostrar as outras DUAS calculadoras */}
+      <div className="section-calculators">
+        <Link to="/calculadoras/consumo-agua" className="link-calc-section-all">
+          <div className="sectioncal calculadora-calorias-nutrientes">
+            <h1 id="hum-cal-agua">Calculadora de Consumo diário de Água</h1>
+            <p>Calcule a quantidade ideal de água que você deve consumir diariamente.</p>
+            <div className="icon-section">
+              <LuGlassWater id="img-calculator-icon" />
             </div>
-          </Link>
-</div>
-    
+          </div>
+        </Link>
+
+        <Link to="/calculadoras/gasto-calorico" className="link-calc-section-all">
+          <div className="sectioncal calculadora-calorias-nutrientes">
+            <h1 id="hum-cal-gasto">Calculadora de Gasto Calórico</h1>
+            <p>Descubra quantas calorias seu corpo gasta por dia</p>
+            <div className="icon-section correr">
+              <FaRunning id="img-calculator-icon" />
+            </div>
+          </div>
+        </Link>
+
+        <Link to="/calculadoras/imc" className="link-calc-section-all">
+          <div className="sectioncal calculadora-calorias-nutrientes">
+            <h1 id="hum-cal-gasto">Calculadora de IMC & Peso Ideal</h1>
+            <p>Verifique se está no peso adequado para sua altura</p>
+            <div className="icon-section correr">
+              <MdBalance id="img-calculator-icon" />
+            </div>
+          </div>
+        </Link>
+      </div>
+
       <Contato />
       <div className="form espacamento">
         <Formulario />
@@ -441,4 +447,5 @@ function Home() {
     </>
   );
 }
+
 export default Home;

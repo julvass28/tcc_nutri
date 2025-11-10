@@ -1,5 +1,7 @@
+// register.jsx
+
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../css/auth-pages.css";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -45,7 +47,6 @@ function passwordScore(pw = "") {
   if (len >= 10) score++;
   if (sets >= 2) score++;
   if (sets >= 3) score++;
-  // penaliza senhas muito comuns
   const common = ["123456", "password", "qwerty", "111111", "12345678", "abc123", "123123"];
   if (common.includes(pw.toLowerCase())) score = 0;
 
@@ -55,6 +56,9 @@ function passwordScore(pw = "") {
 function scoreLabel(score) {
   return ["Muito fraca", "Fraca", "Ok", "Forte", "Muito forte"][score];
 }
+
+// rota local da página de termos
+const TERMS_URL = "/termos-de-servico";
 
 export default function CriarConta() {
   const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -71,6 +75,8 @@ export default function CriarConta() {
     peso: "",
     objetivo: ""
   });
+
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
@@ -93,7 +99,11 @@ export default function CriarConta() {
     setFormError("");
   };
 
-  // validação completa
+  const onToggleTerms = (e) => {
+    setAcceptedTerms(e.target.checked);
+    setFieldErrors((fe) => ({ ...fe, acceptedTerms: "" }));
+  };
+
   function validateAll(data) {
     const errors = {};
     if (!data.nome.trim()) errors.nome = "Informe seu nome.";
@@ -119,7 +129,6 @@ export default function CriarConta() {
 
     if (!data.objetivo) errors.objetivo = "Selecione um objetivo.";
 
-    // senha
     const s = (data.senha || "").trim();
     if (!s) errors.senha = "Crie uma senha.";
     const req = {
@@ -129,15 +138,32 @@ export default function CriarConta() {
       num: /\d/.test(s),
       special: /[^A-Za-z0-9]/.test(s),
     };
-    // exige pelo menos 3 critérios para passar
-    const passed = [req.upper, req.lower, req.num, req.special].filter(Boolean).length >= 3 && req.len;
-    if (!passed && !errors.senha) errors.senha = "Senha fraca. Use 8+ caracteres e combine maiúsculas, minúsculas, número e símbolo.";
+    const passed =
+      [req.upper, req.lower, req.num, req.special].filter(Boolean).length >= 3 && req.len;
+    if (!passed && !errors.senha)
+      errors.senha = "Senha fraca. Use 8+ caracteres e combine maiúsculas, minúsculas, número e símbolo.";
 
     if (!data.confirmarSenha.trim()) errors.confirmarSenha = "Confirme sua senha.";
     else if (data.senha !== data.confirmarSenha) errors.confirmarSenha = "As senhas não coincidem.";
 
+    if (!acceptedTerms) errors.acceptedTerms = "É necessário aceitar os Termos de Serviço para continuar.";
+
     return errors;
   }
+
+  const ensureConsentOrFocus = () => {
+    if (acceptedTerms) return true;
+    setFieldErrors((fe) => ({ ...fe, acceptedTerms: "É necessário aceitar os Termos de Serviço para continuar." }));
+    const el = document.getElementById("acceptedTerms");
+    if (el) el.focus();
+    return false;
+  };
+
+  const handleOAuthAttempt = async (provider) => {
+    if (!ensureConsentOrFocus()) return;
+    // TODO: iniciar seu fluxo OAuth real (ex.: window.location.href = `${API}/auth/${provider}`)
+    console.log(`Iniciar OAuth: ${provider}`);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -150,10 +176,16 @@ export default function CriarConta() {
     const t0 = performance.now();
 
     try {
+      const payload = {
+        ...formData,
+        acceptedTerms: true,
+        termsVersion: "2025-11-10"
+      };
+
       const res = await fetch(`${API}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
 
@@ -161,7 +193,6 @@ export default function CriarConta() {
         setIsSubmitting(false);
         setShowOverlay(false);
         setFormError(data?.erro || data?.message || "Erro ao criar conta.");
-        // se backend retornar conflitos por campo no futuro, dá pra mapear aqui
         return;
       }
 
@@ -195,12 +226,21 @@ export default function CriarConta() {
           entre com sua conta
         </p>
 
-        <button type="button" className="criar-conta-btn criar-conta-btn-google">
+        {/* Botões sociais agora respeitam o aceite */}
+        <button
+          type="button"
+          className="criar-conta-btn criar-conta-btn-google"
+          onClick={() => handleOAuthAttempt("google")}
+        >
           <i className="fab fa-google criar-conta-icon"></i>
           Continuar com o Google
         </button>
 
-        <button type="button" className="criar-conta-btn criar-conta-btn-facebook">
+        <button
+          type="button"
+          className="criar-conta-btn criar-conta-btn-facebook"
+          onClick={() => handleOAuthAttempt("facebook")}
+        >
           <i className="fab fa-facebook-f criar-conta-icon"></i>
           Continuar com o Facebook
         </button>
@@ -211,7 +251,6 @@ export default function CriarConta() {
           <hr className="criar-conta-hr" />
         </div>
 
-        {/* modo compacto nas mensagens */}
         <form onSubmit={handleSubmit} className="criar-conta-form auth-compact" noValidate>
           <input
             name="nome" type="text" placeholder="Nome" required
@@ -254,12 +293,12 @@ export default function CriarConta() {
               onClick={() => setMostrarSenha((prev) => !prev)}
             />
           </div>
-          {/* medidor de força */}
+
+          {/* medidor */}
           <div className="pwd-meter">
             <div className={`pwd-bar s${score}`} aria-hidden="true" />
             <span className={`pwd-label s${score}`}>{label}</span>
           </div>
-          {/* checklist de requisitos */}
           <ul className="pwd-reqs">
             <li className={formData.senha.length >= 8 ? "ok" : ""}>8+ caracteres</li>
             <li className={/[A-Z]/.test(formData.senha) ? "ok" : ""}>Letra maiúscula</li>
@@ -298,7 +337,7 @@ export default function CriarConta() {
             className={`criar-conta-input ${fieldErrors.data_nascimento ? "erro-borda" : ""} ${formData.data_nascimento ? "preenchido" : ""}`}
             aria-invalid={!!fieldErrors.data_nascimento}
           />
-          {fieldErrors.data_nascimento && <p className="erro-texto">{fieldErrors.data_nascimento}</p>}
+          {fieldErrors.data_nascimento && <p className="erro-texto">{fieldErrors.data_nascimento}</p> }
 
           {/* genero */}
           <select
@@ -344,6 +383,26 @@ export default function CriarConta() {
             <option value="5">Intolerâncias Alimentares</option>
           </select>
           {fieldErrors.objetivo && <p className="erro-texto">{fieldErrors.objetivo}</p>}
+
+          {/* checkbox de Termos de Serviço (classes específicas) */}
+          <div className="register-terms-row">
+            <input
+              id="acceptedTerms"
+              type="checkbox"
+              className="register-terms-checkbox"
+              checked={acceptedTerms}
+              onChange={onToggleTerms}
+              aria-invalid={!!fieldErrors.acceptedTerms}
+              aria-describedby={fieldErrors.acceptedTerms ? "erro-termos" : undefined}
+              required
+            />
+            <label htmlFor="acceptedTerms" className="register-terms-label">
+              Li e aceito os <Link to={TERMS_URL}>Termos de Serviço</Link>.
+            </label>
+          </div>
+          {fieldErrors.acceptedTerms && (
+            <p id="erro-termos" className="erro-texto">{fieldErrors.acceptedTerms}</p>
+          )}
 
           {formError && <p className="erro-texto">{formError}</p>}
 

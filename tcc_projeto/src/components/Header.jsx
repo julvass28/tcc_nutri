@@ -282,17 +282,17 @@ function Header() {
 
       {/* Logo central + login rápido no mobile */}
       <div className="logo">
-        <Link to="/" aria-label="Página inicial">
-          <img src={logo} alt="Logo" />
-        </Link>
+  <Link to="/" aria-label="Página inicial">
+    <img src={logo} alt="Logo" />
+  </Link>
+</div>
 
-        {/* Bonequinho ao lado da logo no MOBILE quando não logado */}
-        {!user && (
-          <Link to="/login" className="quick-login" aria-label="Entrar / Criar conta">
-            <FaUser className="user user--green" />
-          </Link>
-        )}
-      </div>
+{!user && (
+  <Link to="/login" className="quick-login" aria-label="Entrar / Criar conta">
+    <FaUser className="user user--green" />
+  </Link>
+)}
+
 
       {/* Menu desktop à direita */}
       <nav className="nav-itens right">

@@ -639,3 +639,94 @@ body.login-page::before, body.register-page::before, body.forgot-password-page::
   z-index: -1;
   pointer-events: none;
 }
+
+/* ===== Termos de Serviço (cadastro) — classes específicas para evitar conflito ===== */
+.criar-conta-container .register-terms-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 10px;
+}
+
+/* Remove 100% o estilo nativo e QUALQUER pseudo-elemento que gere “✓” */
+.criar-conta-container .register-terms-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  cursor: pointer;
+
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 4px;
+
+  /* mata ícones de tema/sistema e pseudo-elements teimosos */
+  background-image: none !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  position: relative;
+
+  transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+/* assegura que nenhum “check” seja desenhado por pseudo-elementos */
+.criar-conta-container .register-terms-checkbox::before,
+.criar-conta-container .register-terms-checkbox::after {
+  content: none !important;
+}
+
+/* marcado = só preencher de rosa, sem ícone */
+.criar-conta-container .register-terms-checkbox:checked {
+  background-color: #c89b9b;
+  border-color: #c89b9b;
+}
+
+/* foco acessível */
+.criar-conta-container .register-terms-checkbox:focus-visible {
+  outline: 2px solid #9a9f85;
+  outline-offset: 2px;
+}
+
+/* estado de erro */
+.criar-conta-container .register-terms-checkbox[aria-invalid="true"] {
+  box-shadow: 0 0 0 2px rgba(200, 155, 155, 0.25);
+  border-color: #e27777;
+}
+
+/* texto sem negrito */
+.criar-conta-container .register-terms-label {
+  font-weight: 400; /* garante sem bold */
+  color: #374151;
+  line-height: 1.4;
+}
+
+.criar-conta-container .register-terms-label a {
+  color: #c89b9b;
+  text-decoration: underline;
+  font-weight: 400;
+}
+
+/* === Espaçamento consistente entre Termos e o botão "Criar" === */
+/* Define um gap padrão de bloco (igual aos inputs em auth-compact) */
+.criar-conta-container .criar-conta-form {
+  --register-block-gap: 1rem; /* 16px */
+}
+
+/* Termos logo acima do botão: sem sobra extra embaixo */
+.criar-conta-container .register-terms-row {
+  margin-bottom: 0 !important;
+}
+
+/* Mensagem de erro dos termos (quando existir) mantém o ritmo */
+.criar-conta-container #erro-termos.erro-texto {
+  margin: 6px 0 0 !important;      /* encosta no checkbox */
+}
+
+/* Botão "Criar" com o MESMO gap que os outros blocos */
+.criar-conta-container .criar-conta-form .criar-conta-submit-btn {
+  margin-top: var(--register-block-gap) !important;  /* distância acima = 1rem */
+  margin-bottom: 2rem; /* mantém o respiro padrão abaixo do botão */
+}
