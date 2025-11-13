@@ -14,9 +14,15 @@ import { AuthContext } from "../context/AuthContext";
 
 const API = import.meta.env.VITE_API_URL || "http://127.0.0.1:3001";
 
-function toISODate(d) { return format(d, "yyyy-MM-dd"); }
-function daysInMonth(year, monthIndex0) { return new Date(year, monthIndex0 + 1, 0).getDate(); }
-function formatDateLongPT(d) { return format(d, "EEEE, d 'de' MMMM 'de' yyyy", { locale: ptBR }); }
+function toISODate(d) {
+  return format(d, "yyyy-MM-dd");
+}
+function daysInMonth(year, monthIndex0) {
+  return new Date(year, monthIndex0 + 1, 0).getDate();
+}
+function formatDateLongPT(d) {
+  return format(d, "EEEE, d 'de' MMMM 'de' yyyy", { locale: ptBR });
+}
 
 const ESPECIALIDADES = [
   "Nutrição Clínica",
@@ -31,6 +37,20 @@ const PRESETS = {
   modalidade: "Online",
   politica: "Cancelamento gratuito até 24h antes.",
 };
+
+// Overlay de carregamento ao confirmar o agendamento
+function AgendaLoadingOverlay({ show, text = "Reservando horário..." }) {
+  if (!show) return null;
+
+  return (
+    <div className="agenda-loading-overlay" role="status" aria-live="polite">
+      <div className="agenda-loading-card">
+        <div className="agenda-spinner" />
+        <span>{text}</span>
+      </div>
+    </div>
+  );
+}
 
 export default function Agendar() {
   const navigate = useNavigate();
@@ -119,7 +139,10 @@ export default function Agendar() {
             const iso = toISODate(d);
             return fetch(`${API}/agenda/slots?date=${iso}`)
               .then((r) => r.json())
-              .then((data) => [iso, (data?.slots || []).some((s) => s.available)])
+              .then((data) => [
+                iso,
+                (data?.slots || []).some((s) => s.available),
+              ])
               .catch(() => [iso, false]);
           })
         );
@@ -147,11 +170,11 @@ export default function Agendar() {
     })();
   }, [date]);
 
-    async function handleConfirmar() {
+  async function handleConfirmar() {
     if (!date || !selectedTime || confirming) return;
     setErrorMsg("");
 
-    // ⚠️ se não estiver logado, manda pro login e para aqui
+    // se não estiver logado, manda pro login
     if (!token) {
       navigate("/login", {
         state: {
@@ -172,11 +195,12 @@ export default function Agendar() {
       const data = await r.json();
 
       if (!r.ok) {
-        throw new Error(data?.erro || "Não foi possível reservar este horário.");
+        throw new Error(
+          data?.erro || "Não foi possível reservar este horário."
+        );
       }
 
       const { hold_id, payment_ref, expires_at } = data;
-      // guardo tudo que vamos mostrar no sucesso
       sessionStorage.setItem("booking.hold_id", String(hold_id));
       sessionStorage.setItem("booking.payment_ref", String(payment_ref));
       sessionStorage.setItem("booking.expires_at", String(expires_at));
@@ -184,11 +208,10 @@ export default function Agendar() {
       sessionStorage.setItem("booking.time", String(selectedTime));
       sessionStorage.setItem("booking.especialidade", String(especialidade));
 
-      // 👉 nova ordem: vai pra PAGAMENTO
+      // vai pra PAGAMENTO
       navigate("/pagamento");
     } catch (err) {
       setErrorMsg(err?.message || "Não foi possível reservar este horário.");
-    } finally {
       setConfirming(false);
     }
   }
@@ -200,6 +223,9 @@ export default function Agendar() {
 
   return (
     <div className="bodyAgendamento">
+      {/* overlay de carregamento enquanto confirma */}
+      <AgendaLoadingOverlay show={confirming} />
+
       <Titulo
         texto="AGENDAMENTO"
         subtitulo="Escolha o dia e o horário que melhor se encaixam em sua agenda."
@@ -214,7 +240,9 @@ export default function Agendar() {
             {ESPECIALIDADES.map((s) => (
               <button
                 key={s}
-                className={`chip ${especialidade === s ? "chip--ativo" : ""}`}
+                className={`chip ${
+                  especialidade === s ? "chip--ativo" : ""
+                }`}
                 onClick={() => setEspecialidade(s)}
                 type="button"
               >
@@ -251,18 +279,10 @@ export default function Agendar() {
             </button>
           </div>
 
-          {/* Barra de dias */}
-          <div
-            style={{
-              width: "calc(7 * var(--cell))",
-              display: "grid",
-              gridTemplateColumns: "repeat(7, 1fr)",
-              gap: "var(--ring)",
-              marginBottom: 8,
-            }}
-          >
+          {/* Barra de dias da semana (agora com classes pra responsividade) */}
+          <div className="cal-weekdays-row">
             {["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"].map((d) => (
-              <div key={d} style={{ textAlign: "center", fontWeight: 700 }}>
+              <div key={d} className="cal-weekday-cell">
                 {d}
               </div>
             ))}
@@ -275,6 +295,7 @@ export default function Agendar() {
               onMonthChange={setMonth}
               selected={selected}
               onSelect={(day) => {
+                if (!day) return;
                 if (isBefore(startOfDay(day), todayStart)) return;
                 setSelected(day);
               }}
@@ -284,11 +305,17 @@ export default function Agendar() {
               locale={ptBR}
               weekStartsOn={1}
               showOutsideDays={false}
-              components={{ Caption: () => null, Nav: () => null, Weekdays: () => null }}
+              components={{
+                Caption: () => null,
+                Nav: () => null,
+                Weekdays: () => null,
+              }}
             />
           </div>
 
-          {loadingMes && <p className="cal-loading">Carregando disponibilidade…</p>}
+          {loadingMes && (
+            <p className="cal-loading">Carregando disponibilidade…</p>
+          )}
 
           <ul className="cal-legend">
             <li>
@@ -306,7 +333,7 @@ export default function Agendar() {
 
       {/* Slots + Resumo */}
       {date && (
-        <div style={{ marginTop: 70 }}>
+        <div style={{ marginTop: 70, width: "100%", maxWidth: 1100 }}>
           <h3>Horários em {date}</h3>
 
           {loadingSlots ? (
@@ -336,7 +363,11 @@ export default function Agendar() {
           <div className="resumo-box">
             <div className="resumo-col">
               <span>Dia</span>
-              <b>{selected ? formatDateLongPT(selected) : "— selecione um dia —"}</b>
+              <b>
+                {selected
+                  ? formatDateLongPT(selected)
+                  : "— selecione um dia —"}
+              </b>
             </div>
             <div className="resumo-col">
               <span>Hora</span>
@@ -392,7 +423,13 @@ export default function Agendar() {
           </p>
 
           {errorMsg && (
-            <p style={{ marginTop: 8, color: "#a55", textAlign: "right" }}>
+            <p
+              style={{
+                marginTop: 8,
+                color: "#a55",
+                textAlign: "right",
+              }}
+            >
               {errorMsg}
             </p>
           )}

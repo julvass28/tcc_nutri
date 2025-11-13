@@ -1,11 +1,28 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Lustria&family=Poppins:wght@300;400;500;600;700&display=swap");
 
-/* hero */
+/* CONTAINER GERAL */
+.rec-cat {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fff;
+  color: #454545;
+  font-family: "Poppins", sans-serif;
+}
+
+/* HERO */
 .rec-cat-hero {
   margin-top: 5px;
   position: relative;
   width: 100%;
 }
+
+.rec-cat-hero-img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
 .rec-cat-hero-text {
   position: absolute;
   top: 50%;
@@ -18,13 +35,16 @@
   width: 90%;
   text-align: center;
   border-top: 8px solid #e7c3bd; /* LINHA ROSA */
+  border-radius: 18px;
 }
+
 .rec-cat-hero-title {
   color: #d9a6a6;
   font-size: 20px;
   font-family: "Lustria", serif;
   margin-bottom: 12px;
 }
+
 .rec-cat-hero-subtitle {
   font-size: 20px;
   color: #7a7777;
@@ -32,33 +52,96 @@
   line-height: 1.6;
 }
 
-/* tagline + separador */
+/* BARRA DE CATEGORIAS – modelo inspirado em Dicas */
+.rec-cat-nav-wrapper {
+  width: 100%;
+  background-color: #e6e6d9;
+  box-shadow: 0 4px 4px rgba(201, 183, 169, 0.2);
+  margin-top: 24px;
+}
+
+.rec-cat-nav-scroll {
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rec-cat-nav {
+  margin: 0;
+  padding: 6px 12px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6b6b6b;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.rec-cat-nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 6px;
+  color: #6b6b6b;
+  font-family: "Lustria", serif;
+  text-decoration: none;
+}
+
+.rec-cat-nav-btn.is-active {
+  background-color: #f4efec;
+  border: 1px solid #ebd6cd;
+}
+
+.rec-cat-nav-btn:not(.is-active):hover {
+  background-color: #d9d9c6;
+  border: 1px solid #b8b8b8;
+  transition: background-color 0.5s ease;
+}
+
+/* TAGLINE + SEPARADOR */
 .rec-cat-tagline {
-  margin-top: 2vw;
+  margin-top: 32px;
   text-align: center;
   font-size: 1.2rem;
   font-family: "Lustria", serif;
   font-weight: 300;
   color: #454545;
+  padding: 0 16px;
 }
+
 .rec-cat-sep {
-  width: 700px;
+  width: min(700px, 90%);
   height: 1.5px;
   background-color: #8a8f75;
-  margin: 5vw auto 0;
+  margin: 24px auto 0;
 }
 
-/* título solto (opcional, mantido) */
-.rec-cat-sus {
-  margin-top: 45px;
+/* LISTA / WRAPPER DE CARDS */
+.rec-cat-list-wrapper {
+  max-width: 1000px;
+  margin: 40px auto 60px;
+  padding: 0 16px;
+}
+
+.rec-cat-loading {
   text-align: center;
-  font-size: 2rem;
-  font-family: "Lustria", serif;
-  font-weight: 400;
-  color: #8a8f75;
+  color: #666;
 }
 
-/* cards de receita */
+.rec-cat-empty {
+  text-align: center;
+  color: #666;
+}
+
+/* CARDS DE RECEITA */
 .rec-cat-card {
   display: flex;
   flex-direction: row;
@@ -68,13 +151,12 @@
   border: 10px solid #f3d9d4;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   padding: 40px;
-  max-width: 1000px;
-  height: 380px;
   margin: 60px auto;
   border-radius: 20px;
   gap: 40px;
   transition: transform 0.3s ease;
 }
+
 .rec-cat-card:hover {
   transform: translateY(-5px);
 }
@@ -84,6 +166,7 @@
   height: 260px;
   object-fit: cover;
   border-radius: 15px;
+  flex-shrink: 0;
 }
 
 .rec-cat-card-body {
@@ -92,12 +175,14 @@
   color: #5b5b5b;
   overflow: hidden;
 }
+
 .rec-cat-card-body h2 {
   font-family: "Lustria", serif;
   font-size: 1.5rem;
   color: #8a8f75;
   margin-bottom: 16px;
 }
+
 .rec-cat-card-body p {
   font-size: 18px;
   line-height: 1.6;
@@ -112,53 +197,122 @@
   text-decoration: underline;
   transition: color 0.3s ease;
 }
+
 .rec-cat-readmore:hover {
   color: #bcaea9;
 }
 
-/* barra de categorias (opcional, se usar noutro markup) */
-.rec-cat-bar {
-  margin: 4vw 0 0 0;
-  padding: 6px 12px;
-  width: 100%;
-  background-color: #e6e6d9;
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 400;
-  color: #6b6b6b;
-  user-select: none;
-  gap: 5rem;
-}
-.rec-cat-cat {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px 12px;
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  border-radius: 6px;
-  color: #6b6b6b;
-  font-family: "Lustria", serif;
-  text-decoration: none;
-}
-.rec-cat-cat:hover {
-  background-color: #f0f0f0;
-  border: 1px solid #b8b8b8;
-  transition: background-color 0.5s ease;
-}
-.rec-cat-cat.rec-is-selected {
-  background-color: #f4efec;
-  border: 1px solid #ebd6cd;
-}
-.rec-cat-cat svg {
-  font-size: 30px;
-}
-
-/* (antes era global) — agora escopado pra não vazar */
+/* LINKS DENTRO DE RECEITAS */
 .rec-cat a {
   text-decoration: none;
   color: inherit;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+/* Tablet / intermediário */
+@media (max-width: 900px) {
+  .rec-cat-hero-text {
+    padding: 28px 28px;
+    max-width: 600px;
+  }
+
+  .rec-cat-nav {
+    gap: 2.5rem;
+  }
+
+  .rec-cat-card {
+    padding: 28px;
+    margin: 32px auto;
+  }
+
+  .rec-cat-card-img {
+    width: 260px;
+    height: 210px;
+  }
+
+  .rec-cat-card-body p {
+    font-size: 16px;
+  }
+}
+
+/* Celular grande / médio (ex: iPhone 13) */
+@media (max-width: 768px) {
+  .rec-cat-hero-img {
+    height: 300px;
+  }
+
+  .rec-cat-hero-text {
+    padding: 20px 18px;
+  }
+
+  .rec-cat-hero-title {
+    font-size: 1.1rem;
+  }
+
+  .rec-cat-hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .rec-cat-nav {
+    justify-content: flex-start;
+  }
+
+  .rec-cat-list-wrapper {
+    margin: 32px auto 48px;
+  }
+
+  .rec-cat-card {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 22px 18px;
+    gap: 20px;
+  }
+
+  .rec-cat-card-img {
+    width: 100%;
+    max-width: 360px;
+    height: 220px;
+    margin: 0 auto;
+  }
+
+  .rec-cat-card-body h2 {
+    font-size: 1.35rem;
+  }
+
+  .rec-cat-card-body p {
+    font-size: 1rem;
+  }
+}
+
+/* Celular pequeno */
+@media (max-width: 480px) {
+  .rec-cat-hero-img {
+    height: 240px;
+  }
+
+  .rec-cat-hero-text {
+    padding: 18px 14px;
+  }
+
+  .rec-cat-hero-title {
+    font-size: 1rem;
+  }
+
+  .rec-cat-hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .rec-cat-nav {
+    gap: 1.5rem;
+  }
+
+  .rec-cat-tagline {
+    font-size: 1rem;
+  }
+
+  .rec-cat-card {
+    margin: 24px auto;
+  }
 }

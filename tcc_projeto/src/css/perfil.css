@@ -387,7 +387,8 @@ body {
   --card-border:  #d1a0a0;
   --card-shadow: 0 4px 14px rgba(0,0,0,.06);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /* minmax reduzido pra 220px pra não dar scroll horizontal em tela muito estreita */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
 }
 .perfil-view-item {
@@ -413,28 +414,58 @@ body {
   display: flex;
   justify-content: flex-end;
 }
-
-/* ====== CTA QUANDO NÃO HÁ CONSULTAS ====== */
+@media (max-width: 480px) {
+  .secao {
+    padding: 1.25rem 1rem;
+  }
+}
+/* ====== CTA QUANDO NÃO HÁ CONSULTAS / ANAMNESE PENDENTE ====== */
 .consultas-cta {
-  border: 1px dashed #c6c6c6;
+  border: 1px dashed #d1a0a0;
   border-radius: 12px;
   padding: 1.1rem 1.2rem;
-  background: #faf8f7;
+  background: #fff7fb;
   text-align: center;
 }
+
 .consultas-cta-badge {
-  display: inline-block; background: #fff; color: #826a6a;
-  border: 1px solid #eadfdf; padding: .3rem .6rem; border-radius: 999px;
-  font-size: .85rem; margin-bottom: .5rem;
+  display: inline-block;
+  background: #f4efec;
+  color: #7a554f;
+  border: 1px solid rgba(209, 160, 160, 0.9);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
 }
-.consultas-cta-text { color: #4a4a4a; margin: .2rem auto 1rem; max-width: 46ch; }
+
+.consultas-cta-text {
+  color: #4a4a4a;
+  margin: 0.2rem auto 1rem;
+  max-width: 46ch;
+}
+
 .consultas-cta-btn {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: .6rem 1rem; border-radius: .6rem; background: #c89b9b; color: #fff;
-  text-decoration: none; font-weight: 600; box-shadow: 0 6px 14px rgba(0,0,0,.12);
-  transition: transform .1s ease, box-shadow .2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.1rem;
+  border-radius: 0.7rem;
+  background: #d1a0a0;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.15s ease, filter 0.15s ease;
 }
-.consultas-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(0,0,0,.16); }
+
+.consultas-cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.16);
+  filter: brightness(1.03);
+}
 
 /* ====== PÁGINA DE EDIÇÃO ====== */
 .perfil-editar .secao { margin-top: 1rem; }

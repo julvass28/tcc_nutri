@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "../../css/ReceitasClinicas.css";
 import comidaImg from "../../assets/comida.jpeg";
+
 const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 const TITULOS = {
@@ -32,11 +33,7 @@ export default function RecipesCategory() {
     <div className="rec-cat">
       {/* BANNER/TEXTO */}
       <div className="rec-cat-hero">
-        <img
-          src={comidaImg}
-          alt=""
-          style={{ width: "100%", height: "420px", objectFit: "cover" }}
-        />
+        <img src={comidaImg} alt="" className="rec-cat-hero-img" />
         <div className="rec-cat-hero-text">
           <h2 className="rec-cat-hero-title">
             {TITULOS[categoria] || "Receitas"}
@@ -47,60 +44,67 @@ export default function RecipesCategory() {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: 10,
-          justifyContent: "center",
-          flexWrap: "wrap",
-          margin: "20px 0",
-        }}
-      >
-        <Link to="/receitas/categoria/clinica" className="rec-cat-btn">
-          Clínica
-        </Link>
-        <Link to="/receitas/categoria/pediatrica" className="rec-cat-btn">
-          Pediátrica
-        </Link>
-        <Link to="/receitas/categoria/esportiva" className="rec-cat-btn">
-          Esportiva
-        </Link>
-        <Link to="/receitas/categoria/emagrecimento" className="rec-cat-btn">
-          Emagrecimento
-        </Link>
-        <Link to="/receitas/categoria/intolerancias" className="rec-cat-btn">
-          Intolerâncias
-        </Link>
+      {/* BARRA DE CATEGORIAS – modelo inspirado em Dicas */}
+      <div className="rec-cat-nav-wrapper">
+        <div className="rec-cat-nav-scroll">
+          <nav
+            className="rec-cat-nav"
+            aria-label="Categorias de receitas"
+          >
+            <Link
+              to="/receitas/categoria/clinica"
+              className={`rec-cat-nav-btn ${
+                categoria === "clinica" ? "is-active" : ""
+              }`}
+            >
+              Clínica
+            </Link>
+            <Link
+              to="/receitas/categoria/pediatrica"
+              className={`rec-cat-nav-btn ${
+                categoria === "pediatrica" ? "is-active" : ""
+              }`}
+            >
+              Pediátrica
+            </Link>
+            <Link
+              to="/receitas/categoria/esportiva"
+              className={`rec-cat-nav-btn ${
+                categoria === "esportiva" ? "is-active" : ""
+              }`}
+            >
+              Esportiva
+            </Link>
+            <Link
+              to="/receitas/categoria/emagrecimento"
+              className={`rec-cat-nav-btn ${
+                categoria === "emagrecimento" ? "is-active" : ""
+              }`}
+            >
+              Emagrecimento
+            </Link>
+            <Link
+              to="/receitas/categoria/intolerancias"
+              className={`rec-cat-nav-btn ${
+                categoria === "intolerancias" ? "is-active" : ""
+              }`}
+            >
+              Intolerâncias
+            </Link>
+          </nav>
+        </div>
       </div>
-
-      <style>{`
-        .rec-cat-btn {
-          background:#fff;
-          border:1px solid var(--border);
-          padding:8px 14px;
-          border-radius:8px;
-          text-decoration:none;
-          color:#444;
-          font-weight:600;
-          transition:.2s;
-        }
-        .rec-cat-btn:hover {
-          background:#D1A0A0;
-          color:#fff;
-          border-color:#D1A0A0;
-        }
-      `}</style>
 
       <p className="rec-cat-tagline">
         Sugestões selecionadas pela nutricionista
       </p>
       <div className="rec-cat-sep" />
 
-      <div style={{ maxWidth: 1000, margin: "40px auto" }}>
+      <div className="rec-cat-list-wrapper">
         {loading ? (
-          <p>Carregando…</p>
+          <p className="rec-cat-loading">Carregando…</p>
         ) : items.length === 0 ? (
-          <p style={{ textAlign: "center", color: "#666" }}>
+          <p className="rec-cat-empty">
             Nenhuma receita nesta categoria.
           </p>
         ) : (
@@ -114,7 +118,10 @@ export default function RecipesCategory() {
               <div className="rec-cat-card-body">
                 <h2>{r.titulo}</h2>
                 <p>{r.resumo || "—"}</p>
-                <Link className="rec-cat-readmore" to={`/receitas/${r.slug}`}>
+                <Link
+                  className="rec-cat-readmore"
+                  to={`/receitas/${r.slug}`}
+                >
                   Ler mais
                 </Link>
               </div>

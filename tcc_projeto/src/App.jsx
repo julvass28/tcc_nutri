@@ -82,6 +82,12 @@ export default function App() {
           "/DicaNutri-Shopping",
           "/DicaNutri-Bar",
           "/DicaNutri-Viagem",
+          "/receitas/categoria/clinica",
+          "/receitas/categoria/pediatrica",
+          "/receitas/categoria/esportiva",
+          "/receitas/categoria/emagrecimento",
+          "/receitas/categoria/intolerancias"
+          
         ]}
       />
 

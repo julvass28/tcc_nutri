@@ -1,0 +1,374 @@
+/* src/css/pagamento.css */
+
+.pay-flow-shell {
+  min-height: 80vh;
+  background: #f4efec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.pay-flow-card {
+  background: #ffffff;
+  border-radius: 18px;
+  max-width: 640px;
+  width: 100%;
+  padding: 28px 26px 30px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.pay-flow-title {
+  font-size: 1.65rem;
+  color: #8a8f75;
+  margin-bottom: 6px;
+}
+
+.pay-flow-sub {
+  color: #6a6a6a;
+  font-size: 0.95rem;
+  margin-bottom: 18px;
+}
+
+/* ====== RESUMO DA CONSULTA ====== */
+
+.pay-flow-summary {
+  background: #f9f6f3;
+  border: 1px solid rgba(138, 143, 117, 0.22);
+  border-radius: 14px;
+  padding: 14px 16px 8px;
+  margin-bottom: 18px;
+}
+
+.pay-flow-summary-header {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #624848;
+  margin-bottom: 8px;
+}
+
+.pay-flow-summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pay-flow-summary-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pay-flow-summary-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pay-flow-check-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #d1a0a0, #8a8f75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.pay-flow-summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pay-flow-label {
+  font-size: 0.82rem;
+  color: #777;
+}
+
+.pay-flow-value {
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 600;
+}
+
+/* ====== ETAPAS ====== */
+
+.pay-flow-steps {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 0.86rem;
+}
+
+.pay-flow-step {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(209, 160, 160, 0.5);
+  background: #faf5f4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pay-flow-step-number {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: #d1a0a0;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.pay-flow-step-title {
+  font-weight: 600;
+  color: #5c534f;
+}
+
+.pay-flow-step--done {
+  border-color: rgba(138, 143, 117, 0.6);
+  background: #f0f3ec;
+}
+
+.pay-flow-step--current {
+  border-color: rgba(209, 160, 160, 0.9);
+  background: #f9ece8;
+}
+
+/* ====== AÇÕES PRINCIPAIS / PIX ====== */
+
+.pay-flow-actions {
+  text-align: center;
+}
+
+.pay-flow-hint {
+  color: #6a6a6a;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.pay-flow-btn {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 16px;
+  background: #d1a0a0;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.pay-flow-btn:hover:not(:disabled) {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.pay-flow-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* QR CODE */
+
+.pay-flow-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.pay-flow-qr img {
+  width: 210px;
+  max-width: 70vw;
+  height: auto;
+}
+
+.pay-flow-pix-code {
+  font-size: 0.88rem;
+  color: #555;
+  word-break: break-all;
+  background: #f9f6f3;
+  border-radius: 10px;
+  padding: 10px 12px;
+  width: 100%;
+  text-align: left;
+}
+
+.pay-flow-copy-label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.pay-flow-message {
+  margin-top: 16px;
+  text-align: center;
+  color: #8a8f75;
+  font-size: 0.9rem;
+}
+
+/* ====== OVERLAY SPINNER (PIX) ====== */
+
+.pay-flow-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.pay-flow-overlay-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px 22px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+}
+
+.pay-flow-spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 4px solid #f4efec;
+  border-top-color: #d1a0a0;
+  border-right-color: #8a8f75;
+  animation: pay-flow-spin 0.9s linear infinite;
+}
+
+@keyframes pay-flow-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pay-flow-overlay-card span {
+  font-size: 0.96rem;
+  color: #555;
+  font-weight: 500;
+}
+
+/* ====== MODAL DE REVISÃO ====== */
+
+.pay-flow-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.38);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.pay-flow-modal {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 22px 22px 18px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  animation: pay-flow-modal-in 0.25s ease-out;
+}
+
+@keyframes pay-flow-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.pay-flow-modal-header {
+  margin-bottom: 10px;
+}
+
+.pay-flow-modal-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #5c534f;
+  margin-bottom: 4px;
+}
+
+.pay-flow-modal-sub {
+  font-size: 0.86rem;
+  color: #777;
+}
+
+.pay-flow-modal-body {
+  margin-top: 8px;
+}
+
+.pay-flow-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.pay-flow-modal-btn-secondary,
+.pay-flow-modal-btn-primary {
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.pay-flow-modal-btn-secondary {
+  background: #f4efec;
+  color: #5c534f;
+}
+
+.pay-flow-modal-btn-primary {
+  background: #8a8f75;
+  color: #ffffff;
+}
+
+.pay-flow-modal-btn-secondary:hover {
+  filter: brightness(1.02);
+}
+
+.pay-flow-modal-btn-primary:hover {
+  filter: brightness(1.03);
+}
+
+/* ====== RESPONSIVO ====== */
+
+@media (max-width: 540px) {
+  .pay-flow-card {
+    padding: 22px 18px 24px;
+  }
+
+  .pay-flow-summary-item {
+    align-items: flex-start;
+  }
+}
