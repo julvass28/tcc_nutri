@@ -1,11 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import "../../css/adm_configuracoes.css";
+import { AuthContext } from "../../context/AuthContext";
 
-/**
- * Helpers de API (placeholder) — prontos para receber backend
- * Ajuste os endpoints e headers conforme seu servidor.
- */
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 async function apiGetCurrentAdmin(authToken) {
@@ -30,8 +32,9 @@ async function apiUpdateProfile(authToken, payload) {
     credentials: "include",
     body: JSON.stringify(payload),
   });
-  if (!res.ok) throw new Error((await res.json())?.message || "Falha ao salvar alterações");
-  return res.json();
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.erro || data?.message || "Falha ao salvar alterações");
+  return data;
 }
 
 async function apiUpdatePassword(authToken, payload) {
@@ -44,8 +47,37 @@ async function apiUpdatePassword(authToken, payload) {
     credentials: "include",
     body: JSON.stringify(payload),
   });
-  if (!res.ok) throw new Error((await res.json())?.message || "Falha ao atualizar senha");
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.erro || data?.message || "Falha ao atualizar senha");
+  return data;
+}
+
+// NOVO: contato público (ConfigSistema)
+async function apiGetContactConfig(authToken) {
+  const res = await fetch(`${API_BASE}/admin/config/contato`, {
+    headers: {
+      "Content-Type": "application/json",
+      ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+    },
+    credentials: "include",
+  });
+  if (!res.ok) throw new Error("Falha ao carregar contato");
   return res.json();
+}
+
+async function apiUpdateContactConfig(authToken, payload) {
+  const res = await fetch(`${API_BASE}/admin/config/contato`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+    },
+    credentials: "include",
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data?.erro || "Falha ao atualizar contato");
+  return data;
 }
 
 /**
@@ -64,7 +96,9 @@ function ASCP_EditField({
 }) {
   return (
     <div className="ascp-field">
-      <label className="ascp-label" htmlFor={id}>{label}</label>
+      <label className="ascp-label" htmlFor={id}>
+        {label}
+      </label>
       <div className="ascp-input-wrap">
         <input
           id={id}
@@ -92,32 +126,27 @@ function ASCP_EditField({
 }
 
 export default function AdminAccountSettingsPage() {
-  // Token de auth – ajuste conforme sua estratégia (contexto, cookie, etc.)
-  const authToken = useMemo(() => localStorage.getItem("authToken"), []);
+  const { token } = useContext(AuthContext);
+  const authToken = token;
 
-  // Estado do perfil
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
 
-  // Flags de edição
   const [editNome, setEditNome] = useState(false);
   const [editEmail, setEditEmail] = useState(false);
   const [editTelefone, setEditTelefone] = useState(false);
 
-  // Senhas
   const [senhaAtual, setSenhaAtual] = useState("");
   const [novaSenha, setNovaSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
 
-  // UI state
   const [loadingPerfil, setLoadingPerfil] = useState(true);
   const [salvandoPerfil, setSalvandoPerfil] = useState(false);
   const [atualizandoSenha, setAtualizandoSenha] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
   const [toastType, setToastType] = useState("success"); // success | error
 
-  // Refs p/ focar inputs ao clicar no lápis
   const nomeRef = useRef(null);
   const emailRef = useRef(null);
   const telefoneRef = useRef(null);
@@ -127,32 +156,62 @@ export default function AdminAccountSettingsPage() {
     setTimeout(() => ref.current?.focus(), 0);
   };
 
-  // Carrega dados do admin logado ao montar
+  // carrega dados da admin + contato público
   useEffect(() => {
     let mounted = true;
     (async () => {
       try {
         const me = await apiGetCurrentAdmin(authToken);
+        let contact = null;
+        try {
+          contact = await apiGetContactConfig(authToken);
+        } catch {
+          // se não tiver config de contato ainda, ignora
+        }
+
         if (!mounted) return;
-        setNome(me?.name || "");
-        setEmail(me?.email || "");
-        setTelefone(me?.phone || "");
+
+        setNome(me?.nome || me?.name || "");
+        setEmail(contact?.email ?? me?.email ?? "");
+        setTelefone(
+          contact?.telefone ||
+            contact?.whatsapp ||
+            me?.telefone ||
+            me?.phone ||
+            ""
+        );
       } catch (e) {
+        if (!mounted) return;
         setToastType("error");
         setToastMsg(e.message || "Não foi possível carregar os dados.");
       } finally {
         if (mounted) setLoadingPerfil(false);
       }
     })();
-    return () => { mounted = false; };
+
+    return () => {
+      mounted = false;
+    };
   }, [authToken]);
 
-  // Handler de salvar perfil
   const handleSubmitPerfil = async (e) => {
     e?.preventDefault?.();
     setSalvandoPerfil(true);
     try {
-      await apiUpdateProfile(authToken, { name: nome, email, phone: telefone });
+      // 1) atualiza dados da conta (login)
+      await apiUpdateProfile(authToken, {
+        nome,
+        email,
+        telefone,
+      });
+
+      // 2) atualiza contato público do site (ConfigSistema)
+      await apiUpdateContactConfig(authToken, {
+        email,
+        telefone,
+        whatsapp: telefone,
+      });
+
       setToastType("success");
       setToastMsg("Alterações salvas com sucesso!");
       setEditNome(false);
@@ -167,7 +226,6 @@ export default function AdminAccountSettingsPage() {
     }
   };
 
-  // Handler de troca de senha
   const handleSubmitSenha = async (e) => {
     e.preventDefault();
     if (!senhaAtual || !novaSenha || !confirmarSenha) {
@@ -202,7 +260,6 @@ export default function AdminAccountSettingsPage() {
     }
   };
 
-  // Config dos campos
   const fields = [
     {
       id: "ascp-nome",
@@ -219,7 +276,7 @@ export default function AdminAccountSettingsPage() {
       id: "ascp-email",
       label: "Email",
       type: "email",
-      placeholder: "Email",
+      placeholder: "Email de contato / login",
       value: email,
       onChange: (e) => setEmail(e.target.value),
       readOnly: !editEmail,
@@ -228,9 +285,9 @@ export default function AdminAccountSettingsPage() {
     },
     {
       id: "ascp-telefone",
-      label: "Telefone",
+      label: "Telefone / WhatsApp",
       type: "tel",
-      placeholder: "Telefone",
+      placeholder: "Telefone / WhatsApp para contato",
       value: telefone,
       onChange: (e) => setTelefone(e.target.value),
       readOnly: !editTelefone,
@@ -250,7 +307,9 @@ export default function AdminAccountSettingsPage() {
           >
             <i
               className={`fa-solid ${
-                toastType === "success" ? "fa-check-circle" : "fa-triangle-exclamation"
+                toastType === "success"
+                  ? "fa-check-circle"
+                  : "fa-triangle-exclamation"
               }`}
               aria-hidden="true"
             />
@@ -258,7 +317,7 @@ export default function AdminAccountSettingsPage() {
           </div>
         ) : null}
 
-        {/* ===== Informações da Conta ===== */}
+        {/* ===== Informações da Conta + Contato Público ===== */}
         <section className="ascp-card">
           <h2 className="ascp-card__title">Informações da Conta</h2>
 
@@ -274,14 +333,20 @@ export default function AdminAccountSettingsPage() {
         </section>
 
         {/* ===== Segurança da Conta ===== */}
-        <form id="ascp-form-seguranca" className="ascp-card" onSubmit={handleSubmitSenha}>
+        <form
+          id="ascp-form-seguranca"
+          className="ascp-card"
+          onSubmit={handleSubmitSenha}
+        >
           <h2 className="ascp-card__title">Segurança da Conta</h2>
           <p className="ascp-card__subtitle">
             Para alterar sua senha, preencha todos os campos abaixo.
           </p>
 
           <div className="ascp-field">
-            <label className="ascp-label" htmlFor="ascp-senha-atual">Senha Atual</label>
+            <label className="ascp-label" htmlFor="ascp-senha-atual">
+              Senha Atual
+            </label>
             <input
               id="ascp-senha-atual"
               type="password"
@@ -293,7 +358,9 @@ export default function AdminAccountSettingsPage() {
           </div>
 
           <div className="ascp-field">
-            <label className="ascp-label" htmlFor="ascp-nova-senha">Nova Senha</label>
+            <label className="ascp-label" htmlFor="ascp-nova-senha">
+              Nova Senha
+            </label>
             <input
               id="ascp-nova-senha"
               type="password"
@@ -305,7 +372,9 @@ export default function AdminAccountSettingsPage() {
           </div>
 
           <div className="ascp-field">
-            <label className="ascp-label" htmlFor="ascp-confirmar-senha">Confirmar Nova Senha</label>
+            <label className="ascp-label" htmlFor="ascp-confirmar-senha">
+              Confirmar Nova Senha
+            </label>
             <input
               id="ascp-confirmar-senha"
               type="password"
@@ -317,10 +386,9 @@ export default function AdminAccountSettingsPage() {
           </div>
 
           <div className="ascp-actions">
-            {/* mantém navegação para /esqueci-senha e informa origem (ADMIN) */}
             <Link
               to="/esqueci-senha"
-              state={{ from: "/admin/configuracoes" }}   // <-- atualizado aqui
+              state={{ from: "/admin/configuracoes" }}
               className="ascp-link"
             >
               Esqueci a senha
@@ -328,7 +396,7 @@ export default function AdminAccountSettingsPage() {
           </div>
         </form>
 
-        {/* ===== Botão principal: salva PERFIL (nome/email/telefone) ===== */}
+        {/* ===== Botão principal: salva perfil + contato ===== */}
         <div className="ascp-footer-actions">
           <button
             type="button"

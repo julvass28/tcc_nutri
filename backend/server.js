@@ -8,31 +8,33 @@ const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const receitaRoutes = require("./routes/receitaRoutes");
 const adminRecipeRoutes = require("./routes/adminRecipeRoutes");
-const faqRoutes = require("./routes/faqRoutes");           // ← NOVO (público)
+const faqRoutes = require("./routes/faqRoutes");           // ← público
 const adminConfigRoutes = require("./routes/adminConfigRoutes");
 const adminAgendaRoutes = require("./routes/adminAgendaRoutes");
-const adminFaqRoutes = require("./routes/adminFaqRoutes"); // ← NOVO (admin)
+const adminFaqRoutes = require("./routes/adminFaqRoutes"); // ← admin
 const anamneseRoutes = require("./routes/anamneseRoutes");
+const publicContactRoutes = require("./routes/publicContactRoutes"); // ← NOVO
 const sequelize = require("./config/db");
 require("./models/Usuario");
-require("./models/Faq"); // ← NOVO
+require("./models/Faq");
 require("./models/AgendaConfig");
 require("./models/Agendamentos");
 require("./models/ReservaTemp");
 require("./models/Bloqueio");
 require("./models/ConfigSistema");
+require("./models/Anamnese");
 const app = express();
 app.set("trust proxy", 1);
 
 const FRONTEND_URL = (
   process.env.FRONTEND_URL || "https://tcc-nutri.vercel.app"
 ).replace(/\/$/, "");
+
 const allowedOrigins = [
   FRONTEND_URL,
   "http://localhost:5173",
   "http://127.0.0.1:5173",
 ];
-
 
 app.use(
   cors({
@@ -46,7 +48,7 @@ app.use(
   })
 );
 
-// ⚠️ Estes middlewares tinham sumido
+// middlewares
 app.use(express.json());
 app.use(
   helmet({
@@ -54,32 +56,35 @@ app.use(
   })
 );
 
-
-// Rotas
-const agendaRoutes = require('./routes/agendaRoutes');
-app.use('/agenda', agendaRoutes);
+const agendaRoutes = require("./routes/agendaRoutes");
+app.use("/agenda", agendaRoutes);
 
 app.use(compression());
+
+// rotas de admin/config + agenda + contato público
 app.use("/admin/config", adminConfigRoutes);
 app.use("/admin/agenda", adminAgendaRoutes);
-const paymentsRoutes = require('./routes/paymentsRoutes');
+app.use("/config", publicContactRoutes); // ← NOVO: /config/contact-info
+
+const paymentsRoutes = require("./routes/paymentsRoutes");
 app.use(paymentsRoutes);
 
 app.use("/pacientes", anamneseRoutes);
 const configRoutes = require("./routes/configRoutes");
 app.use("/", configRoutes);
-// servir uploads estáticos
+
+// uploads estáticos
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // healthcheck
 app.get("/health", (_req, res) => res.status(200).json({ ok: true }));
 
-// rotas
+// rotas principais
 app.use(authRoutes); // /login, /register, /me ...
 app.use(receitaRoutes); // público: /receitas, /receitas/:slug
 app.use("/admin", adminRoutes); // /admin/users ...
-app.use("/admin/receitas", adminRecipeRoutes); // CRUD receitas admin (pt-BR)
-app.use(faqRoutes);                 // público: /faq
+app.use("/admin/receitas", adminRecipeRoutes); // CRUD receitas admin
+app.use(faqRoutes); // público: /faq
 app.use("/admin/faq", adminFaqRoutes); // admin: /admin/faq/*
 
 const port = process.env.PORT || 3001;
@@ -89,7 +94,6 @@ const port = process.env.PORT || 3001;
     await sequelize.authenticate();
     console.log("✅ Conexão com DB OK");
 
-    // Habilite { alter: true } só temporariamente para criar a coluna isAdmin
     const ALTER = process.env.DB_SYNC_ALTER === "1";
     await sequelize.sync({ alter: ALTER });
 

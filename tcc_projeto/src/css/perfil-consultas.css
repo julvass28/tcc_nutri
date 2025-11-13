@@ -61,6 +61,54 @@
   text-decoration: none;
   font-size: 0.85rem;
 }
+/* Botões extras dentro dos cards de consulta */
+.perfil-consulta-actions {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.perfil-consulta-btn-sec,
+.perfil-consulta-btn-whatsapp {
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  border: 1px solid #d1a0a0;
+  background: #ffffff;
+  color: #7a554f;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.perfil-consulta-btn-sec:hover,
+.perfil-consulta-btn-whatsapp:hover {
+  background: #f4efec;
+}
+
+.perfil-consulta-btn-whatsapp {
+  border-color: #25d366;
+  color: #116b35;
+}
+
+.perfil-consulta-btn-whatsapp i {
+  font-size: 1rem;
+}
+
+.perfil-consulta-extra {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #faf7f5;
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+
 
 @media (max-width: 540px) {
   .perfil-consulta-head {

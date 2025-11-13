@@ -147,13 +147,18 @@ export default function Agendar() {
     })();
   }, [date]);
 
-  async function handleConfirmar() {
+    async function handleConfirmar() {
     if (!date || !selectedTime || confirming) return;
     setErrorMsg("");
 
     // ⚠️ se não estiver logado, manda pro login e para aqui
     if (!token) {
-      navigate("/login", { state: { from: "/agendar" } });
+      navigate("/login", {
+        state: {
+          from: "/agendar",
+          loginMessage: "Faça o login para continuar o agendamento.",
+        },
+      });
       return;
     }
 

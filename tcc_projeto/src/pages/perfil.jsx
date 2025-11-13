@@ -32,10 +32,42 @@ function LoadingOverlay({ show, text = "Carregando..." }) {
   );
 }
 
+// normaliza um agendamento vindo do backend para o formato usado no front
+function normalizarAgendamento(ag) {
+  if (!ag) return null;
+
+  const inicio = ag.inicio || ag.dataHora || ag.data;
+  let date = "";
+  let time = "";
+
+  if (inicio) {
+    const d = new Date(inicio);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    const hh = String(d.getHours()).padStart(2, "0");
+    const mi = String(d.getMinutes()).padStart(2, "0");
+    date = `${yyyy}-${mm}-${dd}`;
+    time = `${hh}:${mi}`;
+  }
+
+  return {
+    date,
+    time,
+    especialidade: ag.especialidade || "Nutrição",
+    payment_ref: ag.payment_ref || ag.id || null,
+    anamneseRespondida:
+      ag.anamneseRespondida === true || ag.anamneseRespondida === 1,
+  };
+}
+
 export default function Perfil() {
   const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
   const { token, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  // link do WhatsApp da nutri (defina em VITE_WHATSAPP_NUTRI no .env do front)
+  const WHATSAPP_NUTRI_LINK = import.meta.env.VITE_WHATSAPP_NUTRI || null;
 
   const [anamnesePendente, setAnamnesePendente] = useState(null);
 
@@ -64,11 +96,16 @@ export default function Perfil() {
   // lista de consultas 👇
   const [consultas, setConsultas] = useState([]);
 
+  // controla qual consulta está com o texto "Como será a consulta?" aberto
+  const [consultaInfoAbertaId, setConsultaInfoAbertaId] = useState(null);
+
   useEffect(() => {
     if (!token) {
       navigate("/login");
       return;
     }
+
+    // carrega dados do usuário
     (async () => {
       try {
         const res = await fetch(`${API}/me`, {
@@ -96,7 +133,7 @@ export default function Perfil() {
       }
     })();
 
-    // pega a última
+    // pega a última consulta salva em sessionStorage (cache)
     try {
       const raw = sessionStorage.getItem("booking.last");
       if (raw) {
@@ -107,18 +144,20 @@ export default function Perfil() {
       // ignore
     }
 
-    // pega a lista
+    // pega a lista de consultas salva em sessionStorage (cache)
     try {
       const listRaw = sessionStorage.getItem("booking.list");
       if (listRaw) {
         const list = JSON.parse(listRaw);
-        setConsultas(list);
+        if (Array.isArray(list)) {
+          setConsultas(list);
+        }
       }
     } catch {
       setConsultas([]);
     }
 
-    // pega anamnese pendente
+    // pega anamnese pendente (se tiver) do sessionStorage
     try {
       const pendRaw = sessionStorage.getItem("anamnese.pendente");
       if (pendRaw) {
@@ -127,6 +166,38 @@ export default function Perfil() {
     } catch {
       setAnamnesePendente(null);
     }
+
+    // 🔥 BUSCA REAL NO BACKEND: /agenda/minhas
+    (async () => {
+      try {
+        const res = await fetch(`${API}/agenda/minhas`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) {
+          // se não existir ainda o endpoint, só loga e mantém o comportamento antigo
+          console.warn("Falha ao carregar /agenda/minhas");
+          return;
+        }
+        const data = await res.json();
+        if (!Array.isArray(data)) return;
+
+        const normalizadas = data
+          .map((ag) => normalizarAgendamento(ag))
+          .filter(Boolean);
+
+        setConsultas(normalizadas);
+
+        // atualiza o cache local, pra manter compat com fluxo antigo
+        sessionStorage.setItem("booking.list", JSON.stringify(normalizadas));
+        if (normalizadas.length > 0) {
+          const last = normalizadas[normalizadas.length - 1];
+          setConsulta(last);
+          sessionStorage.setItem("booking.last", JSON.stringify(last));
+        }
+      } catch (e) {
+        console.error("Erro ao carregar consultas do backend:", e);
+      }
+    })();
   }, [API, token, navigate]);
 
   // Upload da foto...
@@ -156,9 +227,7 @@ export default function Perfil() {
       setDados((prev) => ({ ...prev, foto: data.fotoUrl }));
       setFotoPreview(data.fotoUrl);
       setFotoOk(true);
-      setUser?.((prev) =>
-        prev ? { ...prev, fotoUrl: data.fotoUrl } : prev
-      );
+      setUser?.((prev) => (prev ? { ...prev, fotoUrl: data.fotoUrl } : prev));
 
       await sleep(700);
       setShowOverlay(false);
@@ -188,6 +257,9 @@ export default function Perfil() {
     return `${d}/${m}/${y}`;
   };
 
+  const consultaUnicaId = consulta?.payment_ref || "consulta-unica";
+  const consultaUnicaInfoAberta = consultaInfoAbertaId === consultaUnicaId;
+
   return (
     <div className="perfil-container">
       <Toast show={showToast}>Foto atualizada com sucesso!</Toast>
@@ -208,7 +280,10 @@ export default function Perfil() {
                   className="foto-placeholder"
                   aria-label="Sem foto de perfil"
                 >
-                  <FaUser className="foto-placeholder-icon" aria-hidden="true" />
+                  <FaUser
+                    className="foto-placeholder-icon"
+                    aria-hidden="true"
+                  />
                 </div>
               )}
 
@@ -243,9 +318,7 @@ export default function Perfil() {
           </div>
           <div className="perfil-view-item">
             <span className="perfil-view-label">E-mail</span>
-            <span className="perfil-view-value mono">
-              {dados.email || "—"}
-            </span>
+            <span className="perfil-view-value mono">{dados.email || "—"}</span>
           </div>
           <div className="perfil-view-item">
             <span className="perfil-view-label">Data de nascimento</span>
@@ -283,7 +356,8 @@ export default function Perfil() {
             onClick={handleGoEdit}
             aria-label="Editar perfil"
           >
-            <i className="fas fa-pen" style={{ marginRight: 8 }} /> Editar perfil
+            <i className="fas fa-pen" style={{ marginRight: 8 }} /> Editar
+            perfil
           </button>
         </div>
 
@@ -330,9 +404,13 @@ export default function Perfil() {
 
         {consultas && consultas.length > 0 ? (
           consultas.map((c, idx) => {
-            const anamneseOk = c.anamneseRespondida === true;
+            const anamneseOk =
+              c.anamneseRespondida === true || c.anamneseRespondida === 1;
+            const cardId = c.payment_ref || `consulta-${idx}`;
+            const infoAberta = consultaInfoAbertaId === cardId;
+
             return (
-              <div key={c.payment_ref || idx} className="perfil-consulta-card">
+              <div key={cardId} className="perfil-consulta-card">
                 <div className="perfil-consulta-head">
                   <span className="badge-ok">Agendada</span>
                   <span className="perfil-consulta-date">
@@ -347,6 +425,56 @@ export default function Perfil() {
                     <b>Código do agendamento:</b> {c.payment_ref || "—"}
                   </p>
                 </div>
+
+                {/* Botões: explicação da consulta + WhatsApp */}
+                <div className="perfil-consulta-actions">
+                  <button
+                    type="button"
+                    className="perfil-consulta-btn-sec"
+                    onClick={() =>
+                      setConsultaInfoAbertaId(infoAberta ? null : cardId)
+                    }
+                  >
+                    <i
+                      className="fas fa-info-circle"
+                      style={{ marginRight: 6 }}
+                    />
+                    Como será a consulta?
+                  </button>
+
+                  {WHATSAPP_NUTRI_LINK && (
+                    <a
+                      href={WHATSAPP_NUTRI_LINK}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="perfil-consulta-btn-whatsapp"
+                    >
+                      <i
+                        className="fab fa-whatsapp"
+                        style={{ marginRight: 6 }}
+                      />
+                      Falar com a nutricionista
+                    </a>
+                  )}
+                </div>
+
+                {infoAberta && (
+                  <div className="perfil-consulta-extra">
+                    <p>
+                      A consulta será realizada{" "}
+                      <strong>online, via Google Meet</strong>. Cerca de{" "}
+                      <strong>10 minutos antes</strong> do horário marcado, a
+                      nutricionista entrará em contato pelo{" "}
+                      <strong>telefone informado na sua anamnese</strong> e pelo{" "}
+                      <strong>seu e-mail</strong>, enviando o link da reunião.
+                    </p>
+                    <p>
+                      No horário combinado, acesse o link em um local calmo, com
+                      boa internet. Tenha em mãos exames, lista de medicamentos
+                      (se houver) e suas principais dúvidas.
+                    </p>
+                  </div>
+                )}
 
                 {!anamneseOk ? (
                   <div className="perfil-consulta-alert">
@@ -372,16 +500,14 @@ export default function Perfil() {
                     </button>
                   </div>
                 ) : (
-                  <p className="perfil-consulta-ok">
-                    ✅ Anamnese respondida
-                  </p>
+                  <p className="perfil-consulta-ok">✅ Anamnese respondida</p>
                 )}
               </div>
             );
           })
         ) : temConsultaUnica ? (
           // fallback pra quem só tem o booking.last
-          <div className="perfil-consulta-card">
+          <div className="perfil-consulta-card" key={consultaUnicaId}>
             <div className="perfil-consulta-head">
               <span className="badge-ok">Agendada</span>
               <span className="perfil-consulta-date">
@@ -396,6 +522,51 @@ export default function Perfil() {
                 <b>Código do agendamento:</b> {consulta.payment_ref || "—"}
               </p>
             </div>
+
+            <div className="perfil-consulta-actions">
+              <button
+                type="button"
+                className="perfil-consulta-btn-sec"
+                onClick={() =>
+                  setConsultaInfoAbertaId(
+                    consultaUnicaInfoAberta ? null : consultaUnicaId
+                  )
+                }
+              >
+                <i className="fas fa-info-circle" style={{ marginRight: 6 }} />
+                Como será a consulta?
+              </button>
+
+              {WHATSAPP_NUTRI_LINK && (
+                <a
+                  href={WHATSAPP_NUTRI_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="perfil-consulta-btn-whatsapp"
+                >
+                  <i className="fab fa-whatsapp" style={{ marginRight: 6 }} />
+                  Falar com a nutricionista
+                </a>
+              )}
+            </div>
+
+            {consultaUnicaInfoAberta && (
+              <div className="perfil-consulta-extra">
+                <p>
+                  A consulta será realizada{" "}
+                  <strong>online, via Google Meet</strong>. Cerca de{" "}
+                  <strong>10 minutos antes</strong> do horário marcado, a
+                  nutricionista entrará em contato pelo{" "}
+                  <strong>telefone informado na sua anamnese</strong> e pelo{" "}
+                  <strong>seu e-mail</strong>, enviando o link da reunião.
+                </p>
+                <p>
+                  No horário combinado, acesse o link em um local calmo, com boa
+                  internet. Tenha em mãos exames, lista de medicamentos (se
+                  houver) e suas principais dúvidas.
+                </p>
+              </div>
+            )}
 
             {!consulta.anamneseRespondida ? (
               <div className="perfil-consulta-alert">

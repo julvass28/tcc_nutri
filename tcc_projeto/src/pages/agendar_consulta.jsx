@@ -31,7 +31,12 @@ export default function Agendamento() {
 
   const handleContinuar = () => {
     if (!token) {
-      navigate("/login", { state: { from: "/agendar" } });
+      navigate("/login", {
+        state: {
+          from: "/agendar",
+          loginMessage: "Faça o login para continuar o agendamento.",
+        },
+      });
       return;
     }
     navigate("/agendar");
@@ -53,9 +58,8 @@ export default function Agendamento() {
               Como funciona o <span>agendamento</span>
             </h2>
             <p>
-              Você pode agendar consultas online com pagamento por cartão de
-              crédito ou Pix. Os valores e condições são transparentes e
-              informados antes da confirmação.
+              Você pode agendar consultas online com pagamento por Pix.
+              Os valores e condições são transparentes e informados antes da confirmação.
             </p>
 
             <div className="agc-hero-actions">
