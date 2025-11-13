@@ -38,7 +38,7 @@ import Pagamento from "./pages/Pagamento";
 import PagamentoSucesso from "./pages/PagamentoSucesso";
 import PagamentoErro from "./pages/PagamentoErro";
 import PagamentoPendente from "./pages/PagamentoPendente";
-
+import Agendar from "./pages/Agenda";
 // Receitas (novas)
 import RecipesAdmin from "./pages/admin/RecipesAdmin";
 import RecipeForm from "./pages/admin/RecipeForm";
@@ -106,7 +106,7 @@ export default function App() {
           <Route path="/sobre" element={<Sobre />} />
           <Route path="/contato" element={<FAQContato />} />
           <Route path="/agendar-consulta" element={<AgendarConsulta />} />
-          
+          <Route path="/agendar" element={<Agendar />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<CriarConta />} />
           <Route path="/esqueci-senha" element={<ForgotPassword />} />

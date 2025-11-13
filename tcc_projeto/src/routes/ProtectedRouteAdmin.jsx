@@ -7,7 +7,11 @@ export default function ProtectedRouteAdmin({ children }) {
 
   if (!token) return <Navigate to="/login" replace />;
   if (!user) return <div style={{ padding: 24 }}>Carregando…</div>;
-  if (!user.isAdmin) return <Navigate to="/login" replace />;
+
+  // libera se for admin OU owner
+  if (!user.isAdmin && !user.isOwner) {
+    return <Navigate to="/login" replace />;
+  }
 
   return children;
 }

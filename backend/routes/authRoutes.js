@@ -36,7 +36,8 @@ router.get("/me", authMiddleware, async (req, res) => {
     const OWNER_ID = process.env.OWNER_ID ? Number(process.env.OWNER_ID) : null;
     const isOwner =
       (OWNER_ID && Number(usuario.id) === OWNER_ID) ||
-      (OWNER_EMAIL && String(usuario.email || "").toLowerCase() === OWNER_EMAIL);
+      (OWNER_EMAIL &&
+        String(usuario.email || "").toLowerCase() === OWNER_EMAIL);
 
     const json = usuario.toJSON();
     json.isOwner = !!isOwner;
@@ -44,6 +45,64 @@ router.get("/me", authMiddleware, async (req, res) => {
     res.json(json);
   } catch (err) {
     res.status(500).json({ erro: "Erro ao buscar usuário" });
+  }
+});
+
+/**
+ * PUT /account
+ * Atualiza dados básicos da conta do usuário logado (usado no painel admin).
+ * Ex: nome, sobrenome, email de acesso.
+ */
+router.put("/account", authMiddleware, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { nome, sobrenome, email } = req.body || {};
+
+    const usuario = await Usuario.findByPk(userId);
+    if (!usuario) {
+      return res.status(404).json({ erro: "Usuário não encontrado" });
+    }
+
+    // Atualiza nome / sobrenome apenas se foram enviados
+    if (typeof nome !== "undefined") {
+      usuario.nome = nome;
+    }
+    if (typeof sobrenome !== "undefined") {
+      usuario.sobrenome = sobrenome;
+    }
+
+    // Se o front permitir trocar o e-mail de login:
+    if (typeof email !== "undefined" && email !== usuario.email) {
+      // garante que não exista outro usuário com o mesmo e-mail
+      const existe = await Usuario.findOne({ where: { email } });
+      if (existe && existe.id !== usuario.id) {
+        return res.status(400).json({ erro: "E-mail já está em uso." });
+      }
+      usuario.email = email;
+    }
+
+    await usuario.save();
+
+    // recalcula isOwner, igual ao /me
+    const OWNER_EMAIL = (process.env.OWNER_EMAIL || "").trim().toLowerCase();
+    const OWNER_ID = process.env.OWNER_ID ? Number(process.env.OWNER_ID) : null;
+    const isOwner =
+      (OWNER_ID && Number(usuario.id) === OWNER_ID) ||
+      (OWNER_EMAIL &&
+        String(usuario.email || "").toLowerCase() === OWNER_EMAIL);
+
+    return res.json({
+      id: usuario.id,
+      nome: usuario.nome,
+      sobrenome: usuario.sobrenome,
+      email: usuario.email,
+      fotoUrl: usuario.fotoUrl,
+      isAdmin: !!usuario.isAdmin,
+      isOwner: !!isOwner,
+    });
+  } catch (err) {
+    console.error("Erro em PUT /account:", err);
+    return res.status(500).json({ erro: "Erro ao atualizar conta." });
   }
 });
 

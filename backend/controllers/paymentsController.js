@@ -3,16 +3,13 @@ const { Op } = require("sequelize");
 const ReservaTemp = require("../models/ReservaTemp");
 const Agendamentos = require("../models/Agendamentos");
 const sequelize = require("../config/db");
+const Usuario = require("../models/Usuario");
+const { sendConsultaConfirmadaEmail } = require("../services/emailService");
 
 const API_MP = "https://api.mercadopago.com";
 const ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN;
-const FRONT_URL = (process.env.FRONTEND_URL || "http://localhost:5173").replace(
-  /\/$/,
-  ""
-);
-const PUBLIC_BASE_URL = (
-  process.env.PUBLIC_BASE_URL || "http://localhost:3001"
-).replace(/\/$/, "");
+const FRONT_URL = (process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, "");
+const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || "http://localhost:3001").replace(/\/$/, "");
 
 // ================= PIX =================
 async function gerarPix(req, res) {
@@ -75,48 +72,7 @@ async function gerarPix(req, res) {
   }
 }
 
-// ================= CARTÃO (mock por enquanto) =================
-async function pagarCartao(req, res) {
-  try {
-    const { payment_ref, card } = req.body;
-
-    if (!payment_ref || !card) {
-      return res
-        .status(400)
-        .json({ erro: "payment_ref e dados do cartão são obrigatórios" });
-    }
-
-    const hold = await ReservaTemp.findOne({
-      where: {
-        payment_ref,
-        expires_at: { [Op.gt]: new Date() },
-      },
-    });
-
-    if (!hold) {
-      return res
-        .status(404)
-        .json({ erro: "Reserva temporária não encontrada ou expirada." });
-    }
-
-    console.log("=== PSEUDO PAGAMENTO CARTÃO ===");
-    console.log("payment_ref:", payment_ref);
-    console.log("card:", card);
-
-    return res.json({
-      ok: true,
-      status: "approved",
-      msg: "Pagamento via cartão processado (mock).",
-    });
-  } catch (e) {
-    console.error("pagarCartao ERRO:", e.message);
-    return res
-      .status(500)
-      .json({ erro: "Falha ao processar pagamento via cartão" });
-  }
-}
-
-// ================= WEBHOOK =================
+// ================= WEBHOOK (serve tanto pra PIX quanto pra outros métodos, se usados) =================
 async function webhook(req, res) {
   try {
     const { type, data } = req.body || {};
@@ -153,8 +109,10 @@ async function webhook(req, res) {
         return res.sendStatus(200);
       }
 
+      let novoAgendamento = null;
+
       await sequelize.transaction(async (t) => {
-        await Agendamentos.create(
+        novoAgendamento = await Agendamentos.create(
           {
             usuario_id: hold.usuario_id,
             inicio: hold.inicio,
@@ -170,6 +128,22 @@ async function webhook(req, res) {
           transaction: t,
         });
       });
+
+      // tenta enviar e-mail de confirmação (não bloqueia o webhook)
+      try {
+        const usuario = await Usuario.findByPk(hold.usuario_id);
+        if (usuario && usuario.email && novoAgendamento) {
+          await sendConsultaConfirmadaEmail({
+            usuario,
+            agendamento: novoAgendamento,
+          });
+        }
+      } catch (errMail) {
+        console.error(
+          "Erro ao enviar e-mail de confirmação (webhook PIX):",
+          errMail.message || errMail
+        );
+      }
     }
 
     return res.sendStatus(200);
@@ -207,7 +181,6 @@ async function verificarStatusPix(req, res) {
 
     // 2. se já tá aprovado, agora sim a gente CONFIRMA a consulta no banco
     if (status === "approved") {
-      // pega a reserva temporária desse horário
       const hold = await ReservaTemp.findOne({
         where: {
           payment_ref: payment_ref,
@@ -222,9 +195,10 @@ async function verificarStatusPix(req, res) {
         });
 
         if (!existente) {
-          // cria agendamento definitivo e remove a reserva temporária
+          let agendamentoCriado = null;
+
           await sequelize.transaction(async (t) => {
-            await Agendamentos.create(
+            agendamentoCriado = await Agendamentos.create(
               {
                 usuario_id: hold.usuario_id,
                 inicio: hold.inicio,
@@ -240,6 +214,22 @@ async function verificarStatusPix(req, res) {
               transaction: t,
             });
           });
+
+          // e-mail de confirmação (não bloqueia resposta)
+          try {
+            const usuario = await Usuario.findByPk(hold.usuario_id);
+            if (usuario && usuario.email && agendamentoCriado) {
+              await sendConsultaConfirmadaEmail({
+                usuario,
+                agendamento: agendamentoCriado,
+              });
+            }
+          } catch (errMail) {
+            console.error(
+              "Erro ao enviar e-mail de confirmação (status PIX):",
+              errMail.message || errMail
+            );
+          }
         }
       }
     }
@@ -256,11 +246,9 @@ async function verificarStatusPix(req, res) {
   }
 }
 
-
-// EXPORTA TUDO JUNTO AQUI 👇
+// EXPORTA SÓ O QUE IMPORTA PRO PIX 👇
 module.exports = {
   gerarPix,
-  pagarCartao,
   webhook,
   verificarStatusPix,
 };

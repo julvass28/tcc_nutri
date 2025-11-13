@@ -1,0 +1,118 @@
+/* src/css/perfil-consultas.css */
+.perfil-consulta-card {
+  background: #fff;
+  border: 1px solid rgba(138, 143, 117, 0.1);
+  border-radius: 14px;
+  padding: 18px 16px 16px;
+  margin-top: 12px;
+  box-shadow: 0 16px 25px rgba(0, 0, 0, 0.03);
+}
+
+.perfil-consulta-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.badge-ok {
+  background: rgba(138, 143, 117, 0.12);
+  color: #5f644e;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.perfil-consulta-date {
+  font-weight: 600;
+  color: #505050;
+  font-size: 0.85rem;
+}
+
+.perfil-consulta-body p {
+  margin: 2px 0;
+  color: #505050;
+  font-size: 0.9rem;
+}
+
+.perfil-consulta-alert {
+  background: rgba(209, 160, 160, 0.15);
+  border: 1px solid rgba(209, 160, 160, 0.4);
+  border-radius: 12px;
+  padding: 10px 12px 12px;
+  margin-top: 12px;
+}
+
+.perfil-consulta-alert p {
+  margin-bottom: 8px;
+  color: #6e4d4d;
+  font-size: 0.85rem;
+}
+
+.perfil-consulta-btn {
+  display: inline-block;
+  background: #d1a0a0;
+  color: #fff;
+  padding: 6px 12px 7px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+/* Botões extras dentro dos cards de consulta */
+.perfil-consulta-actions {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.perfil-consulta-btn-sec,
+.perfil-consulta-btn-whatsapp {
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  border: 1px solid #d1a0a0;
+  background: #ffffff;
+  color: #7a554f;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.perfil-consulta-btn-sec:hover,
+.perfil-consulta-btn-whatsapp:hover {
+  background: #f4efec;
+}
+
+.perfil-consulta-btn-whatsapp {
+  border-color: #25d366;
+  color: #116b35;
+}
+
+.perfil-consulta-btn-whatsapp i {
+  font-size: 1rem;
+}
+
+.perfil-consulta-extra {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #faf7f5;
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+
+
+@media (max-width: 540px) {
+  .perfil-consulta-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -35,6 +35,9 @@ export default function Login(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const from = location.state?.from;
+  const loginPrompt = location.state?.loginMessage;
+
   useEffect(() => {
     if (!props._inlineFromHome) {
       document.body.classList.add("login-page");
@@ -85,7 +88,7 @@ export default function Login(props) {
     setOverlayText("Abrindo criação de conta...");
     setShowOverlay(true);
     await sleep(900);
-    navigate("/cadastro");
+    navigate("/cadastro", { state: { from } });
   };
 
   const handleSubmit = async (e) => {
@@ -139,6 +142,8 @@ export default function Login(props) {
 
       if (data?.usuario?.isAdmin) {
         navigate("/admin");
+      } else if (from) {
+        navigate(from);
       } else {
         navigate("/");
       }
@@ -220,6 +225,13 @@ export default function Login(props) {
               Você saiu com segurança. <b>Faça login</b> para continuar
               acompanhando suas consultas.
             </span>
+          </div>
+        )}
+
+        {(loginPrompt || from === "/agendar") && (
+          <div className="logout-banner" role="status" aria-live="polite">
+            <i className="fas fa-calendar-check" aria-hidden="true" />
+            <span>Faça o login para continuar o agendamento da sua consulta.</span>
           </div>
         )}
 

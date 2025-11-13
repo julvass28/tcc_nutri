@@ -1,7 +1,7 @@
 // register.jsx
 
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import "../css/auth-pages.css";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -86,6 +86,8 @@ export default function CriarConta() {
   const [formError, setFormError] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from;
 
   useEffect(() => {
     document.body.classList.add("register-page");
@@ -198,7 +200,7 @@ export default function CriarConta() {
 
       const left = Math.max(0, 900 - (performance.now() - t0));
       if (left) await sleep(left);
-      navigate("/login");
+      navigate("/login", { state: { from } });
     } catch (err) {
       setIsSubmitting(false);
       setShowOverlay(false);
@@ -210,7 +212,7 @@ export default function CriarConta() {
     if (isSubmitting) return;
     setShowOverlay(true);
     await sleep(800);
-    navigate("/login");
+    navigate("/login", { state: { from } });
   };
 
   const score = passwordScore(formData.senha);

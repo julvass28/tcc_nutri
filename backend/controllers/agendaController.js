@@ -6,6 +6,8 @@ const sequelize = require('../config/db');
 const AgendaConfig = require('../models/AgendaConfig');
 const Agendamentos = require('../models/Agendamentos');
 const ReservaTemp = require('../models/ReservaTemp');
+const Usuario = require("../models/Usuario");
+const { sendConsultaConfirmadaEmail } = require("../services/emailService");
 
 const {
   getDow,
@@ -186,7 +188,7 @@ async function confirmarPagamento(req, res) {
     });
     if (agendamentoExistente) {
       await ReservaTemp.destroy({ where: { payment_ref } });
-      return res.status(200).json({ msg: 'Pagamento já confirmado.', agendamento: agendamentoExistente })
+      return res.status(200).json({ msg: 'Pagamento já confirmado.', agendamento: agendamentoExistente });
     }
 
     const hold = await ReservaTemp.findOne({
@@ -208,6 +210,22 @@ async function confirmarPagamento(req, res) {
 
       await ReservaTemp.destroy({ where: { id: hold.id }, transaction: t });
     });
+
+    // e-mail de confirmação de consulta
+    try {
+      const usuario = await Usuario.findByPk(hold.usuario_id);
+      if (usuario && usuario.email && agendamentoCriado) {
+        await sendConsultaConfirmadaEmail({
+          usuario,
+          agendamento: agendamentoCriado,
+        });
+      }
+    } catch (errMail) {
+      console.error(
+        "Erro ao enviar e-mail de confirmação (confirmarPagamento):",
+        errMail.message || errMail
+      );
+    }
 
     return res.status(201).json({
       msg: 'Agendamento confirmado.',

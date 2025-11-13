@@ -13,6 +13,7 @@ import { HiOutlineEnvelope } from "react-icons/hi2";
 import Botao from "./botao/Botao";
 import logo from "../assets/img_png/Logo.png";
 import { AuthContext } from "../context/AuthContext";
+import { API } from "../services/api";
 
 function Header() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -20,6 +21,10 @@ function Header() {
   const [openPerfilMenu, setOpenPerfilMenu] = useState(false);
   const [fotoOkDesk, setFotoOkDesk] = useState(true);
   const [fotoOkMob, setFotoOkMob] = useState(true);
+
+  const [contactPhone, setContactPhone] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [whatsAppLink, setWhatsAppLink] = useState(null);
 
   const perfilRef = useRef(null);
   const { user, logout } = useContext(AuthContext);
@@ -75,55 +80,129 @@ function Header() {
     setOpenDropdown(null);
   };
 
+  // NOVO: buscar contato público para telefone/WhatsApp/e-mail
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      try {
+        const res = await fetch(`${API}/config/contact-info`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!isMounted) return;
+
+        const tel = data.whatsapp || data.telefone || "";
+        setContactPhone(tel);
+        setContactEmail(data.email || "");
+
+        if (tel) {
+          const digits = String(tel).replace(/\D/g, "");
+          if (digits) {
+            let withCountry = digits;
+            if (digits.length === 11) {
+              withCountry = `55${digits}`;
+            }
+            setWhatsAppLink(`https://wa.me/${withCountry}`);
+          }
+        }
+      } catch {
+        if (!isMounted) return;
+        setContactPhone("");
+        setContactEmail("");
+        setWhatsAppLink(null);
+      }
+    })();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <header className="menu">
       {/* Hamburguer */}
-      <button className="btn-mobile" onClick={() => setOpenMenu(!openMenu)} aria-label="Abrir menu">
+      <button
+        className="btn-mobile"
+        onClick={() => setOpenMenu(!openMenu)}
+        aria-label="Abrir menu"
+      >
         <FaBars />
       </button>
 
-     {/* Ícones à esquerda (desktop) */}
-<div className="icons">
-  {/* Email */}
-  <Link to="/contato" className="icon-link uniform-icon">
-    <HiOutlineEnvelope className="icon" />
-  </Link>
+      {/* Ícones à esquerda (desktop) */}
+      <div className="icons">
+        {/* Email → vai pra página de contato */}
+        <Link to="/contato" className="icon-link uniform-icon">
+          <HiOutlineEnvelope className="icon" />
+        </Link>
 
-  {/* WhatsApp */}
-  <button type="button" className="icon-link uniform-icon no-bg">
-    <FaWhatsapp className="icon" />
-  </button>
+        {/* WhatsApp → usa número configurado, se existir */}
+        {whatsAppLink ? (
+          <a
+            href={whatsAppLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="icon-link uniform-icon no-bg"
+            aria-label="Falar com a nutricionista pelo WhatsApp"
+          >
+            <FaWhatsapp className="icon" />
+          </a>
+        ) : (
+          <button
+            type="button"
+            className="icon-link uniform-icon no-bg"
+            aria-label="WhatsApp"
+          >
+            <FaWhatsapp className="icon" />
+          </button>
+        )}
 
-  {/* Instagram */}
-  <a
-    href="https://www.instagram.com/neven.dev/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="icon-link uniform-icon"
-  >
-    <FaInstagram className="icon" />
-  </a>
-</div>
-
+        {/* Instagram */}
+        <a
+          href="https://www.instagram.com/neven.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="icon-link uniform-icon"
+        >
+          <FaInstagram className="icon" />
+        </a>
+      </div>
 
       {/* MENU LATERAL (mobile) */}
-      <nav className={`nav-itens left ${openMenu ? "open" : ""}`} aria-hidden={!openMenu}>
-        <button className="btn-mobile" onClick={() => setOpenMenu(false)} aria-label="Fechar menu">
+      <nav
+        className={`nav-itens left ${openMenu ? "open" : ""}`}
+        aria-hidden={!openMenu}
+      >
+        <button
+          className="btn-mobile"
+          onClick={() => setOpenMenu(false)}
+          aria-label="Fechar menu"
+        >
           <FaXmark className="xis" />
         </button>
 
         <ul>
+          {/* ... (resto dos dropdowns de serviços/blog/calculadoras igual) */}
+
+          {/* Serviços */}
           <li className="dropdown nav-section">
             <span
-              className={`nav-text ${openDropdown === "servicos" ? "ativo" : ""}`}
+              className={`nav-text ${
+                openDropdown === "servicos" ? "ativo" : ""
+              }`}
               onClick={() => toggleDropdown("servicos")}
             >
               Serviços{" "}
               <FaChevronDown
-                className={`seta ${openDropdown === "servicos" ? "rotated" : ""}`}
+                className={`seta ${
+                  openDropdown === "servicos" ? "rotated" : ""
+                }`}
               />
             </span>
-            <ul className={`dropdown-menu ${openDropdown === "servicos" ? "show" : ""}`}>
+            <ul
+              className={`dropdown-menu ${
+                openDropdown === "servicos" ? "show" : ""
+              }`}
+            >
               <li>
                 <Link to="/especialidade/esportiva" onClick={closePanel}>
                   Nutrição Esportiva
@@ -152,6 +231,7 @@ function Header() {
             </ul>
           </li>
 
+          {/* Blog */}
           <li className="dropdown nav-section">
             <span
               className={`nav-text ${openDropdown === "blog" ? "ativo" : ""}`}
@@ -159,10 +239,16 @@ function Header() {
             >
               Blog{" "}
               <FaChevronDown
-                className={`seta ${openDropdown === "blog" ? "rotated" : ""}`}
+                className={`seta ${
+                  openDropdown === "blog" ? "rotated" : ""
+                }`}
               />
             </span>
-            <ul className={`dropdown-menu ${openDropdown === "blog" ? "show" : ""}`}>
+            <ul
+              className={`dropdown-menu ${
+                openDropdown === "blog" ? "show" : ""
+              }`}
+            >
               <li>
                 <Link to="/DicaNutri-Praia" onClick={closePanel}>
                   Dicas Alimentares
@@ -176,19 +262,31 @@ function Header() {
             </ul>
           </li>
 
+          {/* Calculadoras */}
           <li className="dropdown nav-section">
             <span
-              className={`nav-text ${openDropdown === "calculadoras" ? "ativo" : ""}`}
+              className={`nav-text ${
+                openDropdown === "calculadoras" ? "ativo" : ""
+              }`}
               onClick={() => toggleDropdown("calculadoras")}
             >
               Calculadoras{" "}
               <FaChevronDown
-                className={`seta ${openDropdown === "calculadoras" ? "rotated" : ""}`}
+                className={`seta ${
+                  openDropdown === "calculadoras" ? "rotated" : ""
+                }`}
               />
             </span>
-            <ul className={`dropdown-menu ${openDropdown === "calculadoras" ? "show" : ""}`}>
+            <ul
+              className={`dropdown-menu ${
+                openDropdown === "calculadoras" ? "show" : ""
+              }`}
+            >
               <li>
-                <Link to="/calculadoras/gasto-calorico" onClick={closePanel}>
+                <Link
+                  to="/calculadoras/gasto-calorico"
+                  onClick={closePanel}
+                >
                   Gastos Calóricos
                 </Link>
               </li>
@@ -221,23 +319,42 @@ function Header() {
             </ul>
 
             <div className="infos-mobile">
-              <p className="tel">(11) 94030-2492</p>
-              <p className="email">dranatalia@simanovski.com</p>
+              <p className="tel">
+                {contactPhone || "(11) 94030-2492"}
+              </p>
+              <p className="email">
+                {contactEmail || "contato@nataliasimanoviski.com"}
+              </p>
             </div>
 
-            <Botao to="/agendar-consulta" className="botao-header" onClick={closePanel}>
+            <Botao
+              to="/agendar-consulta"
+              className="botao-header"
+              onClick={closePanel}
+            >
               Agendar Consulta
             </Botao>
 
             <div className="mobile-icons">
               <HiOutlineEnvelope className="icon-mobile" />
-              <FaWhatsapp className="icon-mobile" />
+              {whatsAppLink ? (
+                <a
+                  href={whatsAppLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Falar com a nutricionista pelo WhatsApp"
+                >
+                  <FaWhatsapp className="icon-mobile" />
+                </a>
+              ) : (
+                <FaWhatsapp className="icon-mobile" />
+              )}
               <FaInstagram className="icon-mobile" />
             </div>
           </div>
         </ul>
 
-        {/* BLOCO PERFIL — aparece SÓ dentro do menu lateral e no final do painel */}
+        {/* BLOCO PERFIL — mobile */}
         {user && (
           <div className="perfil-mobile-bloco">
             <div className="perfil-mobile-header">
@@ -256,11 +373,13 @@ function Header() {
               </span>
             </div>
             <ul className="perfil-mobile-menu">
-              <li>
-                <Link to="/perfil" onClick={closePanel}>
-                  Meu Perfil
-                </Link>
-              </li>
+              {!user?.isOwner && (
+                <li>
+                  <Link to="/perfil" onClick={closePanel}>
+                    Meu Perfil
+                  </Link>
+                </li>
+              )}
 
               {user?.isAdmin && (
                 <li>
@@ -271,7 +390,10 @@ function Header() {
               )}
 
               <li>
-                <button onClick={handleLogoutAndGoLogin} className="logout-btn">
+                <button
+                  onClick={handleLogoutAndGoLogin}
+                  className="logout-btn"
+                >
                   Sair
                 </button>
               </li>
@@ -293,6 +415,16 @@ function Header() {
   </Link>
 )}
 
+        {!user && (
+          <Link
+            to="/login"
+            className="quick-login"
+            aria-label="Entrar / Criar conta"
+          >
+            <FaUser className="user user--green" />
+          </Link>
+        )}
+    
 
       {/* Menu desktop à direita */}
       <nav className="nav-itens right">
@@ -315,7 +447,7 @@ function Header() {
         </ul>
       </nav>
 
-      {/* PERFIL - DESKTOP (dropdown por clique) */}
+      {/* PERFIL - DESKTOP */}
       <div className="perfil-desktop" ref={perfilRef}>
         {user?.nome ? (
           <div className="perfil-dropdown">
@@ -344,15 +476,17 @@ function Header() {
 
             {openPerfilMenu && (
               <ul className="perfil-dropdown-menu" role="menu">
-                <li role="none">
-                  <Link
-                    role="menuitem"
-                    to="/perfil"
-                    onClick={() => setOpenPerfilMenu(false)}
-                  >
-                    Meu Perfil
-                  </Link>
-                </li>
+                {!user?.isOwner && (
+                  <li role="none">
+                    <Link
+                      role="menuitem"
+                      to="/perfil"
+                      onClick={() => setOpenPerfilMenu(false)}
+                    >
+                      Meu Perfil
+                    </Link>
+                  </li>
+                )}
 
                 {user?.isAdmin && (
                   <li role="none">
@@ -379,7 +513,6 @@ function Header() {
             )}
           </div>
         ) : (
-          // No desktop já existe o atalho de login no canto direito
           <Link to="/login" aria-label="Entrar / Criar conta">
             <FaUser title="Fazer login" className="user user--green" />
           </Link>

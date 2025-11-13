@@ -2,9 +2,11 @@
 const express = require("express");
 const router = express.Router();
 const { Op } = require("sequelize");
-const Agendamento = require("../models/Agendamentos");
+
+const Agendamentos = require("../models/Agendamentos");
 const ReservaTemp = require("../models/ReservaTemp");
 const Bloqueio = require("../models/Bloqueio");
+const Anamnese = require("../models/Anamnese"); // 👈 NOVO
 const auth = require("../middleware/auth");
 
 // ===== Config =====
@@ -31,34 +33,53 @@ function dayWindows(dateISO) {
 }
 
 // helpers
-function toDate(dateStr, hhmm) { return new Date(`${dateStr}T${hhmm}:00`); }
-function addMinutes(d, mins) { return new Date(d.getTime() + mins * 60000); }
-function overlaps(aStart, aEnd, bStart, bEnd) { return aStart < bEnd && bStart < aEnd; }
+function toDate(dateStr, hhmm) {
+  return new Date(`${dateStr}T${hhmm}:00`);
+}
+function addMinutes(d, mins) {
+  return new Date(d.getTime() + mins * 60000);
+}
+function overlaps(aStart, aEnd, bStart, bEnd) {
+  return aStart < bEnd && bStart < aEnd;
+}
 function isoDate(d) {
   const y = d.getFullYear();
   const m = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");
   return `${y}-${m}-${dd}`;
 }
-function hhmm(d) { return d.toTimeString().slice(0, 5); }
+function hhmm(d) {
+  return d.toTimeString().slice(0, 5);
+}
 
 // === núcleo que calcula os slots (grade 30, ocupação 60) ===
 async function buildSlotsForDate(dateISO) {
   const dayStart = new Date(`${dateISO}T00:00:00`);
-  const dayEnd   = new Date(`${dateISO}T23:59:59`);
+  const dayEnd = new Date(`${dateISO}T23:59:59`);
   const now = new Date();
 
   const [agends, holds, blocks] = await Promise.all([
-    Agendamento.findAll({
-      where: { inicio: { [Op.lte]: dayEnd }, fim: { [Op.gte]: dayStart }, status: { [Op.ne]: "cancelada" } },
+    Agendamentos.findAll({
+      where: {
+        inicio: { [Op.lte]: dayEnd },
+        fim: { [Op.gte]: dayStart },
+        status: { [Op.ne]: "cancelada" },
+      },
       raw: true,
     }),
     ReservaTemp.findAll({
-      where: { inicio: { [Op.lte]: dayEnd }, fim: { [Op.gte]: dayStart }, expires_at: { [Op.gt]: new Date() } },
+      where: {
+        inicio: { [Op.lte]: dayEnd },
+        fim: { [Op.gte]: dayStart },
+        expires_at: { [Op.gt]: new Date() },
+      },
       raw: true,
     }),
     Bloqueio.findAll({
-      where: { inicio: { [Op.lte]: dayEnd }, fim: { [Op.gte]: dayStart } },
+      where: {
+        inicio: { [Op.lte]: dayEnd },
+        fim: { [Op.gte]: dayStart },
+      },
       raw: true,
     }),
   ]);
@@ -68,23 +89,37 @@ async function buildSlotsForDate(dateISO) {
 
   for (const w of windows) {
     const wStart = toDate(dateISO, w.start);
-    const wEnd   = toDate(dateISO, w.end);
+    const wEnd = toDate(dateISO, w.end);
 
     // cada “ponto” de 30 min só é válido se a janela de 60 min couber no expediente
-    for (let t = new Date(wStart); addMinutes(t, APPT_MINUTES) <= wEnd; t = addMinutes(t, SLOT_MINUTES)) {
+    for (
+      let t = new Date(wStart);
+      addMinutes(t, APPT_MINUTES) <= wEnd;
+      t = addMinutes(t, SLOT_MINUTES)
+    ) {
       const start = new Date(t);
-      const end   = addMinutes(start, APPT_MINUTES);
+      const end = addMinutes(start, APPT_MINUTES);
 
       // impede horários passados (no próprio dia)
       const past = end <= now;
 
-      const hitAg   = agends.some(a => overlaps(start, end, new Date(a.inicio), new Date(a.fim)));
-      const hitHold = holds .some(h => overlaps(start, end, new Date(h.inicio), new Date(h.fim)));
-      const hitBloq = blocks.some(b => overlaps(start, end, new Date(b.inicio), new Date(b.fim)));
+      const hitAg = agends.some((a) =>
+        overlaps(start, end, new Date(a.inicio), new Date(a.fim))
+      );
+      const hitHold = holds.some((h) =>
+        overlaps(start, end, new Date(h.inicio), new Date(h.fim))
+      );
+      const hitBloq = blocks.some((b) =>
+        overlaps(start, end, new Date(b.inicio), new Date(b.fim))
+      );
 
-      slots.push({ time: hhmm(start), available: !(past || hitAg || hitHold || hitBloq) });
+      slots.push({
+        time: hhmm(start),
+        available: !(past || hitAg || hitHold || hitBloq),
+      });
     }
   }
+
   return slots;
 }
 
@@ -108,41 +143,69 @@ router.get("/slots", async (req, res) => {
 router.post("/hold", auth, async (req, res) => {
   try {
     const { date, time } = req.body || {};
-    if (!date || !time) return res.status(400).json({ erro: "date e time são obrigatórios." });
+    if (!date || !time) {
+      return res.status(400).json({ erro: "date e time são obrigatórios." });
+    }
 
     const inicio = toDate(date, time);
-    const fim    = addMinutes(inicio, HOLD_MINUTES);
+    const fim = addMinutes(inicio, HOLD_MINUTES);
 
     // valida expediente
-    const fitsWindow = dayWindows(date).some(w => {
+    const fitsWindow = dayWindows(date).some((w) => {
       const wStart = toDate(date, w.start);
-      const wEnd   = toDate(date, w.end);
+      const wEnd = toDate(date, w.end);
       return inicio >= wStart && fim <= wEnd;
     });
-    if (!fitsWindow) return res.status(400).json({ erro: "Horário fora do expediente." });
+    if (!fitsWindow) {
+      return res.status(400).json({ erro: "Horário fora do expediente." });
+    }
 
     // impede passado
-    if (fim <= new Date()) return res.status(400).json({ erro: "Horário no passado." });
+    if (fim <= new Date()) {
+      return res.status(400).json({ erro: "Horário no passado." });
+    }
 
     // conflito?
     const [agends, holds, blocks] = await Promise.all([
-      Agendamento.findAll({
-        where: { inicio: { [Op.lte]: fim }, fim: { [Op.gte]: inicio }, status: { [Op.ne]: "cancelada" } },
+      Agendamentos.findAll({
+        where: {
+          inicio: { [Op.lte]: fim },
+          fim: { [Op.gte]: inicio },
+          status: { [Op.ne]: "cancelada" },
+        },
         raw: true,
       }),
       ReservaTemp.findAll({
-        where: { inicio: { [Op.lte]: fim }, fim: { [Op.gte]: inicio }, expires_at: { [Op.gt]: new Date() } },
+        where: {
+          inicio: { [Op.lte]: fim },
+          fim: { [Op.gte]: inicio },
+          expires_at: { [Op.gt]: new Date() },
+        },
         raw: true,
       }),
-      Bloqueio.findAll({ where: { inicio: { [Op.lte]: fim }, fim: { [Op.gte]: inicio } }, raw: true }),
+      Bloqueio.findAll({
+        where: {
+          inicio: { [Op.lte]: fim },
+          fim: { [Op.gte]: inicio },
+        },
+        raw: true,
+      }),
     ]);
 
     const conflitou =
-      agends.some(a => overlaps(inicio, fim, new Date(a.inicio), new Date(a.fim))) ||
-      holds .some(h => overlaps(inicio, fim, new Date(h.inicio), new Date(h.fim))) ||
-      blocks.some(b => overlaps(inicio, fim, new Date(b.inicio), new Date(b.fim)));
+      agends.some((a) =>
+        overlaps(inicio, fim, new Date(a.inicio), new Date(a.fim))
+      ) ||
+      holds.some((h) =>
+        overlaps(inicio, fim, new Date(h.inicio), new Date(h.fim))
+      ) ||
+      blocks.some((b) =>
+        overlaps(inicio, fim, new Date(b.inicio), new Date(b.fim))
+      );
 
-    if (conflitou) return res.status(409).json({ erro: "Horário indisponível no momento." });
+    if (conflitou) {
+      return res.status(409).json({ erro: "Horário indisponível no momento." });
+    }
 
     // cria hold
     const expires_at = addMinutes(new Date(), HOLD_EXPIRES_MIN);
@@ -162,6 +225,70 @@ router.post("/hold", auth, async (req, res) => {
   } catch (err) {
     console.error("POST /agenda/hold erro:", err);
     return res.status(500).json({ erro: "Falha ao criar reserva" });
+  }
+});
+
+// GET /agenda/minhas – lista consultas do paciente logado
+router.get("/minhas", auth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // agendamentos do usuário
+    const ags = await Agendamentos.findAll({
+      where: {
+        usuario_id: userId,
+        status: { [Op.ne]: "cancelada" }, // ignora canceladas
+      },
+      order: [["inicio", "ASC"]],
+    });
+
+    // anamneses já respondidas pelo usuário
+    const anamneses = await Anamnese.findAll({
+      where: { user_id: userId },
+      attributes: ["payment_ref"],
+      raw: true,
+    });
+
+    const refsAnamnese = new Set(
+      anamneses
+        .map((a) => a.payment_ref)
+        .filter((v) => v != null)
+        .map((v) => String(v))
+    );
+
+    const out = ags.map((a) => {
+      const ref = a.payment_ref || a.idempotency_key || null;
+
+      const marcadaPorFlag =
+        a.anamnese_preenchida === true ||
+        a.anamnese_preenchida === 1 ||
+        a.anamneseRespondida === true ||
+        a.anamneseRespondida === 1;
+
+      const marcadaPorTabela =
+        ref != null && refsAnamnese.has(String(ref));
+
+      return {
+        id: a.id,
+        inicio: a.inicio,
+        fim: a.fim,
+        status: a.status,
+
+        // código que o front mostra pra pessoa
+        payment_ref: ref,
+
+        // se tiver, vai, se não tiver, vem null mesmo
+        especialidade: a.especialidade || null,
+
+        // aqui já fica 100% boolean
+        anamneseRespondida: marcadaPorFlag || marcadaPorTabela,
+      };
+    });
+
+    res.json(out);
+  } catch (e) {
+    console.error("Erro em GET /agenda/minhas:", e);
+    res.status(500).json({ erro: "Erro ao listar suas consultas." });
   }
 });
 

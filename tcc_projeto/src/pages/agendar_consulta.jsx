@@ -1,4 +1,5 @@
-import React from "react";
+// src/pages/agendar_consulta.jsx
+import React, { useContext } from "react";
 import "../css/agendar_consulta.css";
 
 import phoneImg from "../assets/phone_cuate.png";
@@ -6,20 +7,40 @@ import avocadoImg from "../assets/avocado_toast.png";
 import Botao from "../components/botao/Botao";
 import usePrecoConsulta from "../hooks/usePrecoConsulta";
 import { formatBRLFromCents } from "../services/config";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+
 export default function Agendamento() {
+  const navigate = useNavigate();
+  const { token } = useContext(AuthContext);
+  const { cents } = usePrecoConsulta();
+
   const scrollToConteudo = () => {
     document.getElementById("conteudo")?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
   };
-const { cents } = usePrecoConsulta();
+
   const beneficios = [
     { icon: "fa-solid fa-user", texto: "Atendimento individualizado" },
     { icon: "fa-solid fa-apple-whole", texto: "Plano alimentar personalizado" },
     { icon: "fa-solid fa-envelope", texto: "Suporte por 30 dias via WhatsApp" },
     { icon: "fa-solid fa-book-open", texto: "Receitas e materiais de apoio" },
   ];
+
+  const handleContinuar = () => {
+    if (!token) {
+      navigate("/login", {
+        state: {
+          from: "/agendar",
+          loginMessage: "Faça o login para continuar o agendamento.",
+        },
+      });
+      return;
+    }
+    navigate("/agendar");
+  };
 
   return (
     <div className="agc">
@@ -37,7 +58,8 @@ const { cents } = usePrecoConsulta();
               Como funciona o <span>agendamento</span>
             </h2>
             <p>
-              Você pode agendar consultas online com pagamento por cartão de crédito ou Pix. Os valores e condições são transparentes e informados antes da confirmação.
+              Você pode agendar consultas online com pagamento por Pix.
+              Os valores e condições são transparentes e informados antes da confirmação.
             </p>
 
             <div className="agc-hero-actions">
@@ -52,7 +74,9 @@ const { cents } = usePrecoConsulta();
           <span>•</span> Valores e pagamento
         </h3>
         <p>
-          Os valores e formas de pagamento são apresentados de forma clara antes da confirmação. Abaixo, você encontra a modalidade disponível e o respectivo valor.
+          Os valores e formas de pagamento são apresentados de forma clara antes
+          da confirmação. Abaixo, você encontra a modalidade disponível e o
+          respectivo valor.
         </p>
 
         <article className="agc-card">
@@ -82,7 +106,14 @@ const { cents } = usePrecoConsulta();
           </div>
 
           <p className="agc-card__price">
-            Valor da consulta: <span><strong>{Number.isFinite(cents) ? formatBRLFromCents(cents) : "—"}</strong></span>
+            Valor da consulta:{" "}
+            <span>
+              <strong>
+                {Number.isFinite(cents)
+                  ? formatBRLFromCents(cents)
+                  : "—"}
+              </strong>
+            </span>
           </p>
         </article>
 
@@ -90,12 +121,15 @@ const { cents } = usePrecoConsulta();
           <span>•</span> Anamnese
         </h3>
         <p>
-          Após a confirmação do agendamento, você receberá um questionário (anamnese) para conhecer seu histórico, objetivos e rotina. Essas informações qualificam a consulta e permitem um plano mais assertivo.
+          Após a confirmação do agendamento e do pagamento, você receberá um
+          questionário (anamnese) para conhecer seu histórico, objetivos e
+          rotina. É importante preencher para que a nutricionista prepare a sua
+          consulta.
         </p>
 
         <div className="agc-cta">
           <p>Agende sua consulta e receba orientação personalizada</p>
-          <Botao to="/agendar">Continuar</Botao>
+          <Botao onClick={handleContinuar}>Continuar</Botao>
         </div>
       </section>
     </div>
