@@ -1,0 +1,408 @@
+/* src/css/admin-consultas.css */
+
+.adm-consultas-page {
+  --rose: #d1a0a0;
+  --rose-dark: #b47883;
+  --olive: #8a8f75;
+  --bg: #f5f3f2;
+  --border-soft: rgba(0, 0, 0, 0.06);
+  --danger: #c94a4a;
+  --success: #4a9c6b;
+
+  padding: 12px 8px 32px;
+}
+
+.adm-consultas-header {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--border-soft);
+  margin-bottom: 16px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+}
+
+.adm-consultas-header h1 {
+  font-size: 24px;
+  margin: 0 0 4px;
+  color: var(--rose-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.adm-consultas-header p {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+}
+
+/* filtros */
+.adm-consultas-filters {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  padding: 16px 20px 14px;
+  margin-bottom: 16px;
+}
+
+.adm-consultas-filters__form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  align-items: flex-end;
+}
+
+.adm-consultas-filters__group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+}
+
+.adm-consultas-filters__group label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #777;
+}
+
+.adm-consultas-filters__group--grow {
+  flex: 1;
+}
+
+.adm-consultas-filters__dates {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.adm-consultas-filters__dates input[type="date"] {
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  padding: 4px 8px;
+  font-size: 13px;
+}
+
+.adm-consultas-filters__dates span {
+  font-size: 12px;
+  color: #777;
+}
+
+.adm-consultas-filters__select {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  padding: 4px 8px;
+  background: #faf7f6;
+}
+
+.adm-consultas-filters__select svg {
+  font-size: 13px;
+  color: var(--rose-dark);
+}
+
+.adm-consultas-filters__select select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+}
+
+.adm-consultas-filters__search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  padding: 4px 8px;
+  background: #fafafa;
+}
+
+.adm-consultas-filters__search svg {
+  font-size: 13px;
+  color: var(--olive);
+}
+
+.adm-consultas-filters__search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+}
+
+.adm-consultas-filters__submit {
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: none;
+  background: var(--rose-dark);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: 0 3px 0 rgba(212, 159, 159, 0.6);
+}
+
+.adm-consultas-filters__submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+.adm-consultas-filters__submit:disabled {
+  opacity: 0.7;
+  cursor: default;
+  transform: none;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.adm-consultas-error {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #b02b2b;
+}
+
+/* tabela */
+.adm-consultas-table-wrapper {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid var(--border-soft);
+  padding: 10px 0 4px;
+  overflow-x: auto;
+}
+
+.adm-consultas-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.adm-consultas-table thead tr {
+  background: #f7f2f1;
+}
+
+.adm-consultas-table th,
+.adm-consultas-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid #f0e5e2;
+}
+
+.adm-consultas-table th {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #777;
+}
+
+.adm-consultas-table tbody tr:hover {
+  background: #faf7f6;
+}
+
+/* status / pills */
+.adm-consultas-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.adm-consultas-status--confirmada {
+  background: rgba(74, 156, 107, 0.12);
+  color: var(--success);
+}
+
+.adm-consultas-status--pendente {
+  background: rgba(209, 160, 160, 0.12);
+  color: #b47830;
+}
+
+.adm-consultas-status--cancelada {
+  background: rgba(200, 200, 200, 0.18);
+  color: #777;
+}
+
+.adm-consultas-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+}
+
+.adm-consultas-pill--ok {
+  background: rgba(74, 156, 107, 0.1);
+  color: var(--success);
+}
+
+.adm-consultas-pill--pending {
+  background: rgba(209, 160, 160, 0.1);
+  color: var(--rose-dark);
+}
+
+/* botões */
+.adm-consultas-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.adm-consultas-btn {
+  border-radius: 999px;
+  border: none;
+  padding: 4px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  background: #f5f3f2;
+  color: #444;
+  transition: background 0.12s ease, transform 0.1s ease;
+}
+
+.adm-consultas-btn:hover {
+  background: #ebe3e1;
+  transform: translateY(-1px);
+}
+
+.adm-consultas-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+  transform: none;
+}
+
+.adm-consultas-btn--danger {
+  background: #ffe5e5;
+  color: var(--danger);
+}
+
+.adm-consultas-btn--danger:hover {
+  background: #ffd6d6;
+}
+
+.adm-consultas-btn--success {
+  background: #e2f5ea;
+  color: var(--success);
+}
+
+.adm-consultas-btn--success:hover {
+  background: #d2f0df;
+}
+
+.adm-consultas-btn--ghost {
+  background: transparent;
+  border: 1px solid var(--border-soft);
+}
+
+.adm-consultas-btn--pdf {
+  background: var(--rose-dark);
+  color: #fff;
+}
+
+/* vazio */
+.adm-consultas-empty {
+  padding: 18px 20px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* modal */
+.adm-consultas-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.adm-consultas-modal {
+  max-width: 920px;
+  width: 100%;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.adm-consultas-modal__header {
+  padding: 14px 18px;
+  border-bottom: 1px solid #f0e5e2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.adm-consultas-modal__header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--olive);
+}
+
+.adm-consultas-modal__close {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #999;
+}
+
+.adm-consultas-modal__body {
+  padding: 14px 18px 8px;
+  overflow-y: auto;
+}
+
+.adm-consultas-modal__info {
+  font-size: 13px;
+  margin: 0 0 12px;
+}
+
+.adm-consultas-modal__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px 16px;
+}
+
+.adm-consultas-modal__campo {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #faf7f6;
+}
+
+.adm-consultas-modal__label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #888;
+  margin-bottom: 3px;
+}
+
+.adm-consultas-modal__value {
+  font-size: 13px;
+  color: #333;
+}
+
+.adm-consultas-modal__footer {
+  padding: 10px 18px 14px;
+  border-top: 1px solid #f0e5e2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* responsivo */
+@media (max-width: 900px) {
+  .adm-consultas-filters__form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

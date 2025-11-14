@@ -63,7 +63,7 @@ async function buildSlotsForDate(dateISO) {
       where: {
         inicio: { [Op.lte]: dayEnd },
         fim: { [Op.gte]: dayStart },
-        status: { [Op.ne]: "cancelada" },
+        status: { [Op.in]: ["pendente", "confirmada"] },
       },
       raw: true,
     }),
@@ -171,7 +171,7 @@ router.post("/hold", auth, async (req, res) => {
         where: {
           inicio: { [Op.lte]: fim },
           fim: { [Op.gte]: inicio },
-          status: { [Op.ne]: "cancelada" },
+          status: { [Op.in]: ["pendente", "confirmada"] },
         },
         raw: true,
       }),

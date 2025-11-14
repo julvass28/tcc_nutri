@@ -11,6 +11,7 @@ import {
   FaUsers,
   FaBars,
   FaQuestionCircle,
+  FaClipboardList,
 } from "react-icons/fa";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import "../../css/admin-theme.css";
@@ -155,6 +156,16 @@ export default function AdminLayout() {
           >
             <LuCalendarRange className="ico" />
             <span>Controle Listado</span>
+          </NavLink>
+          <NavLink
+            to="/admin/consultas"
+            className={({ isActive }) =>
+              "adm-navlink" + (isActive ? " adm-is-active" : "")
+            }
+            onClick={() => setSidebarOpen(false)}
+          >
+            <FaClipboardList className="ico" />
+            <span>Consultas</span>
           </NavLink>
         </nav>
       </aside>

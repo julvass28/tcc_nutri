@@ -50,6 +50,7 @@ import Perfil from "./pages/perfil";
 import AgendarConsulta from "./pages/agendar_consulta";
 // import Agendar from "./pages/Agenda";
 // Admin
+import AdminConsultas from "./pages/admin/AdminConsultas";
 import AdminAgendaFull from "./pages/admin/AdminAgendaFull";
 import ProtectedRouteAdmin from "./routes/ProtectedRouteAdmin";
 import AdminLayout from "./pages/admin/AdminLayout";
@@ -170,6 +171,7 @@ export default function App() {
           <Route path="faq" element={<FaqAdmin />} />
           <Route path="faq/new" element={<FaqForm />} />
           <Route path="faq/:id/edit" element={<FaqForm />} />
+          <Route path="consultas" element={<AdminConsultas />} />
         </Route>
       </Routes>
     </Router>

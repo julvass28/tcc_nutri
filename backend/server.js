@@ -18,7 +18,7 @@ const publicContactRoutes = require("./routes/publicContactRoutes");
 const agendaRoutes = require("./routes/agendaRoutes");
 const paymentsRoutes = require("./routes/paymentsRoutes");
 const configRoutes = require("./routes/configRoutes");
-
+const adminConsultasRoutes = require("./routes/adminConsultasRoutes");
 const sequelize = require("./config/db");
 
 // Models
@@ -95,7 +95,7 @@ app.use("/agenda", agendaRoutes);
 // Admin configs e agenda admin
 app.use("/admin/config", adminConfigRoutes);
 app.use("/admin/agenda", adminAgendaRoutes);
-
+app.use("/admin/consultas", adminConsultasRoutes);
 // Contato público /config/contact-info
 app.use("/config", publicContactRoutes);
 

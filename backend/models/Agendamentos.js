@@ -1,25 +1,60 @@
-const {DataTypes} = require ('sequelize'); //importação datatypes do sequelize
-const sequelize = require ('../config/db') //importar as configuraçoes db, que "entende" meu .env
+// backend/models/Agendamentos.js
+const { DataTypes } = require("sequelize");
+const sequelize = require("../config/db");
 
+const Agendamento = sequelize.define(
+  "Agendamento",
+  {
+    id: {
+      type: DataTypes.BIGINT,
+      autoIncrement: true,
+      primaryKey: true,
+    },
 
-const Agendamento = sequelize.define('Agendamento',{// Agendamento= nome do modulo e nao da tabela
-    id:{type: DataTypes.BIGINT, autoIncrement:true, primaryKey:true},//Bigint= numero inteiro e grande
-    usuario_id: {type: DataTypes.BIGINT, allowNull:false},
-    inicio: {type: DataTypes.DATE, allowNull:false},// data + hora do inicio
-    fim: {type: DataTypes.DATE, allowNull:false},// data+hora do fim
-   status:{
-    type: DataTypes.ENUM('pendente', 'confirmada', 'cancelada'),//enum= entre oq foi declarado no ()
-    allowNull:false,
-    defaultValue: 'confirmada'//se nao tiver nenhuma definida, é confirmada
-   },
-   idempotency_key:{type:DataTypes.STRING(64), allowNull:true, unique:true} //evita duplicação da mesma requisição, cria token
-},{
-    tableName: 'agendamentos', //nome da tabela
-    underscored:true, //cria snake_case
-    indexes:[ //indice que facilita busca no bd
-        {unique:true, fields:['inicio']} //unico, e pega inico de referencia, para evitar duas pessoas no mesmo horario
-    ]
-});
+    usuario_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
 
-module.exports= Agendamento;
-  
+    inicio: {
+      type: DataTypes.DATE,
+      allowNull: false, // data + hora do início
+    },
+
+    fim: {
+      type: DataTypes.DATE,
+      allowNull: false, // data + hora do fim
+    },
+
+    status: {
+      // pendente / confirmada / cancelada / finalizada
+      type: DataTypes.ENUM("pendente", "confirmada", "cancelada", "finalizada"),
+      allowNull: false,
+      defaultValue: "confirmada",
+    },
+
+    // 👇 VOLTANDO: especialidade escolhida no fechamento da consulta
+    // valores esperados: "clinica", "emagrecimento", "esportiva",
+    // "pediatrica", "intolerancias" (ou o que vc já estiver salvando)
+    especialidade: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+
+    idempotency_key: {
+      type: DataTypes.STRING(64),
+      allowNull: true,
+      unique: true,
+    },
+  },
+  {
+    tableName: "agendamentos",
+    underscored: true,
+    indexes: [
+      // 1 consulta por horário de início
+      { unique: true, fields: ["inicio"] },
+    ],
+  }
+);
+
+module.exports = Agendamento;

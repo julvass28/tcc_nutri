@@ -127,9 +127,29 @@ router.get("/disponibilidade", auth, adminOnly, async (req, res) => {
   const end   = new Date(`${ate}T23:59:59`);
 
   const [agends, holds, blocks] = await Promise.all([
-    Agendamentos.findAll({ where: { inicio: { [Op.lte]: end }, fim: { [Op.gte]: start }, status: { [Op.ne]: "cancelada" } }, raw: true }),
-    ReservaTemp.findAll({ where: { inicio: { [Op.lte]: end }, fim: { [Op.gte]: start }, expires_at: { [Op.gt]: new Date() } }, raw: true }),
-    Bloqueio.findAll({ where: { inicio: { [Op.lte]: end }, fim: { [Op.gte]: start } }, raw: true }),
+    Agendamentos.findAll({
+      where: {
+        inicio: { [Op.lte]: end },
+        fim: { [Op.gte]: start },
+        status: { [Op.in]: ["pendente", "confirmada"] }, // 👈 aqui ajustado
+      },
+      raw: true
+    }),
+    ReservaTemp.findAll({
+      where: {
+        inicio: { [Op.lte]: end },
+        fim: { [Op.gte]: start },
+        expires_at: { [Op.gt]: new Date() }
+      },
+      raw: true
+    }),
+    Bloqueio.findAll({
+      where: {
+        inicio: { [Op.lte]: end },
+        fim: { [Op.gte]: start }
+      },
+      raw: true
+    }),
   ]);
 
   const byDay = {};
