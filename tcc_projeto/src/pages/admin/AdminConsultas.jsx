@@ -8,6 +8,7 @@ import {
   FaCheckCircle,
   FaTimes,
 } from "react-icons/fa";
+import { MdContentCopy } from "react-icons/md";
 import ConfirmDialog from "../../components/ConfirmDialog";
 
 function formatDateTimeRange(inicio, fim) {
@@ -1099,7 +1100,7 @@ export default function AdminConsultas() {
                             }
                             title="Copiar e-mail"
                           >
-                            📋
+                            <MdContentCopy />
                           </button>
                         </div>
                       ) : (
@@ -1118,7 +1119,7 @@ export default function AdminConsultas() {
                             }
                             title="Copiar telefone"
                           >
-                            📋
+                            <MdContentCopy />
                           </button>
                         </div>
                       ) : (
