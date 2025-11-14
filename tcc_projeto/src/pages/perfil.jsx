@@ -6,7 +6,7 @@ import "../css/perfil-consultas.css";
 import { AuthContext } from "../context/AuthContext";
 import { objetivoLabel } from "../utils/objetivos";
 import { Link, useNavigate } from "react-router-dom";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaCheckCircle } from "react-icons/fa";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -500,7 +500,7 @@ export default function Perfil() {
                     </button>
                   </div>
                 ) : (
-                  <p className="perfil-consulta-ok">✅ Anamnese respondida</p>
+                  <p className="perfil-consulta-ok"> <FaCheckCircle id="correct_perfil_consulta_anam"/>Anamnese respondida</p>
                 )}
               </div>
             );
