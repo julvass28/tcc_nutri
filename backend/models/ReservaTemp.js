@@ -9,6 +9,11 @@ const ReservaTemp = sequelize.define('ReservaTemp', {
     fim: { type: DataTypes.DATE, allowNull: false }, // fim do slot (= inicio + intervalo)
     expires_at: { type: DataTypes.DATE, allowNull: false }, // agora + 15 min (por ex)
     payment_ref: { type: DataTypes.STRING(64), allowNull: false, unique: true }, // linka com pagamento
+     especialidade: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    
     idempotency_key: { type: DataTypes.STRING(64), allowNull: true, unique: true }  // evita duplo POST
 }, {
     tableName: 'reservas_temp',

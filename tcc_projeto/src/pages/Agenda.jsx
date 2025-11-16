@@ -31,6 +31,13 @@ const ESPECIALIDADES = [
   "Emagrecimento",
   "Intolerâncias Alimentares",
 ];
+const ESPECIALIDADE_SLUGS = {
+  "Nutrição Clínica": "clinica",
+  "Nutrição Esportiva": "esportiva",
+  "Nutrição Pediátrica": "pediatrica",
+  Emagrecimento: "emagrecimento",
+  "Intolerâncias Alimentares": "intolerancias",
+};
 
 const PRESETS = {
   duracaoMin: 50,
@@ -187,10 +194,17 @@ export default function Agendar() {
 
     setConfirming(true);
     try {
+      // slug pra mandar pro backend
+      const espSlug = ESPECIALIDADE_SLUGS[especialidade] || "clinica";
+
       const r = await fetchAuth(`${API}/agenda/hold`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ date, time: selectedTime }),
+        body: JSON.stringify({
+          date,
+          time: selectedTime,
+          especialidade: espSlug, // 👈 VAI PRO BACKEND
+        }),
       });
       const data = await r.json();
 
@@ -206,7 +220,11 @@ export default function Agendar() {
       sessionStorage.setItem("booking.expires_at", String(expires_at));
       sessionStorage.setItem("booking.date", String(date));
       sessionStorage.setItem("booking.time", String(selectedTime));
+
+      // label bonitinho (pra telas de resumo)
       sessionStorage.setItem("booking.especialidade", String(especialidade));
+      // slug (pra backend / lógica interna)
+      sessionStorage.setItem("booking.especialidade_slug", String(espSlug));
 
       // vai pra PAGAMENTO
       navigate("/pagamento");
@@ -240,9 +258,7 @@ export default function Agendar() {
             {ESPECIALIDADES.map((s) => (
               <button
                 key={s}
-                className={`chip ${
-                  especialidade === s ? "chip--ativo" : ""
-                }`}
+                className={`chip ${especialidade === s ? "chip--ativo" : ""}`}
                 onClick={() => setEspecialidade(s)}
                 type="button"
               >
@@ -364,9 +380,7 @@ export default function Agendar() {
             <div className="resumo-col">
               <span>Dia</span>
               <b>
-                {selected
-                  ? formatDateLongPT(selected)
-                  : "— selecione um dia —"}
+                {selected ? formatDateLongPT(selected) : "— selecione um dia —"}
               </b>
             </div>
             <div className="resumo-col">

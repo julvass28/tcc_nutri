@@ -8,10 +8,11 @@ const ReservaTemp = require("../models/ReservaTemp");
 const Bloqueio = require("../models/Bloqueio");
 const Anamnese = require("../models/Anamnese"); // 👈 NOVO
 const auth = require("../middleware/auth");
-
+const Usuario = require("../models/Usuario");
+const { sendConsultaCanceladaEmail } = require("../services/emailService");
 // ===== Config =====
-const SLOT_MINUTES = 30;   // grade visual
-const APPT_MINUTES = 60;   // consulta ocupa 60 min
+const SLOT_MINUTES = 30; // grade visual
+const APPT_MINUTES = 60; // consulta ocupa 60 min
 const HOLD_MINUTES = 60;
 const HOLD_EXPIRES_MIN = 10;
 
@@ -142,9 +143,37 @@ router.get("/slots", async (req, res) => {
 // === PUBLIC (autenticado): cria hold 60min ===
 router.post("/hold", auth, async (req, res) => {
   try {
-    const { date, time } = req.body || {};
+    const { date, time, especialidade } = req.body || {};
     if (!date || !time) {
       return res.status(400).json({ erro: "date e time são obrigatórios." });
+    }
+
+    // 🔁 normaliza especialidade -> slug (clinica, esportiva, pediatrica, emagrecimento, intolerancias)
+    let espSlug = null;
+    if (especialidade) {
+      const raw = String(especialidade)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+
+      if (
+        ["clinica", "esportiva", "pediatrica", "emagrecimento", "intolerancias"].includes(
+          raw
+        )
+      ) {
+        espSlug = raw;
+      } else if (raw.includes("pediatr")) {
+        espSlug = "pediatrica";
+      } else if (raw.includes("esport")) {
+        espSlug = "esportiva";
+      } else if (raw.includes("emagrec")) {
+        espSlug = "emagrecimento";
+      } else if (raw.includes("intoler")) {
+        espSlug = "intolerancias";
+      } else {
+        espSlug = "clinica";
+      }
     }
 
     const inicio = toDate(date, time);
@@ -207,7 +236,7 @@ router.post("/hold", auth, async (req, res) => {
       return res.status(409).json({ erro: "Horário indisponível no momento." });
     }
 
-    // cria hold
+    // cria hold já com a especialidade normalizada
     const expires_at = addMinutes(new Date(), HOLD_EXPIRES_MIN);
     const hold = await ReservaTemp.create({
       usuario_id: req.user.id,
@@ -215,12 +244,14 @@ router.post("/hold", auth, async (req, res) => {
       fim,
       expires_at,
       payment_ref: `p_${req.user.id}_${Date.now()}`,
+      especialidade: espSlug, // 👈 AGORA SALVA AQUI
     });
 
     return res.status(201).json({
       hold_id: hold.id,
       payment_ref: hold.payment_ref,
       expires_at: hold.expires_at,
+      especialidade: hold.especialidade,
     });
   } catch (err) {
     console.error("POST /agenda/hold erro:", err);
@@ -237,7 +268,7 @@ router.get("/minhas", auth, async (req, res) => {
     const ags = await Agendamentos.findAll({
       where: {
         usuario_id: userId,
-        status: { [Op.ne]: "cancelada" }, // ignora canceladas
+        // não filtra mais o status aqui, o front separa em tabelas
       },
       order: [["inicio", "ASC"]],
     });
@@ -265,8 +296,7 @@ router.get("/minhas", auth, async (req, res) => {
         a.anamneseRespondida === true ||
         a.anamneseRespondida === 1;
 
-      const marcadaPorTabela =
-        ref != null && refsAnamnese.has(String(ref));
+      const marcadaPorTabela = ref != null && refsAnamnese.has(String(ref));
 
       return {
         id: a.id,
@@ -289,6 +319,73 @@ router.get("/minhas", auth, async (req, res) => {
   } catch (e) {
     console.error("Erro em GET /agenda/minhas:", e);
     res.status(500).json({ erro: "Erro ao listar suas consultas." });
+  }
+});
+
+// POST /agenda/minhas/:id/cancelar – paciente cancela a própria consulta
+router.post("/minhas/:id/cancelar", auth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const agId = req.params.id;
+
+    const ag = await Agendamentos.findByPk(agId);
+
+    if (!ag) {
+      return res.status(404).json({ erro: "Consulta não encontrada." });
+    }
+
+    // garante que é a consulta desse usuário
+    if (Number(ag.usuario_id) !== Number(userId)) {
+      return res
+        .status(403)
+        .json({ erro: "Você não tem permissão para cancelar esta consulta." });
+    }
+
+    // não deixa cancelar de novo
+    if (ag.status === "cancelada") {
+      return res
+        .status(400)
+        .json({ erro: "Esta consulta já está cancelada." });
+    }
+
+    // não deixa cancelar algo finalizado
+    if (ag.status === "finalizada") {
+      return res
+        .status(400)
+        .json({
+          erro: "Consultas já finalizadas não podem ser canceladas.",
+        });
+    }
+
+    await ag.update({ status: "cancelada" });
+
+    // tenta enviar e-mail de cancelamento (não bloqueia resposta)
+    try {
+      const usuario = await Usuario.findByPk(userId);
+      if (usuario && usuario.email) {
+        await sendConsultaCanceladaEmail({
+          usuario,
+          agendamento: ag,
+        });
+      }
+    } catch (errMail) {
+      console.error(
+        "Erro ao enviar e-mail de cancelamento:",
+        errMail.message || errMail
+      );
+    }
+
+    return res.json({
+      ok: true,
+      status: ag.status,
+      id: ag.id,
+      payment_ref: ag.payment_ref || ag.idempotency_key || null,
+    });
+  } catch (e) {
+    console.error("POST /agenda/minhas/:id/cancelar erro:", e);
+    return res
+      .status(500)
+      .json({ erro: "Erro ao cancelar a consulta. Tente novamente." });
   }
 });
 

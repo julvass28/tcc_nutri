@@ -174,10 +174,51 @@ export default function AdminConsultas() {
       const data = await resp.json();
 
       setConsultas(
-        (data || []).map((c) => ({
-          ...c,
-          _inicioDate: c.inicio ? new Date(c.inicio) : null,
-        }))
+        (data || []).map((c) => {
+          const _inicioDate = c.inicio ? new Date(c.inicio) : null;
+
+          // normaliza referência do pagamento (para casar com a anamnese)
+          const paymentRef =
+            c.payment_ref ||
+            c.idempotency_key ||
+            c.idempotencyKey ||
+            null;
+
+          const anamnese = c.anamnese || null;
+          let anamneseOk = false;
+
+          if (anamnese) {
+            const anRef =
+              anamnese.payment_ref ||
+              anamnese.paymentRef ||
+              anamnese.payment_reference ||
+              null;
+
+            // ✅ só considera respondida se a anamnese for DAQUELA consulta
+            if (paymentRef && anRef && String(paymentRef) === String(anRef)) {
+              anamneseOk = true;
+            } else if (!paymentRef) {
+              // fallback p/ registros antigos sem payment_ref
+              if (typeof c.anamneseRespondida === "boolean") {
+                anamneseOk = c.anamneseRespondida;
+              } else if (
+                anamnese.respostas &&
+                Object.keys(anamnese.respostas).length > 0
+              ) {
+                anamneseOk = true;
+              }
+            }
+          } else if (typeof c.anamneseRespondida === "boolean") {
+            anamneseOk = c.anamneseRespondida;
+          }
+
+          return {
+            ...c,
+            _inicioDate,
+            payment_ref: paymentRef,
+            anamneseRespondida: anamneseOk,
+          };
+        })
       );
     } catch (e) {
       console.error(e);
@@ -969,7 +1010,8 @@ export default function AdminConsultas() {
           <span>Consultas</span>
         </h1>
         <p className="adm-consultas-sub">
-          Acompanhe consultas, finalize atendimentos, visualize anamneses e gerencie cancelamentos em um só lugar.
+          Acompanhe consultas, finalize atendimentos, visualize anamneses e
+          gerencie cancelamentos em um só lugar.
         </p>
       </header>
 
@@ -1127,11 +1169,26 @@ export default function AdminConsultas() {
                       )}
                     </td>
                     <td>
-                      {c.especialidade
-                        ? especialidades.find(
+                      {(() => {
+                        // 1) tenta usar slug vindo da agenda (clinica, esportiva, etc)
+                        if (c.especialidade) {
+                          const opt = especialidades.find(
                             (e) => e.value === c.especialidade
-                          )?.label || c.especialidade
-                        : "-"}
+                          );
+                          if (opt) return opt.label;
+                          return c.especialidade;
+                        }
+
+                        // 2) fallback: tenta extrair da própria anamnese
+                        if (c.anamnese && c.anamnese.respostas) {
+                          const esp = extrairEspecialidadeDeRespostas(
+                            c.anamnese.respostas || {}
+                          );
+                          if (esp) return esp;
+                        }
+
+                        return "-";
+                      })()}
                     </td>
                     <td>
                       <span className={statusBadgeClass(c.status)}>

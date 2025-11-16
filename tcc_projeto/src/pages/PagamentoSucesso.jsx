@@ -1,5 +1,18 @@
-// src/pages/pagamento/PagamentoSucesso.jsx
+// src/pages/PagamentoSucesso.jsx
 import "../css/pagamento-sucesso.css";
+
+const ESPECIALIDADE_LABELS = {
+  clinica: "Nutrição Clínica",
+  emagrecimento: "Emagrecimento e Obesidade",
+  esportiva: "Nutrição Esportiva",
+  pediatrica: "Nutrição Pediátrica",
+  intolerancias: "Intolerâncias Alimentares",
+};
+
+function mapEspecialidade(especialidade) {
+  if (!especialidade) return "Nutrição";
+  return ESPECIALIDADE_LABELS[especialidade] || especialidade;
+}
 
 export default function PagamentoSucesso() {
   // pega o que foi salvo no pagamento
@@ -63,7 +76,7 @@ export default function PagamentoSucesso() {
               </span>
               <span>Especialidade</span>
             </div>
-            <strong>{last?.especialidade || "Nutrição"}</strong>
+            <strong>{mapEspecialidade(last?.especialidade)}</strong>
           </div>
         </div>
 
@@ -79,7 +92,7 @@ export default function PagamentoSucesso() {
         )}
 
         <div className="pay-ok-actions">
-          <a className="pay-ok-btn" href="/perfil">
+          <a className="pay-ok-btn" href="/minhas-consultas">
             Ver minhas consultas
           </a>
 

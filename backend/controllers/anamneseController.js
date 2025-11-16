@@ -6,14 +6,8 @@ const Usuario = require("../models/Usuario");
 exports.salvar = async (req, res) => {
   try {
     const userId = req.user?.id; // vem do middleware auth.js (vc já usa)
-    const {
-      booking_hold_id,
-      payment_ref,
-      data,
-      hora,
-      modalidade,
-      respostas,
-    } = req.body;
+    const { booking_hold_id, payment_ref, data, hora, modalidade, respostas } =
+      req.body;
 
     if (!userId) {
       return res.status(401).json({ erro: "Usuário não autenticado." });
@@ -35,12 +29,15 @@ exports.salvar = async (req, res) => {
     });
 
     // se tiver agendamento com essa payment_ref, marca lá também
-    if (payment_ref) {
-      await Agendamentos.update(
-        { anamnese_preenchida: true },
-        { where: { payment_ref } }
-      );
+  if (payment_ref) {
+  await Agendamentos.update(
+    { anamnese_preenchida: true },
+    {
+      // 👇 usa idempotency_key, que é onde você guarda o payment_ref
+      where: { idempotency_key: payment_ref },
     }
+  );
+}
 
     return res.status(201).json({
       ok: true,

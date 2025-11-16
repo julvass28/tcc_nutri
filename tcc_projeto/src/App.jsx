@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -39,6 +40,7 @@ import PagamentoSucesso from "./pages/PagamentoSucesso";
 import PagamentoErro from "./pages/PagamentoErro";
 import PagamentoPendente from "./pages/PagamentoPendente";
 import Agendar from "./pages/Agenda";
+import MinhasConsultas from "./pages/MinhasConsultas";
 // Receitas (novas)
 import RecipesAdmin from "./pages/admin/RecipesAdmin";
 import RecipeForm from "./pages/admin/RecipeForm";
@@ -66,7 +68,7 @@ function LegacyReceitasRedirect() {
   const { categoria } = useParams();
   const navigate = useNavigate();
   // envia para a nova rota de categoria
-  React.useEffect(() => {
+  useEffect(() => {
     navigate(`/receitas/categoria/${categoria}`, { replace: true });
   }, [categoria, navigate]);
   return null;
@@ -87,8 +89,7 @@ export default function App() {
           "/receitas/categoria/pediatrica",
           "/receitas/categoria/esportiva",
           "/receitas/categoria/emagrecimento",
-          "/receitas/categoria/intolerancias"
-          
+          "/receitas/categoria/intolerancias",
         ]}
       />
 
@@ -117,7 +118,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<CriarConta />} />
           <Route path="/esqueci-senha" element={<ForgotPassword />} />
-
+          <Route path="/minhas-consultas" element={<MinhasConsultas />} />
           <Route path="/perfil" element={<Perfil />} />
           <Route path="/perfil/editar" element={<PerfilEditar />} />
           <Route path="/DicaNutri-Praia" element={<Praia />} />
@@ -146,9 +147,6 @@ export default function App() {
         </Route>
 
         {/* Layout Público sem Header/Footer */}
-
-    
-
 
         {/* Layout ADMIN sem Header/Footer */}
         <Route

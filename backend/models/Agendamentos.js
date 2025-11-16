@@ -33,18 +33,24 @@ const Agendamento = sequelize.define(
       defaultValue: "confirmada",
     },
 
-    // 👇 VOLTANDO: especialidade escolhida no fechamento da consulta
-    // valores esperados: "clinica", "emagrecimento", "esportiva",
-    // "pediatrica", "intolerancias" (ou o que vc já estiver salvando)
+    // especialidade da consulta (slug): clinica, emagrecimento, esportiva, pediatrica, intolerancias
     especialidade: {
       type: DataTypes.STRING,
       allowNull: true,
     },
 
+    // usado pra idempotência de pagamento (é o seu payment_ref)
     idempotency_key: {
       type: DataTypes.STRING(64),
       allowNull: true,
       unique: true,
+    },
+
+    // 👇 flag pra saber rápido se aquela consulta já tem anamnese preenchida
+    anamnese_preenchida: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
   },
   {

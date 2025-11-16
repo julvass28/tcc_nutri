@@ -162,4 +162,68 @@ async function sendConsultaConfirmadaEmail({ usuario, agendamento }) {
   }
 }
 
-module.exports = { sendConsultaConfirmadaEmail };
+async function sendConsultaCanceladaEmail({ usuario, agendamento }) {
+  if (!usuario?.email) return;
+
+  const data = new Date(agendamento.inicio);
+  const dd = String(data.getDate()).padStart(2, "0");
+  const mm = String(data.getMonth() + 1).padStart(2, "0");
+  const yyyy = data.getFullYear();
+  const hh = String(data.getHours()).padStart(2, "0");
+  const mi = String(data.getMinutes()).padStart(2, "0");
+  const dataBr = `${dd}/${mm}/${yyyy}`;
+  const horaBr = `${hh}:${mi}`;
+
+  const html = `
+    <div style="background-color:#ECE7E6;padding:40px 20px;font-family:sans-serif;color:#8A8F75;max-width:600px;margin:auto;border-radius:12px;">
+      <div style="background-color:#FFFFFF;padding:30px;border-radius:12px;box-shadow:0 4px 8px rgba(0,0,0,0.05);">
+        <div style="text-align:center;">
+          <img src="https://i.imgur.com/5Qr0Gqp.png" alt="Logo Natalia Simonovski" style="width:100px;margin-bottom:20px;" />
+          <h2 style="color:#8A8F75;margin-bottom:10px;">Consulta cancelada</h2>
+        </div>
+
+        <p style="font-size:16px;margin-top:0;">
+          Olá, <strong>${usuario.nome || "Paciente"}</strong>.
+        </p>
+
+        <p style="font-size:15px;line-height:1.6;">
+          Sua consulta marcada para o dia <strong>${dataBr}</strong> às <strong>${horaBr}</strong> foi
+          <strong>cancelada com sucesso</strong> pelo seu painel de paciente.
+        </p>
+
+        <p style="font-size:14px;line-height:1.6;">
+          <strong>Importante:</strong> conforme informado no momento do agendamento, 
+          <strong>o valor pago não será estornado</strong>. A vaga foi liberada na agenda da nutricionista.
+        </p>
+
+        <p style="font-size:14px;line-height:1.6;">
+          Se desejar, você pode agendar um novo horário diretamente pelo site e continuar cuidando da sua saúde com 
+          o acompanhamento da <strong>Nutricionista Natalia Simonovski</strong>.
+        </p>
+
+        <p style="margin-top:24px;font-size:14px;">
+          Agradecemos a confiança e seguimos à disposição para te ajudar na sua evolução. 💚
+        </p>
+
+        <hr style="margin:30px 0;border:none;border-top:1px solid #EEE;" />
+
+        <p style="text-align:center;font-size:12px;color:#8A8F75;">
+          © 2025 Natalia Simonovski | Nutricionista <br/>
+          Desenvolvido por Equipe Neven
+        </p>
+      </div>
+    </div>
+  `;
+
+  await transporter.sendMail({
+    from: `"Natalia Simonovski" <${process.env.EMAIL_USER}>`,
+    to: usuario.email,
+    subject: "Sua consulta foi cancelada - Natalia Simonovski",
+    html,
+  });
+}
+
+module.exports = {
+  sendConsultaConfirmadaEmail,
+  sendConsultaCanceladaEmail,
+};

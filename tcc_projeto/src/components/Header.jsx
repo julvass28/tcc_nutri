@@ -31,6 +31,9 @@ function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // 👉 regra: usuário administrativo (Admin ou Owner)
+  const isAdminLike = user?.isAdmin || user?.isOwner;
+
   const toggleDropdown = (menuName) => {
     setOpenDropdown(openDropdown === menuName ? null : menuName);
   };
@@ -239,9 +242,7 @@ function Header() {
             >
               Blog{" "}
               <FaChevronDown
-                className={`seta ${
-                  openDropdown === "blog" ? "rotated" : ""
-                }`}
+                className={`seta ${openDropdown === "blog" ? "rotated" : ""}`}
               />
             </span>
             <ul
@@ -283,10 +284,7 @@ function Header() {
               }`}
             >
               <li>
-                <Link
-                  to="/calculadoras/gasto-calorico"
-                  onClick={closePanel}
-                >
+                <Link to="/calculadoras/gasto-calorico" onClick={closePanel}>
                   Gastos Calóricos
                 </Link>
               </li>
@@ -319,9 +317,7 @@ function Header() {
             </ul>
 
             <div className="infos-mobile">
-              <p className="tel">
-                {contactPhone || "(11) 94030-2492"}
-              </p>
+              <p className="tel">{contactPhone || "(11) 94030-2492"}</p>
               <p className="email">
                 {contactEmail || "contato@nataliasimanoviski.com"}
               </p>
@@ -381,6 +377,15 @@ function Header() {
                 </li>
               )}
 
+              {/* 👉 Minhas consultas: só se NÃO for Admin nem Owner */}
+              {!isAdminLike && (
+                <li>
+                  <Link to="/minhas-consultas" onClick={closePanel}>
+                    Minhas consultas
+                  </Link>
+                </li>
+              )}
+
               {user?.isAdmin && (
                 <li>
                   <Link to="/admin" onClick={closePanel}>
@@ -390,10 +395,7 @@ function Header() {
               )}
 
               <li>
-                <button
-                  onClick={handleLogoutAndGoLogin}
-                  className="logout-btn"
-                >
+                <button onClick={handleLogoutAndGoLogin} className="logout-btn">
                   Sair
                 </button>
               </li>
@@ -404,27 +406,20 @@ function Header() {
 
       {/* Logo central + login rápido no mobile */}
       <div className="logo">
-  <Link to="/" aria-label="Página inicial">
-    <img src={logo} alt="Logo" />
-  </Link>
-</div>
+        <Link to="/" aria-label="Página inicial">
+          <img src={logo} alt="Logo" />
+        </Link>
+      </div>
 
-{!user && (
-  <Link to="/login" className="quick-login" aria-label="Entrar / Criar conta">
-    <FaUser className="user user--green" />
-  </Link>
-)}
-
-        {!user && (
-          <Link
-            to="/login"
-            className="quick-login"
-            aria-label="Entrar / Criar conta"
-          >
-            <FaUser className="user user--green" />
-          </Link>
-        )}
-    
+      {!user && (
+        <Link
+          to="/login"
+          className="quick-login"
+          aria-label="Entrar / Criar conta"
+        >
+          <FaUser className="user user--green" />
+        </Link>
+      )}
 
       {/* Menu desktop à direita */}
       <nav className="nav-itens right">
@@ -484,6 +479,19 @@ function Header() {
                       onClick={() => setOpenPerfilMenu(false)}
                     >
                       Meu Perfil
+                    </Link>
+                  </li>
+                )}
+
+                {/* 👉 Mesmo comportamento aqui: paciente vê, Admin/Owner não */}
+                {!isAdminLike && (
+                  <li role="none">
+                    <Link
+                      role="menuitem"
+                      to="/minhas-consultas"
+                      onClick={() => setOpenPerfilMenu(false)}
+                    >
+                      Minhas consultas
                     </Link>
                   </li>
                 )}

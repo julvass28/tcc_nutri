@@ -50,7 +50,8 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
 
   const rawEsp =
     modalidadeSelecionada ??
-    sessionStorage.getItem("booking.especialidade") ??
+    sessionStorage.getItem("booking.especialidade") ?? // label bonito, se existir
+    sessionStorage.getItem("booking.especialidade_slug") ?? // slug, se não tiver label
     "Nutrição Clínica";
 
   const modalidade = mapEspecialidadeParaModalidade(rawEsp);
@@ -81,6 +82,9 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
   // ------------------ VALIDAÇÃO ------------------
   const validacao = useMemo(() => {
     const campos = {};
+    // guardo aqui pra validar depois no superRefine do objeto inteiro
+    const radioCondCheckboxMetas = [];
+
     perguntas.forEach((secao) => {
       secao.perguntas?.forEach((perguntaObj) => {
         const chave = perguntaObj.pergunta;
@@ -114,20 +118,13 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
 
             if (perguntaObj.subpergunta && perguntaObj.condicao) {
               const subKey = `${chave}_sub`;
-              campos[subKey] = z
-                .array(z.string())
-                .optional()
-                .superRefine((val, ctx) => {
-                  const principal = ctx.parent[chave];
-                  if (principal === getOptionValue(perguntaObj.condicao)) {
-                    if (!val || val.length === 0) {
-                      ctx.addIssue({
-                        code: z.ZodIssueCode.custom,
-                        message: "*Selecione pelo menos uma opção",
-                      });
-                    }
-                  }
-                });
+              campos[subKey] = z.array(z.string()).optional();
+
+              radioCondCheckboxMetas.push({
+                chave,
+                subKey,
+                condValue: getOptionValue(perguntaObj.condicao),
+              });
             }
             break;
           }
@@ -161,9 +158,8 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
             break;
           }
 
-          // ✅ FREQUÊNCIA DE CONSUMO (o que tava dando erro)
+          // ✅ FREQUÊNCIA DE CONSUMO
           case "frequencia_consumo": {
-            // monta um objeto com cada alimento
             const innerShape = {};
             (perguntaObj.itens || []).forEach((item) => {
               if (!item.alimento) return;
@@ -173,8 +169,6 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
             });
 
             let schema = z.object(innerShape);
-
-            // se for opcional a seção, deixamos os campos opcionais
             if (ehOpcional) {
               schema = schema.partial();
             }
@@ -190,7 +184,26 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
         }
       });
     });
-    return z.object(campos);
+
+    const baseSchema = z.object(campos);
+
+    // validações que dependem de mais de um campo (ex.: radio + sub-checkbox)
+    return baseSchema.superRefine((values, ctx) => {
+      radioCondCheckboxMetas.forEach(({ chave, subKey, condValue }) => {
+        const principal = values[chave];
+        const sub = values[subKey];
+
+        if (principal === condValue) {
+          if (!sub || !Array.isArray(sub) || sub.length === 0) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "*Selecione pelo menos uma opção",
+              path: [subKey],
+            });
+          }
+        }
+      });
+    });
   }, [perguntas]);
 
   // ------------------ FORM ------------------
@@ -207,12 +220,19 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
     defaultValues: perguntas.reduce((acc, secao) => {
       secao.perguntas?.forEach((p) => {
         if (!p.pergunta) return;
-        if (p.tipo === "checkbox" || p.tipo === "radio_condicional_checkbox") {
+
+        if (p.tipo === "checkbox") {
           acc[p.pergunta] = [];
+        } else if (p.tipo === "radio_condicional_checkbox") {
+          acc[p.pergunta] = "";
+          // campos das opções extras
+          if (p.subpergunta && p.condicao) {
+            acc[`${p.pergunta}_sub`] = [];
+            acc[`${p.pergunta}_sub_outros`] = "";
+          }
         } else if (p.tipo === "radio_condicional_texto") {
           acc[p.pergunta] = { resposta: "", condicional: "" };
         } else if (p.tipo === "frequencia_consumo") {
-          // começa vazio, o usuário vai marcando
           acc[p.pergunta] = {};
         } else {
           acc[p.pergunta] = "";
@@ -476,9 +496,13 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                               </label>
                             )}
 
-                          {["texto", "email", "telefone", "number", "date"].includes(
-                            perguntaObj.tipo
-                          ) && (
+                          {[
+                            "texto",
+                            "email",
+                            "telefone",
+                            "number",
+                            "date",
+                          ].includes(perguntaObj.tipo) && (
                             <div className="inputComUnidade">
                               <input
                                 className={
@@ -577,8 +601,7 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                 `${perguntaObj.pergunta}.resposta`
                               );
                               const isCond =
-                                val ===
-                                getOptionValue(perguntaObj.condicao);
+                                val === getOptionValue(perguntaObj.condicao);
                               return (
                                 <div className="linhaOpcao" key={i}>
                                   <input
@@ -612,6 +635,12 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                         {/* RADIO COM SUB-CHECKBOX */}
                         {perguntaObj.tipo === "radio_condicional_checkbox" && (
                           <div className="grupoOpcao">
+                            {errors[`${perguntaObj.pergunta}_sub`]?.message && (
+                              <p className="erroMensagem">
+                                {errors[`${perguntaObj.pergunta}_sub`].message}
+                              </p>
+                            )}
+
                             {perguntaObj.opcoes.map((opcao, i) => {
                               const val = getOptionValue(opcao);
                               const label = getOptionLabel(opcao);
@@ -623,7 +652,9 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                   <input
                                     type="radio"
                                     value={val}
-                                    checked={watch(perguntaObj.pergunta) === val}
+                                    checked={
+                                      watch(perguntaObj.pergunta) === val
+                                    }
                                     onChange={() => {
                                       setValue(perguntaObj.pergunta, val, {
                                         shouldValidate: true,
@@ -637,17 +668,15 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                     perguntaObj.subpergunta &&
                                     perguntaObj.subpergunta.opcoes.map(
                                       (subOpcao, s) => {
-                                        const subVal =
-                                          getOptionValue(subOpcao);
+                                        const subVal = getOptionValue(subOpcao);
                                         const subLabel =
                                           getOptionLabel(subOpcao);
                                         const currentSubs =
                                           watch(
                                             `${perguntaObj.pergunta}_sub`
                                           ) || [];
-                                        const checked = currentSubs.includes(
-                                          subVal
-                                        );
+                                        const checked =
+                                          currentSubs.includes(subVal);
 
                                         return (
                                           <div
@@ -684,9 +713,10 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                             {perguntaObj.subpergunta.tipo ===
                                               "checkbox_outros" &&
                                               subVal === "Outros" &&
-                                              (watch(
-                                                `${perguntaObj.pergunta}_sub`
-                                              ) || []
+                                              (
+                                                watch(
+                                                  `${perguntaObj.pergunta}_sub`
+                                                ) || []
                                               ).includes("Outros") && (
                                                 <input
                                                   className="condicaoAnamnese"
@@ -722,10 +752,7 @@ function FormularioAnamnese({ modalidadeSelecionada }) {
                                   const val = getOptionValue(opcao);
                                   const label = getOptionLabel(opcao);
                                   return (
-                                    <div
-                                      className="frequenciaAnamnese"
-                                      key={j}
-                                    >
+                                    <div className="frequenciaAnamnese" key={j}>
                                       <input
                                         type="radio"
                                         value={val}
