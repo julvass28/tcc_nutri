@@ -1,8 +1,9 @@
 // src/pages/admin/RecipesAdmin.jsx
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../css/admin-theme.css";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import SpinnerOverlay from "../../components/SpinnerOverlay";
 import { FaHandshakeAltSlash } from "react-icons/fa";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -28,6 +29,10 @@ export default function RecipesAdmin() {
   const [deletingId, setDeletingId] = useState(null);
   const [confirm, setConfirm] = useState({ open: false, id: null });
 
+  // overlay control
+  const [overlayOpen, setOverlayOpen] = useState(false);
+  const [overlayMsg, setOverlayMsg] = useState("Carregando…");
+
   const load = async () => {
     setLoading(true);
     const url = categoria ? `${API}/admin/receitas?categoria=${categoria}` : `${API}/admin/receitas`;
@@ -48,25 +53,58 @@ export default function RecipesAdmin() {
     );
   });
 
+  // Navegar para editar: mostrar overlay por um tempo mínimo para UX
   const handleEdit = async (id) => {
     if (editingId || deletingId) return;
     setEditingId(id);
-    await sleep(200);
+    setOverlayMsg("Abrindo edição…");
+    setOverlayOpen(true);
+
+    // experiência mais "delicada": pequena espera pra overlay ficar visível
+    await sleep(800);
     navigate(`/admin/receitas/${id}/edit`);
+    setOverlayOpen(false);
+    setEditingId(null);
+  };
+
+  // Nova receita: usar overlay também
+  const handleNew = async () => {
+    setOverlayMsg("Abrindo formulário…");
+    setOverlayOpen(true);
+    await sleep(700);
+    navigate("/admin/receitas/new");
+    setOverlayOpen(false);
   };
 
   const askRemove = (id) => setConfirm({ open: true, id });
 
+  // quando confirma remoção, mostra overlay e executa delete
   const doRemove = async () => {
     if (!confirm.id) return;
     setDeletingId(confirm.id);
+    setOverlayMsg("Removendo receita…");
+    setOverlayOpen(true);
+
+    const start = Date.now();
     try {
       const r = await fetchAuth(`${API}/admin/receitas/${confirm.id}`, { method: "DELETE" });
-      if (r.ok) setItems((prev) => prev.filter((x) => x.id !== confirm.id));
-      else alert("Falha ao remover");
+      // garante tempo mínimo de exibição do spinner (por exemplo 800ms)
+      const elapsed = Date.now() - start;
+      if (elapsed < 800) await sleep(800 - elapsed);
+
+      if (r.ok) {
+        setItems((prev) => prev.filter((x) => x.id !== confirm.id));
+      } else {
+        const err = await r.json();
+        alert(err?.erro || "Falha ao remover");
+      }
+    } catch (e) {
+      console.error(e);
+      alert("Falha ao remover");
     } finally {
       setDeletingId(null);
       setConfirm({ open: false, id: null });
+      setOverlayOpen(false);
     }
   };
 
@@ -117,10 +155,11 @@ export default function RecipesAdmin() {
           <option value="pediatrica">Pediátrica</option>
           <option value="esportiva">Esportiva</option>
           <option value="emagrecimento">Emagrecimento</option>
-          <option value="intolerancias">Intolerâncias</option>
+          <option value="intolerancias">Intolerências</option>
         </select>
 
-        <Link to="/admin/receitas/new" className="adm-btn">+ Nova Receita</Link>
+        {/* botão substitui Link para mostrar overlay visual antes de navegar */}
+        <button className="adm-btn" onClick={handleNew}>+ Nova Receita</button>
       </div>
 
       {loading ? (
@@ -192,6 +231,8 @@ export default function RecipesAdmin() {
         onConfirm={doRemove}
         onClose={cancelConfirm}
       />
+
+      <SpinnerOverlay open={overlayOpen} message={overlayMsg} />
     </div>
   );
 }

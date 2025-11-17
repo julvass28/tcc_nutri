@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../css/auth-pages.css";
+import "../css/home-login-modal.css";
 import { AuthContext } from "../context/AuthContext";
-
+import { TermosConteudo, TermosStyles } from "./TermosDeServico";
+import { PoliticaConteudo } from "./PoliticaPrivacidade"; // <<< NOVO
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function LoadingOverlay({ show, text = "Carregando..." }) {
@@ -19,7 +21,7 @@ function LoadingOverlay({ show, text = "Carregando..." }) {
 
 export default function Login(props) {
   const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
-  const { login } = useContext(AuthContext);
+  const { login, user } = useContext(AuthContext);
   const MIN_LOADING_MS = 1000;
 
   const [showOverlay, setShowOverlay] = useState(false);
@@ -31,7 +33,8 @@ export default function Login(props) {
   const [fieldErrors, setFieldErrors] = useState({});
   const [askRegister, setAskRegister] = useState(false);
   const [logoutHint, setLogoutHint] = useState(false);
-
+  const [showTermsModal, setShowTermsModal] = useState(false); // <<< NOVO
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false); // <<< NOVO
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -45,6 +48,7 @@ export default function Login(props) {
     }
   }, [props._inlineFromHome]);
 
+  // Tratamento do logout (banner "Você saiu com segurança")
   useEffect(() => {
     if (location.state?.fromLogout) {
       (async () => {
@@ -57,6 +61,58 @@ export default function Login(props) {
       })();
     }
   }, [location.state, navigate, location.pathname]);
+
+  // Tratamento do retorno do login social (?socialToken=... / ?oauthError=...)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const socialToken = params.get("socialToken");
+    const oauthError = params.get("oauthError");
+
+    if (socialToken) {
+      // Salva token no contexto + storage
+      login(socialToken);
+
+      // Limpa a querystring
+      navigate(window.location.pathname, { replace: true });
+    } else if (oauthError) {
+      // Agora só usamos Google como provedor social
+      setErroLogin("Erro ao entrar com Google. Tente novamente.");
+      navigate(window.location.pathname, { replace: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Se já estiver logado e cair em /login, redireciona
+  useEffect(() => {
+    if (!user) return;
+
+    const incompleto =
+      !user.data_nascimento ||
+      !user.genero ||
+      user.altura === null ||
+      user.altura === undefined ||
+      user.peso === null ||
+      user.peso === undefined ||
+      !user.objetivo;
+
+    if (incompleto) {
+      // evita loop se já estiver na página de cadastro social
+      if (location.pathname !== "/cadastro-social") {
+        navigate("/cadastro-social", {
+          replace: true,
+          state: { from },
+        });
+      }
+      return;
+    }
+
+    // perfil completo → segue fluxo normal
+    if (from) {
+      navigate(from, { replace: true });
+    } else {
+      navigate("/", { replace: true });
+    }
+  }, [user, from, navigate, location.pathname]);
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -157,6 +213,18 @@ export default function Login(props) {
     }
   };
 
+  // Inicia fluxo de social login (Google)
+  const handleSocialLogin = () => {
+    const base = (API || "").replace(/\/$/, "");
+    const redirectFront = `${window.location.origin}/login`;
+
+    const url = `${base}/auth/google/start?redirect=${encodeURIComponent(
+      redirectFront
+    )}`;
+
+    window.location.href = url;
+  };
+
   return (
     <div className="login-body">
       {askRegister && (
@@ -231,7 +299,9 @@ export default function Login(props) {
         {(loginPrompt || from === "/agendar") && (
           <div className="logout-banner" role="status" aria-live="polite">
             <i className="fas fa-calendar-check" aria-hidden="true" />
-            <span>Faça o login para continuar o agendamento da sua consulta.</span>
+            <span>
+              Faça o login para continuar o agendamento da sua consulta.
+            </span>
           </div>
         )}
 
@@ -242,14 +312,14 @@ export default function Login(props) {
           entre com sua conta
         </p>
 
-        <button type="button" className="login-btn login-btn-google">
+        {/* Só Google agora */}
+        <button
+          type="button"
+          className="login-btn login-btn-google"
+          onClick={handleSocialLogin}
+        >
           <i className="fab fa-google login-icon"></i>
           Continuar com o Google
-        </button>
-
-        <button type="button" className="login-btn login-btn-facebook">
-          <i className="fab fa-facebook-f login-icon"></i>
-          Continuar com o Facebook
         </button>
 
         <div className="login-or-container">
@@ -341,8 +411,107 @@ export default function Login(props) {
           Criar Conta
         </button>
 
+        <p
+          className="login-terms-text"
+          style={{ marginTop: 16, color: "#b8b8b8ff" }}
+        >
+          Ao continuar, você concorda com os{" "}
+          <button
+            type="button"
+            className="as-button"
+            style={{ textDecoration: "underline", color: "#6d6d6dff" }}
+            onClick={() => setShowTermsModal(true)}
+          >
+            Termos de Serviço
+          </button>{" "}
+          e com a{" "}
+          <button
+            type="button"
+            className="as-button"
+            style={{ textDecoration: "underline", color: "#6d6d6dff" }}
+            onClick={() => setShowPrivacyModal(true)}
+          >
+            Política de Privacidade
+          </button>
+          .
+        </p>
+
         <LoadingOverlay show={showOverlay} text={overlayText} />
       </main>
+
+      {/* MODAL TERMOS DE SERVIÇO NO LOGIN */}
+      {showTermsModal && (
+        <div className="auth-overlay" role="dialog" aria-modal="true">
+          <div
+            className="auth-backdrop"
+            onClick={() => setShowTermsModal(false)}
+          />
+          <div className="auth-dialog">
+            <button
+              className="auth-close"
+              onClick={() => setShowTermsModal(false)}
+              title="Fechar"
+              aria-label="Fechar"
+            >
+              <i className="fa-solid fa-xmark" aria-hidden="true" />
+            </button>
+            <div
+              className="auth-content"
+              style={{ maxHeight: "70vh", overflowY: "auto" }}
+            >
+              <main
+                className="tos-main"
+                style={{
+                  padding: "16px 12px 24px",
+                  margin: 0,
+                  maxWidth: "100%",
+                }}
+              >
+                <TermosStyles />
+                <h2 style={{ marginTop: 0 }}>Termos de Serviço</h2>
+                <TermosConteudo />
+              </main>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL POLÍTICA DE PRIVACIDADE NO LOGIN */}
+      {showPrivacyModal && (
+        <div className="auth-overlay" role="dialog" aria-modal="true">
+          <div
+            className="auth-backdrop"
+            onClick={() => setShowPrivacyModal(false)}
+          />
+          <div className="auth-dialog">
+            <button
+              className="auth-close"
+              onClick={() => setShowPrivacyModal(false)}
+              title="Fechar"
+              aria-label="Fechar"
+            >
+              <i className="fa-solid fa-xmark" aria-hidden="true" />
+            </button>
+            <div
+              className="auth-content"
+              style={{ maxHeight: "70vh", overflowY: "auto" }}
+            >
+              <main
+                className="tos-main"
+                style={{
+                  padding: "16px 12px 24px",
+                  margin: 0,
+                  maxWidth: "100%",
+                }}
+              >
+                <TermosStyles />
+                <h2 style={{ marginTop: 0 }}>Política de Privacidade</h2>
+                <PoliticaConteudo />
+              </main>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -200,6 +200,7 @@ router.delete("/:id", auth, adminOnly, async (req, res) => {
 });
 
 /* upload opcional de banner */
+/* upload opcional de banner / thumb */
 const uploadDir = path.join(__dirname, "..", "uploads", "recipes");
 fs.mkdirSync(uploadDir, { recursive: true });
 
@@ -207,12 +208,14 @@ const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
     const ext = (file.originalname.split(".").pop() || "jpg").toLowerCase();
+    // ex: 12-1731719200000.jpg
     cb(null, `${req.params.id}-${Date.now()}.${ext}`);
   },
 });
+
 const upload = multer({
   storage,
-  limits: { fileSize: 4 * 1024 * 1024 },
+  limits: { fileSize: 4 * 1024 * 1024 }, // 4MB
   fileFilter: (_req, file, cb) => {
     const ok = ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(
       file.mimetype
@@ -221,25 +224,64 @@ const upload = multer({
   },
 });
 
+// helper pra gerar URL pública a partir do filename salvo
+function buildPublicRecipeUrl(req, filename) {
+  const proto = req.headers["x-forwarded-proto"] || req.protocol;
+  const host = req.get("host");
+  const baseUrl = process.env.PUBLIC_BASE_URL || `${proto}://${host}`;
+  return `${baseUrl}/uploads/recipes/${filename}`;
+}
+
 // POST /admin/receitas/:id/banner
-router.post("/:id/banner", auth, adminOnly, upload.single("banner"), async (req, res) => {
-  try {
-    if (!req.file) return res.status(400).json({ erro: "Arquivo não enviado" });
-    const r = await Receita.findByPk(req.params.id);
-    if (!r) return res.status(404).json({ erro: "Não encontrada" });
+// campo do form-data: "banner"
+router.post(
+  "/:id/banner",
+  auth,
+  adminOnly,
+  upload.single("banner"),
+  async (req, res) => {
+    try {
+      if (!req.file)
+        return res.status(400).json({ erro: "Arquivo não enviado" });
 
-    // gera URL pública
-    const proto = req.headers["x-forwarded-proto"] || req.protocol;
-    const host = req.get("host");
-    const baseUrl = process.env.PUBLIC_BASE_URL || `${proto}://${host}`;
-    const url = `${baseUrl}/uploads/recipes/${req.file.filename}`;
+      const r = await Receita.findByPk(req.params.id);
+      if (!r) return res.status(404).json({ erro: "Não encontrada" });
 
-    await r.update({ bannerUrl: url });
-    res.json({ bannerUrl: url });
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ erro: "Falha ao enviar banner" });
+      const url = buildPublicRecipeUrl(req, req.file.filename);
+
+      await r.update({ bannerUrl: url });
+      res.json({ bannerUrl: url });
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ erro: "Falha ao enviar banner" });
+    }
   }
-});
+);
+
+// POST /admin/receitas/:id/thumb
+// campo do form-data: "thumb"
+router.post(
+  "/:id/thumb",
+  auth,
+  adminOnly,
+  upload.single("thumb"),
+  async (req, res) => {
+    try {
+      if (!req.file)
+        return res.status(400).json({ erro: "Arquivo não enviado" });
+
+      const r = await Receita.findByPk(req.params.id);
+      if (!r) return res.status(404).json({ erro: "Não encontrada" });
+
+      const url = buildPublicRecipeUrl(req, req.file.filename);
+
+      await r.update({ thumbUrl: url });
+      res.json({ thumbUrl: url });
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ erro: "Falha ao enviar thumbnail" });
+    }
+  }
+);
 
 module.exports = router;

@@ -16,7 +16,7 @@ import "./css/tokens.css";
 
 // termos
 import TermosDeServico from "./pages/TermosDeServico";
-
+import PoliticaPrivacidade from "./pages/PoliticaPrivacidade";
 // Páginas públicas
 import Home from "./pages/Home";
 import IMCCalculator from "./pages/IMCCalculator";
@@ -46,7 +46,7 @@ import RecipesAdmin from "./pages/admin/RecipesAdmin";
 import RecipeForm from "./pages/admin/RecipeForm";
 import RecipesCategory from "./pages/receitas/RecipesCategory";
 import RecipeDetail from "./pages/receitas/RecipeDetail";
-
+import CadastroSocial from "./pages/CadastroSocial";
 import PerfilEditar from "./pages/PerfilEditar";
 import Perfil from "./pages/perfil";
 import AgendarConsulta from "./pages/agendar_consulta";
@@ -62,7 +62,7 @@ import FaqAdmin from "./pages/admin/FaqAdmin";
 import FaqForm from "./pages/admin/FaqForm";
 import AdminAccountSettingsPage from "./pages/admin/adm_configuracoes";
 import AdminPreco from "./pages/admin/AdminPreco";
-import AdminAgendaSlots from "./pages/admin/AdminAgendaSlots";
+
 // ====== Redirect de compatibilidade para rotas antigas ======
 function LegacyReceitasRedirect() {
   const { categoria } = useParams();
@@ -116,6 +116,7 @@ export default function App() {
           <Route path="/agendar-consulta" element={<AgendarConsulta />} />
           <Route path="/agendar" element={<Agendar />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/cadastro-social" element={<CadastroSocial />} />
           <Route path="/cadastro" element={<CriarConta />} />
           <Route path="/esqueci-senha" element={<ForgotPassword />} />
           <Route path="/minhas-consultas" element={<MinhasConsultas />} />
@@ -128,6 +129,10 @@ export default function App() {
           <Route path="/DicaNutri-Bar" element={<Bar />} />
           <Route path="/DicaNutri-Viagem" element={<Viagem />} />
           <Route path="/termos-de-servico" element={<TermosDeServico />} />
+          <Route
+            path="/politica-de-privacidade"
+            element={<PoliticaPrivacidade />}
+          />
           {/* <Route path="/agendar" element={<Agendar />} /> */}
           <Route path="/anamnese" element={<Anamnese />} />
           {/* ===== Primeiro: redireciono as rotas antigas de categoria ===== */}
@@ -164,7 +169,7 @@ export default function App() {
           <Route path="receitas/new" element={<RecipeForm />} />
           <Route path="receitas/:id/edit" element={<RecipeForm />} />
           <Route path="preco" element={<AdminPreco />} />
-          <Route path="agenda" element={<AdminAgendaSlots />} />
+          
           <Route path="agenda-full" element={<AdminAgendaFull />} />
           <Route path="faq" element={<FaqAdmin />} />
           <Route path="faq/new" element={<FaqForm />} />

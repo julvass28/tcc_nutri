@@ -9,8 +9,43 @@ const fs = require("fs");
 const path = require("path");
 const multer = require("multer");
 const Usuario = require("../models/Usuario");
+const axios = require("axios");
+const jwt = require("jsonwebtoken");
 
-// GET /me
+// ================== CONFIG GERAL ==================
+const FRONTEND_URL = (process.env.FRONTEND_URL || "http://localhost:5173").replace(
+  /\/$/,
+  ""
+);
+
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
+
+
+// Base para montar URL pública do servidor (para callback OAuth)
+function getServerBaseUrl(req) {
+  if (process.env.PUBLIC_BASE_URL) {
+    return process.env.PUBLIC_BASE_URL.replace(/\/$/, "");
+  }
+  const proto = req.headers["x-forwarded-proto"] || req.protocol;
+  const host = req.get("host");
+  return `${proto}://${host}`;
+}
+
+function gerarTokenJwt(usuario) {
+  return jwt.sign(
+    {
+      id: usuario.id,
+      email: usuario.email,
+      isAdmin: !!usuario.isAdmin,
+      isOwner: !!usuario.isOwner,
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: "1d" }
+  );
+}
+
+// ================== /me ==================
 router.get("/me", authMiddleware, async (req, res) => {
   try {
     const usuario = await Usuario.findByPk(req.user.id, {
@@ -106,8 +141,133 @@ router.put("/account", authMiddleware, async (req, res) => {
   }
 });
 
+// ================== LOGIN/REGISTER "normais" ==================
 router.post("/register", authController.register);
 router.post("/login", authController.login);
+
+// ================== LOGIN SOCIAL: GOOGLE ==================
+router.get("/auth/google/start", (req, res) => {
+  if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET) {
+    return res
+      .status(500)
+      .json({ erro: "Login com Google não está configurado no servidor." });
+  }
+
+  const redirectBase = getServerBaseUrl(req);
+  const redirectUri = `${redirectBase}/auth/google/callback`;
+  const redirectFront = req.query.redirect || `${FRONTEND_URL}/login`;
+
+  const statePayload = { redirect: redirectFront };
+  const state = Buffer.from(JSON.stringify(statePayload)).toString("base64");
+
+  const url = new URL("https://accounts.google.com/o/oauth2/v2/auth");
+  url.searchParams.set("client_id", GOOGLE_CLIENT_ID);
+  url.searchParams.set("redirect_uri", redirectUri);
+  url.searchParams.set("response_type", "code");
+  url.searchParams.set("scope", "openid email profile");
+  url.searchParams.set("prompt", "select_account");
+  url.searchParams.set("access_type", "offline");
+  url.searchParams.set("state", state);
+
+  return res.redirect(url.toString());
+});
+
+router.get("/auth/google/callback", async (req, res) => {
+  const { code, state } = req.query;
+
+  if (!code) {
+    return res.redirect(`${FRONTEND_URL}/login?oauthError=google`);
+  }
+
+  const redirectBase = getServerBaseUrl(req);
+  const redirectUri = `${redirectBase}/auth/google/callback`;
+
+  try {
+    const tokenRes = await axios.post(
+      "https://oauth2.googleapis.com/token",
+      null,
+      {
+        params: {
+          code,
+          client_id: GOOGLE_CLIENT_ID,
+          client_secret: GOOGLE_CLIENT_SECRET,
+          redirect_uri: redirectUri,
+          grant_type: "authorization_code",
+        },
+      }
+    );
+
+    const { access_token } = tokenRes.data || {};
+    if (!access_token) {
+      throw new Error("Access token não retornado pelo Google.");
+    }
+
+    const userRes = await axios.get(
+      "https://www.googleapis.com/oauth2/v2/userinfo",
+      {
+        headers: { Authorization: `Bearer ${access_token}` },
+      }
+    );
+
+    const googleUser = userRes.data || {};
+    const email = (googleUser.email || "").toLowerCase();
+
+    if (!email) {
+      throw new Error("Google não retornou e-mail.");
+    }
+
+    const nome = googleUser.given_name || googleUser.name || "";
+    const sobrenome = googleUser.family_name || "";
+    const picture = googleUser.picture || null;
+
+    let usuario = await Usuario.findOne({ where: { email } });
+
+    if (!usuario) {
+      const senhaGerada = crypto.randomBytes(16).toString("hex");
+      const senhaHash = await bcrypt.hash(senhaGerada, 10);
+
+      usuario = await Usuario.create({
+        nome,
+        sobrenome,
+        email,
+        senha: senhaHash,
+        fotoUrl: picture,
+      });
+    }
+
+    const token = gerarTokenJwt(usuario);
+
+    let redirectFront = `${FRONTEND_URL}/login?socialToken=${encodeURIComponent(
+      token
+    )}`;
+
+    if (state) {
+      try {
+        const decoded = JSON.parse(
+          Buffer.from(String(state), "base64").toString("utf8")
+        );
+        if (decoded.redirect) {
+          const url = new URL(decoded.redirect, FRONTEND_URL);
+          url.searchParams.set("socialToken", token);
+          redirectFront = url.toString();
+        }
+      } catch (e) {
+        // state inválido → ignora e usa padrão
+      }
+    }
+
+    return res.redirect(redirectFront);
+  } catch (err) {
+    console.error(
+      "Erro no OAuth do Google:",
+      err.response?.data || err.message
+    );
+    return res.redirect(`${FRONTEND_URL}/login?oauthError=google`);
+  }
+});
+
+
+// ================== ESQUECI A SENHA ==================
 
 // Transporter universal (SMTP real)
 const transporter = nodemailer.createTransport({
@@ -243,7 +403,7 @@ router.post("/redefinir-senha", async (req, res) => {
   }
 });
 
-/** ================== PERFIL: ATUALIZAÇÃO TEXTUAL ================== */
+// ================== PERFIL: ATUALIZAÇÃO TEXTUAL ==================
 router.put("/perfil", authMiddleware, async (req, res) => {
   try {
     const {
@@ -282,7 +442,7 @@ router.put("/perfil", authMiddleware, async (req, res) => {
   }
 });
 
-/** ================== PERFIL: UPLOAD DE FOTO ================== */
+// ================== PERFIL: UPLOAD DE FOTO ==================
 const uploadDir = path.join(__dirname, "..", "uploads", "avatars");
 fs.mkdirSync(uploadDir, { recursive: true });
 

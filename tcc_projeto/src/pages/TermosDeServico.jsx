@@ -2,23 +2,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function TermosDeServico() {
-  const versao = "2025-11-10";
-  const contato = "dev.neven@gmail.com";
-  const navigate = useNavigate();
+export const TERMOS_VERSAO = "2025-11-10";
+export const TERMOS_CONTATO = "dev.neven@gmail.com";
 
-  const handleBack = () => navigate(-1);
-  const handleKey = (e) => {
-    if (e.key === "Enter" || e.key === " ") handleBack();
-  };
-
+export function TermosStyles() {
   return (
-    <main className="tos-main">
-      <style>{`
+    <style>{`
         .tos-main {
           max-width: 860px;
           margin: 0 auto;
-          padding: 48px 18px 64px; /* AQUI AUMENTAMOS O ESPAÇO SUPERIOR */
+          padding: 48px 18px 64px; /* Espaço superior confortável */
           line-height: 1.65;
           color: #222;
           font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -62,22 +55,14 @@ export default function TermosDeServico() {
           margin: 8px 0 12px 18px;
         }
       `}</style>
+  );
+}
 
-      <div className="tos-topbar">
-        <i
-          className="fas fa-arrow-left tos-back-icon"
-          role="button"
-          tabIndex={0}
-          aria-label="Voltar à página anterior"
-          title="Voltar"
-          onClick={handleBack}
-          onKeyDown={handleKey}
-        />
-        <h1 style={{ margin: 0 }}>Termos de Serviço</h1>
-      </div>
-
+export function TermosConteudo() {
+  return (
+    <>
       <p className="version">
-        Versão {versao} — Vigente a partir de 10 de novembro de 2025.
+        Versão {TERMOS_VERSAO} — Vigente a partir de 10 de novembro de 2025.
       </p>
 
       <h2>1. Aceite e Objeto</h2>
@@ -193,7 +178,7 @@ export default function TermosDeServico() {
       </p>
 
       <h2>14. Contato</h2>
-      <p>Dúvidas: {contato}</p>
+      <p>Dúvidas: {TERMOS_CONTATO}</p>
 
       <h2>15. Disposições Finais</h2>
       <p>
@@ -201,6 +186,35 @@ export default function TermosDeServico() {
         O não exercício de direitos não implica renúncia. Estes Termos constituem
         o acordo integral entre as partes quanto ao uso do Site.
       </p>
+    </>
+  );
+}
+
+export default function TermosDeServico() {
+  const navigate = useNavigate();
+
+  const handleBack = () => navigate(-1);
+  const handleKey = (e) => {
+    if (e.key === "Enter" || e.key === " ") handleBack();
+  };
+
+  return (
+    <main className="tos-main">
+      <TermosStyles />
+      <div className="tos-topbar">
+        <i
+          className="fas fa-arrow-left tos-back-icon"
+          role="button"
+          tabIndex={0}
+          aria-label="Voltar à página anterior"
+          title="Voltar"
+          onClick={handleBack}
+          onKeyDown={handleKey}
+        />
+        <h1 style={{ margin: 0 }}>Termos de Serviço e Política de Privacidade</h1>
+      </div>
+
+      <TermosConteudo />
     </main>
   );
 }

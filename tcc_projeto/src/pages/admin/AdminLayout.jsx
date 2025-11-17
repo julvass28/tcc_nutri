@@ -16,11 +16,16 @@ import {
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import "../../css/admin-theme.css";
 import { LuCalendarRange } from "react-icons/lu";
+import SpinnerOverlay from "../../components/SpinnerOverlay";
 
 export default function AdminLayout() {
   const { logout, user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // overlay spinner para navegações do menu
+  const [overlayOpen, setOverlayOpen] = useState(false);
+  const [overlayMsg, setOverlayMsg] = useState("Carregando…");
 
   const handleLogoutAndGoLogin = async () => {
     try {
@@ -35,6 +40,17 @@ export default function AdminLayout() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  // navegação com overlay (padronizada)
+  const navigateWithOverlay = async (to) => {
+    setOverlayMsg("Abrindo…");
+    setOverlayOpen(true);
+    // deixar visível por um tempo mínimo (UX)
+    await new Promise((res) => setTimeout(res, 650));
+    setSidebarOpen(false);
+    navigate(to);
+    setOverlayOpen(false);
+  };
 
   return (
     <div className={`adm-shell ${sidebarOpen ? "" : "adm-nav-collapsed"}`}>
@@ -58,10 +74,10 @@ export default function AdminLayout() {
             {user?.nome ? <small>{user.nome}</small> : <small>Admin</small>}
           </span>
 
-          <NavLink to="/" className="adm-btn">
+          <button className="adm-btn" onClick={() => navigateWithOverlay("/")}>
             <FaGlobe />
             <span>Ver site</span>
-          </NavLink>
+          </button>
 
           <button
             className="adm-btn adm-btn--danger"
@@ -84,7 +100,7 @@ export default function AdminLayout() {
             className={({ isActive }) =>
               "adm-navlink" + (isActive ? " adm-is-active" : "")
             }
-            onClick={() => setSidebarOpen(false)}
+            onClick={(e) => { e.preventDefault(); navigateWithOverlay("/admin"); }}
           >
             <FaHouseUser className="ico" />
             <span>Início</span>
@@ -95,7 +111,7 @@ export default function AdminLayout() {
             className={({ isActive }) =>
               "adm-navlink" + (isActive ? " adm-is-active" : "")
             }
-            onClick={() => setSidebarOpen(false)}
+            onClick={(e) => { e.preventDefault(); navigateWithOverlay("/admin/users"); }}
           >
             <FaUsers className="ico" />
             <span>Usuários</span>
@@ -106,63 +122,57 @@ export default function AdminLayout() {
             className={({ isActive }) =>
               "adm-navlink" + (isActive ? " adm-is-active" : "")
             }
-            onClick={() => setSidebarOpen(false)}
+            onClick={(e) => { e.preventDefault(); navigateWithOverlay("/admin/receitas"); }}
           >
             <span className="ico">
               <FaBook />
             </span>
             <span>Receitas</span>
           </NavLink>
+
           <NavLink
             to="/admin/preco"
             className={({ isActive }) =>
               "adm-navlink" + (isActive ? " adm-is-active" : "")
             }
-            onClick={() => setSidebarOpen(false)}
+            onClick={(e) => { e.preventDefault(); navigateWithOverlay("/admin/preco"); }}
           >
             <span className="ico">
               <RiMoneyDollarCircleFill />
             </span>
             <span>Ajustar o Preço</span>
           </NavLink>
+
           <NavLink
             to="/admin/faq"
             className={({ isActive }) =>
               "adm-navlink" + (isActive ? " adm-is-active" : "")
             }
-            onClick={() => setSidebarOpen(false)}
+            onClick={(e) => { e.preventDefault(); navigateWithOverlay("/admin/faq"); }}
           >
             <span className="ico">
               <FaQuestionCircle />
             </span>
             <span>FAQ</span>
           </NavLink>
+
           <NavLink
             to="/admin/agenda-full"
             className={({ isActive }) =>
               "adm-navlink" + (isActive ? " adm-is-active" : "")
             }
-            onClick={() => setSidebarOpen(false)}
+            onClick={(e) => { e.preventDefault(); navigateWithOverlay("/admin/agenda-full"); }}
           >
             <FaCalendarAlt className="ico" />
             <span>Minha Agenda</span>
           </NavLink>
-          <NavLink
-            to="/admin/agenda"
-            className={({ isActive }) =>
-              "adm-navlink" + (isActive ? " adm-is-active" : "")
-            }
-            onClick={() => setSidebarOpen(false)}
-          >
-            <LuCalendarRange className="ico" />
-            <span>Controle Listado</span>
-          </NavLink>
+
           <NavLink
             to="/admin/consultas"
             className={({ isActive }) =>
               "adm-navlink" + (isActive ? " adm-is-active" : "")
             }
-            onClick={() => setSidebarOpen(false)}
+            onClick={(e) => { e.preventDefault(); navigateWithOverlay("/admin/consultas"); }}
           >
             <FaClipboardList className="ico" />
             <span>Consultas</span>
@@ -179,6 +189,8 @@ export default function AdminLayout() {
       <main className="adm-content">
         <Outlet />
       </main>
+
+      <SpinnerOverlay open={overlayOpen} message={overlayMsg} />
     </div>
   );
 }
