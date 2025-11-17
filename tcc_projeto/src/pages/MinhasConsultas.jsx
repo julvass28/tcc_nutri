@@ -1,5 +1,5 @@
 // src/pages/MinhasConsultas.jsx
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import "../css/perfil.css";
 import "../css/perfil-consultas.css";
 import { AuthContext } from "../context/AuthContext";
@@ -18,17 +18,6 @@ const ESPECIALIDADE_LABELS = {
 function mapEspecialidade(especialidade) {
   if (!especialidade) return "Nutrição";
   return ESPECIALIDADE_LABELS[especialidade] || especialidade;
-}
-
-// Toast simples reaproveitando estilo da tela de perfil
-function Toast({ show, children }) {
-  if (!show) return null;
-  return (
-    <div className="toast" role="status" aria-live="polite">
-      <i className="fas fa-check-circle toast-icone" aria-hidden="true" />
-      <span>{children}</span>
-    </div>
-  );
 }
 
 function normalizarAgendamento(ag) {
@@ -50,16 +39,16 @@ function normalizarAgendamento(ag) {
   }
 
   return {
-    // id real vindo do backend (ag.id)
     id: ag.id,
     date,
     time,
-    especialidade: ag.especialidade,
+    especialidade: ag.especialidade || null,
     payment_ref: ag.payment_ref || ag.idempotency_key || null,
-    // status oficial do backend: pendente / confirmada / finalizada / cancelada
     status: ag.status || ag.situacao || "confirmada",
     anamneseRespondida:
-      ag.anamneseRespondida === true || ag.anamneseRespondida === 1,
+      ag.anamnese_preenchida === true ||
+      ag.anamneseRespondida === true ||
+      ag.anamneseRespondida === 1,
   };
 }
 
@@ -82,24 +71,31 @@ export default function MinhasConsultas() {
   const [consultaInfoAbertaId, setConsultaInfoAbertaId] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // abas: "andamento" | "finalizadas" | "canceladas"
   const [activeTab, setActiveTab] = useState("andamento");
 
-  // controle do fluxo de cancelamento
   const [cancelTargetId, setCancelTargetId] = useState(null);
   const [cancelLoadingId, setCancelLoadingId] = useState(null);
 
-  // toast
   const [toastMsg, setToastMsg] = useState("");
   const [showToast, setShowToast] = useState(false);
 
+  // função para mostrar toast
+  const showToastMsg = useCallback((msg) => {
+    setToastMsg(msg);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2500);
+  }, []);
+
+  // carrega cache + backend (executa só uma vez no mount, ou quando token muda)
   useEffect(() => {
     if (!token) {
       navigate("/login");
       return;
     }
 
-    // 1) Carrega cache do sessionStorage
+    setLoading(true);
+
+    // 1) Carregar cache do sessionStorage (se houver)
     try {
       const rawList = sessionStorage.getItem("booking.list");
       if (rawList) {
@@ -112,18 +108,26 @@ export default function MinhasConsultas() {
 
       const rawLast = sessionStorage.getItem("booking.last");
       if (rawLast && !consultaFallback) {
-        setConsultaFallback(JSON.parse(rawLast));
+        try {
+          setConsultaFallback(JSON.parse(rawLast));
+        } catch {
+          // ignora
+        }
       }
 
       const rawAnam = sessionStorage.getItem("anamnese.pendente");
       if (rawAnam) {
-        setAnamnesePendente(JSON.parse(rawAnam));
+        try {
+          setAnamnesePendente(JSON.parse(rawAnam));
+        } catch {
+          setAnamnesePendente(null);
+        }
       }
     } catch {
-      // ignora problema de parse
+      // parse erro -> ignora
     }
 
-    // 2) Busca real no backend
+    // 2) Buscar dados reais no backend
     (async () => {
       try {
         const res = await fetch(`${API}/agenda/minhas`, {
@@ -131,15 +135,19 @@ export default function MinhasConsultas() {
         });
 
         if (!res.ok) {
-          setLoading(false);
+          // se 401 ou outro, tenta limpar sessão e redirecionar
+          if (res.status === 401 || res.status === 403) {
+            // logout silenciado (apenas local)
+            localStorage.removeItem("token");
+            navigate("/login");
+            return;
+          }
+          // não quebrar a UI — mantém cache
           return;
         }
 
         const data = await res.json();
-        if (!Array.isArray(data)) {
-          setLoading(false);
-          return;
-        }
+        if (!Array.isArray(data)) return;
 
         const normalizadas = data
           .map((ag) => normalizarAgendamento(ag))
@@ -148,11 +156,15 @@ export default function MinhasConsultas() {
         setConsultas(normalizadas);
 
         // atualiza cache local
-        sessionStorage.setItem("booking.list", JSON.stringify(normalizadas));
-        if (normalizadas.length > 0) {
-          const last = normalizadas[normalizadas.length - 1];
-          setConsultaFallback(last);
-          sessionStorage.setItem("booking.last", JSON.stringify(last));
+        try {
+          sessionStorage.setItem("booking.list", JSON.stringify(normalizadas));
+          if (normalizadas.length > 0) {
+            const last = normalizadas[normalizadas.length - 1];
+            setConsultaFallback(last);
+            sessionStorage.setItem("booking.last", JSON.stringify(last));
+          }
+        } catch {
+          // ignora erros de storage
         }
       } catch (e) {
         console.error("Erro ao carregar /agenda/minhas:", e);
@@ -160,33 +172,31 @@ export default function MinhasConsultas() {
         setLoading(false);
       }
     })();
-  }, [token, navigate, consultaFallback]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token, navigate]); // roda quando token muda (login/logout) ou no mount
 
   // base para grupos (se não vier nada do backend, usa fallback)
   const listaBase =
     consultas && consultas.length > 0
       ? consultas
-      : consultaFallback
-      ? [consultaFallback]
-      : [];
+      : consultationFallbackToArray(consultaFallback);
 
-  // grupos por status (strings oficiais do backend)
+  function consultationFallbackToArray(fallback) {
+    if (!fallback) return [];
+    return [fallback];
+  }
+
+  // grupos por status
   const emAndamento = listaBase.filter(
     (c) => c.status === "pendente" || c.status === "confirmada"
   );
   const finalizadas = listaBase.filter((c) => c.status === "finalizada");
   const canceladas = listaBase.filter((c) => c.status === "cancelada");
 
-  const temConsultaUnica = !!consultaFallback;
   const consultaUnicaId = consultaFallback?.payment_ref || "consulta-unica";
 
-  const showToastMsg = (msg) => {
-    setToastMsg(msg);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 2500);
-  };
-
-  // 👉 Handler para confirmar cancelamento (chama o backend)
+  // cancelar: chama backend e atualiza lista local
   const handleConfirmCancel = async (consulta) => {
     if (!consulta?.id) return;
 
@@ -206,15 +216,18 @@ export default function MinhasConsultas() {
       });
 
       if (!res.ok) {
-        throw new Error("Falha ao cancelar");
+        // tenta ler erro pra feedback
+        let errText = "Falha ao cancelar";
+        try {
+          const errJson = await res.json();
+          errText = errJson?.erro || errJson?.message || errText;
+        } catch {
+          /* ignore */
+        }
+        throw new Error(errText);
       }
 
-      let updated;
-      try {
-        updated = await res.json();
-      } catch {
-        updated = null;
-      }
+      const updated = await res.json().catch(() => null);
 
       setConsultas((prev) => {
         const next = prev.map((c) =>
@@ -225,25 +238,39 @@ export default function MinhasConsultas() {
               }
             : c
         );
-        // atualiza cache também
-        sessionStorage.setItem("booking.list", JSON.stringify(next));
+        try {
+          sessionStorage.setItem("booking.list", JSON.stringify(next));
+        } catch {
+          // ignora
+        }
         return next;
       });
 
-      // limpa target
+      // também atualizar booking.last se essa consulta for a last
+      try {
+        const rawLast = sessionStorage.getItem("booking.last");
+        if (rawLast) {
+          const lastObj = JSON.parse(rawLast);
+          if (lastObj && (lastObj.id === id || lastObj.payment_ref === consulta.payment_ref)) {
+            lastObj.status = updated?.status || "cancelada";
+            sessionStorage.setItem("booking.last", JSON.stringify(lastObj));
+          }
+        }
+      } catch {
+        // ignora
+      }
+
       setCancelTargetId(null);
-      showToastMsg(
-        "Consulta cancelada com sucesso. O valor não será estornado."
-      );
+      showToastMsg("Consulta cancelada com sucesso. O valor não será estornado.");
     } catch (e) {
-      console.error(e);
-      showToastMsg("Não foi possível cancelar a consulta. Tente novamente.");
+      console.error("Erro cancelamento:", e);
+      showToastMsg(e?.message || "Não foi possível cancelar a consulta. Tente novamente.");
     } finally {
       setCancelLoadingId(null);
     }
   };
 
-  // conteúdo para cada aba
+  // render da lista (componentizado dentro do arquivo)
   const renderLista = (lista, tipo) => {
     if (!lista || lista.length === 0) {
       const msgMap = {
@@ -265,8 +292,7 @@ export default function MinhasConsultas() {
     return (
       <>
         {lista.map((c, idx) => {
-          const anamneseOk =
-            c.anamneseRespondida === true || c.anamneseRespondida === 1;
+          const anamneseOk = c.anamneseRespondida === true || c.anamneseRespondida === 1;
           const cardId = c.payment_ref || c.id || `consulta-${idx}`;
           const infoAberta = consultaInfoAbertaId === cardId;
           const isCancelada = c.status === "cancelada";
@@ -276,9 +302,7 @@ export default function MinhasConsultas() {
           return (
             <div
               key={cardId}
-              className={`perfil-consulta-card ${
-                isCancelada ? "consulta-cancelada" : ""
-              }`}
+              className={`perfil-consulta-card ${isCancelada ? "consulta-cancelada" : ""}`}
               style={
                 isCancelada
                   ? {
@@ -291,11 +315,7 @@ export default function MinhasConsultas() {
             >
               <div className="perfil-consulta-head">
                 <span className="badge-ok">
-                  {isCancelada
-                    ? "Cancelada"
-                    : isFinalizada
-                    ? "Finalizada"
-                    : "Agendada"}
+                  {isCancelada ? "Cancelada" : isFinalizada ? "Finalizada" : "Agendada"}
                 </span>
                 <span className="perfil-consulta-date">
                   {dataBr(c.date)} às {c.time || "—"}
@@ -315,14 +335,9 @@ export default function MinhasConsultas() {
                 <button
                   type="button"
                   className="perfil-consulta-btn-sec"
-                  onClick={() =>
-                    setConsultaInfoAbertaId(infoAberta ? null : cardId)
-                  }
+                  onClick={() => setConsultaInfoAbertaId(infoAberta ? null : cardId)}
                 >
-                  <i
-                    className="fas fa-info-circle"
-                    style={{ marginRight: 6 }}
-                  />
+                  <i className="fas fa-info-circle" style={{ marginRight: 6 }} />
                   Como será a consulta?
                 </button>
 
@@ -338,7 +353,6 @@ export default function MinhasConsultas() {
                   </a>
                 )}
 
-                {/* Botão de cancelar só em consultas em andamento */}
                 {tipo === "andamento" && isAndamento && (
                   <button
                     type="button"
@@ -348,11 +362,7 @@ export default function MinhasConsultas() {
                       color: "#9b4b4b",
                       borderColor: "#e9b3aa",
                     }}
-                    onClick={() =>
-                      setCancelTargetId(
-                        cancelTargetId === cardId ? null : cardId
-                      )
-                    }
+                    onClick={() => setCancelTargetId(cancelTargetId === cardId ? null : cardId)}
                   >
                     <FaTimes style={{ marginRight: 6 }} />
                     Cancelar consulta
@@ -363,107 +373,63 @@ export default function MinhasConsultas() {
               {infoAberta && (
                 <div className="perfil-consulta-extra">
                   <p>
-                    A consulta será realizada{" "}
-                    <strong>online, via Google Meet</strong>. Cerca de{" "}
-                    <strong>10 minutos antes</strong> do horário marcado, a
-                    nutricionista entrará em contato pelo{" "}
-                    <strong>telefone informado na sua anamnese</strong> e pelo{" "}
-                    <strong>seu e-mail</strong>, enviando o link da reunião.
+                    A consulta será realizada <strong>online, via Google Meet</strong>. Cerca de{" "}
+                    <strong>10 minutos antes</strong> do horário marcado, a nutricionista entrará em contato
+                    pelo <strong>telefone informado na sua anamnese</strong> e pelo <strong>seu e-mail</strong>.
                   </p>
                   <p>
-                    No horário combinado, acesse o link em um local calmo, com
-                    boa internet. Tenha em mãos exames, lista de medicamentos
-                    (se houver) e suas principais dúvidas.
+                    No horário combinado, acesse o link em um local calmo, com boa internet. Tenha em mãos exames,
+                    lista de medicamentos (se houver) e suas principais dúvidas.
                   </p>
                 </div>
               )}
 
-              {/* Box de confirmação de cancelamento */}
-              {tipo === "andamento" &&
-                isAndamento &&
-                cancelTargetId === cardId && (
-                  <div
-                    className="perfil-consulta-alert"
-                    style={{
-                      marginTop: "0.75rem",
-                      borderColor: "#e9b3aa",
-                      background: "#fff8f6",
-                    }}
-                  >
-                    <p style={{ marginBottom: "0.5rem" }}>
-                      <strong>
-                        Tem certeza que deseja cancelar esta consulta?
-                      </strong>
-                    </p>
-                    <p
-                      style={{
-                        fontSize: "0.9rem",
-                        marginBottom: "0.75rem",
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      Ao confirmar o cancelamento, a sua vaga neste horário será
-                      liberada na agenda da nutricionista.{" "}
-                      <strong>
-                        O valor pago não será estornado, conforme política do
-                        serviço.
-                      </strong>{" "}
-                      Você poderá agendar um novo horário posteriormente.
-                    </p>
+              {tipo === "andamento" && isAndamento && cancelTargetId === cardId && (
+                <div
+                  className="perfil-consulta-alert"
+                  style={{
+                    marginTop: "0.75rem",
+                    borderColor: "#e9b3aa",
+                    background: "#fff8f6",
+                  }}
+                >
+                  <p style={{ marginBottom: "0.5rem" }}>
+                    <strong>Tem certeza que deseja cancelar esta consulta?</strong>
+                  </p>
+                  <p style={{ fontSize: "0.9rem", marginBottom: "0.75rem", lineHeight: 1.5 }}>
+                    Ao confirmar o cancelamento, a sua vaga neste horário será liberada na agenda da
+                    nutricionista. <strong>O valor pago não será estornado, conforme política do serviço.</strong>{" "}
+                    Você poderá agendar um novo horário posteriormente.
+                  </p>
 
-                    <div
-                      style={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: "0.5rem",
-                      }}
-                    >
-                      <button
-                        type="button"
-                        className="perfil-consulta-btn-sec"
-                        onClick={() => setCancelTargetId(null)}
-                      >
-                        Manter consulta
-                      </button>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                    <button type="button" className="perfil-consulta-btn-sec" onClick={() => setCancelTargetId(null)}>
+                      Manter consulta
+                    </button>
 
-                      <button
-                        type="button"
-                        className="perfil-consulta-btn"
-                        style={{
-                          background: "#c45959",
-                          borderColor: "#c45959",
-                        }}
-                        disabled={cancelLoadingId === c.id}
-                        onClick={() => handleConfirmCancel(c)}
-                      >
-                        {cancelLoadingId === c.id
-                          ? "Cancelando..."
-                          : "Confirmar cancelamento"}
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      className="perfil-consulta-btn"
+                      style={{ background: "#c45959", borderColor: "#c45959" }}
+                      disabled={cancelLoadingId === c.id}
+                      onClick={() => handleConfirmCancel(c)}
+                    >
+                      {cancelLoadingId === c.id ? "Cancelando..." : "Confirmar cancelamento"}
+                    </button>
                   </div>
-                )}
+                </div>
+              )}
 
-              {/* Status da anamnese (não mostra botão em canceladas) */}
               {!isCancelada && (
                 <>
                   {!anamneseOk ? (
                     <div className="perfil-consulta-alert">
-                      <p>
-                        Sua anamnese ainda não foi respondida para esta
-                        consulta.
-                      </p>
+                      <p>Sua anamnese ainda não foi respondida para esta consulta.</p>
                       <button
                         className="perfil-consulta-btn"
                         onClick={() => {
-                          sessionStorage.setItem(
-                            "anamnese.pendente",
-                            JSON.stringify(c)
-                          );
-                          sessionStorage.setItem(
-                            "booking.last",
-                            JSON.stringify(c)
-                          );
+                          sessionStorage.setItem("anamnese.pendente", JSON.stringify({ ...c }));
+                          sessionStorage.setItem("booking.last", JSON.stringify(c));
                           navigate("/anamnese");
                         }}
                       >
@@ -472,8 +438,7 @@ export default function MinhasConsultas() {
                     </div>
                   ) : (
                     <p className="perfil-consulta-ok">
-                      <FaCheckCircle id="correct_perfil_consulta_anam" />{" "}
-                      Anamnese respondida
+                      <FaCheckCircle id="correct_perfil_consulta_anam" /> Anamnese respondida
                     </p>
                   )}
                 </>
@@ -487,23 +452,17 @@ export default function MinhasConsultas() {
 
   return (
     <div className="perfil-container">
-      <Toast show={showToast}>{toastMsg}</Toast>
+      {/* toast */}
+      {showToast && (
+        <div className="toast" role="status" aria-live="polite">
+          <i className="fas fa-check-circle toast-icone" aria-hidden="true" />
+          <span>{toastMsg}</span>
+        </div>
+      )}
 
       <section className="secao">
-        <div
-          className="editar-topbar"
-          style={{
-            marginTop: 0,
-            paddingLeft: 0,
-            paddingRight: 0,
-            marginBottom: "1rem",
-          }}
-        >
-          <button
-            type="button"
-            className="editar-back"
-            onClick={() => navigate(-1)}
-          >
+        <div style={{ marginTop: 0, paddingLeft: 0, paddingRight: 0, marginBottom: "1rem" }} className="editar-topbar">
+          <button type="button" className="editar-back" onClick={() => navigate(-1)}>
             <span style={{ display: "inline-flex", alignItems: "center" }}>
               <FaArrowLeft style={{ marginRight: 6 }} />
               Voltar
@@ -513,48 +472,31 @@ export default function MinhasConsultas() {
         </div>
 
         {anamnesePendente && (
-          <div
-            className="consultas-cta"
-            style={{ borderColor: "#d1a0a0", marginBottom: "1rem" }}
-          >
-            <div
-              className="consultas-cta-badge"
-              style={{ background: "#f4efec", borderColor: "#d1a0a0" }}
-            >
+          <div className="consultas-cta" style={{ borderColor: "#d1a0a0", marginBottom: "1rem" }}>
+            <div className="consultas-cta-badge" style={{ background: "#f4efec", borderColor: "#d1a0a0" }}>
               Anamnese pendente
             </div>
             <p className="consultas-cta-text">
-              Você já tem uma consulta marcada para o dia{" "}
-              <b>{anamnesePendente.date || "—"}</b> às{" "}
+              Você já tem uma consulta marcada para o dia <b>{anamnesePendente.date || "—"}</b> às{" "}
               <b>{anamnesePendente.time || "—"}</b>
-              {anamnesePendente.especialidade
-                ? ` (${mapEspecialidade(anamnesePendente.especialidade)})`
-                : ""}{" "}
-              mas ainda não respondeu a anamnese.
+              {anamnesePendente.especialidade ? ` (${mapEspecialidade(anamnesePendente.especialidade)})` : ""} mas ainda não
+              respondeu a anamnese.
             </p>
-            <button
-              onClick={() => navigate("/anamnese")}
-              className="consultas-cta-btn"
-            >
+            <button onClick={() => navigate("/anamnese")} className="consultas-cta-btn">
               <i className="fas fa-notes-medical" style={{ marginRight: 8 }} />
               Responder agora
             </button>
           </div>
         )}
 
-        {loading && (
-          <p style={{ marginTop: "0.5rem" }}>Carregando suas consultas…</p>
-        )}
+        {loading && <p style={{ marginTop: "0.5rem" }}>Carregando suas consultas…</p>}
 
         {!loading && listaBase.length === 0 && (
           <div className="consultas-cta">
-            <div className="consultas-cta-badge">
-              Você ainda não possui consultas
-            </div>
+            <div className="consultas-cta-badge">Você ainda não possui consultas</div>
             <p className="consultas-cta-text">
-              Que tal dar o primeiro passo? Agende uma consulta para receber um
-              plano alimentar personalizado e começar sua evolução com
-              segurança.
+              Que tal dar o primeiro passo? Agende uma consulta para receber um plano alimentar personalizado e começar sua
+              evolução com segurança.
             </p>
             <Link to="/agendar-consulta" className="consultas-cta-btn">
               <i className="fas fa-calendar-plus" style={{ marginRight: 8 }} />
@@ -563,32 +505,17 @@ export default function MinhasConsultas() {
           </div>
         )}
 
-        {/* Abas de filtro */}
         {!loading && listaBase.length > 0 && (
           <>
-            <div
-              className="consultas-tabs"
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "0.5rem",
-                marginBottom: "1rem",
-              }}
-            >
+            <div className="consultas-tabs" style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
               <button
                 type="button"
-                className={`consultas-tab-btn ${
-                  activeTab === "andamento" ? "ativo" : ""
-                }`}
+                className={`consultas-tab-btn ${activeTab === "andamento" ? "ativo" : ""}`}
                 style={{
                   padding: "0.4rem 0.9rem",
                   borderRadius: "999px",
-                  border:
-                    activeTab === "andamento"
-                      ? "1px solid #b97b6f"
-                      : "1px solid #e0d0c8",
-                  background:
-                    activeTab === "andamento" ? "#f4efec" : "transparent",
+                  border: activeTab === "andamento" ? "1px solid #b97b6f" : "1px solid #e0d0c8",
+                  background: activeTab === "andamento" ? "#f4efec" : "transparent",
                   cursor: "pointer",
                 }}
                 onClick={() => setActiveTab("andamento")}
@@ -598,18 +525,12 @@ export default function MinhasConsultas() {
 
               <button
                 type="button"
-                className={`consultas-tab-btn ${
-                  activeTab === "finalizadas" ? "ativo" : ""
-                }`}
+                className={`consultas-tab-btn ${activeTab === "finalizadas" ? "ativo" : ""}`}
                 style={{
                   padding: "0.4rem 0.9rem",
                   borderRadius: "999px",
-                  border:
-                    activeTab === "finalizadas"
-                      ? "1px solid #7b9b6f"
-                      : "1px solid #e0d0c8",
-                  background:
-                    activeTab === "finalizadas" ? "#eef6ec" : "transparent",
+                  border: activeTab === "finalizadas" ? "1px solid #7b9b6f" : "1px solid #e0d0c8",
+                  background: activeTab === "finalizadas" ? "#eef6ec" : "transparent",
                   cursor: "pointer",
                 }}
                 onClick={() => setActiveTab("finalizadas")}
@@ -619,18 +540,12 @@ export default function MinhasConsultas() {
 
               <button
                 type="button"
-                className={`consultas-tab-btn ${
-                  activeTab === "canceladas" ? "ativo" : ""
-                }`}
+                className={`consultas-tab-btn ${activeTab === "canceladas" ? "ativo" : ""}`}
                 style={{
                   padding: "0.4rem 0.9rem",
                   borderRadius: "999px",
-                  border:
-                    activeTab === "canceladas"
-                      ? "1px solid #999"
-                      : "1px solid #e0d0c8",
-                  background:
-                    activeTab === "canceladas" ? "#f2f2f2" : "transparent",
+                  border: activeTab === "canceladas" ? "1px solid #999" : "1px solid #e0d0c8",
+                  background: activeTab === "canceladas" ? "#f2f2f2" : "transparent",
                   cursor: "pointer",
                 }}
                 onClick={() => setActiveTab("canceladas")}
@@ -639,12 +554,9 @@ export default function MinhasConsultas() {
               </button>
             </div>
 
-            {/* Conteúdo da aba selecionada */}
             {activeTab === "andamento" && renderLista(emAndamento, "andamento")}
-            {activeTab === "finalizadas" &&
-              renderLista(finalizadas, "finalizadas")}
-            {activeTab === "canceladas" &&
-              renderLista(canceladas, "canceladas")}
+            {activeTab === "finalizadas" && renderLista(finalizadas, "finalizadas")}
+            {activeTab === "canceladas" && renderLista(canceladas, "canceladas")}
           </>
         )}
       </section>

@@ -1,4 +1,5 @@
-// src/pages/PagamentoSucesso.jsx
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/pagamento-sucesso.css";
 
 const ESPECIALIDADE_LABELS = {
@@ -15,6 +16,8 @@ function mapEspecialidade(especialidade) {
 }
 
 export default function PagamentoSucesso() {
+  const navigate = useNavigate();
+
   // pega o que foi salvo no pagamento
   let last = null;
   try {
@@ -25,29 +28,63 @@ export default function PagamentoSucesso() {
 
   const dataBr = (iso) => {
     if (!iso) return "—";
-    const [y, m, d] = iso.split("-");
+    const [y, m, d] = String(iso).split("-");
+    if (!y || !m || !d) return iso;
     return `${d}/${m}/${y}`;
   };
 
   const anamneseRespondida = last?.anamneseRespondida === true;
   const showAnamneseBloco = !anamneseRespondida;
 
+  // Navega para Minhas Consultas sem recarregar a SPA
+  function handleVerMinhasConsultas() {
+    navigate("/minhas-consultas");
+  }
+
+  // Garante salvar anamnese pendente e booking.last antes de navegar p/ anamnese
+  function handleResponderAnamnese() {
+    try {
+      const consultaObj = {
+        payment_ref: last?.payment_ref || null,
+        date: last?.date || null,
+        time: last?.time || null,
+        especialidade: last?.especialidade || null,
+        anamneseRespondida: last?.anamneseRespondida || false,
+      };
+      if (consultaObj.payment_ref || consultaObj.date) {
+        sessionStorage.setItem("booking.last", JSON.stringify(consultaObj));
+        sessionStorage.setItem("anamnese.pendente", JSON.stringify(consultaObj));
+      } else {
+        // fallback: se não tiver booking.last válido, tenta não sobrescrever nada
+        console.warn("PagamentoSucesso: booking.last ausente ou incompleto.");
+      }
+    } catch (e) {
+      console.warn("Erro ao gravar anamnese.pendente:", e);
+    } finally {
+      navigate("/anamnese");
+    }
+  }
+
   return (
     <div className="pay-ok-shell">
       <div className="pay-ok-card">
-        {/* seta de voltar ao início lá em cima */}
-        <a href="/" className="pay-ok-back">
+        <button
+          type="button"
+          className="pay-ok-back"
+          onClick={() => navigate("/")}
+          aria-label="Voltar ao início"
+          style={{ textDecoration: "none", border: "none", background: "transparent", cursor: "pointer" }}
+        >
           <span className="pay-ok-back-arrow">←</span>
           <span>Voltar ao início</span>
-        </a>
+        </button>
 
         <div className="pay-ok-icon" aria-hidden="true">
           ✓
         </div>
         <h1>Pagamento confirmado!</h1>
         <p className="pay-ok-sub">
-          Sua consulta foi agendada com sucesso. Você receberá as instruções
-          por e-mail.
+          Sua consulta foi agendada com sucesso. Você receberá as instruções por e-mail.
         </p>
 
         <div className="pay-ok-info">
@@ -92,14 +129,22 @@ export default function PagamentoSucesso() {
         )}
 
         <div className="pay-ok-actions">
-          <a className="pay-ok-btn" href="/minhas-consultas">
+          <button
+            className="pay-ok-btn"
+            type="button"
+            onClick={handleVerMinhasConsultas}
+          >
             Ver minhas consultas
-          </a>
+          </button>
 
           {showAnamneseBloco && (
-            <a className="pay-ok-btn-secondary" href="/anamnese">
+            <button
+              className="pay-ok-btn-secondary"
+              type="button"
+              onClick={handleResponderAnamnese}
+            >
               Responder anamnese
-            </a>
+            </button>
           )}
         </div>
       </div>

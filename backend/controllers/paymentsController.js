@@ -1,3 +1,4 @@
+// backend/controllers/paymentsController.js
 const axios = require("axios");
 const { Op } = require("sequelize");
 const ReservaTemp = require("../models/ReservaTemp");
@@ -42,7 +43,7 @@ async function gerarPix(req, res) {
       `${API_MP}/v1/payments`,
       {
         transaction_amount: Number(amount),
-        description: "Consulta de Nutrição",
+        description: `Consulta - ${hold.especialidade || "nutrição"}`,
         payment_method_id: "pix",
         external_reference: payment_ref,
         payer: {
@@ -105,6 +106,7 @@ async function webhook(req, res) {
       });
 
       if (jaExiste) {
+        // se já existe, remove o hold (cleanup) e sai
         await ReservaTemp.destroy({ where: { id: hold.id } });
         return res.sendStatus(200);
       }
@@ -119,6 +121,7 @@ async function webhook(req, res) {
             fim: hold.fim,
             status: "confirmada",
             idempotency_key: externalRef,
+            especialidade: hold.especialidade || null, // <- SALVA AQUI
           },
           { transaction: t }
         );
@@ -205,6 +208,7 @@ async function verificarStatusPix(req, res) {
                 fim: hold.fim,
                 status: "confirmada",
                 idempotency_key: payment_ref,
+                especialidade: hold.especialidade || null, // <- SALVA AQUI também
               },
               { transaction: t }
             );

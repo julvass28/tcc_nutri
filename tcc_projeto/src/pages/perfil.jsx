@@ -1,3 +1,4 @@
+// src/pages/perfil.jsx
 import React, { useState, useEffect, useContext } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../css/perfil.css";
@@ -6,8 +7,6 @@ import { AuthContext } from "../context/AuthContext";
 import { objetivoLabel } from "../utils/objetivos";
 import { Link, useNavigate } from "react-router-dom";
 import { FaUser, FaArrowRight } from "react-icons/fa";
-
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const ESPECIALIDADE_LABELS = {
   clinica: "Nutrição Clínica",
@@ -54,27 +53,42 @@ function normalizarAgendamento(ag) {
 
   if (inicio) {
     const d = new Date(inicio);
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    const hh = String(d.getHours()).padStart(2, "0");
-    const mi = String(d.getMinutes()).padStart(2, "0");
-    date = `${yyyy}-${mm}-${dd}`;
-    time = `${hh}:${mi}`;
+    if (!isNaN(d.getTime())) {
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mi = String(d.getMinutes()).padStart(2, "0");
+      date = `${yyyy}-${mm}-${dd}`;
+      time = `${hh}:${mi}`;
+    } else {
+      // fallback: tenta parsear formato YYYY-MM-DDTHH:mm ou yyyy-mm-dd
+      try {
+        const parts = String(inicio).split(" ");
+        if (parts[0] && parts[1]) {
+          date = parts[0];
+          time = parts[1].slice(0, 5);
+        } else {
+          date = String(inicio).slice(0, 10);
+        }
+      } catch {
+        date = "";
+        time = "";
+      }
+    }
   }
 
   return {
     date,
     time,
-    // mantém o valor cru vindo do backend; formatação só na hora de exibir
     especialidade: ag.especialidade || null,
-    payment_ref: ag.payment_ref || ag.id || null,
-
-    // mantém o status vindo do backend (igual usamos em MinhasConsultas)
-    status: ag.status || ag.situacao || "agendada",
-
+    payment_ref: ag.payment_ref || ag.idempotency_key || ag.id || null,
+    status: ag.status || ag.situacao || "confirmada",
     anamneseRespondida:
-      ag.anamneseRespondida === true || ag.anamneseRespondida === 1,
+      ag.anamnese_preenchida === true ||
+      ag.anamnese_preenchida === 1 ||
+      ag.anamneseRespondida === true ||
+      ag.anamneseRespondida === 1,
   };
 }
 
@@ -83,7 +97,6 @@ export default function Perfil() {
   const { token, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // link do WhatsApp da nutri (defina em VITE_WHATSAPP_NUTRI no .env do front)
   const WHATSAPP_NUTRI_LINK = import.meta.env.VITE_WHATSAPP_NUTRI || null;
 
   const [anamnesePendente, setAnamnesePendente] = useState(null);
@@ -113,104 +126,176 @@ export default function Perfil() {
   // lista de consultas 👇
   const [consultas, setConsultas] = useState([]);
 
+  // --- Carregamento inicial (dados do user + consultas) ---
   useEffect(() => {
     if (!token) {
       navigate("/login");
       return;
     }
 
-    // carrega dados do usuário
-    (async () => {
+    const API_BASE = API; // usa a mesma const API definida no topo do arquivo
+
+    // sincroniza rápido a partir do sessionStorage (evita piscar)
+    function syncFromSessionStorage() {
       try {
-        const res = await fetch(`${API}/me`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (!res.ok) throw new Error();
-        const u = await res.json();
-        setDados({
-          nome: u.nome || "",
-          sobrenome: u.sobrenome || "",
-          email: u.email || "",
-          altura: u.altura ?? "",
-          peso: u.peso ?? "",
-          data_nascimento: u.data_nascimento
-            ? String(u.data_nascimento).slice(0, 10)
-            : "",
-          genero: u.genero || "",
-          objetivo: u.objetivo || "",
-          foto: u.fotoUrl || "",
-        });
-        setFotoPreview(u.fotoUrl || "");
-        setFotoOk(!!u.fotoUrl);
+        const rawLast = sessionStorage.getItem("booking.last");
+        if (rawLast) {
+          setConsulta(JSON.parse(rawLast));
+        } else {
+          setConsulta(null);
+        }
+
+        const listRaw = sessionStorage.getItem("booking.list");
+        if (listRaw) {
+          const list = JSON.parse(listRaw);
+          if (Array.isArray(list)) setConsultas(list);
+          else setConsultas([]);
+        } else {
+          setConsultas([]);
+        }
+
+        const pendRaw = sessionStorage.getItem("anamnese.pendente");
+        if (pendRaw) setAnamnesePendente(JSON.parse(pendRaw));
+        else setAnamnesePendente(null);
       } catch {
-        setError("Erro ao carregar dados.");
+        // ignora erros de parse
       }
-    })();
-
-    // pega a última consulta salva em sessionStorage (cache)
-    try {
-      const raw = sessionStorage.getItem("booking.last");
-      if (raw) {
-        const obj = JSON.parse(raw);
-        setConsulta(obj);
-      }
-    } catch {
-      // ignore
     }
 
-    // pega a lista de consultas salva em sessionStorage (cache)
-    try {
-      const listRaw = sessionStorage.getItem("booking.list");
-      if (listRaw) {
-        const list = JSON.parse(listRaw);
-        if (Array.isArray(list)) {
-          setConsultas(list);
-        }
-      }
-    } catch {
-      setConsultas([]);
-    }
-
-    // pega anamnese pendente (se tiver) do sessionStorage
-    try {
-      const pendRaw = sessionStorage.getItem("anamnese.pendente");
-      if (pendRaw) {
-        setAnamnesePendente(JSON.parse(pendRaw));
-      }
-    } catch {
-      setAnamnesePendente(null);
-    }
-
-    // 🔥 BUSCA REAL NO BACKEND: /agenda/minhas
-    (async () => {
+    // busca no backend e garante consistência (limpa cache se não houver consultas)
+    async function fetchBackendAndSync() {
       try {
-        const res = await fetch(`${API}/agenda/minhas`, {
+        const res = await fetch(`${API_BASE}/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        if (!res.ok) {
-          console.warn("Falha ao carregar /agenda/minhas");
-          return;
-        }
-        const data = await res.json();
-        if (!Array.isArray(data)) return;
-
-        const normalizadas = data
-          .map((ag) => normalizarAgendamento(ag))
-          .filter(Boolean);
-
-        setConsultas(normalizadas);
-
-        // atualiza o cache local, pra manter compat com fluxo antigo
-        sessionStorage.setItem("booking.list", JSON.stringify(normalizadas));
-        if (normalizadas.length > 0) {
-          const last = normalizadas[normalizadas.length - 1];
-          setConsulta(last);
-          sessionStorage.setItem("booking.last", JSON.stringify(last));
+        if (res.ok) {
+          const u = await res.json();
+          setDados({
+            nome: u.nome || "",
+            sobrenome: u.sobrenome || "",
+            email: u.email || "",
+            altura: u.altura ?? "",
+            peso: u.peso ?? "",
+            data_nascimento: u.data_nascimento
+              ? String(u.data_nascimento).slice(0, 10)
+              : "",
+            genero: u.genero || "",
+            objetivo: u.objetivo || "",
+            foto: u.fotoUrl || "",
+          });
+          setFotoPreview(u.fotoUrl || "");
+          setFotoOk(!!u.fotoUrl);
         }
       } catch (e) {
-        console.error("Erro ao carregar consultas do backend:", e);
+        console.warn("Perfil: falha ao buscar /me", e);
       }
-    })();
+
+      try {
+        const res2 = await fetch(`${API_BASE}/agenda/minhas`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res2.ok) {
+          const data = await res2.json();
+          if (Array.isArray(data)) {
+            const normalizadas = data
+              .map((ag) => normalizarAgendamento(ag))
+              .filter(Boolean);
+
+            // atualiza estados e cache
+            setConsultas(normalizadas);
+            sessionStorage.setItem("booking.list", JSON.stringify(normalizadas));
+
+            if (normalizadas.length > 0) {
+              const last = normalizadas[normalizadas.length - 1];
+              setConsulta(last);
+              sessionStorage.setItem("booking.last", JSON.stringify(last));
+            } else {
+              // limpa cache quando não há consultas (garante que a UI volte ao estado "sem consultas")
+              setConsulta(null);
+              sessionStorage.removeItem("booking.last");
+              sessionStorage.removeItem("booking.list");
+            }
+
+            // atualiza anamnese pendente com base nas consultas retornadas
+            const pend = normalizadas.find(
+              (c) =>
+                !c.anamneseRespondida &&
+                (c.status === "pendente" || c.status === "confirmada")
+            );
+            if (pend) {
+              const pendObj = {
+                date: pend.date,
+                time: pend.time,
+                especialidade: pend.especialidade || null,
+                payment_ref: pend.payment_ref || null,
+                anamneseRespondida: pend.anamneseRespondida || false,
+              };
+              setAnamnesePendente(pendObj);
+              if (!sessionStorage.getItem("anamnese.pendente")) {
+                sessionStorage.setItem("anamnese.pendente", JSON.stringify(pendObj));
+              }
+            } else {
+              setAnamnesePendente(null);
+              if (!sessionStorage.getItem("anamnese.pendente")) {
+                sessionStorage.removeItem("anamnese.pendente");
+              }
+            }
+          }
+        } else {
+          // se falhar, pelo menos re-sincroniza com sessionStorage
+          syncFromSessionStorage();
+        }
+      } catch (e) {
+        console.warn("Perfil: erro ao buscar /agenda/minhas", e);
+        syncFromSessionStorage();
+      }
+    }
+
+    // chamadas iniciais: primeiro rápido do sessionStorage, depois valida com backend
+    syncFromSessionStorage();
+    fetchBackendAndSync();
+
+    // listener para mudanças entre abas (storage event)
+    function onStorage(e) {
+      if (!e.key) return;
+      if (
+        e.key.startsWith("booking.") ||
+        e.key === "booking.list" ||
+        e.key === "booking.last" ||
+        e.key === "anamnese.pendente"
+      ) {
+        syncFromSessionStorage();
+      }
+    }
+    window.addEventListener("storage", onStorage);
+
+    // listener pra evento custom (útil para atualizar imediatamente no mesmo tab)
+    function onBookingUpdated() {
+      syncFromSessionStorage();
+      // também tentar revalidar do backend
+      fetchBackendAndSync();
+    }
+    window.addEventListener("bookingUpdated", onBookingUpdated);
+
+    // named handler para visibilidade/foco (mesma aba)
+    async function onVisibleOrFocus() {
+      syncFromSessionStorage();
+      await fetchBackendAndSync();
+    }
+    function onVisibilityChange() {
+      if (document.visibilityState === "visible") onVisibleOrFocus();
+    }
+    window.addEventListener("visibilitychange", onVisibilityChange);
+    window.addEventListener("focus", onVisibleOrFocus);
+
+    // cleanup completo
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("visibilitychange", onVisibilityChange);
+      window.removeEventListener("focus", onVisibleOrFocus);
+      window.removeEventListener("bookingUpdated", onBookingUpdated);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [API, token, navigate]);
 
   // Upload da foto...
@@ -242,13 +327,14 @@ export default function Perfil() {
       setFotoOk(true);
       setUser?.((prev) => (prev ? { ...prev, fotoUrl: data.fotoUrl } : prev));
 
-      await sleep(700);
+      // Peq. delay pra transição suave
+      await new Promise((r) => setTimeout(r, 700));
       setShowOverlay(false);
       setShowToast(true);
       setTimeout(() => setShowToast(false), 2200);
-    } catch {
+    } catch (err) {
+      console.error("Erro upload foto:", err);
       setShowOverlay(false);
-      setShowToast(false);
       alert("Erro ao enviar foto. Use JPG/PNG/WebP até 2MB.");
     }
   };
@@ -256,7 +342,7 @@ export default function Perfil() {
   const handleGoEdit = async () => {
     setOverlayText("Abrindo edição de perfil...");
     setShowOverlay(true);
-    await sleep(700);
+    await new Promise((r) => setTimeout(r, 700));
     navigate("/perfil/editar");
   };
 
@@ -276,9 +362,10 @@ export default function Perfil() {
     (c) => c.status === "pendente" || c.status === "confirmada"
   );
 
-  // pega a próxima consulta ativa
-  const proximaConsulta =
-    consultasValidas.length > 0 ? consultasValidas[0] : null;
+  // **Ajuste importante**: proximaConsulta NÃO usa mais o fallback 'consulta'
+  // porque esse fallback podia manter uma consulta cancelada visível.
+  // Agora usamos apenas as consultas válidas.
+  const proximaConsulta = consultasValidas.length > 0 ? consultasValidas[0] : null;
 
   // existe alguma consulta ativa?
   const temQualquerConsulta = !!proximaConsulta;
