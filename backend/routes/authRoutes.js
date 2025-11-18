@@ -154,7 +154,7 @@ router.get("/auth/google/start", (req, res) => {
   }
 
   const redirectBase = getServerBaseUrl(req);
-  const redirectUri = `${redirectBase}/auth/google/callback`;
+  const redirectUri = `${redirectBase}/api/auth/google/callback`;
   const redirectFront = req.query.redirect || `${FRONTEND_URL}/login`;
 
   const statePayload = { redirect: redirectFront };
@@ -180,7 +180,7 @@ router.get("/auth/google/callback", async (req, res) => {
   }
 
   const redirectBase = getServerBaseUrl(req);
-  const redirectUri = `${redirectBase}/auth/google/callback`;
+  const redirectUri = `${redirectBase}/api/auth/google/callback`;
 
   try {
     const tokenRes = await axios.post(
