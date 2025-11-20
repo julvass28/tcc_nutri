@@ -13,14 +13,12 @@ const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
 // ================== CONFIG GERAL ==================
-const FRONTEND_URL = (process.env.FRONTEND_URL || "http://localhost:5173").replace(
-  /\/$/,
-  ""
-);
+const FRONTEND_URL = (
+  process.env.FRONTEND_URL || "http://localhost:5173"
+).replace(/\/$/, "");
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
-
 
 // Base para montar URL pública do servidor (para callback OAuth)
 function getServerBaseUrl(req) {
@@ -266,7 +264,6 @@ router.get("/auth/google/callback", async (req, res) => {
   }
 });
 
-
 // ================== ESQUECI A SENHA ==================
 
 // Transporter universal (SMTP real)
@@ -442,26 +439,28 @@ router.put("/perfil", authMiddleware, async (req, res) => {
   }
 });
 
-// ================== PERFIL: UPLOAD DE FOTO ==================
+// Upload de AVATAR - pasta
 const uploadDir = path.join(__dirname, "..", "uploads", "avatars");
 fs.mkdirSync(uploadDir, { recursive: true });
 
-const storage = multer.diskStorage({
+const storageAvatar = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
     const ext = (file.originalname.split(".").pop() || "jpg").toLowerCase();
     cb(null, `${req.user.id}-${Date.now()}.${ext}`);
   },
 });
+
+// aumento do limite e filtro mais permissivo (aceita gif/bmp)
 const upload = multer({
-  storage,
-  limits: { fileSize: 2 * 1024 * 1024 },
+  storage: storageAvatar,
+  limits: { fileSize: 50 * 1024 * 1024 }, // 50 MB
   fileFilter: (_req, file, cb) => {
-    const ok = ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(
-      file.mimetype
-    );
+    const ok = /^image\/(jpeg|png|webp|jpg|gif|bmp)$/.test(file.mimetype);
     cb(
-      ok ? null : new Error("Formato de imagem inválido (use JPG/PNG/WebP)."),
+      ok
+        ? null
+        : new Error("Formato de imagem inválido (use JPG/PNG/WebP/GIF/BMP)."),
       ok
     );
   },
@@ -470,7 +469,21 @@ const upload = multer({
 router.post(
   "/perfil/foto",
   authMiddleware,
-  upload.single("foto"),
+  (req, res, next) => {
+    // envolver upload para capturar erros do multer separadamente
+    upload.single("foto")(req, res, function (err) {
+      if (err) {
+        // multer errors (tamanho / formato)
+        if (err.code === "LIMIT_FILE_SIZE") {
+          return res
+            .status(400)
+            .json({ erro: "Arquivo muito grande. Limite: 50MB." });
+        }
+        return res.status(400).json({ erro: err.message || "Erro no upload." });
+      }
+      next();
+    });
+  },
   async (req, res) => {
     try {
       if (!req.file)
@@ -480,10 +493,15 @@ router.post(
       if (!usuario)
         return res.status(404).json({ erro: "Usuário não encontrado" });
 
+      // remove anterior se for local
       if (usuario.fotoUrl && usuario.fotoUrl.includes("/uploads/avatars/")) {
         const oldName = path.basename(usuario.fotoUrl);
         const oldPath = path.join(uploadDir, oldName);
-        fs.existsSync(oldPath) && fs.unlinkSync(oldPath);
+        try {
+          fs.existsSync(oldPath) && fs.unlinkSync(oldPath);
+        } catch (e) {
+          /* não falhar por unlink */
+        }
       }
 
       const proto = req.headers["x-forwarded-proto"] || req.protocol;
@@ -493,10 +511,12 @@ router.post(
 
       await usuario.update({ fotoUrl: url });
 
-      res.json({ message: "Foto atualizada!", fotoUrl: url });
+      return res.json({ message: "Foto atualizada!", fotoUrl: url });
     } catch (err) {
       console.error("Erro upload foto:", err);
-      res.status(500).json({ erro: "Erro ao salvar foto." });
+      return res
+        .status(500)
+        .json({ erro: "Erro ao salvar foto.", detalhes: err.message });
     }
   }
 );

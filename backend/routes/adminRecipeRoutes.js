@@ -14,7 +14,8 @@ const router = express.Router();
 // util: slugify simples
 function slugify(str) {
   return String(str || "")
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
@@ -204,23 +205,26 @@ router.delete("/:id", auth, adminOnly, async (req, res) => {
 const uploadDir = path.join(__dirname, "..", "uploads", "recipes");
 fs.mkdirSync(uploadDir, { recursive: true });
 
-const storage = multer.diskStorage({
+const storageRecipes = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
     const ext = (file.originalname.split(".").pop() || "jpg").toLowerCase();
-    // ex: 12-1731719200000.jpg
-    cb(null, `${req.params.id}-${Date.now()}.${ext}`);
+    // usa id do parametro (quando edit) e timestamp para evitar conflitos
+    const pid = req.params.id ? String(req.params.id) : "tmp";
+    cb(null, `${pid}-${Date.now()}.${ext}`);
   },
 });
 
+// aumentar limite para 50MB; aceitar mais formatos
 const upload = multer({
-  storage,
-  limits: { fileSize: 4 * 1024 * 1024 }, // 4MB
+  storage: storageRecipes,
+  limits: { fileSize: 50 * 1024 * 1024 }, // 50 MB
   fileFilter: (_req, file, cb) => {
-    const ok = ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(
-      file.mimetype
+    const ok = /^image\/(jpeg|png|webp|jpg|gif|bmp)$/.test(file.mimetype);
+    cb(
+      ok ? null : new Error("Formato inválido (use JPG/PNG/WebP/GIF/BMP)"),
+      ok
     );
-    cb(ok ? null : new Error("Formato inválido"), ok);
   },
 });
 
@@ -238,7 +242,21 @@ router.post(
   "/:id/banner",
   auth,
   adminOnly,
-  upload.single("banner"),
+  (req, res, next) => {
+    upload.single("banner")(req, res, function (err) {
+      if (err) {
+        if (err.code === "LIMIT_FILE_SIZE") {
+          return res
+            .status(400)
+            .json({ erro: "Arquivo muito grande. Limite: 50MB." });
+        }
+        return res
+          .status(400)
+          .json({ erro: err.message || "Erro no upload do banner." });
+      }
+      next();
+    });
+  },
   async (req, res) => {
     try {
       if (!req.file)
@@ -259,12 +277,25 @@ router.post(
 );
 
 // POST /admin/receitas/:id/thumb
-// campo do form-data: "thumb"
 router.post(
   "/:id/thumb",
   auth,
   adminOnly,
-  upload.single("thumb"),
+  (req, res, next) => {
+    upload.single("thumb")(req, res, function (err) {
+      if (err) {
+        if (err.code === "LIMIT_FILE_SIZE") {
+          return res
+            .status(400)
+            .json({ erro: "Arquivo muito grande. Limite: 50MB." });
+        }
+        return res
+          .status(400)
+          .json({ erro: err.message || "Erro no upload da thumbnail." });
+      }
+      next();
+    });
+  },
   async (req, res) => {
     try {
       if (!req.file)
