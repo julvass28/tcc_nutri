@@ -2,7 +2,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "../../css/admin-faq.css";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import SpinnerOverlay from "../../components/SpinnerOverlay";
 import { fetchAuth, API } from "../../services/api";
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export default function FaqAdmin(){
   const [items, setItems] = useState([]);
@@ -16,6 +19,10 @@ export default function FaqAdmin(){
 
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [toDelete, setToDelete] = useState(null);
+
+  // overlay spinner global pra essa tela
+  const [overlayOpen, setOverlayOpen] = useState(false);
+  const [overlayMsg, setOverlayMsg] = useState("Carregando…");
 
   const load = async () => {
     setLoading(true);
@@ -40,9 +47,29 @@ export default function FaqAdmin(){
     );
   }, [items, q]);
 
-  const openCreate = () => { setEditing(null); setForm({pergunta:"", resposta:""}); setModalOpen(true); };
-  const openEdit   = (it) => { setEditing(it); setForm({pergunta:it.pergunta||"", resposta:it.resposta||""}); setModalOpen(true); };
+  // OPEN CREATE - show spinner briefly then open modal
+  const openCreate = async () => {
+    setOverlayMsg("Abrindo formulário…");
+    setOverlayOpen(true);
+    await sleep(350);
+    setEditing(null);
+    setForm({pergunta:"", resposta:""});
+    setModalOpen(true);
+    setOverlayOpen(false);
+  };
 
+  // OPEN EDIT - spinner then open modal
+  const openEdit   = async (it) => {
+    setOverlayMsg("Abrindo edição…");
+    setOverlayOpen(true);
+    await sleep(350);
+    setEditing(it);
+    setForm({pergunta:it.pergunta||"", resposta:it.resposta||""});
+    setModalOpen(true);
+    setOverlayOpen(false);
+  };
+
+  // SAVE (create or edit)
   const save = async (e) => {
     e.preventDefault();
     if (!form.pergunta.trim() || !form.resposta.trim()){
@@ -51,10 +78,21 @@ export default function FaqAdmin(){
     }
     const method = editing ? "PUT" : "POST";
     const url = editing ? `${API}/admin/faq/${editing.id}` : `${API}/admin/faq`;
-    const r = await fetchAuth(url, { method, body: JSON.stringify(form) });
-    const data = await r.json();
-    if (!r.ok){ alert(data?.erro || "Falha ao salvar"); return; }
-    setModalOpen(false); load();
+
+    setOverlayMsg(editing ? "Salvando..." : "Criando...");
+    setOverlayOpen(true);
+    try {
+      const r = await fetchAuth(url, { method, body: JSON.stringify(form) });
+      const data = await r.json();
+      if (!r.ok){ alert(data?.erro || "Falha ao salvar"); return; }
+      setModalOpen(false);
+      await load();
+    } catch (err) {
+      console.error("Erro ao salvar FAQ:", err);
+      alert("Falha ao salvar");
+    } finally {
+      setOverlayOpen(false);
+    }
   };
 
   const askRemove = (it) => { setToDelete(it); setConfirmOpen(true); };
@@ -75,9 +113,13 @@ export default function FaqAdmin(){
   const [sortList, setSortList] = useState([]);
   const dragIndexRef = useRef(null);
 
-  const openSort = () => {
+  const openSort = async () => {
+    setOverlayMsg("Carregando reordenação…");
+    setOverlayOpen(true);
+    await sleep(300);
     setSortList(items.map(x => ({...x}))); // cópia para edição
     setSortOpen(true);
+    setOverlayOpen(false);
   };
 
   const onDragStart = (idx) => () => { dragIndexRef.current = idx; };
@@ -97,15 +139,24 @@ export default function FaqAdmin(){
   };
 
   const saveOrder = async () => {
-    const ids = sortList.map(x => x.id);
-    const r = await fetchAuth(`${API}/admin/faq/reordenar`, {
-      method: "POST",
-      body: JSON.stringify({ ids })
-    });
-    const data = await r.json();
-    if (!r.ok){ alert(data?.erro || "Falha ao reordenar"); return; }
-    setSortOpen(false);
-    load();
+    setOverlayMsg("Salvando ordem…");
+    setOverlayOpen(true);
+    try {
+      const ids = sortList.map(x => x.id);
+      const r = await fetchAuth(`${API}/admin/faq/reordenar`, {
+        method: "POST",
+        body: JSON.stringify({ ids })
+      });
+      const data = await r.json();
+      if (!r.ok){ alert(data?.erro || "Falha ao reordenar"); return; }
+      setSortOpen(false);
+      await load();
+    } catch (err) {
+      console.error("Erro reordenar:", err);
+      alert("Falha ao reordenar");
+    } finally {
+      setOverlayOpen(false);
+    }
   };
 
   return (
@@ -238,6 +289,9 @@ export default function FaqAdmin(){
         onConfirm={doRemove}
         onClose={() => setConfirmOpen(false)}
       />
+
+      {/* Spinner overlay global para esta página */}
+      <SpinnerOverlay open={overlayOpen} message={overlayMsg} />
     </div>
   );
 }

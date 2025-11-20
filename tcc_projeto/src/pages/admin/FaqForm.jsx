@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchAuth, API } from "../../services/api";
+import SpinnerOverlay from "../../components/SpinnerOverlay";
 
 export default function FaqForm(){
   const { id } = useParams();
@@ -16,13 +17,17 @@ export default function FaqForm(){
     ativo: true,
   });
   const [loading, setLoading] = useState(isEdit);
+  const [overlayOpen, setOverlayOpen] = useState(isEdit);
+  const [overlayMsg, setOverlayMsg] = useState("Carregando…");
 
   useEffect(() => {
     if (!isEdit) return;
     (async ()=>{
+      setOverlayOpen(true);
+      setOverlayMsg("Carregando...");
       const r = await fetchAuth(`${API}/admin/faq/${id}`);
       const data = await r.json();
-      if (!r.ok) { alert(data?.erro || "Falha ao carregar"); return; }
+      if (!r.ok) { alert(data?.erro || "Falha ao carregar"); setOverlayOpen(false); return; }
       setForm({
         pergunta: data.pergunta || "",
         resposta: data.resposta || "",
@@ -31,6 +36,7 @@ export default function FaqForm(){
         ativo: !!data.ativo,
       });
       setLoading(false);
+      setOverlayOpen(false);
     })();
   }, [isEdit, id]);
 
@@ -47,13 +53,21 @@ export default function FaqForm(){
     };
     const url = isEdit ? `${API}/admin/faq/${id}` : `${API}/admin/faq`;
     const method = isEdit ? "PUT" : "POST";
-    const r = await fetchAuth(url, { method, body: JSON.stringify(payload) });
-    const data = await r.json();
-    if (!r.ok) { alert(data?.erro || "Falha ao salvar"); return; }
-    navigate("/admin/faq");
-  };
 
-  if (loading) return <p>Carregando…</p>;
+    setOverlayMsg(isEdit ? "Salvando..." : "Criando...");
+    setOverlayOpen(true);
+    try {
+      const r = await fetchAuth(url, { method, body: JSON.stringify(payload) });
+      const data = await r.json();
+      if (!r.ok) { alert(data?.erro || "Falha ao salvar"); setOverlayOpen(false); return; }
+      navigate("/admin/faq");
+    } catch (err) {
+      console.error(err);
+      alert("Falha ao salvar");
+    } finally {
+      setOverlayOpen(false);
+    }
+  };
 
   return (
     <div className="recipe-form-page">
@@ -131,6 +145,8 @@ export default function FaqForm(){
           <button className="btn primary" type="submit">{isEdit ? "Salvar" : "Criar"}</button>
         </div>
       </form>
+
+      <SpinnerOverlay open={overlayOpen} message={overlayMsg} />
     </div>
   );
 }

@@ -10,6 +10,7 @@ const Anamnese = require("../models/Anamnese"); // 👈 NOVO
 const auth = require("../middleware/auth");
 const Usuario = require("../models/Usuario");
 const { sendConsultaCanceladaEmail } = require("../services/emailService");
+const { makeDateTime } = require("../utils/time");
 // ===== Config =====
 const SLOT_MINUTES = 30; // grade visual
 const APPT_MINUTES = 60; // consulta ocupa 60 min
@@ -89,8 +90,8 @@ async function buildSlotsForDate(dateISO) {
   const slots = [];
 
   for (const w of windows) {
-    const wStart = toDate(dateISO, w.start);
-    const wEnd = toDate(dateISO, w.end);
+    const wStart = makeDateTime(dateISO, w.start).toDate();
+    const wEnd = makeDateTime(dateISO, w.end).toDate();
 
     // cada “ponto” de 30 min só é válido se a janela de 60 min couber no expediente
     for (
@@ -158,9 +159,13 @@ router.post("/hold", auth, async (req, res) => {
         .trim();
 
       if (
-        ["clinica", "esportiva", "pediatrica", "emagrecimento", "intolerancias"].includes(
-          raw
-        )
+        [
+          "clinica",
+          "esportiva",
+          "pediatrica",
+          "emagrecimento",
+          "intolerancias",
+        ].includes(raw)
       ) {
         espSlug = raw;
       } else if (raw.includes("pediatr")) {
@@ -176,7 +181,7 @@ router.post("/hold", auth, async (req, res) => {
       }
     }
 
-    const inicio = toDate(date, time);
+    const inicio = makeDateTime(date, time).toDate();
     const fim = addMinutes(inicio, HOLD_MINUTES);
 
     // valida expediente
@@ -343,18 +348,14 @@ router.post("/minhas/:id/cancelar", auth, async (req, res) => {
 
     // não deixa cancelar de novo
     if (ag.status === "cancelada") {
-      return res
-        .status(400)
-        .json({ erro: "Esta consulta já está cancelada." });
+      return res.status(400).json({ erro: "Esta consulta já está cancelada." });
     }
 
     // não deixa cancelar algo finalizado
     if (ag.status === "finalizada") {
-      return res
-        .status(400)
-        .json({
-          erro: "Consultas já finalizadas não podem ser canceladas.",
-        });
+      return res.status(400).json({
+        erro: "Consultas já finalizadas não podem ser canceladas.",
+      });
     }
 
     await ag.update({ status: "cancelada" });
