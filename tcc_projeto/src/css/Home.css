@@ -981,3 +981,7 @@ body {
   overflow-x: hidden;
   position: relative;
 }
+
+.link-calc-section-all {
+  margin: 5px;
+}
