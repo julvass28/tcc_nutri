@@ -9,6 +9,7 @@ import "../css/pagamento.css";
 
 const MODALIDADE_PADRAO = "Online";
 const DURACAO_PADRAO_MIN = 50;
+const PIX_TTL_MS = 10 * 60 * 1000; // 10 minutos
 
 const ESPECIALIDADE_LABELS = {
   clinica: "Nutrição Clínica",
@@ -44,9 +45,15 @@ export default function Pagamento() {
   const [pixCode, setPixCode] = useState("");
   const [copied, setCopied] = useState(false);
 
+  // expiry / countdown
+  const [expiresAt, setExpiresAt] = useState(null); // ms timestamp
+  const [remaining, setRemaining] = useState(0);
+  const [expired, setExpired] = useState(false);
+
   // polling control
   const pollingRef = useRef(null);
   const isMountedRef = useRef(true);
+  const countdownRef = useRef(null);
 
   // utility: format date BR
   const formatDateBr = (iso) => {
@@ -83,6 +90,7 @@ export default function Pagamento() {
     const pixStatus = sessionStorage.getItem("pix.status");
     const pixQrStored = sessionStorage.getItem("pix.qr");
     const pixCodeStored = sessionStorage.getItem("pix.code");
+    const pixExpires = sessionStorage.getItem("pix.expires_at");
 
     if (pixRef && pixStatus === "pending" && pixQrStored && pixCodeStored) {
       setPaymentRef(pixRef);
@@ -90,6 +98,22 @@ export default function Pagamento() {
       setPixCode(pixCodeStored);
       setMensagem("Use o QR Code ou copie o código abaixo para concluir o pagamento via PIX.");
       startPolling(pixRef);
+      if (pixExpires) {
+        const ex = Number(pixExpires);
+        setExpiresAt(ex);
+        const now = Date.now();
+        if (now >= ex) {
+          handleExpire();
+        } else {
+          startCountdown(ex);
+        }
+      } else {
+        // se não tiver expiry salvo, cria um local (compatibilidade)
+        const ex = Date.now() + PIX_TTL_MS;
+        sessionStorage.setItem("pix.expires_at", String(ex));
+        setExpiresAt(ex);
+        startCountdown(ex);
+      }
     }
 
     return () => {
@@ -98,9 +122,34 @@ export default function Pagamento() {
         clearInterval(pollingRef.current);
         pollingRef.current = null;
       }
+      if (countdownRef.current) {
+        clearInterval(countdownRef.current);
+        countdownRef.current = null;
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function startCountdown(expiresAtMs) {
+    if (countdownRef.current) clearInterval(countdownRef.current);
+    const tick = () => {
+      const rem = Math.max(0, expiresAtMs - Date.now());
+      setRemaining(rem);
+      if (rem <= 0) {
+        clearInterval(countdownRef.current);
+        countdownRef.current = null;
+        handleExpire();
+      }
+    };
+    tick();
+    countdownRef.current = setInterval(tick, 1000);
+  }
+
+  function handleExpire() {
+    setExpired(true);
+    setMensagem("O código PIX expirou. Gere um novo código para tentar novamente.");
+    // não limpa automaticamente o pixCode/qr — apenas marca expirado e mostra ação de regenerar
+  }
 
   // safe polling starter
   const startPolling = useCallback(
@@ -157,6 +206,7 @@ export default function Pagamento() {
             sessionStorage.removeItem("pix.qr");
             sessionStorage.removeItem("pix.code");
             sessionStorage.removeItem("pix.status");
+            sessionStorage.removeItem("pix.expires_at");
 
             // navega para tela de sucesso (React way)
             if (isMountedRef.current) navigate("/pagamento/sucesso");
@@ -176,6 +226,7 @@ export default function Pagamento() {
               sessionStorage.removeItem("pix.qr");
               sessionStorage.removeItem("pix.code");
               sessionStorage.removeItem("pix.status");
+              sessionStorage.removeItem("pix.expires_at");
             }
           }
           // caso st seja nulo ou outro status, continua checando
@@ -256,6 +307,7 @@ export default function Pagamento() {
         setMensagem("Use o QR Code ou copie o código abaixo para concluir o pagamento via PIX.");
         setQrPix(qr);
         setPixCode(code);
+        setExpired(false);
 
         // salva info do PIX pra persistir após reload
         try {
@@ -263,6 +315,10 @@ export default function Pagamento() {
           sessionStorage.setItem("pix.qr", qr);
           sessionStorage.setItem("pix.code", code);
           sessionStorage.setItem("pix.status", "pending");
+          const ex = Date.now() + PIX_TTL_MS;
+          sessionStorage.setItem("pix.expires_at", String(ex));
+          setExpiresAt(ex);
+          startCountdown(ex);
         } catch {
           // ignore
         }
@@ -292,6 +348,14 @@ export default function Pagamento() {
       console.log("Erro ao copiar código PIX:", err);
       setMensagem("Não foi possível copiar automaticamente. Selecione o código e copie manualmente.");
     }
+  };
+
+  const formatRemaining = (ms) => {
+    if (!ms || ms <= 0) return "00:00";
+    const s = Math.floor(ms / 1000);
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
   };
 
   return (
@@ -396,14 +460,66 @@ export default function Pagamento() {
             </>
           ) : (
             <div className="pay-flow-qr">
-              {qrPix && <img src={`data:image/png;base64,${qrPix}`} alt="QR Code PIX" />}
-              <div className="pay-flow-pix-code">
-                <span className="pay-flow-copy-label">Código copia e cola</span>
+              {qrPix && (
+                <div className="pay-flow-qr-wrap">
+                  <img src={`data:image/png;base64,${qrPix}`} alt="QR Code PIX" />
+                </div>
+              )}
+
+              <div className={`pay-flow-pix-code ${expired ? "pay-flow-pix-code--expired" : ""}`}>
+                <label className="pay-flow-copy-label">Código copia e cola</label>
+
                 <div className="pay-flow-pix-code-row">
-                  <span className="pay-flow-pix-code-text">{pixCode}</span>
-                  <button type="button" className="pay-flow-copy-btn" onClick={handleCopyPixCode}>
-                    {copied ? "Copiado!" : "Copiar código"}
-                  </button>
+                  {/* input de uma linha com overflow para mostrar parcialmente mas permitir seleção */}
+                  <input
+                    readOnly
+                    className="pay-flow-pix-code-input"
+                    value={pixCode || ""}
+                    onFocus={(e) => e.target.select()}
+                    aria-label="Código copia e cola PIX"
+                  />
+                </div>
+
+                {/* contador e aviso */}
+                <div className="pay-flow-pix-meta">
+                  {!expired ? (
+                    <div className="pay-flow-countdown">Validade: {formatRemaining(remaining)} <span className="pay-flow-countdown-note"> (até {new Date(expiresAt).toLocaleTimeString()})</span></div>
+                  ) : (
+                    <div className="pay-flow-expired">O código expirou.</div>
+                  )}
+
+                  <div className="pay-flow-copy-actions">
+                    {/* botão grande rosa com ícone */}
+                    <button
+                      type="button"
+                      className="pay-flow-copy-big-btn"
+                      onClick={handleCopyPixCode}
+                      disabled={!pixCode || expired}
+                      title={copied ? "Copiado!" : "Copiar código do PIX"}
+                      aria-pressed={copied}
+                    >
+                      {/* ícone de copiar (duplo) */}
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden style={{marginRight:8}}>
+                        <path d="M9 9H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                        <rect x="9" y="3" width="11" height="11" rx="2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      {copied ? "Copiado!" : "Copiar código do PIX"}
+                    </button>
+
+                    {/* botão menor para gerar outro código (aparece quando expirou) */}
+                    {expired && (
+                      <button
+                        type="button"
+                        className="pay-flow-btn pay-flow-btn--secondary"
+                        onClick={() => {
+                          // gerar novo código PIX
+                          pagarPix();
+                        }}
+                      >
+                        Gerar outro código PIX
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

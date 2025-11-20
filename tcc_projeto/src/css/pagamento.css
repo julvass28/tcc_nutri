@@ -372,3 +372,127 @@
     align-items: flex-start;
   }
 }
+
+
+/* ====== Estilos para PIX (botão grande, input e contador) ====== */
+
+.pay-flow-qr-wrap {
+  display:flex;
+  justify-content:center;
+  margin-bottom:14px;
+}
+
+.pay-flow-qr-wrap img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* bloco do código copia-e-cola */
+.pay-flow-pix-code {
+  margin-top: 12px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+  border: 1px solid rgba(138,143,117,0.06);
+}
+
+/* quando expirado fica com tom reduzido */
+.pay-flow-pix-code--expired {
+  opacity: 0.6;
+}
+
+/* label pequena */
+.pay-flow-copy-label {
+  display:block;
+  color:#666;
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+/* input de uma linha que mostra o código (mas corta com scroll horizontal) */
+.pay-flow-pix-code-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  font-family: monospace;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow-x: auto;
+  cursor: text;
+  background: #fafafa;
+  color: #222;
+}
+
+/* meta: countdown + ações */
+.pay-flow-pix-meta {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+
+/* contador */
+.pay-flow-countdown {
+  font-size:13px;
+  color:#d04f6a; /* tom levemente rosa/alaranjado */
+  font-weight:700;
+}
+.pay-flow-countdown-note { font-weight:400; color:#777; font-size:12px; margin-left:6px; }
+
+/* expired */
+.pay-flow-expired { color:#a55; font-weight:700; font-size:13px; }
+
+/* container com botões: botão principal grande rosa + secundário */
+.pay-flow-copy-actions {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-left:auto;
+}
+
+/* botão grande rosa arredondado */
+.pay-flow-copy-big-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px 18px;
+  border-radius: 999px;
+  border: none;
+  background: #D1A0A0; /* paleta rosada */
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow: 0 8px 18px rgba(199,120,120,0.18);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
+  font-size:14px;
+}
+.pay-flow-copy-big-btn:active { transform: translateY(1px) scale(.998); background-color: #8a8f75; }
+.pay-flow-copy-big-btn[disabled] { opacity:.6; cursor:not-allowed; box-shadow:none; }
+
+/* botão secundário simples */
+.pay-flow-btn--secondary {
+  border: 1px solid var(--border);
+  background: #fff;
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* responsividade: empilha botões em telas pequenas */
+@media (max-width:720px){
+  .pay-flow-pix-meta { flex-direction:column; align-items:stretch; }
+  .pay-flow-copy-actions { width:100%; justify-content:stretch; }
+  .pay-flow-copy-big-btn { width:100%; justify-content:center; }
+  .pay-flow-btn--secondary { width:100%; }
+}

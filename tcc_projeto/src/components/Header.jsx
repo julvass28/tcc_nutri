@@ -332,7 +332,7 @@ function Header() {
             </Botao>
 
             <div className="mobile-icons">
-              <HiOutlineEnvelope className="icon-mobile" />
+              <Link to="/contato"><HiOutlineEnvelope className="icon-mobile" /></Link>
               {whatsAppLink ? (
                 <a
                   href={whatsAppLink}
@@ -345,7 +345,7 @@ function Header() {
               ) : (
                 <FaWhatsapp className="icon-mobile" />
               )}
-              <FaInstagram className="icon-mobile" />
+              <Link to="https://www.instagram.com/neven.dev/"><FaInstagram className="icon-mobile" /></Link>
             </div>
           </div>
         </ul>

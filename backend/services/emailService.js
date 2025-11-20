@@ -27,7 +27,7 @@ const transporter = nodemailer.createTransport({
 transporter
   .verify()
   .then(() => {
-    console.log("📧 SMTP pronto para uso (conexão OK)");
+    console.log("📩SMTP pronto para enviar emails (conexão OK✅)");
   })
   .catch((err) => {
     console.error(
@@ -55,6 +55,21 @@ function formatarDataHoraBR(date) {
   });
 
   return { dataStr, horaStr };
+}
+
+function mapEspecialidade(slug) {
+  if (!slug) return "Nutrição";
+  const s = String(slug).toLowerCase();
+  return (
+    {
+      clinica: "Nutrição Clínica",
+      emagrecimento: "Emagrecimento e Obesidade",
+      esportiva: "Nutrição Esportiva",
+      pediatrica: "Nutrição Pediátrica",
+      intolerancias: "Intolerâncias Alimentares",
+    }[s] || // fallback para labels legíveis
+    slug
+  );
 }
 
 /**
@@ -90,13 +105,16 @@ async function sendConsultaConfirmadaEmail({ usuario, agendamento }) {
     });
   }
 
+  // map especialidade (espera-se que agendamento.especialidade seja o slug salvo)
+  const especialidadeLabel = mapEspecialidade(agendamento.especialidade);
+
   const assunto = `Consulta confirmada - ${dataStr} às ${horaStr}`;
 
   const html = `
     <div style="background-color:#ECE7E6;padding:40px 20px;font-family:sans-serif;color:#8A8F75;max-width:600px;margin:auto;border-radius:12px;">
       <div style="background-color:#FFFFFF;padding:30px;border-radius:12px;box-shadow:0 4px 8px rgba(0,0,0,0.05);">
         <div style="text-align:center;">
-          <img src="https://i.imgur.com/5Qr0Gqp.png" alt="Logo Natália Simanovski" style="width:100px;margin-bottom:20px;" />
+          <img src="https://i.imgur.com/5Qr0Gqp.png" alt="Logo Natália Simanoviski" style="width:100px;margin-bottom:20px;" />
           <h2 style="color:#8A8F75;margin-bottom:10px;">Sua consulta está confirmada!</h2>
         </div>
 
@@ -105,13 +123,14 @@ async function sendConsultaConfirmadaEmail({ usuario, agendamento }) {
         </p>
 
         <p style="font-size:14px;margin-bottom:10px;">
-          Sua consulta de nutrição foi confirmada para:
+          Sua consulta foi confirmada para:
         </p>
 
         <ul style="font-size:14px;line-height:1.6;margin:0 0 16px 18px;padding:0;">
           <li><strong>Data:</strong> ${dataStr}</li>
           <li><strong>Horário:</strong> ${horaStr} (horário de Brasília)</li>
           <li><strong>Modalidade:</strong> Online – via Google Meet</li>
+          <li><strong>Especialidade:</strong> ${especialidadeLabel}</li>
         </ul>
 
         <p style="font-size:14px;margin-bottom:10px;">
@@ -138,7 +157,7 @@ async function sendConsultaConfirmadaEmail({ usuario, agendamento }) {
         </p>
 
         <p style="text-align:center;font-size:12px;color:#8A8F75;margin-top:18px;">
-          © 2025 Natália Simanovski | Nutricionista <br/>
+          © 2025 Natália Simanoviski | Nutricionista <br/>
           Desenvolvido por Equipe Neven
         </p>
       </div>
@@ -147,7 +166,7 @@ async function sendConsultaConfirmadaEmail({ usuario, agendamento }) {
 
   try {
     await transporter.sendMail({
-      from: `"Natália Simanovski" <${EMAIL_USER}>`,
+      from: `"Natália Simanoviski" <${EMAIL_USER}>`,
       to: usuario.email,
       subject: assunto,
       html,
@@ -174,11 +193,13 @@ async function sendConsultaCanceladaEmail({ usuario, agendamento }) {
   const dataBr = `${dd}/${mm}/${yyyy}`;
   const horaBr = `${hh}:${mi}`;
 
+  const especialidadeLabel = mapEspecialidade(agendamento.especialidade);
+
   const html = `
     <div style="background-color:#ECE7E6;padding:40px 20px;font-family:sans-serif;color:#8A8F75;max-width:600px;margin:auto;border-radius:12px;">
       <div style="background-color:#FFFFFF;padding:30px;border-radius:12px;box-shadow:0 4px 8px rgba(0,0,0,0.05);">
         <div style="text-align:center;">
-          <img src="https://i.imgur.com/5Qr0Gqp.png" alt="Logo Natalia Simonovski" style="width:100px;margin-bottom:20px;" />
+          <img src="https://i.imgur.com/5Qr0Gqp.png" alt="Logo Natália Simanoviski" style="width:100px;margin-bottom:20px;" />
           <h2 style="color:#8A8F75;margin-bottom:10px;">Consulta cancelada</h2>
         </div>
 
@@ -187,7 +208,7 @@ async function sendConsultaCanceladaEmail({ usuario, agendamento }) {
         </p>
 
         <p style="font-size:15px;line-height:1.6;">
-          Sua consulta marcada para o dia <strong>${dataBr}</strong> às <strong>${horaBr}</strong> foi
+          Sua consulta de <strong>${especialidadeLabel}</strong> marcada para o dia <strong>${dataBr}</strong> às <strong>${horaBr}</strong> foi
           <strong>cancelada com sucesso</strong> pelo seu painel de paciente.
         </p>
 
@@ -198,7 +219,7 @@ async function sendConsultaCanceladaEmail({ usuario, agendamento }) {
 
         <p style="font-size:14px;line-height:1.6;">
           Se desejar, você pode agendar um novo horário diretamente pelo site e continuar cuidando da sua saúde com 
-          o acompanhamento da <strong>Nutricionista Natalia Simonovski</strong>.
+          o acompanhamento da <strong>Nutricionista Natália Simanoviski</strong>.
         </p>
 
         <p style="margin-top:24px;font-size:14px;">
@@ -208,19 +229,24 @@ async function sendConsultaCanceladaEmail({ usuario, agendamento }) {
         <hr style="margin:30px 0;border:none;border-top:1px solid #EEE;" />
 
         <p style="text-align:center;font-size:12px;color:#8A8F75;">
-          © 2025 Natalia Simonovski | Nutricionista <br/>
+          © 2025 Natália Simanoviski | Nutricionista <br/>
           Desenvolvido por Equipe Neven
         </p>
       </div>
     </div>
   `;
 
-  await transporter.sendMail({
-    from: `"Natalia Simonovski" <${process.env.EMAIL_USER}>`,
-    to: usuario.email,
-    subject: "Sua consulta foi cancelada - Natalia Simonovski",
-    html,
-  });
+  try {
+    await transporter.sendMail({
+      from: `"Natália Simanoviski" <${EMAIL_USER}>`,
+      to: usuario.email,
+      subject: `Sua consulta foi cancelada - Natália Simanoviski`,
+      html,
+    });
+    console.log(`📧 E-mail de cancelamento enviado para ${usuario.email}`);
+  } catch (err) {
+    console.error("🛑 Erro ao enviar e-mail de cancelamento:", err.message || err);
+  }
 }
 
 module.exports = {
