@@ -10,42 +10,51 @@ function CarroselMobile({ titulo, subtitulo, tipo = "", dados = [] }) {
   const [ativo, setAtivo] = useState(null);
 
   const base =
-    tipo === "receitas"
-      ? { variableWidth: true }
-      : { slidesToShow: 2.2, slidesToScroll: 1 };
+  tipo === "receitas"
+    ? { slidesToShow: 1.1, slidesToScroll: 1 } // antes era 2.2 ou variableWidth
+    : { slidesToShow: 2.2, slidesToScroll: 1 };
+
 
   const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    arrows: false,
-    swipe: true,
-    touchMove: true,
-    ...base,
-    responsive: [
-      {
-        breakpoint: 912,
-        settings:
-          tipo === "receitas"
-            ? { variableWidth: true }
-            : { slidesToShow: 1.8, slidesToScroll: 1 },
+  dots: false,
+  infinite: false,
+  speed: 500,
+  arrows: false,
+  swipe: true,
+  touchMove: true,
+  ...base,
+  responsive: [
+    {
+      breakpoint: 912,
+      settings:
+        tipo === "receitas"
+          ? { slidesToShow: 1.3, slidesToScroll: 1 } // mais largo
+          : { slidesToShow: 1.8, slidesToScroll: 1 },
+    },
+    {
+      breakpoint: 768,
+      settings:
+        tipo === "receitas"
+          ? { slidesToShow: 1.2, slidesToScroll: 1 }
+          : { slidesToShow: 1.5, slidesToScroll: 1 },
+    },
+    {
+      breakpoint: 480,
+      settings:
+        tipo === "receitas"
+          ? { slidesToShow: 1.1, slidesToScroll: 1 }
+          : { slidesToShow: 1.4, slidesToScroll: 1 },
+    },
+     {
+        breakpoint: 1024, // até 1023px
+        settings: {
+          slidesToShow: 2, // tablet
+          slidesToScroll: 1,
+        },
       },
-      {
-        breakpoint: 768,
-        settings:
-          tipo === "receitas"
-            ? { variableWidth: true }
-            : { slidesToShow: 1.5, slidesToScroll: 1 },
-      },
-      {
-        breakpoint: 480,
-        settings:
-          tipo === "receitas"
-            ? { variableWidth: true }
-            : { slidesToShow: 1.4, slidesToScroll: 1 },
-      },
-    ],
-  };
+  ],
+};
+
 
   const handleClick = (id) => setAtivo(id === ativo ? null : id);
 

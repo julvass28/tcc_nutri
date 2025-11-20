@@ -147,7 +147,7 @@ function Home() {
         </div>
       </div>
 
-      <div className="sobre-nutri-mobile espacamento">
+      <div className="sobre-nutri-mobile">
         <div className="infos-dois-home">
           <h2 className="primeiro-text-home text-small-home">Olá, eu sou a</h2>
           <h2 className="segundo-text-home text-medium-home">Nutricionista</h2>
