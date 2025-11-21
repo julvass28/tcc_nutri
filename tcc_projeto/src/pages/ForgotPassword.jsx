@@ -33,12 +33,21 @@ function passwordScore(pw = "") {
   if (len >= 10) score++;
   if (sets >= 2) score++;
   if (sets >= 3) score++;
-  const common = ["123456","password","qwerty","111111","12345678","abc123","123123"];
+  const common = [
+    "123456",
+    "password",
+    "qwerty",
+    "111111",
+    "12345678",
+    "abc123",
+    "123123",
+  ];
   if (common.includes(pw.toLowerCase())) score = 0;
 
   return clamp(score, 0, 4);
 }
-const scoreLabel = (s) => ["Muito fraca","Fraca","Ok","Forte","Muito forte"][s];
+const scoreLabel = (s) =>
+  ["Muito fraca", "Fraca", "Ok", "Forte", "Muito forte"][s];
 
 export default function ForgotPassword() {
   const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -87,9 +96,12 @@ export default function ForgotPassword() {
     return () => clearInterval(intervalo);
   }, [contador]);
 
-  const isSixDigits = (arr) => arr.join("").length === 6 && arr.every((d) => /^\d$/.test(d));
+  const isSixDigits = (arr) =>
+    arr.join("").length === 6 && arr.every((d) => /^\d$/.test(d));
   const handlePasteCodigo = (e) => {
-    const paste = (e.clipboardData.getData("text") || "").replace(/\D/g, "").slice(0, 6);
+    const paste = (e.clipboardData.getData("text") || "")
+      .replace(/\D/g, "")
+      .slice(0, 6);
     if (!paste) return;
     e.preventDefault();
     const novo = codigo.slice();
@@ -104,8 +116,14 @@ export default function ForgotPassword() {
     e.preventDefault();
     setErroEmail("");
 
-    if (!email.trim()) { setErroEmail("Informe seu e-mail."); return; }
-    if (!isEmail(email)) { setErroEmail("E-mail inválido."); return; }
+    if (!email.trim()) {
+      setErroEmail("Informe seu e-mail.");
+      return;
+    }
+    if (!isEmail(email)) {
+      setErroEmail("E-mail inválido.");
+      return;
+    }
 
     setLoadingBtn(true);
     setOverlayText("Enviando e-mail...");
@@ -188,7 +206,9 @@ export default function ForgotPassword() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Backspace") {
-        const idx = inputsRef.current.findIndex((ref) => ref === document.activeElement);
+        const idx = inputsRef.current.findIndex(
+          (ref) => ref === document.activeElement
+        );
         if (idx !== -1) {
           const novo = [...codigo];
           novo[idx] = "";
@@ -258,7 +278,9 @@ export default function ForgotPassword() {
       num: /\d/.test(s),
       special: /[^A-Za-z0-9]/.test(s),
     };
-    const combinacoes = [req.upper, req.lower, req.num, req.special].filter(Boolean).length;
+    const combinacoes = [req.upper, req.lower, req.num, req.special].filter(
+      Boolean
+    ).length;
     return req.len && combinacoes >= 3;
   };
 
@@ -267,7 +289,9 @@ export default function ForgotPassword() {
     setErroSenha("");
 
     if (!senhaAtendeRequisitos()) {
-      setErroSenha("Senha fraca. Use 8+ caracteres e combine maiúsculas, minúsculas, número e símbolo.");
+      setErroSenha(
+        "Senha fraca. Use 8+ caracteres e combine maiúsculas, minúsculas, número e símbolo."
+      );
       return;
     }
     if (!confirmarSenha.trim() || senha !== confirmarSenha) {
@@ -325,169 +349,248 @@ export default function ForgotPassword() {
   return (
     <div className="forgot-password-body">
       <main className="forgot-password-container">
-        {toastVisivel && (
-          <div className="toast toast-sucesso" role="status" aria-live="polite">
-            <i className="fas fa-check-circle toast-icone" aria-hidden="true"></i>
-            <span>{toastTexto}</span>
+        <div>
+          {toastVisivel && (
+            <div
+              className="toast toast-sucesso"
+              role="status"
+              aria-live="polite"
+            >
+              <i
+                className="fas fa-check-circle toast-icone"
+                aria-hidden="true"
+              ></i>
+              <span>{toastTexto}</span>
+            </div>
+          )}
+
+          <div className="voltar-etapa-wrapper">
+            <i
+              className="fas fa-arrow-left voltar-etapa-icone"
+              onClick={voltarEtapa}
+            />
           </div>
-        )}
 
-        <div className="voltar-etapa-wrapper">
-          <i className="fas fa-arrow-left voltar-etapa-icone" onClick={voltarEtapa} />
-        </div>
+          {etapa === 1 && (
+            <>
+              <h1 className="forgot-password-title">Esqueceu a Senha?</h1>
+              <p className="forgot-password-subtitle">
+                Redefina sua senha em duas etapas
+              </p>
 
-        {etapa === 1 && (
-          <>
-            <h1 className="forgot-password-title">Esqueceu a Senha?</h1>
-            <p className="forgot-password-subtitle">Redefina sua senha em duas etapas</p>
-
-            <form onSubmit={handleSubmitEmail} className="forgot-password-form auth-compact" noValidate>
-              <input
-                name="email"
-                type="email"
-                placeholder="E-mail"
-                className={`forgot-password-input ${erroEmail ? "erro-borda" : ""}`}
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  setErroEmail("");
-                }}
-                required
-                aria-invalid={!!erroEmail}
-                aria-describedby={erroEmail ? "erro-email" : undefined}
-              />
-              {erroEmail && <p id="erro-email" className="erro-texto">{erroEmail}</p>}
-
-              <button type="submit" className="forgot-password-submit-btn" disabled={loadingBtn}>
-                {loadingBtn ? <i className="fas fa-spinner fa-spin" style={{ marginRight: 8 }} /> : null}
-                {loadingBtn ? "Enviando..." : "Enviar"}
-              </button>
-            </form>
-          </>
-        )}
-
-        {etapa === 2 && (
-          <>
-            <h1 className="forgot-password-title">Enviamos um código</h1>
-            <p className="forgot-password-subtitle">
-              Insira o código de 6 dígitos enviado para seu e-mail.
-            </p>
-            <form onSubmit={handleSubmitCodigo} className="forgot-password-form auth-compact" noValidate>
-              <div
-                className="codigo-container"
-                onPaste={handlePasteCodigo}
-                aria-label="Campos para inserir o código de 6 dígitos"
+              <form
+                onSubmit={handleSubmitEmail}
+                className="forgot-password-form auth-compact"
+                noValidate
               >
-                {codigo.map((digito, i) => (
-                  <input
-                    key={i}
-                    ref={(el) => (inputsRef.current[i] = el)}
-                    className={`codigo-digit ${erroCodigo ? "erro-borda" : ""}`}
-                    inputMode="numeric"
-                    pattern="\d*"
-                    maxLength={1}
-                    aria-label={`Dígito ${i + 1}`}
-                    value={digito}
-                    onChange={(e) => handleCodigoChange(e, i)}
-                  />
-                ))}
-              </div>
-              {erroCodigo && <p className="erro-texto">{erroCodigo}</p>}
-
-              <div style={{ textAlign: "left" }}>
-                <span
-                  className={`reenviar-link ${contador > 0 ? "disabled" : ""}`}
-                  onClick={contador === 0 ? handleStartCountdown : null}
-                >
-                  {contador > 0
-                    ? `Reenviar código (${Math.floor(contador / 60)}:${String(contador % 60).padStart(2, '0')})`
-                    : "Reenviar código"}
-                </span>
-              </div>
-
-              <button
-                type="submit"
-                className="forgot-password-submit-btn"
-                disabled={!isSixDigits(codigo) || verificando}
-              >
-                {verificando ? <i className="fas fa-spinner fa-spin" style={{ marginRight: 8 }} /> : null}
-                {verificando ? "Verificando..." : "Enviar código"}
-              </button>
-            </form>
-          </>
-        )}
-
-        {etapa === 3 && (
-          <>
-            <h1 className="forgot-password-title">Criar uma nova senha</h1>
-            <p className="forgot-password-subtitle">
-              Crie uma nova senha forte para manter sua conta segura.
-            </p>
-            <form onSubmit={handleSubmitSenha} className="forgot-password-form auth-compact" noValidate>
-              <div className="criar-conta-password-wrapper">
                 <input
-                  type={mostrarSenha ? "text" : "password"}
-                  placeholder="Senha"
-                  className={`criar-conta-input criar-conta-input-password ${erroSenha ? "erro-borda" : ""}`}
-                  value={senha}
-                  onChange={(e) => {
-                    setSenha(e.target.value);
-                    setErroSenha("");
-                  }}
-                  aria-invalid={!!erroSenha}
-                />
-                <i
-                  className={`fas ${mostrarSenha ? "fa-eye-slash" : "fa-eye"} criar-conta-eye-icon`}
-                  onClick={() => setMostrarSenha((prev) => !prev)}
-                />
-              </div>
-
-              <div className="pwd-meter">
-                <div className={`pwd-bar s${score}`} aria-hidden="true" />
-                <span className={`pwd-label s${score}`}>{label}</span>
-              </div>
-              <ul className="pwd-reqs">
-                <li className={senha.length >= 8 ? "ok" : ""}>8+ caracteres</li>
-                <li className={/[A-Z]/.test(senha) ? "ok" : ""}>Letra maiúscula</li>
-                <li className={/[a-z]/.test(senha) ? "ok" : ""}>Letra minúscula</li>
-                <li className={/\d/.test(senha) ? "ok" : ""}>Número</li>
-                <li className={/[^A-Za-z0-9]/.test(senha) ? "ok" : ""}>Símbolo</li>
-              </ul>
-
-              <div className="criar-conta-password-wrapper">
-                <input
-                  type={mostrarConfirmar ? "text" : "password"}
-                  placeholder="Confirmar senha"
-                  value={confirmarSenha}
-                  onChange={(e) => setConfirmarSenha(e.target.value)}
-                  className={`criar-conta-input criar-conta-input-password ${
-                    senha !== confirmarSenha && confirmarSenha ? "erro-borda" : ""
+                  name="email"
+                  type="email"
+                  placeholder="E-mail"
+                  className={`forgot-password-input ${
+                    erroEmail ? "erro-borda" : ""
                   }`}
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setErroEmail("");
+                  }}
+                  required
+                  aria-invalid={!!erroEmail}
+                  aria-describedby={erroEmail ? "erro-email" : undefined}
                 />
-                <i
-                  className={`fas ${mostrarConfirmar ? "fa-eye-slash" : "fa-eye"} criar-conta-eye-icon`}
-                  onClick={() => setMostrarConfirmar((prev) => !prev)}
-                />
-              </div>
-              <div className={`erro-texto-container ${senha !== confirmarSenha && confirmarSenha ? "visivel" : ""}`}>
-                <p className="erro-texto">As senhas não coincidem.</p>
-              </div>
+                {erroEmail && (
+                  <p id="erro-email" className="erro-texto">
+                    {erroEmail}
+                  </p>
+                )}
 
-              {erroSenha && <p className="erro-texto">{erroSenha}</p>}
+                <button
+                  type="submit"
+                  className="forgot-password-submit-btn"
+                  disabled={loadingBtn}
+                >
+                  {loadingBtn ? (
+                    <i
+                      className="fas fa-spinner fa-spin"
+                      style={{ marginRight: 8 }}
+                    />
+                  ) : null}
+                  {loadingBtn ? "Enviando..." : "Enviar"}
+                </button>
+              </form>
+            </>
+          )}
 
-              <button
-                type="submit"
-                className="forgot-password-submit-btn"
-                disabled={!senhaAtendeRequisitos() || senha !== confirmarSenha}
-                style={{ marginTop: senha !== confirmarSenha && confirmarSenha ? "0" : "1.5rem" }}
+          {etapa === 2 && (
+            <>
+              <h1 className="forgot-password-title">Enviamos um código</h1>
+              <p className="forgot-password-subtitle">
+                Insira o código de 6 dígitos enviado para seu e-mail.
+              </p>
+              <form
+                onSubmit={handleSubmitCodigo}
+                className="forgot-password-form auth-compact"
+                noValidate
               >
-                Redefinir Senha
-              </button>
-            </form>
-          </>
-        )}
+                <div
+                  className="codigo-container"
+                  onPaste={handlePasteCodigo}
+                  aria-label="Campos para inserir o código de 6 dígitos"
+                >
+                  {codigo.map((digito, i) => (
+                    <input
+                      key={i}
+                      ref={(el) => (inputsRef.current[i] = el)}
+                      className={`codigo-digit ${
+                        erroCodigo ? "erro-borda" : ""
+                      }`}
+                      inputMode="numeric"
+                      pattern="\d*"
+                      maxLength={1}
+                      aria-label={`Dígito ${i + 1}`}
+                      value={digito}
+                      onChange={(e) => handleCodigoChange(e, i)}
+                    />
+                  ))}
+                </div>
+                {erroCodigo && <p className="erro-texto">{erroCodigo}</p>}
 
-        <LoadingOverlay show={showOverlay} text={overlayText} />
+                <div style={{ textAlign: "left" }}>
+                  <span
+                    className={`reenviar-link ${
+                      contador > 0 ? "disabled" : ""
+                    }`}
+                    onClick={contador === 0 ? handleStartCountdown : null}
+                  >
+                    {contador > 0
+                      ? `Reenviar código (${Math.floor(contador / 60)}:${String(
+                          contador % 60
+                        ).padStart(2, "0")})`
+                      : "Reenviar código"}
+                  </span>
+                </div>
+
+                <button
+                  type="submit"
+                  className="forgot-password-submit-btn"
+                  disabled={!isSixDigits(codigo) || verificando}
+                >
+                  {verificando ? (
+                    <i
+                      className="fas fa-spinner fa-spin"
+                      style={{ marginRight: 8 }}
+                    />
+                  ) : null}
+                  {verificando ? "Verificando..." : "Enviar código"}
+                </button>
+              </form>
+            </>
+          )}
+
+          {etapa === 3 && (
+            <>
+              <h1 className="forgot-password-title">Criar uma nova senha</h1>
+              <p className="forgot-password-subtitle">
+                Crie uma nova senha forte para manter sua conta segura.
+              </p>
+              <form
+                onSubmit={handleSubmitSenha}
+                className="forgot-password-form auth-compact"
+                noValidate
+              >
+                <div className="criar-conta-password-wrapper">
+                  <input
+                    type={mostrarSenha ? "text" : "password"}
+                    placeholder="Senha"
+                    className={`criar-conta-input criar-conta-input-password ${
+                      erroSenha ? "erro-borda" : ""
+                    }`}
+                    value={senha}
+                    onChange={(e) => {
+                      setSenha(e.target.value);
+                      setErroSenha("");
+                    }}
+                    aria-invalid={!!erroSenha}
+                  />
+                  <i
+                    className={`fas ${
+                      mostrarSenha ? "fa-eye-slash" : "fa-eye"
+                    } criar-conta-eye-icon`}
+                    onClick={() => setMostrarSenha((prev) => !prev)}
+                  />
+                </div>
+
+                <div className="pwd-meter">
+                  <div className={`pwd-bar s${score}`} aria-hidden="true" />
+                  <span className={`pwd-label s${score}`}>{label}</span>
+                </div>
+                <ul className="pwd-reqs">
+                  <li className={senha.length >= 8 ? "ok" : ""}>
+                    8+ caracteres
+                  </li>
+                  <li className={/[A-Z]/.test(senha) ? "ok" : ""}>
+                    Letra maiúscula
+                  </li>
+                  <li className={/[a-z]/.test(senha) ? "ok" : ""}>
+                    Letra minúscula
+                  </li>
+                  <li className={/\d/.test(senha) ? "ok" : ""}>Número</li>
+                  <li className={/[^A-Za-z0-9]/.test(senha) ? "ok" : ""}>
+                    Símbolo
+                  </li>
+                </ul>
+
+                <div className="criar-conta-password-wrapper">
+                  <input
+                    type={mostrarConfirmar ? "text" : "password"}
+                    placeholder="Confirmar senha"
+                    value={confirmarSenha}
+                    onChange={(e) => setConfirmarSenha(e.target.value)}
+                    className={`criar-conta-input criar-conta-input-password ${
+                      senha !== confirmarSenha && confirmarSenha
+                        ? "erro-borda"
+                        : ""
+                    }`}
+                  />
+                  <i
+                    className={`fas ${
+                      mostrarConfirmar ? "fa-eye-slash" : "fa-eye"
+                    } criar-conta-eye-icon`}
+                    onClick={() => setMostrarConfirmar((prev) => !prev)}
+                  />
+                </div>
+                <div
+                  className={`erro-texto-container ${
+                    senha !== confirmarSenha && confirmarSenha ? "visivel" : ""
+                  }`}
+                >
+                  <p className="erro-texto">As senhas não coincidem.</p>
+                </div>
+
+                {erroSenha && <p className="erro-texto">{erroSenha}</p>}
+
+                <button
+                  type="submit"
+                  className="forgot-password-submit-btn"
+                  disabled={
+                    !senhaAtendeRequisitos() || senha !== confirmarSenha
+                  }
+                  style={{
+                    marginTop:
+                      senha !== confirmarSenha && confirmarSenha
+                        ? "0"
+                        : "1.5rem",
+                  }}
+                >
+                  Redefinir Senha
+                </button>
+              </form>
+            </>
+          )}
+
+          <LoadingOverlay show={showOverlay} text={overlayText} />
+        </div>
       </main>
     </div>
   );

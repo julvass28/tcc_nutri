@@ -286,6 +286,7 @@ export default function Login(props) {
       )}
 
       <main className="login-container">
+        <div>
         {logoutHint && (
           <div className="logout-banner" role="status" aria-live="polite">
             <i className="fas fa-door-open" aria-hidden="true" />
@@ -437,6 +438,7 @@ export default function Login(props) {
         </p>
 
         <LoadingOverlay show={showOverlay} text={overlayText} />
+        </div>
       </main>
 
       {/* MODAL TERMOS DE SERVIÇO NO LOGIN */}

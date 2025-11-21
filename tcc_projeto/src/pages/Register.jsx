@@ -253,6 +253,7 @@ export default function CriarConta() {
   return (
     <div className="criar-conta-body">
       <main className="criar-conta-container">
+        <div>
         <h1 className="criar-conta-title">Criar Conta</h1>
         <p className="criar-conta-subtitle">
           Para acessar suas consultas e dietas,
@@ -584,6 +585,7 @@ export default function CriarConta() {
           show={showOverlay}
           text={isSubmitting ? "Criando sua conta..." : "Abrindo login..."}
         />
+        </div>
       </main>
 
       {/* MODAL DE TERMOS DE SERVIÇO */}

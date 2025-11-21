@@ -248,6 +248,7 @@ export default function Agendar() {
         texto="AGENDAMENTO"
         subtitulo="Escolha o dia e o horário que melhor se encaixam em sua agenda."
         mostrarLinha={true}
+        className="titulo-agenda-decima"
       />
 
       {/* Especialidades */}

@@ -22,7 +22,8 @@
   box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
   width: 100%;
   max-width: 28rem;
-  padding: 0rem 2.5rem 2.5rem 2.5rem;
+  padding: 2.5rem;
+  
 }
 
 /* === TÍTULOS E SUBTÍTULOS === */
@@ -36,6 +37,7 @@
   font-weight: 400;
   text-align: center;
   margin-bottom: 0.75rem;
+  margin-top: 30px;
 }
 
 .login-subtitle,
@@ -587,13 +589,15 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   margin: 0px 0 10px;
   line-height: 1.2;
 }
-
+.voltar-etapa-wrapper{
+  margin-top: 50px;
+}
 /* ===== Banner curto após logout ===== */
 .logout-banner {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin: -6px 0 14px; /* aproxima do título */
+  margin: 5px 0 14px; /* aproxima do título */
   padding: 0.6rem 0.8rem;
   border-radius: 0.5rem;
   background: #fff7f7; /* tom suave do tema */

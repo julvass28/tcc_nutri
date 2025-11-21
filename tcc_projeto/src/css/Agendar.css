@@ -49,8 +49,12 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  padding: clamp(150px, 4vw, 40px);
+  padding: clamp(100px, 4vw, 40px);
 }
+.titulo-agenda-decima{
+  margin-top: 100px;
+}
+
 .h2Agenda,
 h3 {
   margin: 0 0 16px;
