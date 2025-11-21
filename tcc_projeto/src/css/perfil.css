@@ -41,6 +41,16 @@ body {
   padding: 0 1rem;
   box-sizing: border-box;
 }
+.perfil-container-principal-meuperfil{
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  background-color: #ffffff;
+  padding: 5rem 0rem;
+  box-sizing: border-box;
+}
 
 /* Header - largura total ajustada */
 .perfil-header {
@@ -167,11 +177,21 @@ body {
   width: 100%;
   max-width: 1120px;
   border-radius: 0.5rem;
-  margin-top: 2rem;
+  margin-top: 7rem;
   box-sizing: border-box;
 }
 .secao + .secao {
   margin-top: 2rem;
+}
+
+.secao-perfil-principal{
+  background: white;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 1120px;
+  border-radius: 0.5rem;
+  margin-top: 2rem;
+  box-sizing: border-box;
 }
 
 .secao h2 {

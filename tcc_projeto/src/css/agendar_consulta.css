@@ -21,6 +21,7 @@
   font-family: "Poppins", sans-serif;
   background: var(--bg);
   color: var(--text);
+  padding-top: 90px;
 }
 
 .agc h2,

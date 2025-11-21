@@ -227,6 +227,9 @@ export default function RecipeForm() {
   return (
     <div className="recipe-form-page">
       <style>{`
+      .recipe-form-page{
+        padding-top:100px;
+      }
         .recipe-form-page h2{ margin:0 0 12px }
         .card{ background:#fff; border:1px solid var(--border); border-radius:14px; padding:16px }
         .form-grid{ display:grid; gap:14px; grid-template-columns: 1fr 1fr }

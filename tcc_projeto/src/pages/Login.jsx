@@ -307,7 +307,7 @@ export default function Login(props) {
 
         <h1 className="login-title">Fazer Login</h1>
         <p className="login-subtitle">
-          Para acessar suas consultas e dietas,
+          Para acessar suas consultas ,
           <br />
           entre com sua conta
         </p>

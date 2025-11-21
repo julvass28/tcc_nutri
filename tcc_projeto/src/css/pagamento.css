@@ -8,11 +8,19 @@
   justify-content: center;
   padding: 40px 16px;
 }
-
+body.pagamento::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:#f4efec ;
+  z-index: -1;
+  pointer-events: none;
+}
 .pay-flow-card {
   background: #ffffff;
   border-radius: 18px;
   max-width: 640px;
+  margin-top: 100px;
   width: 100%;
   padding: 28px 26px 30px;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);

@@ -28,6 +28,7 @@
   color: var(--ascp-text);
   font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   overflow-x: visible;
+  padding-top: 100px;
 }
 
 /* tipografia base: semibold (600) */

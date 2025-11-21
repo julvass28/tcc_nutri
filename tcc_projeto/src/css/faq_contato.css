@@ -4,12 +4,15 @@
 body {
   font-family: "Poppins", sans-serif;
 }
-
+.faq-contato-wrapper{
+  padding-top: 90px;
+}
 .faq-banner {
   position: relative;
   width: 100%;
   height: 400px;
   background: url('/src/assets/faq_contato.png') center/cover no-repeat;
+  
 }
 
 .faq-banner-overlay {

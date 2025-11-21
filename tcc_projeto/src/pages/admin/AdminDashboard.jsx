@@ -58,6 +58,7 @@ export default function AdminDashboard() {
         .admin-home{
           --rose:#D1A0A0; --olive:#8A8F75; --bg:#ECE7E6; --text:#2E2E2E;
           --border: rgba(0,0,0,.08);
+          padding-top:100px;
         }
         .hero{
           position:relative;

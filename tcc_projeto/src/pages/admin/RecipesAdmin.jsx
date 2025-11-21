@@ -116,6 +116,9 @@ export default function RecipesAdmin() {
   return (
     <div className="adm-recipes">
       <style>{`
+      .adm-recipes{
+        padding-top:100px;
+      }
         .adm-recipes h2{ margin:0 0 12px }
         .adm-recipes-toolbar{ display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:12px }
         .adm-recipes-search{ flex:1; min-width:240px; display:flex; gap:8px; align-items:center; background:#fff; border:1px solid var(--border); border-radius:999px; padding:8px 12px }

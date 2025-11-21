@@ -371,7 +371,7 @@ export default function Perfil() {
   const temQualquerConsulta = !!proximaConsulta;
 
   return (
-    <div className="perfil-container">
+    <div className="perfil-container-principal-meuperfil">
       <Toast show={showToast}>Foto atualizada com sucesso!</Toast>
       <LoadingOverlay show={showOverlay} text={overlayText} />
 
@@ -416,7 +416,7 @@ export default function Perfil() {
       </section>
 
       {/* BLOCO INFORMATIVO */}
-      <section className="secao">
+      <section className="secao-perfil-principal">
         <div className="perfil-view-grid pretty">
           <div className="perfil-view-item">
             <span className="perfil-view-label">Nome</span>

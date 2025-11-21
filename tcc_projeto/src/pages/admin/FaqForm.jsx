@@ -72,6 +72,7 @@ export default function FaqForm(){
   return (
     <div className="recipe-form-page">
       <style>{`
+      
         .card{ background:#fff; border:1px solid var(--border); border-radius:14px; padding:16px }
         .form-grid{ display:grid; gap:14px; grid-template-columns: 1fr 1fr }
         .form-grid .full{ grid-column: 1 / -1 }

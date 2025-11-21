@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 5rem 1rem 1rem 1rem;
 }
 
 .login-container,
@@ -22,7 +22,7 @@
   box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
   width: 100%;
   max-width: 28rem;
-  padding: 2rem 2.5rem;
+  padding: 0rem 2.5rem 2.5rem 2.5rem;
 }
 
 /* === TÍTULOS E SUBTÍTULOS === */

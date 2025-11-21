@@ -9,6 +9,8 @@
   --border: #e8e4e2;
   --primary: #8a8f75; /* oliva */
   --accent: #d1a0a0; /* rosé */
+
+  padding-top: 100px;
 }
 
 .adm-faq h2 {

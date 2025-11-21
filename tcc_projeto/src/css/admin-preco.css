@@ -9,7 +9,7 @@
 }
 
 .admin-preco__page {
-  min-height: 100vh;
+  min-height: 90vh;
   background: var(--page);
   display: flex;
   align-items: center;

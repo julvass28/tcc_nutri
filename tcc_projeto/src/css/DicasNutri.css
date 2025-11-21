@@ -12,6 +12,7 @@
   align-items: center;
   min-height: 100vh;
   font-family: 'Lustria', serif;
+  padding-top: 100px;
 }
 
 /* Título */
@@ -264,7 +265,7 @@
 
 @media (min-width: 690px) and (max-width: 830px) {
   .dica-nutri-container {
-    padding: 0 30px; /* Margem nas laterais */
+    padding: 100px 30px; /* Margem nas laterais */
   }
 
   .dica-nutri-main {
@@ -276,7 +277,7 @@
 
 @media (max-width: 689px) {
   .dica-nutri-container {
-    padding: 0 16px;
+    padding: 100px 16px;
   }
 
   .dica-nutri-main {

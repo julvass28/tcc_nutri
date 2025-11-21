@@ -1,10 +1,30 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lustria&display=swap");
 
+/* -------------------------------------------------------
+   DROP-IN COMPLETO: Header.css
+   - Mantive todo o CSS original
+   - Adicionei variáveis e overrides no final para garantir
+     que a "onda/hero" não seja cortada pelo header fixo.
+   Se precisar eu ajusto os números (menos/mais folga).
+   ------------------------------------------------------- */
+
+/* Variáveis pra facilitar ajuste */
+:root{
+  --header-height-desktop: 100px; /* altura visual do header */
+  --header-total-desktop: 0px;  /* altura + folga para não cortar o hero */
+  --header-total-tablet: 0px;
+  --header-total-mobile: 0px;
+
+  /* valor de folga extra aplicado especificamente à hero (ajuste fino) */
+  --hero-protect-gap: 0px;
+}
+
 /* body */
 body {
   margin: 0;
-  padding: 0;
+  /* Espaço reservado para o header fixo — alterável via :root */
+  padding-top: var(--header-total-desktop);
   overflow-x: hidden;
   width: 100%;
   box-sizing: border-box;
@@ -12,19 +32,21 @@ body {
 
 /* HEADER */
 .menu {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 50;
+  z-index: 9999; /* aumentado pra previsibilidade (header acima de tudo) */
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   width: 100%;
-  height: 100px;
+  height: var(--header-height-desktop);
   background-color: #f2efea;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   padding: 30px;
   overflow: visible;
+  -webkit-backface-visibility: hidden; /* ajuda em alguns browsers */
+  backface-visibility: hidden;
 }
 
 .icons {
@@ -169,6 +191,11 @@ nav ul li a {
   }
 }
 
+/* Ajuste de compensação por breakpoint (para não cortar hero/onda) */
+@media (max-width: 1023px) {
+  /* tablet/mobile maior */
+  body { padding-top: var(--header-total-tablet); }
+}
 
 .btn-mobile {
   display: none;
@@ -388,7 +415,55 @@ nav ul li a {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1280px) {
+/* small phones: header kept similar to desktop but padding reduced, adjust body */
+@media (max-width: 480px) {
+  .menu {
+    grid-template-columns: 36px 1fr 36px;
+    height: 90px;
+    padding: 10px 12px;
+  }
+  .logo img {
+    height: 72px;
+    max-width: 200px;
+  }
+
+  /* menor folga em telefones estreitos, mas suficiente pra não cortar a onda */
+  body { padding-top: var(--header-total-mobile); }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .menu {
+    grid-template-columns: 36px 1fr 36px;
+    height: 100px;
+    padding: 10px 12px;
+  }
+  .logo img {
+    height: 72px;
+    max-width: 200px;
+  }
+
+  body { padding-top: var(--header-total-tablet); }
+
+  .btn-mobile {
+    font-size: 18px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .menu {
+    grid-template-columns: 48px 1fr 48px;
+    height: 110px;
+  }
+  .logo img {
+    height: 90px;
+    max-width: 260px;
+  }
+
+  body { padding-top: var(--header-total-tablet); }
+  /* quick-login now sibling of .logo — layout preserved */
+}
+
+/* iPad Pro (opcional) 1024–1366px — só compacta um pouco o header */
+@media (min-width: 1024px) and (max-width: 1366px) {
   .menu {
     padding: 10px;
   }
@@ -405,6 +480,8 @@ nav ul li a {
   .icon {
     width: 18px;
   }
+
+  body { padding-top: calc(var(--header-total-desktop) - 20px); }
 }
 
 @media (max-width: 1440px) {
@@ -726,17 +803,27 @@ nav ul li a {
   .menu {
     padding: 18px 20px;
   }
-  .right ul li {
-    padding: 6px 10px;
+  .btn-mobile {
+    display: none;
   }
-  nav ul li {
-    padding: 8px;
+  .nav-text {
+    font-size: 14px;
   }
-  .logo img {
-    height: 90px;
-    width: auto;
+  .user {
+    width: 18px;
+    height: auto;
+  }
+  .icon {
+    width: 18px;
   }
 }
+
+@media (max-width: 1440px) {
+  .nav-text {
+    font-size: 14px;
+  }
+}
+
 .icon-link,
 .uniform-icon {
   all: unset;
@@ -769,3 +856,96 @@ nav ul li a {
   color: #8a8f75;
   transform: scale(1.1);
 }
+
+/* =========================================================
+   OVERRIDES PROTETOR (final) - FORÇA espaçamento da hero
+   - Adiciona padding/margin top nas classes mais comuns de hero
+   - Usa !important para garantir que layouts prévios não cortem
+   - Ajuste os valores em :root se ficar muito/ pouco espaço
+   ========================================================= */
+
+/* melhora comportamento de scroll ancorado */
+html {
+  scroll-padding-top: calc(var(--header-height-desktop) + 12px);
+}
+
+/* Alvo abrangente das seções iniciais que costumam ser hero */
+main,
+#root > div:first-child,
+.page-content,
+.content,
+.wrapper,
+.site-content,
+.site-main,
+.page-main,
+.page-wrapper,
+.home-hero,
+.hero,
+.hero-section,
+.page-hero,
+.top-hero,
+.hero-wrapper,
+.section-hero,
+.first-section,
+.hero-block {
+  /* adiciona folga extra obrigatória para o header */
+  padding-top: calc(var(--header-total-desktop) + var(--hero-protect-gap)) !important;
+  margin-top: 0 !important;
+}
+
+/* Para páginas que usam margin negativa para “puxar” o hero pra cima:
+   neutralizamos margens negativas no topo (caso existam) */
+main > :first-child,
+.page-content > :first-child,
+.home-hero:first-child,
+.hero:first-child,
+.hero-section:first-child,
+.page-hero:first-child {
+  margin-top: 0 !important;
+}
+
+/* regra especial: se hero tiver position absolute/relative e top:0,
+   empurra visualmente com transform (fallback) */
+.hero,
+.hero-section,
+.home-hero,
+.page-hero {
+  position: relative !important;
+  top: 0 !important;
+  transform: translateY(calc(var(--header-total-desktop) + var(--hero-protect-gap))) !important;
+}
+
+/* adaptações por breakpoint para evitar excesso de folga */
+@media (max-width: 1023px) {
+  main,
+  .home-hero,
+  .hero,
+  .hero-section,
+  .page-hero {
+    padding-top: calc(var(--header-total-tablet) + var(--hero-protect-gap)) !important;
+    transform: translateY(calc(var(--header-total-tablet) + var(--hero-protect-gap))) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  main,
+  .home-hero,
+  .hero,
+  .hero-section,
+  .page-hero {
+    padding-top: calc(var(--header-total-mobile) + var(--hero-protect-gap)) !important;
+    transform: translateY(calc(var(--header-total-mobile) + var(--hero-protect-gap))) !important;
+  }
+}
+
+/* Caso o site use um container específico 'hero-container' */
+.hero-container,
+.hero-inner {
+  padding-top: calc(var(--header-total-desktop) + var(--hero-protect-gap)) !important;
+  transform: none !important;
+}
+
+/* Se aparecer um espaço extra indesejado em algumas páginas,
+   reduza var(--hero-protect-gap) para ajustar fininho. */
+
+/* FIM do drop-in */

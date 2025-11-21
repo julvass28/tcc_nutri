@@ -12,6 +12,7 @@ body {
   width: 100%;
   background: #f2efea;
   color: #3f3f3f;
+  
 }
 
 .sobre-main
@@ -42,7 +43,7 @@ body {
 
 /* ===== HERO ===== */
 .sobre-hero {
-  padding: clamp(24px, 6vw, 64px) 0;
+  padding: clamp(140px, 6vw, 64px) 0;
   /* trocado: degradê -> cor única cinza */
   background: #f2efea;
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);

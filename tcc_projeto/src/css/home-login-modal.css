@@ -11,9 +11,10 @@
 .auth-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.579);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  
 }
 
 /* ===== DIALOG ===== */
@@ -23,7 +24,7 @@
   max-width: 28rem; 
   background: #fff;
   border-radius: 0.75rem;
-
+top: 65px;
   /* ↓ Reduzimos o padding para diminuir ALTURA */
   padding: 0.55rem 0.8rem;
 

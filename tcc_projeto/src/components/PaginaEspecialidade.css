@@ -13,6 +13,7 @@
   margin: 0 auto;
   font-family: "Lustria", serif;
   line-height: 1.6;
+  
 }
 
 /* --------------------------------------------------
@@ -28,6 +29,7 @@
   margin-top: 30px;
   background: #ede9e3;
   border-bottom: 3px solid #b8b4b4;
+  
 }
 .esp-page .esp-intro__text {
   max-width: 700px;
