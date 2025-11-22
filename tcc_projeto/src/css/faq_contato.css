@@ -81,7 +81,7 @@ body {
 
 .faq-main {
   max-width: 850px;
-  margin: 0 auto;
+  margin-top: 80px;
   padding: 3rem 1.5rem;
   text-align: center;
   margin-bottom: 2rem;
