@@ -35,11 +35,11 @@
   transition: 0.3s;
 }
 .admin-agenda-filtros input[type="date"]:focus {
-  border-color: #d1a0a0;
+  border-color: #DDB7AC;
 }
 
 .admin-agenda-filtros button {
-  background: #d1a0a0;
+  background: #DDB7AC;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -49,7 +49,7 @@
   transition: background 0.3s;
 }
 .admin-agenda-filtros button:hover {
-  background: #c38c8c;
+  background: #DDB7AC;
 }
 
 .admin-agenda-btn-bloquear {
@@ -139,7 +139,7 @@
 }
 .admin-agenda-filtros select:focus,
 .admin-agenda-filtros input[type="text"]:focus{
-  border-color: #d1a0a0;
+  border-color: #DDB7AC;
   box-shadow: 0 0 0 3px rgba(209,160,160,.15);
 }
 

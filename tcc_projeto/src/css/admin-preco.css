@@ -2,7 +2,7 @@
 :root {
   --ink: #000;
   --sec: #8a8f75;
-  --rose: #d1a0a0;
+  --rose: #DDB7AC;
   --page: #f4efec;
   --card: #ffffff;
   --border: #e5e2df;
@@ -204,13 +204,13 @@
   min-width: 220px;
   display: inline-flex; align-items: center; gap: 10px;
   box-shadow: 0 12px 30px rgba(0,0,0,.14);
-  border-left: 5px solid #c89b9b;
+  border-left: 5px solid #DDB7AC;
   color: #4a4a4a;
   font-family: "Poppins", sans-serif;
 }
 .adm-op-card i{
   font-size: 18px;
-  color: #c89b9b;
+  color: #DDB7AC;
 }
 @keyframes fadeInOverlay{
   from{ opacity: 0 } to{ opacity: 1 }

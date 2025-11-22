@@ -50,7 +50,7 @@
 /* Títulos */
 .rec-detail-subtitle-rose {
   font-size: 2.3rem;
-  color: #d99191;
+  color: #DDB7AC;
   margin-bottom: 20px;
   font-family: "Lustria", serif;
 }
@@ -123,7 +123,7 @@ ol.rec-detail-steps li::before {
 }
 
 .rec-detail-back:hover {
-  color: #d99191;
+  color: #DDB7AC;
   transform: translateX(-5px);
 }
 

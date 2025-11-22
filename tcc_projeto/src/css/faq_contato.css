@@ -88,7 +88,7 @@ body {
 }
 
 .faq-heading {
-  color: #d3a9aa;
+  color: #DDB7AC;
   font-size: 1.875rem;
   font-weight: 800;
   margin-bottom: 0.5rem;
@@ -97,7 +97,7 @@ body {
 .faq-divider {
   width: 12rem;
   height: 0.15rem;
-  background-color: #d3a9aa;
+  background-color: #DDB7AC;
   margin: 0 auto 1.5rem;
   border-radius: 0.25rem;
 }

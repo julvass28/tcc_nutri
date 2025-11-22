@@ -72,7 +72,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #d1a0a0;
+  background: #DDB7AC;
   color: #ffffff;
   padding: 7px 14px;
   border-radius: 10px;
@@ -110,7 +110,7 @@
   border-radius: 999px;
   padding: 8px 14px;
   font-size: 0.85rem;
-  border: 1px solid #d1a0a0;
+  border: 1px solid #DDB7AC;
   background: #ffffff;
   color: #7a554f;
   display: inline-flex;

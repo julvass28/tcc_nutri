@@ -404,7 +404,7 @@ body {
 /* ====== VISUAL NOVO DO MODO LEITURA ====== */
 .perfil-view-grid.pretty {
   --card-radius: 12px;
-  --card-border:  #d1a0a0;
+  --card-border:  #DDB7AC;
   --card-shadow: 0 4px 14px rgba(0,0,0,.06);
   display: grid;
   /* minmax reduzido pra 220px pra não dar scroll horizontal em tela muito estreita */
@@ -441,7 +441,7 @@ body {
 }
 /* ====== CTA QUANDO NÃO HÁ CONSULTAS / ANAMNESE PENDENTE ====== */
 .consultas-cta {
-  border: 1px dashed #d1a0a0;
+  border: 1px dashed #DDB7AC;
   border-radius: 12px;
   padding: 1.1rem 1.2rem;
   background: #fff7fb;
@@ -452,7 +452,7 @@ body {
   display: inline-block;
   background: #f4efec;
   color: #7a554f;
-  border: 1px solid rgba(209, 160, 160, 0.9);
+  border: 1px solid #DDB7AC;
   padding: 0.3rem 0.8rem;
   border-radius: 999px;
   font-size: 0.85rem;
@@ -471,7 +471,7 @@ body {
   justify-content: center;
   padding: 0.6rem 1.1rem;
   border-radius: 0.7rem;
-  background: #d1a0a0;
+  background: #DDB7AC;
   color: #ffffff;
   text-decoration: none;
   font-weight: 600;
@@ -500,7 +500,7 @@ body {
   padding: .45rem .7rem; border-radius: .6rem; cursor: pointer;
   transition: background .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.editar-back:hover { background: #d1a0a0; box-shadow: 0 6px 16px rgba(0,0,0,.12); color: #ffffff; }
+.editar-back:hover { background: #DDB7AC; box-shadow: 0 6px 16px rgba(0,0,0,.12); color: #ffffff; }
 
 /* grid 2 colunas (nome/sobrenome) */
 .grid2 {

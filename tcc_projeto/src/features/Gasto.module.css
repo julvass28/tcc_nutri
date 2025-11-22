@@ -29,7 +29,7 @@
   border:1px solid #ccc; box-shadow: rgba(0,0,0,.04) 0px 3px 5px;
   width:22vw; height:7vw; padding:2vw; border-radius:10px;
 }
-.input-container-gasto.preenchido{ border:#e5bcbc solid 1.5px; }
+.input-container-gasto.preenchido{ border:#DDB7AC solid 1.5px; }
 
 #sexo-buttons-gasto{
   display:flex; justify-content:center; align-items:center; gap:10px;
@@ -41,7 +41,7 @@
 }
 #sexo-buttons-gasto button:hover{ background:#8a8f75; color:#F4EFEC; }
 #sexo-buttons-gasto button:active{ background:#727272; color:#F4EFEC; }
-#sexo-buttons-gasto button.active{ background:#D1A0A0; color:#F4EFEC; }
+#sexo-buttons-gasto button.active{ background:#DDB7AC; color:#F4EFEC; }
 
 #label-sexo-button-gasto{
   font-size:1rem; font-weight:500; text-align:center; border:1px solid #ccc;
@@ -57,7 +57,7 @@
 .gasto-calc-input{
   width:100%; height:3vw; border-radius:12px; background:#F4EFEC; padding:.5vw; border:1px solid #ccc; transition:.3s;
 }
-.gasto-calc-input:focus{ outline:none; box-shadow:0 0 5px #D1A0A0; }
+.gasto-calc-input:focus{ outline:none; box-shadow:0 0 5px #DDB7AC; }
 
 /* Botões/erros */
 .mensagem-erro{ color:#ff5f5f; font-size:.6em; margin-top:1px; display:block; }
@@ -75,7 +75,7 @@
 .resultadoGasto{ font-size:1.2rem; font-weight:500; margin-top:1vw; }
 .texto-explicativo-gasto{
   margin-top:.3vw; width:50%; background:#fff9f9; padding:1%;
-  border-left:5px solid #D1A0A0; border-radius:7px; color:#444; font-size:.9rem;
+  border-left:5px solid #DDB7AC; border-radius:7px; color:#444; font-size:.9rem;
 }
 #color-gasto-info{ background:#F4EFEC; padding:.5vw; border-radius:10px; color:#8A8F75; }
 
@@ -98,7 +98,7 @@
   margin-left:91%; margin-top:2%;
 }
 .icon-section.correr{ padding:.4vw; }
-#hum-cal-agua{ color:#D1A0A0; }
+#hum-cal-agua{ color:#DDB7AC; }
 #hum-cal-gasto{ color:#8A8F75; }
 
 /* ——— Responsividade: não altera seu desktop ——— */

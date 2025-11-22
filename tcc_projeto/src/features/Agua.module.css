@@ -101,7 +101,7 @@
   .actions :where(button){
     padding: .9rem 2.5rem !important;
     border-radius: 9999px !important;
-    background: #d1a0a0 !important;
+    background: #DDB7AC !important;
     color: #fff !important;
     border: 0 !important;
     font-weight: 600 !important;

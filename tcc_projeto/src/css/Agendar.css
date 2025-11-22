@@ -10,11 +10,11 @@
   --card: #efe0e6;     /* fundo rosa do card */
   --ok:   #9FA28D;     /* disponível (verde) */
   --no:   #cfcfcf;     /* indisponível (cinza) */
-  --sel:  #d8b2ad;     /* selecionado (rosado) */
+  --sel:  #DDB7AC;     /* selecionado (rosado) */
   --ink:  #000;        /* texto preto */
 
   /* Toolbar (setas + título) */
-  --nav-color: #d8b2ad; /* cor das setas */
+  --nav-color: #DDB7AC; /* cor das setas */
   --nav-size: 30px;     /* tamanho das setas */
   --nav-gap: 18px;      /* espaço lateral entre setas e título */
 }
@@ -88,7 +88,7 @@ h3 {
 .chip {
   padding: 15px 19px;
   border-radius: 10px;
-  border: 2px solid #ddb7ac;
+  border: 2px solid #DDB7AC;
   background: #fff;
   margin-bottom: 10px;
   color: #454545;
@@ -357,7 +357,7 @@ h3 {
   transform: translateY(-1px);
 }
 .slot.livre {
-  border: #d1a0a0 solid 2px;
+  border: #DDB7AC solid 2px;
 }
 .slot.ocupado {
   border-color: #bdc3c7;
@@ -373,7 +373,7 @@ h3 {
 .resumo-box {
   margin-top: 70px;
   padding: 12px 14px;
-  border: 1px dashed #d1a0a0;
+  border: 1px dashed #DDB7AC;
   border-radius: 12px;
   background: #fff7fb;
   display: flex;
@@ -401,7 +401,7 @@ h3 {
 .btn-primary {
   padding: 10px 14px;
   border-radius: 8px;
-  background: #d1a0a0;
+  background: #DDB7AC;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -512,7 +512,7 @@ h3 {
   height: 42px;
   border-radius: 999px;
   border: 3px solid #f4efec;
-  border-top-color: #d1a0a0;
+  border-top-color: #DDB7AC;
   border-right-color: #8a8f75;
   animation: agenda-spin 0.9s linear infinite;
 }

@@ -68,8 +68,8 @@
   font-weight: 500;
   font-size: 1.125rem;
   background-color: transparent;
-  color: #c89b9b;
-  border: 1.5px solid #c89b9b;
+  color: #DDB7AC;
+  border: 1.5px solid #DDB7AC;
   box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
   transition: box-shadow 0.2s ease;
   cursor: pointer;
@@ -230,7 +230,7 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 .login-create-account,
 .criar-conta-login-link,
 .reenviar-link {
-  color: #c89b9b;
+  color: #DDB7AC;
   margin-top: 10px;
   font-family: "Lustria", serif;
   font-size: 1.125rem;
@@ -267,7 +267,7 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 .login-submit-btn,
 .criar-conta-submit-btn,
 .forgot-password-submit-btn {
-  background-color: #c89b9b;
+  background-color: #DDB7AC;
   color: white;
   font-family: "Lustria", serif;
   font-size: 1.125rem;
@@ -340,7 +340,7 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 
 .erro-borda {
   border-color: #d9534f !important;
-  box-shadow: 0 0 0 2px #f2b4b4 !important;
+  box-shadow: 0 0 0 2px #DDB7AC !important;
 }
 
 /* === VOLTAR ETAPA (ESQUECI-SENHA) === */
@@ -359,7 +359,7 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 }
 
 .voltar-etapa-icone:hover {
-  color: #c89b9b;
+  color: #DDB7AC;
 }
 
 .erro-borda {
@@ -457,14 +457,14 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   align-items: center;
   gap: 0.75rem;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-  border-left: 4px solid #c89b9b; /* tom do tema */
+  border-left: 4px solid #DDB7AC; /* tom do tema */
   color: #4a4a4a;
   font-family: "Poppins", sans-serif;
 }
 
 .auth-loading-card i {
   font-size: 1.25rem;
-  color: #c89b9b;
+  color: #DDB7AC;
 }
 
 @keyframes fadeInOverlay {
@@ -518,7 +518,7 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
 } /* fraca */
 .pwd-bar.s2::after {
   width: 60%;
-  background: #c89b9b;
+  background: #DDB7AC;
 } /* ok (rosa do tema) */
 .pwd-bar.s3::after {
   width: 85%;
@@ -602,13 +602,13 @@ input[type="date"].criar-conta-input::-webkit-calendar-picker-indicator {
   border-radius: 0.5rem;
   background: #fff7f7; /* tom suave do tema */
   color: #6b4b4b;
-  border-left: 4px solid #c89b9b;
+  border-left: 4px solid #DDB7AC;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
   font-size: 0.95rem;
 }
 
 .logout-banner i {
-  color: #c89b9b;
+  color: #DDB7AC;
   font-size: 1rem;
 }
 
@@ -684,8 +684,8 @@ body.login-page::before, body.register-page::before, body.forgot-password-page::
 
 /* marcado = só preencher de rosa, sem ícone */
 .criar-conta-container .register-terms-checkbox:checked {
-  background-color: #c89b9b;
-  border-color: #c89b9b;
+  background-color: #DDB7AC;
+  border-color: #DDB7AC;
 }
 
 /* foco acessível */
@@ -708,7 +708,7 @@ body.login-page::before, body.register-page::before, body.forgot-password-page::
 }
 
 .criar-conta-container .register-terms-label a {
-  color: #c89b9b;
+  color: #DDB7AC;
   text-decoration: underline;
   font-weight: 400;
 }

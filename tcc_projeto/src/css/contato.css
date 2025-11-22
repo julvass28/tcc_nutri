@@ -2,7 +2,7 @@
 
 .contato-wrap{
   /* define o rosé AQUI pra não dar conflito com outras vars do projeto */
-  --accent: #D1A0A0;      /* rosé */
+  --accent: #DDB7AC;      /* rosé */
   --border: #E8E4E2;      /* linhas topo/rodapé */
   --text: #3A3A3A;
   --muted: #6B6B6B;

@@ -95,7 +95,7 @@
 }
 #sexo-buttons button:hover { background-color: #8a8f75; color: #F4EFEC; }
 #sexo-buttons button:active { background-color: #727272; color: #F4EFEC; }
-#sexo-buttons button.active { background-color: #D1A0A0; color: #F4EFEC; }
+#sexo-buttons button.active { background-color: #DDB7AC; color: #F4EFEC; }
 
 /* inputs comuns */
 #div-geral { display: flex; flex-direction: column; }
@@ -104,7 +104,7 @@
   background-color: #F4EFEC; border: 1px solid #ccc; box-shadow: rgba(0,0,0,0.04) 0 3px 5px;
   width: 17vw; height: 7vw; padding: 2vw; border-radius: 10px;
 }
-.input-container.preenchido { border: #e5bcbc solid 1.5px; }
+.input-container.preenchido { border: #DDB7AC solid 1.5px; }
 
 #input-idade, #input-altura, #input-peso {
   all: unset; width: 22%; background-color: #F4EFEC; font-size: 1.3rem; border-bottom: 2px solid #454545;
@@ -113,7 +113,7 @@
   font-size: 1rem; font-weight: 500; background-color: #F4EFEC; text-align: center; border: 1px solid #ccc;
   box-shadow: rgba(0,0,0,0.04) 0 3px 5px; width: 7vw; padding: .3vw; border-radius: 5px; transition: .3s;
 }
-.label.ativa { background-color: #D1A0A0; color: #454545; }
+.label.ativa { background-color: #DDB7AC; color: #454545; }
 #label-kg, #label-cm, #label-anos { margin-top: 1vw; margin-left: .5vw; }
 
 /* remover setas number */
@@ -132,7 +132,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 
 .texto-explicativo.pagina-imc{
   margin-top: 2%; background-color: #fff9f9; padding: 1%;
-  border-left: 5px solid #D1A0A0; border-radius: 7px; color: #444; font-size: 1rem;
+  border-left: 5px solid #DDB7AC; border-radius: 7px; color: #444; font-size: 1rem;
 }
 .texto-explicativo.pagina-agua{
   margin-top: 2%; background-color: #f7ffd6; padding: 15px;
@@ -163,10 +163,10 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; marg
 }
 .icon-section.correr{ padding: .4vw; }
 .sectioncal:hover .icon-section { border:1px solid #8A8F75; }
-#hum-cal-gasto{ color:#8A8F75; } #hum-cal-agua{ color:#D1A0A0; } #hum-cal-nutri{ color:#454545; }
+#hum-cal-gasto{ color:#8A8F75; } #hum-cal-agua{ color:#DDB7AC; } #hum-cal-nutri{ color:#454545; }
 
 #resultadoLitros{ font-weight: 500; }
-#cor-resultadoLitros{ color:#e09a9a; background:#F4EFEC; padding:.5vw; border-radius:10px; }
+#cor-resultadoLitros{ color:#DDB7AC; background:#F4EFEC; padding:.5vw; border-radius:10px; }
 
 /* ====== PATCH RESPONSIVO (NÃO ALTERA DESKTOP) ====== */
 /* Tablet e baixo: vira grid bonitinho e larga as larguras em vw dos inputs */

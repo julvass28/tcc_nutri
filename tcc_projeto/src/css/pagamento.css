@@ -82,7 +82,7 @@ body.pagamento::before {
   width: 30px;
   height: 30px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #d1a0a0, #8a8f75);
+  background: linear-gradient(135deg, #DDB7AC, #8a8f75);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,7 +134,7 @@ body.pagamento::before {
   width: 20px;
   height: 20px;
   border-radius: 999px;
-  background: #d1a0a0;
+  background: #DDB7AC;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -155,7 +155,7 @@ body.pagamento::before {
 }
 
 .pay-flow-step--current {
-  border-color: rgba(209, 160, 160, 0.9);
+  border-color: #DDB7AC;
   background: #f9ece8;
 }
 
@@ -176,7 +176,7 @@ body.pagamento::before {
   border: none;
   border-radius: 10px;
   padding: 13px 16px;
-  background: #d1a0a0;
+  background: #DDB7AC;
   color: #ffffff;
   font-weight: 600;
   cursor: pointer;
@@ -263,7 +263,7 @@ body.pagamento::before {
   height: 48px;
   border-radius: 999px;
   border: 4px solid #f4efec;
-  border-top-color: #d1a0a0;
+  border-top-color: #DDB7AC;
   border-right-color: #8a8f75;
   animation: pay-flow-spin 0.9s linear infinite;
 }
@@ -476,7 +476,7 @@ body.pagamento::before {
   padding:12px 18px;
   border-radius: 999px;
   border: none;
-  background: #D1A0A0; /* paleta rosada */
+  background: #DDB7AC; /* paleta rosada */
   color:white;
   font-weight:700;
   cursor:pointer;
