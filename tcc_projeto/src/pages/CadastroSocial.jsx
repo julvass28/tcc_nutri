@@ -197,6 +197,7 @@ export default function CadastroSocial() {
   return (
     <div className="criar-conta-body">
       <main className="criar-conta-container">
+        <div>
         <h1 className="criar-conta-title">Completar Cadastro</h1>
         <p className="criar-conta-subtitle">
           Olá, {primeiroNome || "visitante"}!
@@ -341,6 +342,7 @@ export default function CadastroSocial() {
             {isSubmitting ? "Salvando..." : "Concluir cadastro"}
           </button>
         </form>
+        </div>
       </main>
 
       <LoadingOverlay

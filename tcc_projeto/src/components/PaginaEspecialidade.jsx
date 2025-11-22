@@ -33,6 +33,7 @@ export default function PaginaEspecialidade() {
   const { cta } = conteudo;
 
   return (
+    <div className="classs-geral-especialidades-belak">
     <main className="esp-page">
       {/* 1. Introdução */}
       <section className="esp-intro">
@@ -177,5 +178,6 @@ export default function PaginaEspecialidade() {
         <Formulario />
       </div>
     </main>
+    </div>
   );
 }
