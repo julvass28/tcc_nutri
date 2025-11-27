@@ -428,7 +428,10 @@ export default function AdminConsultas() {
       .join("");
 
     const win = window.open("", "_blank", "width=900,height=700");
-    if (!win) return;
+    if (!win) {
+      setFeedback({ type: "error", msg: "Bloqueador de popups impediu a abertura do PDF." });
+      return;
+    }
 
     setPrinting(true);
 
@@ -583,7 +586,12 @@ export default function AdminConsultas() {
           </div>
           <script>
             window.onload = function () {
-              window.print();
+              try {
+                window.focus();
+                window.print();
+              } catch(e) {
+                // fallback: nada
+              }
             };
           </script>
         </body>
@@ -593,9 +601,17 @@ export default function AdminConsultas() {
     win.document.open();
     win.document.write(html);
     win.document.close();
+    try { win.focus(); } catch {}
 
-    setTimeout(() => setPrinting(false), 800);
+    // fallback: em alguns navegadores onload pode não disparar corretamente
+    setTimeout(() => {
+      try { if (!printing) return; win.print(); } catch (e) {}
+      setPrinting(false);
+    }, 800);
+
+    setTimeout(() => setPrinting(false), 1200);
   }
+
 
   return (
     <div className="adm-consultas-page">

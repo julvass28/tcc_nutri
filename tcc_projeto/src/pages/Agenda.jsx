@@ -78,7 +78,7 @@ export default function Agendar() {
   const [mapDisponibilidade, setMapDisponibilidade] = useState({});
   const [loadingMes, setLoadingMes] = useState(false);
 
-  const [slots, setSlots] = useState([]);
+  const [slots, setSlots] = useState([]); // normalized slots (hora em 'HH:00')
   const [loadingSlots, setLoadingSlots] = useState(false);
 
   const [selectedTime, setSelectedTime] = useState(null);
@@ -138,44 +138,120 @@ export default function Agendar() {
       m = month.getMonth();
     const total = daysInMonth(y, m);
     setLoadingMes(true);
+
+    // optimista: tenta endpoint que retorne disponibilidade do mês (um fetch).
+    // se backend não suportar, fallback para chamadas por dia.
     (async () => {
+      const de = toISODate(new Date(y, m, 1));
+      const ate = toISODate(new Date(y, m, total));
       try {
-        const entries = await Promise.all(
-          Array.from({ length: total }, (_, i) => {
-            const d = new Date(y, m, i + 1);
-            const iso = toISODate(d);
-            return fetch(`${API}/agenda/slots?date=${iso}`)
-              .then((r) => r.json())
-              .then((data) => [
-                iso,
-                (data?.slots || []).some((s) => s.available),
-              ])
-              .catch(() => [iso, false]);
-          })
-        );
-        setMapDisponibilidade(Object.fromEntries(entries));
+        const r = await fetch(`${API}/agenda/slots?de=${de}&ate=${ate}`);
+        if (r.ok) {
+          const data = await r.json();
+          // O backend pode devolver:
+          // - { slotsByDate: { "2025-11-01": true, ... } }
+          // - um array [{ date: "2025-11-01", slots: [...] }, ...]
+          const map = {};
+          if (data && data.slotsByDate && typeof data.slotsByDate === "object") {
+            Object.assign(map, data.slotsByDate);
+          } else if (Array.isArray(data)) {
+            data.forEach((item) => {
+              map[item.date] = (item.slots || []).some((s) => s.available);
+            });
+          } else {
+            // se formato inesperado, fallback para per-day
+            throw new Error("Formato inesperado - fallback");
+          }
+          setMapDisponibilidade(map);
+        } else {
+          // fallback para per-day requests (mantém compatibilidade)
+          throw new Error("Single-month endpoint não disponível");
+        }
+      } catch (err) {
+        // fallback: muitas requisições por dia (behavior original, mas só aqui)
+        try {
+          const entries = await Promise.all(
+            Array.from({ length: total }, (_, i) => {
+              const d = new Date(y, m, i + 1);
+              const iso = toISODate(d);
+              return fetch(`${API}/agenda/slots?date=${iso}`)
+                .then((r) => r.json())
+                .then((data) => [iso, (data?.slots || []).some((s) => s.available)])
+                .catch(() => [iso, false]);
+            })
+          );
+          setMapDisponibilidade(Object.fromEntries(entries));
+        } catch (e) {
+          console.error("Erro fallback disponibilidade mês:", e);
+          setMapDisponibilidade({});
+        }
       } finally {
         setLoadingMes(false);
       }
     })();
   }, [month]);
 
-  // carrega slots do dia
+  // carrega slots do dia (e normaliza para passos de 1h)
   useEffect(() => {
     if (!date) return;
     setLoadingSlots(true);
     (async () => {
       try {
         const r = await fetch(`${API}/agenda/slots?date=${date}`);
+        if (!r.ok) {
+          setSlots([]);
+          return;
+        }
         const data = await r.json();
-        setSlots(data.slots ?? []);
-      } catch {
+        const rawSlots = data.slots ?? [];
+
+        // Normalização para passo de 1 em 1 hora:
+        // Para cada slot retornado, agrupa por HORA (0-23) e marca a hora como disponível
+        // se existir pelo menos um slot disponível naquele horário.
+        const hourMap = rawSlots.reduce((acc, s) => {
+          if (!s || typeof s.time !== "string") return acc;
+          const [hh, mm] = s.time.split(":").map((x) => Number(x));
+          if (isNaN(hh)) return acc;
+          const hourKey = String(hh).padStart(2, "0") + ":00";
+          acc[hourKey] = acc[hourKey] || { time: hourKey, available: false };
+          if (s.available) acc[hourKey].available = true;
+          return acc;
+        }, {});
+
+        // Se hourMap ficou vazio (backend retornou horários apenas em meia hora),
+        // faça fallback: arredonda os slots para a hora mais próxima **por cima**
+        if (Object.keys(hourMap).length === 0 && rawSlots.length > 0) {
+          rawSlots.forEach((s) => {
+            if (!s || typeof s.time !== "string") return;
+            const [hh, mm] = s.time.split(":").map((x) => Number(x));
+            if (isNaN(hh)) return;
+            // se mm > 0, mantemos a HORA (não meia hora) -> para 1h steps escolhemos hh (ignore minutos)
+            const hourKey = String(hh).padStart(2, "0") + ":00";
+            hourMap[hourKey] = hourMap[hourKey] || { time: hourKey, available: false };
+            if (s.available) hourMap[hourKey].available = true;
+          });
+        }
+
+        // transformar em array ordenado
+        const normalized = Object.values(hourMap).sort((a, b) =>
+          a.time.localeCompare(b.time)
+        );
+
+        setSlots(normalized);
+
+        // se o selectedTime atual não existe mais nos slots normalizados, limpa seleção
+        if (selectedTime) {
+          const exists = normalized.some((s) => s.time === selectedTime && s.available);
+          if (!exists) setSelectedTime(null);
+        }
+      } catch (e) {
+        console.error("Erro ao carregar slots do dia:", e);
         setSlots([]);
       } finally {
         setLoadingSlots(false);
       }
     })();
-  }, [date]);
+  }, [date]); // eslint-disable-line
 
   async function handleConfirmar() {
     if (!date || !selectedTime || confirming) return;
@@ -189,6 +265,13 @@ export default function Agendar() {
           loginMessage: "Faça o login para continuar o agendamento.",
         },
       });
+      return;
+    }
+
+    // valida novamente que o horário está presente e disponível
+    const chosenSlot = slots.find((s) => s.time === selectedTime);
+    if (!chosenSlot || !chosenSlot.available) {
+      setErrorMsg("Horário inválido — escolha um horário disponível.");
       return;
     }
 
@@ -370,6 +453,7 @@ export default function Agendar() {
                   disabled={!s.available}
                   onClick={() => s.available && setSelectedTime(s.time)}
                   type="button"
+                  title={s.available ? "Disponível" : "Indisponível"}
                 >
                   {s.time}
                 </button>

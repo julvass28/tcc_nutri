@@ -166,6 +166,36 @@ export default function MinhasConsultas() {
         } catch {
           // ignora erros de storage
         }
+
+        // --- NOVO: garantir que anamnese.pendente só exista se houver uma consulta ativa vinculada ---
+        try {
+          const rawAnam2 = sessionStorage.getItem("anamnese.pendente");
+          if (rawAnam2) {
+            const obj = JSON.parse(rawAnam2);
+            const match = normalizadas.some(
+              (c) =>
+                (c.payment_ref && obj.payment_ref && String(c.payment_ref) === String(obj.payment_ref)) ||
+                (c.id && obj.id && String(c.id) === String(obj.id))
+            );
+            if (!match) {
+              sessionStorage.removeItem("anamnese.pendente");
+              setAnamnesePendente(null);
+            } else {
+              // se bateu, atualiza o estado com versão canônica (caso backend tenha alterado algo)
+              const matched = normalizadas.find(
+                (c) =>
+                  (c.payment_ref && obj.payment_ref && String(c.payment_ref) === String(obj.payment_ref)) ||
+                  (c.id && obj.id && String(c.id) === String(obj.id))
+              );
+              if (matched) {
+                sessionStorage.setItem("anamnese.pendente", JSON.stringify(matched));
+                setAnamnesePendente(matched);
+              }
+            }
+          }
+        } catch {
+          // ignora
+        }
       } catch (e) {
         console.error("Erro ao carregar /agenda/minhas:", e);
       } finally {
@@ -176,13 +206,27 @@ export default function MinhasConsultas() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token, navigate]); // roda quando token muda (login/logout) ou no mount
 
+  // se o usuário não tem consultas (lista do backend vazia e sem fallback), limpa anamnese pendente
+  useEffect(() => {
+    if (!loading) {
+      const hasConsultas = Array.isArray(consultas) && consultas.length > 0;
+      // se não tem consultas reais e não existe fallback válido
+      if (!hasConsultas && !consultaFallback) {
+        try {
+          sessionStorage.removeItem("anamnese.pendente");
+        } catch {}
+        setAnamnesePendente(null);
+      }
+    }
+  }, [consultas, consultaFallback, loading]);
+
   // base para grupos (se não vier nada do backend, usa fallback)
   const listaBase =
     consultas && consultas.length > 0
       ? consultas
-      : consultationFallbackToArray(consultaFallback);
+      : fallbackToArray(consultaFallback);
 
-  function consultationFallbackToArray(fallback) {
+  function fallbackToArray(fallback) {
     if (!fallback) return [];
     return [fallback];
   }
@@ -254,6 +298,23 @@ export default function MinhasConsultas() {
           if (lastObj && (lastObj.id === id || lastObj.payment_ref === consulta.payment_ref)) {
             lastObj.status = updated?.status || "cancelada";
             sessionStorage.setItem("booking.last", JSON.stringify(lastObj));
+          }
+        }
+      } catch {
+        // ignora
+      }
+
+      // --- NOVO: se a consulta cancelada for a vinculada à anamnese pendente, remove o anamnese.pendente ---
+      try {
+        const rawAnam = sessionStorage.getItem("anamnese.pendente");
+        if (rawAnam) {
+          const ap = JSON.parse(rawAnam);
+          if (
+            (ap.payment_ref && consulta.payment_ref && String(ap.payment_ref) === String(consulta.payment_ref)) ||
+            (ap.id && consulta.id && String(ap.id) === String(consulta.id))
+          ) {
+            sessionStorage.removeItem("anamnese.pendente");
+            setAnamnesePendente(null);
           }
         }
       } catch {

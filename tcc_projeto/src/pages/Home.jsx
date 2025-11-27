@@ -163,7 +163,7 @@ function Home() {
             </span>{" "}
             Além de nutri, quero ser sua amiga nessa jornada. Vamos juntos?
           </p>
-          <Botao className="btn-dois" text="+Sobre Mim">
+          <Botao className="btn-dois" to="/sobre" text="+Sobre Mim">
             +Sobre Mim
           </Botao>
         </div>
@@ -375,6 +375,11 @@ function Home() {
           tipo="receitas"
           dados={receitasMock}
         />
+        <div className="btn-receitas-home">
+          <Botao to="/receitas/clinica" text="Ver Receitas">
+            Ver Receitas
+          </Botao>
+        </div>
       </div>
 
       <div className="valor-home espacamento">

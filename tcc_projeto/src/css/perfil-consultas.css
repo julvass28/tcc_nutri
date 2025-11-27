@@ -155,4 +155,35 @@
     flex-direction: column;
     align-items: flex-start;
   }
+  .toast {
+    top: 72px; /* pode reduzir se precisar */
+    right: 12px;
+    left: 12px;
+    justify-content: center;
+  }
+}
+
+.toast {
+  position: fixed;               /* prende no viewport */
+  right: 16px;                   /* distancia da direita */
+  top: 80px;                     /* 80px abaixo do topo — ajusta conforme a altura do seu header */
+  z-index: 99999;                /* maior que o header pra aparecer por cima */
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #e9f6ec;           /* verde suave (ou altere conforme seu tema) */
+  border: 1px solid #cfe9d6;
+  color: #1a4b2a;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  font-weight: 600;
+  min-width: 220px;
+  max-width: calc(100% - 40px);
+}
+
+/* ícone dentro do toast (já usado) */
+.toast-icone {
+  font-size: 18px;
+  color: #1a6b36;
 }

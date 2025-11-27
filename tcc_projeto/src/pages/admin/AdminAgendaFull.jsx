@@ -42,35 +42,25 @@ function buildMonthGrid(viewDate) {
   return cells;
 }
 
-// adicione no topo (já tem imports): (se quiser usar dayjs aqui, pode importar; mas mantive sem mais libs)
-function startOfLocalDayISO(dateObjOrIso) {
-  // retorna "YYYY-MM-DDT00:00:00" em ISO local (string) para comparação simples
+// --- timezone-safe helpers (substitui versões baseadas em ISO-string) ---
+function startOfLocalDay(dateObjOrIso) {
   const d = new Date(dateObjOrIso);
-  const y = d.getFullYear(),
-    m = String(d.getMonth() + 1).padStart(2, "0"),
-    dd = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${dd}T00:00:00`;
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
 }
-function endOfLocalDayISO(dateObjOrIso) {
+function endOfLocalDay(dateObjOrIso) {
   const d = new Date(dateObjOrIso);
-  const y = d.getFullYear(),
-    m = String(d.getMonth() + 1).padStart(2, "0"),
-    dd = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${dd}T23:59:59`;
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate(), 23, 59, 59, 999);
 }
 
-// substitua isFullDayBlock por isso:
+// verifica se existe bloqueio que cubra TODO o dia (00:00..23:59)
 function isFullDayBlock(listBloqs, d) {
   if (!listBloqs || listBloqs.length === 0) return false;
-  const startDayIso = startOfLocalDayISO(d);
-  const endDayIso = endOfLocalDayISO(d);
+  const startDay = startOfLocalDay(d);
+  const endDay = endOfLocalDay(d);
   return listBloqs.some((b) => {
     if (!b || !b.inicio || !b.fim) return false;
-    // compara strings ISO (novo backend retorna ISO) convertendo pra Date só quando necessário
     const bi = new Date(b.inicio);
     const bf = new Date(b.fim);
-    const startDay = new Date(startDayIso);
-    const endDay = new Date(endDayIso);
     return bi <= startDay && bf >= endDay;
   });
 }
@@ -118,6 +108,11 @@ export default function AdminAgendaFull() {
       })
       .finally(() => setLoading(false));
   }, [viewDate]);
+
+  // fecha menu de ações ao trocar de dia ou quando a lista de agendamentos for atualizada
+  useEffect(() => {
+    setOpenMenu(null);
+  }, [selectedDay, agendamentosRaw]);
 
   const agendaByDay = useMemo(() => {
     const map = {};
@@ -184,7 +179,7 @@ export default function AdminAgendaFull() {
       const r = await fetchAuth(`${API}/admin/agenda/bloquear-dia`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ date: key, motivo: "dia bloqueado" }),
+        body: JSON.stringify({ date: key, motivo: "Dia bloqueado" }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data?.erro || "Falha ao bloquear dia.");
@@ -193,7 +188,7 @@ export default function AdminAgendaFull() {
         id: data.id,
         inicio: data.inicio && String(data.inicio),
         fim: data.fim && String(data.fim),
-        motivo: data.motivo || null,
+        motivo: data.motivo || "Bloqueado",
       };
       setBloqueiosMap((prev) => {
         const list = prev[key] || [];
@@ -294,12 +289,12 @@ export default function AdminAgendaFull() {
     }
   }
 
-  function renderCell(d) {
+  function renderCell(d, index) {
     if (!d)
       return (
         <div
           className="admin-agenda-full__day admin-agenda-full__day--empty"
-          key={Math.random()}
+          key={`empty-${index}`}
         />
       );
 
@@ -311,6 +306,9 @@ export default function AdminAgendaFull() {
     else if (st.temPendenteOuHold) bgClass = "admin-agenda-full__day--pending";
     else if (st.temConfirmada) bgClass = "admin-agenda-full__day--confirmed";
     else if (st.temLivre) bgClass = "admin-agenda-full__day--free";
+
+    const bloqueiosDia = bloqueiosMap[key] || [];
+    const motivoPrimeiroBloq = bloqueiosDia.length ? (bloqueiosDia[0].motivo || "Bloqueado") : null;
 
     return (
       <button
@@ -329,6 +327,14 @@ export default function AdminAgendaFull() {
         <div className="admin-agenda-full__day-num">
           {format(d, "d", { locale: ptBR })}
         </div>
+
+        {/* Se houver bloqueio com motivo, mostra rótulo pequeno ao lado/nome */}
+        {motivoPrimeiroBloq && (
+          <div className="admin-agenda-full__day-label" aria-hidden>
+            {motivoPrimeiroBloq}
+          </div>
+        )}
+
         <div className="admin-agenda-full__badges">
           {st.isPast && (
             <span className="admin-agenda-full__badge admin-agenda-full__badge--past">
@@ -405,7 +411,7 @@ export default function AdminAgendaFull() {
           </div>
 
           <div className="admin-agenda-full__days-grid">
-            {cells.map(renderCell)}
+            {cells.map((d, i) => renderCell(d, i))}
           </div>
 
           <div className="admin-agenda-full__legend">
